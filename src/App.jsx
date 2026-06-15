@@ -13,6 +13,7 @@ import Events from './pages/Events';
 import Profile from './pages/Profile';
 import Moderation from './pages/Moderation';
 import Admin from './pages/Admin';
+import Directory from './pages/Directory';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -46,6 +47,7 @@ const AuthenticatedApp = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/moderation" element={<Moderation />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/directory" element={<Directory />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
