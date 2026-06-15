@@ -8,6 +8,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import Layout from './components/Layout';
 import Feed from './pages/Feed';
+import Home from './pages/Home';
 import Opportunities from './pages/Opportunities';
 import Events from './pages/Events';
 import Profile from './pages/Profile';
@@ -41,7 +42,8 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path="/" element={<Feed />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/events" element={<Events />} />
         <Route path="/profile" element={<Profile />} />

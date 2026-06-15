@@ -1,10 +1,11 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users } from 'lucide-react';
+import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame } from 'lucide-react';
 
 const navItems = [
-  { path: '/', label: 'Feed', icon: Home },
+  { path: '/', label: 'Home', icon: Home },
+  { path: '/feed', label: 'Feed', icon: Flame },
   { path: '/opportunities', label: 'Opportunities', icon: Briefcase },
   { path: '/events', label: 'Events', icon: Calendar },
   { path: '/directory', label: 'Directory', icon: Users },
