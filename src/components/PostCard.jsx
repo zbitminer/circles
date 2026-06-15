@@ -3,6 +3,25 @@ import { Heart, MessageCircle, Flag, MoreHorizontal, Trash2 } from 'lucide-react
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
+const CAUSE_BANNERS = {
+  'Environment': 'bg-green-100',
+  'Education': 'bg-blue-100',
+  'Health': 'bg-red-100',
+  'Animals': 'bg-yellow-100',
+  'Community': 'bg-purple-100',
+  'Elderly': 'bg-orange-100',
+  'Youth': 'bg-pink-100',
+  'Disaster Relief': 'bg-gray-100',
+  'Arts & Culture': 'bg-indigo-100',
+  'Other': 'bg-muted',
+};
+
+const CAUSE_EMOJIS = {
+  'Environment': '🌿', 'Education': '📚', 'Health': '❤️', 'Animals': '🐾',
+  'Community': '🏘️', 'Elderly': '🤝', 'Youth': '⭐', 'Disaster Relief': '🆘',
+  'Arts & Culture': '🎨', 'Other': '💡',
+};
+
 const CAUSE_COLORS = {
   'Environment': 'bg-green-100 text-green-800',
   'Education': 'bg-blue-100 text-blue-800',
@@ -134,10 +153,14 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
         <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{post.content}</p>
       </div>
 
-      {/* Image */}
-      {post.image_url && (
+      {/* Image or placeholder */}
+      {post.image_url ? (
         <div className="px-5 pb-3">
           <img src={post.image_url} alt="Post" className="w-full rounded-xl object-cover max-h-80" />
+        </div>
+      ) : (
+        <div className={`mx-5 mb-3 rounded-xl h-24 flex items-center justify-center ${CAUSE_BANNERS[post.cause_tags?.[0]] || 'bg-muted'}`}>
+          <span className="text-4xl opacity-60">{CAUSE_EMOJIS[post.cause_tags?.[0]] || '🌱'}</span>
         </div>
       )}
 

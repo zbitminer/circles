@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check } from 'lucide-react';
+import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera } from 'lucide-react';
 import { format } from 'date-fns';
 
 const CAUSES = ['Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
@@ -87,6 +87,15 @@ export default function Profile() {
   };
 
   const initials = user?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
+  const avatarInputRef = useRef(null);
+
+  const handleAvatarUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    await base44.entities.VolunteerProfile.update(profile.id, { avatar_url: file_url });
+    setProfile(prev => ({ ...prev, avatar_url: file_url }));
+  };
 
   if (loading) {
     return (
@@ -106,10 +115,16 @@ export default function Profile() {
         <div className="bg-primary h-24" />
         <div className="px-6 pb-6">
           <div className="flex items-end gap-4 -mt-10 mb-4">
-            <div className="w-20 h-20 rounded-2xl bg-accent flex items-center justify-center text-white text-2xl font-bold border-4 border-card">
-              {profile?.avatar_url ? (
-                <img src={profile.avatar_url} alt="" className="w-full h-full rounded-2xl object-cover" />
-              ) : initials}
+            <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
+              <div className="w-20 h-20 rounded-2xl bg-accent flex items-center justify-center text-white text-2xl font-bold border-4 border-card overflow-hidden">
+                {profile?.avatar_url ? (
+                  <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
+                ) : initials}
+              </div>
+              <div className="absolute inset-0 rounded-2xl bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Camera className="w-5 h-5 text-white" />
+              </div>
+              <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </div>
             <div className="pb-1">
               <h1 className="font-display text-2xl font-bold">{user?.full_name}</h1>

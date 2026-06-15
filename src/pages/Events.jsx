@@ -13,7 +13,8 @@ export default function Events() {
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
+  const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Events() {
       created_by_name: user?.full_name,
       status: 'upcoming',
     });
-    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '' });
+    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
     setShowForm(false);
     setSubmitting(false);
     loadEvents();
@@ -108,9 +109,26 @@ export default function Events() {
               <label className="block text-xs font-medium text-muted-foreground mb-1">Capacity (optional)</label>
               <input type="number" value={form.capacity} onChange={e => setForm({...form, capacity: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Max attendees" min="1" />
             </div>
+            <div className="md:col-span-2">
+              <label className="block text-xs font-medium text-muted-foreground mb-1">Event Image (optional)</label>
+              <div className="flex items-center gap-3">
+                <input type="file" accept="image/*" className="text-sm text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-primary file:text-primary-foreground hover:file:opacity-90 cursor-pointer"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setUploadingImg(true);
+                    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+                    setForm(f => ({ ...f, image_url: file_url }));
+                    setUploadingImg(false);
+                  }}
+                />
+                {uploadingImg && <span className="text-xs text-muted-foreground">Uploading...</span>}
+                {form.image_url && <img src={form.image_url} alt="" className="w-12 h-12 rounded-lg object-cover" />}
+              </div>
+            </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
-              <button type="submit" disabled={submitting} className="px-6 py-2.5 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50">
+              <button type="submit" disabled={submitting || uploadingImg} className="px-6 py-2.5 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50">
                 {submitting ? 'Creating...' : 'Create Event'}
               </button>
             </div>
@@ -148,6 +166,11 @@ export default function Events() {
             return (
               <div key={evt.id} onClick={() => setSelected(evt)}
                 className="bg-card rounded-2xl border border-border overflow-hidden cursor-pointer hover:shadow-md hover:border-primary/20 transition-all group">
+                {evt.image_url ? (
+                  <img src={evt.image_url} alt={evt.title} className="w-full h-36 object-cover" />
+                ) : (
+                  <div className="w-full h-24 bg-primary/10 flex items-center justify-center text-4xl">📅</div>
+                )}
                 <div className="bg-primary px-5 py-4">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-accent font-semibold uppercase tracking-wide">{evt.cause_category}</span>
@@ -184,6 +207,9 @@ export default function Events() {
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
           <div className="bg-card rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
+            {selected.image_url && (
+              <img src={selected.image_url} alt={selected.title} className="w-full h-48 object-cover" />
+            )}
             <div className="bg-primary px-6 py-5">
               <div className="flex items-start justify-between">
                 <span className="text-xs text-accent font-semibold uppercase tracking-wide">{selected.cause_category}</span>
