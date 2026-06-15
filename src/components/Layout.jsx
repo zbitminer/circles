@@ -37,61 +37,17 @@ export default function Layout() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map(({ path, label, icon: Icon }) => (
-              <Link
-                key={path}
-                to={path}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  location.pathname === path
-                    ? 'bg-accent text-white'
-                    : 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </Link>
-            ))}
-            {isMod && (
-              <Link
-                to="/moderation"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  location.pathname === '/moderation'
-                    ? 'bg-accent text-white'
-                    : 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10'
-                }`}
-              >
-                <Shield className="w-4 h-4" />
-                Moderate
-              </Link>
-            )}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  location.pathname === '/admin'
-                    ? 'bg-accent text-white'
-                    : 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10'
-                }`}
-              >
-                <Shield className="w-4 h-4" />
-                Admin
-              </Link>
-            )}
-          </nav>
-
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-white/10"
+            className="p-2 rounded-lg hover:bg-white/10"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Dropdown Nav */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/10 bg-primary px-4 py-3 flex flex-col gap-1">
+          <div className="border-t border-white/10 bg-primary px-4 py-3 flex flex-col gap-1">
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link
                 key={path}
@@ -125,21 +81,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Mobile Bottom Nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground border-t border-white/10 flex z-50">
-        {navItems.map(({ path, label, icon: Icon }) => (
-          <Link
-            key={path}
-            to={path}
-            className={`flex-1 flex flex-col items-center py-3 gap-1 text-xs transition-all ${
-              location.pathname === path ? 'text-accent' : 'text-primary-foreground/60'
-            }`}
-          >
-            <Icon className="w-5 h-5" />
-            <span>{label}</span>
-          </Link>
-        ))}
-      </nav>
+
     </div>
   );
 }
