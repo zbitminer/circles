@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Users, FileText, Calendar, Clock, Briefcase, Shield, ChevronDown, UserX, UserCheck, Trophy } from 'lucide-react';
+import { Users, FileText, Calendar, Clock, Briefcase, Shield, ChevronDown, UserX, UserCheck, Trophy, BarChart2 } from 'lucide-react';
+import ImpactDashboard from '@/components/ImpactDashboard';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -90,6 +91,8 @@ export default function Admin() {
   const [stats, setStats] = useState({ users: 0, posts: 0, events: 0, opportunities: 0, hours: 0 });
   const [users, setUsers] = useState([]);
   const [profiles, setProfiles] = useState([]);
+  const [hourLogs, setHourLogs] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('overview');
 
@@ -102,23 +105,26 @@ export default function Admin() {
 
   const loadData = async () => {
     setLoading(true);
-    const [posts, events, opps, profiles, userList] = await Promise.all([
+    const [posts, evts, opps, profiles, userList, logs] = await Promise.all([
       base44.entities.Post.list('-created_date', 200),
       base44.entities.Event.list('-created_date', 200),
       base44.entities.Opportunity.list('-created_date', 200),
       base44.entities.VolunteerProfile.list(),
       base44.entities.User.list(),
+      base44.entities.HourLog.list('-date', 500),
     ]);
     const totalHours = profiles.reduce((sum, p) => sum + (p.total_hours || 0), 0);
     setStats({
       users: userList.length,
       posts: posts.filter(p => p.status !== 'removed').length,
-      events: events.length,
+      events: evts.length,
       opportunities: opps.filter(o => o.status === 'active').length,
       hours: Math.round(totalHours),
     });
     setUsers(userList);
     setProfiles(profiles);
+    setHourLogs(logs);
+    setEvents(evts);
     setLoading(false);
   };
 
@@ -159,10 +165,10 @@ export default function Admin() {
 
       {/* Tabs */}
       <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-8 w-fit">
-        {['overview', 'users', 'leaderboard'].map(t => (
+        {['overview', 'impact', 'users', 'leaderboard'].map(t => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-5 py-2 rounded-lg text-sm font-medium capitalize transition-all ${tab === t ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-            {t}
+            {t === 'impact' ? '📊 Impact' : t}
           </button>
         ))}
       </div>
@@ -218,6 +224,8 @@ export default function Admin() {
             </div>
           </div>
         </div>
+      ) : tab === 'impact' ? (
+        <ImpactDashboard hourLogs={hourLogs} profiles={profiles} events={events} posts={[]} />
       ) : tab === 'leaderboard' ? (
         <LeaderboardTab profiles={profiles} users={users} />
       ) : (
