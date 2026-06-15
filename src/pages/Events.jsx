@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map } from 'lucide-react';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
+import LocationMap from '@/components/LocationMap';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
@@ -17,7 +18,7 @@ export default function Events() {
   const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar'
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -89,6 +90,13 @@ export default function Events() {
               title="Calendar view"
             >
               <CalendarDays className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode('map')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'map' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Map view"
+            >
+              <Map className="w-4 h-4" />
             </button>
           </div>
           {isMod && (
@@ -178,6 +186,8 @@ export default function Events() {
           currentUser={user}
           onSelectEvent={setSelected}
         />
+      ) : viewMode === 'map' ? (
+        <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <div className="text-5xl mb-4">📅</div>

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map } from 'lucide-react';
 import { format } from 'date-fns';
+import LocationMap from '@/components/LocationMap';
 
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
@@ -34,6 +35,7 @@ export default function Opportunities() {
   const [selected, setSelected] = useState(null);
   const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Environment', type: 'In-person', deadline: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -81,15 +83,33 @@ export default function Opportunities() {
           <h1 className="font-display text-3xl font-bold text-foreground mb-1">Volunteer Opportunities</h1>
           <p className="text-muted-foreground text-sm">Find your next meaningful contribution</p>
         </div>
-        {isMod && (
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-2 bg-accent text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"
-          >
-            <Plus className="w-4 h-4" />
-            Post Opportunity
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          <div className="flex bg-muted rounded-xl p-1 gap-1">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Grid view"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode('map')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'map' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Map view"
+            >
+              <Map className="w-4 h-4" />
+            </button>
+          </div>
+          {isMod && (
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="flex items-center gap-2 bg-accent text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"
+            >
+              <Plus className="w-4 h-4" />
+              Post Opportunity
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Create Form */}
@@ -176,13 +196,15 @@ export default function Opportunities() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Grid / Map */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1,2,3,4].map(i => (
             <div key={i} className="bg-card rounded-2xl border border-border p-5 animate-pulse h-48" />
           ))}
         </div>
+      ) : viewMode === 'map' ? (
+        <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <div className="text-5xl mb-4">🔍</div>
