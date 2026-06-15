@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, Clock } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays } from 'lucide-react';
 import EventChat from '@/components/EventChat';
+import EventsCalendar from '@/components/EventsCalendar';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
@@ -16,6 +17,7 @@ export default function Events() {
   const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar'
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -71,11 +73,30 @@ export default function Events() {
           <h1 className="font-display text-3xl font-bold text-foreground mb-1">Volunteer Events</h1>
           <p className="text-muted-foreground text-sm">Discover and RSVP to local and virtual events</p>
         </div>
-        {isMod && (
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 bg-accent text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity">
-            <Plus className="w-4 h-4" /> Create Event
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {/* View toggle */}
+          <div className="flex bg-muted rounded-xl p-1 gap-1">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Grid view"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode('calendar')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'calendar' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Calendar view"
+            >
+              <CalendarDays className="w-4 h-4" />
+            </button>
+          </div>
+          {isMod && (
+            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 bg-accent text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity">
+              <Plus className="w-4 h-4" /> Create Event
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Create Form */}
@@ -146,11 +167,17 @@ export default function Events() {
         ))}
       </div>
 
-      {/* Events Grid */}
+      {/* Events — Calendar or Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1,2,3,4].map(i => <div key={i} className="bg-card rounded-2xl border border-border animate-pulse h-48" />)}
         </div>
+      ) : viewMode === 'calendar' ? (
+        <EventsCalendar
+          events={filtered}
+          currentUser={user}
+          onSelectEvent={setSelected}
+        />
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <div className="text-5xl mb-4">📅</div>
