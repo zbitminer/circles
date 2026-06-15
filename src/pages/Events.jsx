@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Clock } from 'lucide-react';
+import EventChat from '@/components/EventChat';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
@@ -227,6 +228,8 @@ export default function Events() {
               ) : (
                 <p className="text-center text-sm text-muted-foreground">Sign in to RSVP</p>
               )}
+
+              <EventChat eventId={selected.id} currentUser={user} />
             </div>
           </div>
         </div>

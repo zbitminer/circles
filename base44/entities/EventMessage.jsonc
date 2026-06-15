@@ -1,0 +1,23 @@
+{
+  "name": "EventMessage",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "author_id": {
+      "type": "string"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "author_id",
+    "content"
+  ]
+}
