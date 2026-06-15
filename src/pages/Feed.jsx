@@ -30,20 +30,20 @@ export default function Feed() {
         <aside className="hidden lg:block lg:col-span-3">
           <div className="sticky top-24 space-y-4">
             <div className="bg-primary text-primary-foreground rounded-2xl p-6">
-              <h2 className="font-display text-2xl font-bold mb-2">Make an<br />Impact Today</h2>
-              <p className="text-primary-foreground/70 text-sm mb-4">Join thousands of volunteers changing the world one act at a time.</p>
+              <h2 className="font-display text-2xl font-bold mb-2">I Give.<br />I Receive.<br />I Belong.</h2>
+              <p className="text-primary-foreground/70 text-sm mb-4">I contribute what I have. I receive what I need. Together, we build circles of belonging.</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
                   <Users className="w-4 h-4 text-accent" />
-                  <span>Active community</span>
+                  <span>Vibrant community</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
                   <Flame className="w-4 h-4 text-accent" />
-                  <span>Real opportunities</span>
+                  <span>Real social impact</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
                   <TrendingUp className="w-4 h-4 text-accent" />
-                  <span>Track your impact</span>
+                  <span>Grow together</span>
                 </div>
               </div>
             </div>

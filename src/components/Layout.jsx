@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Home, Search, Calendar, Briefcase, User, Shield, Menu, X, Heart, Users } from 'lucide-react';
+import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users } from 'lucide-react';
 
 const navItems = [
   { path: '/', label: 'Feed', icon: Home },
@@ -29,10 +29,11 @@ export default function Layout() {
       <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-              <Heart className="w-4 h-4 text-white" fill="white" />
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white/10" />
+            <div className="flex flex-col leading-none">
+              <span className="font-display font-bold text-lg tracking-tight">Circles of Giving</span>
+              <span className="text-primary-foreground/60 text-xs font-body hidden sm:block">I Give. I Receive. I Belong. I Grow.</span>
             </div>
-            <span className="font-display font-bold text-xl tracking-tight">VolunteerHub</span>
           </Link>
 
           {/* Desktop Nav */}

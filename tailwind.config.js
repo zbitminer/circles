@@ -60,9 +60,9 @@ module.exports = {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			},
-  			'brand-green': 'hsl(var(--brand-green))',
-  			'brand-coral': 'hsl(var(--brand-coral))',
-  			'brand-cream': 'hsl(var(--brand-cream))'
+  			'brand-orange': 'hsl(var(--brand-orange))',
+  				'brand-teal': 'hsl(var(--brand-teal))',
+  				'brand-gold': 'hsl(var(--brand-gold))'
   		},
   		fontFamily: {
   			heading: ['var(--font-heading)'],
