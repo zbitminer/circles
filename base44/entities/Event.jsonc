@@ -1,0 +1,66 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "string"
+    },
+    "cause_category": {
+      "type": "string",
+      "enum": [
+        "Environment",
+        "Education",
+        "Health",
+        "Animals",
+        "Community",
+        "Elderly",
+        "Youth",
+        "Disaster Relief",
+        "Arts & Culture",
+        "Other"
+      ]
+    },
+    "capacity": {
+      "type": "number"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "attendees": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "upcoming",
+        "ongoing",
+        "completed",
+        "cancelled"
+      ],
+      "default": "upcoming"
+    },
+    "created_by_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "date",
+    "location",
+    "cause_category"
+  ]
+}

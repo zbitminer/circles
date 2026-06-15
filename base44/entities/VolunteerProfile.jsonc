@@ -1,0 +1,51 @@
+{
+  "name": "VolunteerProfile",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "causes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "total_hours": {
+      "type": "number",
+      "default": 0
+    },
+    "events_attended": {
+      "type": "number",
+      "default": 0
+    },
+    "opportunities_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "followers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "following": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

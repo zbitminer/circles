@@ -1,0 +1,43 @@
+{
+  "name": "HourLog",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "activity_name": {
+      "type": "string"
+    },
+    "hours": {
+      "type": "number"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "cause_category": {
+      "type": "string",
+      "enum": [
+        "Environment",
+        "Education",
+        "Health",
+        "Animals",
+        "Community",
+        "Elderly",
+        "Youth",
+        "Disaster Relief",
+        "Arts & Culture",
+        "Other"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "activity_name",
+    "hours",
+    "date"
+  ]
+}

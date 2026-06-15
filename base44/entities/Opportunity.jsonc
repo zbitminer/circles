@@ -1,0 +1,72 @@
+{
+  "name": "Opportunity",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "cause_category": {
+      "type": "string",
+      "enum": [
+        "Environment",
+        "Education",
+        "Health",
+        "Animals",
+        "Community",
+        "Elderly",
+        "Youth",
+        "Disaster Relief",
+        "Arts & Culture",
+        "Other"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "In-person",
+        "Remote",
+        "Hybrid"
+      ]
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "applicants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "closed",
+        "draft"
+      ],
+      "default": "active"
+    },
+    "created_by_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "organization",
+    "cause_category"
+  ]
+}

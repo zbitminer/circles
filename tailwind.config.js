@@ -59,7 +59,10 @@ module.exports = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
-  			}
+  			},
+  			'brand-green': 'hsl(var(--brand-green))',
+  			'brand-coral': 'hsl(var(--brand-coral))',
+  			'brand-cream': 'hsl(var(--brand-cream))'
   		},
   		fontFamily: {
   			heading: ['var(--font-heading)'],
