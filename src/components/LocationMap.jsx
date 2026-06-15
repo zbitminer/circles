@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -30,6 +30,20 @@ async function geocode(location) {
   } catch {
     // silently skip
   }
+  return null;
+}
+
+function FitBounds({ markers }) {
+  const map = useMap();
+  useEffect(() => {
+    if (markers.length === 0) return;
+    if (markers.length === 1) {
+      map.setView([markers[0].coords.lat, markers[0].coords.lng], 13);
+    } else {
+      const bounds = L.latLngBounds(markers.map(m => [m.coords.lat, m.coords.lng]));
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+  }, [markers, map]);
   return null;
 }
 
@@ -85,11 +99,10 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
     );
   }
 
-  const center = [markers[0].coords.lat, markers[0].coords.lng];
-
   return (
     <div className="w-full h-[420px] rounded-2xl border border-border overflow-hidden">
-      <MapContainer center={center} zoom={5} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
+      <MapContainer center={[31.5, 35.0]} zoom={7} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
+        <FitBounds markers={markers} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
