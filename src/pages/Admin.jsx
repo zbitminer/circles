@@ -1,11 +1,95 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Users, FileText, Calendar, Clock, Briefcase, Shield, ChevronDown, UserX, UserCheck } from 'lucide-react';
+import { Users, FileText, Calendar, Clock, Briefcase, Shield, ChevronDown, UserX, UserCheck, Trophy } from 'lucide-react';
+
+const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
+
+function LeaderboardTab({ profiles, users }) {
+  const userMap = Object.fromEntries(users.map(u => [u.id, u]));
+
+  const ranked = profiles
+    .filter(p => (p.total_hours || 0) > 0)
+    .sort((a, b) => (b.total_hours || 0) - (a.total_hours || 0))
+    .slice(0, 20);
+
+  const maxHours = ranked[0]?.total_hours || 1;
+
+  if (ranked.length === 0) {
+    return (
+      <div className="text-center py-16 bg-card rounded-2xl border border-border">
+        <Trophy className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+        <h3 className="font-display text-xl font-bold mb-2">No hours logged yet</h3>
+        <p className="text-muted-foreground text-sm">Once volunteers start logging hours, they'll appear here.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Top 3 podium */}
+      {ranked.length >= 3 && (
+        <div className="grid grid-cols-3 gap-4 mb-2">
+          {[ranked[1], ranked[0], ranked[2]].map((p, i) => {
+            const rank = i === 0 ? 2 : i === 1 ? 1 : 3;
+            const u = userMap[p.user_id];
+            const initials = u?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
+            return (
+              <div key={p.id} className={`bg-card rounded-2xl border p-4 text-center ${rank === 1 ? 'border-yellow-300 bg-yellow-50/50' : 'border-border'}`}>
+                <div className="text-3xl mb-2">{MEDAL[rank]}</div>
+                <div className={`w-12 h-12 rounded-full mx-auto flex items-center justify-center text-white font-bold text-sm mb-2 ${rank === 1 ? 'bg-yellow-500' : rank === 2 ? 'bg-gray-400' : 'bg-amber-600'}`}>
+                  {initials}
+                </div>
+                <p className="font-semibold text-sm truncate">{u?.full_name || 'Unknown'}</p>
+                <p className="font-display text-xl font-bold text-primary mt-1">{p.total_hours}h</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Full ranked list */}
+      <div className="bg-card rounded-2xl border border-border overflow-hidden">
+        <div className="px-6 py-4 border-b border-border flex items-center gap-2">
+          <Trophy className="w-5 h-5 text-accent" />
+          <h2 className="font-display text-lg font-bold">Volunteer Leaderboard</h2>
+        </div>
+        <div className="divide-y divide-border">
+          {ranked.map((p, idx) => {
+            const rank = idx + 1;
+            const u = userMap[p.user_id];
+            const initials = u?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
+            const pct = Math.round(((p.total_hours || 0) / maxHours) * 100);
+            return (
+              <div key={p.id} className="flex items-center gap-4 px-6 py-4">
+                <span className="w-8 text-center font-bold text-sm text-muted-foreground">
+                  {MEDAL[rank] || `#${rank}`}
+                </span>
+                <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">
+                  {initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold truncate">{u?.full_name || 'Unknown'}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full bg-accent rounded-full transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+                </div>
+                <span className="font-display text-lg font-bold text-primary whitespace-nowrap">{p.total_hours}h</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Admin() {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ users: 0, posts: 0, events: 0, opportunities: 0, hours: 0 });
   const [users, setUsers] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('overview');
 
@@ -34,6 +118,7 @@ export default function Admin() {
       hours: Math.round(totalHours),
     });
     setUsers(userList);
+    setProfiles(profiles);
     setLoading(false);
   };
 
@@ -74,7 +159,7 @@ export default function Admin() {
 
       {/* Tabs */}
       <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-8 w-fit">
-        {['overview', 'users'].map(t => (
+        {['overview', 'users', 'leaderboard'].map(t => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-5 py-2 rounded-lg text-sm font-medium capitalize transition-all ${tab === t ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
             {t}
@@ -133,6 +218,8 @@ export default function Admin() {
             </div>
           </div>
         </div>
+      ) : tab === 'leaderboard' ? (
+        <LeaderboardTab profiles={profiles} users={users} />
       ) : (
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
           <div className="px-6 py-4 border-b border-border">
