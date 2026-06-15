@@ -3,7 +3,19 @@ import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, ChevronDown } from 'lucide-react';
 import { format } from 'date-fns';
 
-const CAUSES = ['All', 'Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
+const CAUSES = [
+  { label: 'All', emoji: '🌐' },
+  { label: 'Environment', emoji: '🌿' },
+  { label: 'Education', emoji: '📚' },
+  { label: 'Health', emoji: '❤️' },
+  { label: 'Animals', emoji: '🐾' },
+  { label: 'Community', emoji: '🏘️' },
+  { label: 'Elderly', emoji: '🤝' },
+  { label: 'Youth', emoji: '⭐' },
+  { label: 'Disaster Relief', emoji: '🆘' },
+  { label: 'Arts & Culture', emoji: '🎨' },
+  { label: 'Other', emoji: '💡' },
+];
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
 
 const TYPE_COLORS = {
@@ -39,6 +51,8 @@ export default function Opportunities() {
     (causeFilter === 'All' || o.cause_category === causeFilter) &&
     (typeFilter === 'All' || o.type === typeFilter)
   );
+
+  const causeEmoji = Object.fromEntries(CAUSES.map(c => [c.label, c.emoji]));
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
@@ -102,7 +116,7 @@ export default function Opportunities() {
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">Cause Category</label>
               <select value={form.cause_category} onChange={e => setForm({...form, cause_category: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {CAUSES.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
+                {CAUSES.filter(c => c.label !== 'All').map(c => <option key={c.label} value={c.label}>{c.emoji} {c.label}</option>)}
               </select>
             </div>
             <div>
@@ -126,19 +140,36 @@ export default function Opportunities() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
-          {CAUSES.map(c => (
-            <button key={c} onClick={() => setCauseFilter(c)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-              {c}
+      <div className="mb-6 space-y-3">
+        {/* Cause chips */}
+        <div className="flex flex-wrap gap-2">
+          {CAUSES.map(({ label, emoji }) => (
+            <button
+              key={label}
+              onClick={() => setCauseFilter(label)}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all ${
+                causeFilter === label
+                  ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                  : 'bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground'
+              }`}
+            >
+              <span>{emoji}</span>
+              <span>{label}</span>
             </button>
           ))}
         </div>
-        <div className="flex gap-1 bg-card border border-border rounded-xl p-1">
+        {/* Type chips */}
+        <div className="flex gap-2 flex-wrap">
           {TYPES.map(t => (
-            <button key={t} onClick={() => setTypeFilter(t)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${typeFilter === t ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+            <button
+              key={t}
+              onClick={() => setTypeFilter(t)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                typeFilter === t
+                  ? 'bg-accent text-white border-accent shadow-sm'
+                  : 'bg-card text-muted-foreground border-border hover:border-accent/40 hover:text-foreground'
+              }`}
+            >
               {t}
             </button>
           ))}
@@ -170,7 +201,7 @@ export default function Opportunities() {
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[opp.type] || 'bg-muted text-muted-foreground'}`}>
                   {opp.type}
                 </span>
-                <span className="text-xs bg-muted text-muted-foreground px-2.5 py-1 rounded-full">{opp.cause_category}</span>
+                <span className="text-xs bg-muted text-muted-foreground px-2.5 py-1 rounded-full">{causeEmoji[opp.cause_category]} {opp.cause_category}</span>
               </div>
               <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{opp.title}</h3>
               <p className="text-sm text-muted-foreground mb-3">{opp.organization}</p>
