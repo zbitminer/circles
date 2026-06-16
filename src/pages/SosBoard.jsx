@@ -75,6 +75,22 @@ export default function SosBoard() {
         </div>
       </div>
 
+      {/* How it Works - 3 Steps */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {[
+          { step: '1', emoji: '🔴', title: 'Post Need', desc: 'Describe your urgent situation and who needs help within the next 24–48 hours.' },
+          { step: '2', emoji: '🤝', title: 'Find Helper', desc: 'Community members see your request and respond if they can help.' },
+          { step: '3', emoji: '✅', title: 'Resolve', desc: 'Once help arrives, mark the request resolved and thank the volunteer.' },
+        ].map(({ step, emoji, title, desc }) => (
+          <div key={step} className="flex flex-col items-center gap-3 p-4 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
+            <div className="text-2xl">{emoji}</div>
+            <h3 className="font-semibold text-sm text-center" style={{ color: '#1A2744' }}>{title}</h3>
+            <p className="text-xs text-center" style={{ color: '#6b5c3e' }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+
       {/* Post Form */}
       {showForm && (
         <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
