@@ -22,6 +22,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 import MessagesPage from './pages/Messages';
 import Analytics from './pages/Analytics';
+import Contact from './pages/Contact';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -64,6 +65,7 @@ const AuthenticatedApp = () => {
         <Route path="/terms" element={<TermsOfUse />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/contact" element={<Contact />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
