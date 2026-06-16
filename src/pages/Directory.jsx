@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity } from 'lucide-react';
+import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map } from 'lucide-react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import LocationMap from '@/components/LocationMap';
 
 const CAUSES = ['Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
 
@@ -180,6 +181,7 @@ export default function Directory() {
   const [selected, setSelected] = useState(null);
   const [following, setFollowing] = useState([]);
   const [mainTab, setMainTab] = useState('browse'); // 'browse' | 'following' | 'activity'
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
 
   useEffect(() => { loadAll(); }, []);
 
@@ -290,14 +292,34 @@ export default function Directory() {
         ))}
       </div>
 
-      {/* Main Tabs */}
-      <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-6 w-fit">
-        {tabs.map(t => (
-          <button key={t.id} onClick={() => setMainTab(t.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mainTab === t.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-            {t.label}
-          </button>
-        ))}
+      {/* Main Tabs & View Toggle */}
+      <div className="flex gap-3 mb-6 items-center flex-wrap">
+        <div className="flex gap-1 bg-card border border-border rounded-xl p-1">
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setMainTab(t.id)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${mainTab === t.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+        {mainTab !== 'activity' && (
+          <div className="flex gap-1 bg-card border border-border rounded-xl p-1">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Grid view"
+            >
+              <Users className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode('map')}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'map' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              title="Map view"
+            >
+              <Map className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Activity Feed Tab */}
@@ -307,6 +329,8 @@ export default function Directory() {
         ) : (
           <ActivityFeed hourLogs={hourLogs} userMap={userMap} profiles={profiles} />
         )
+      ) : viewMode === 'map' ? (
+        <LocationMap items={filtered} onSelectItem={setSelected} labelKey="user.full_name" locationKey="location" />
       ) : (
         <>
           {/* Suggested — only on browse tab */}
