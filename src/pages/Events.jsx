@@ -8,6 +8,18 @@ import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
+const CAUSE_FALLBACK_IMAGES = {
+  'Transportation & Escort': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
+  'Combating Loneliness': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
+  'Food Preparation & Delivery': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
+  'Technological Assistance': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
+  'Maintenance & Home Repair': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
+  'Learning & Skills Workshops': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80',
+  'Trauma & Emotional Support': 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80',
+  'Community Events': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
+  'Other': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',
+};
+
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -203,11 +215,11 @@ export default function Events() {
             return (
               <div key={evt.id} onClick={() => setSelected(evt)}
                 className="bg-card rounded-2xl border border-border overflow-hidden cursor-pointer hover:shadow-md hover:border-primary/20 transition-all group">
-                {evt.image_url ? (
-                  <img src={evt.image_url} alt={evt.title} className="w-full h-36 object-cover" />
-                ) : (
-                  <div className="w-full h-24 bg-primary/10 flex items-center justify-center text-4xl">📅</div>
-                )}
+                <img
+                  src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
+                  alt={evt.title}
+                  className="w-full h-36 object-cover"
+                />
                 <div className="bg-primary px-5 py-4">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-accent font-semibold uppercase tracking-wide">{evt.cause_category}</span>
