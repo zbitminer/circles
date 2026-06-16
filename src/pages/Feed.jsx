@@ -68,6 +68,22 @@ export default function Feed() {
             <p className="text-sm" style={{ color: '#6b5c3e' }}>Stories, updates, and inspiration from fellow volunteers</p>
           </div>
 
+          {/* How it Works - 3 Steps */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            {[
+              { step: '1', emoji: '✍️', title: 'Share Story', desc: 'Post your volunteer experience, lesson learned, or impact moment.' },
+              { step: '2', emoji: '👍', title: 'Engage', desc: 'Like, comment, and celebrate the stories of your community.' },
+              { step: '3', emoji: '🌱', title: 'Inspire', desc: 'Your story could spark someone to volunteer or take action.' },
+            ].map(({ step, emoji, title, desc }) => (
+              <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+                <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
+                <div className="text-xl">{emoji}</div>
+                <h3 className="font-semibold text-xs" style={{ color: '#1A2744' }}>{title}</h3>
+                <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+
           {user && <CreatePost currentUser={user} onCreated={loadPosts} />}
 
           {loading ? (
