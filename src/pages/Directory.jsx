@@ -297,7 +297,7 @@ export default function Directory() {
                 <div className="px-5 -mt-4 pb-5">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-semibold text-foreground leading-tight">{profile.user?.full_name}</h3>
+                      <h3 className="font-semibold text-lg text-foreground leading-tight">{profile.user?.full_name}</h3>
                       {profile.location && <p className="text-xs text-muted-foreground mt-0.5">📍 {profile.location}</p>}
                     </div>
                     {currentUser && (
