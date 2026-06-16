@@ -23,6 +23,7 @@ import TermsOfUse from './pages/TermsOfUse';
 import MessagesPage from './pages/Messages';
 import Analytics from './pages/Analytics';
 import Contact from './pages/Contact';
+import Sitemap from './pages/Sitemap';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/sitemap" element={<Sitemap />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
