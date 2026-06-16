@@ -6,6 +6,7 @@ import {
   CheckCircle, XCircle, UserPlus, Send, Eye
 } from 'lucide-react';
 import ImpactDashboard from '@/components/ImpactDashboard';
+import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -457,6 +458,7 @@ export default function Admin() {
   const [profiles, setProfiles] = useState([]);
   const [hourLogs, setHourLogs] = useState([]);
   const [events, setEvents] = useState([]);
+  const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('overview');
 
@@ -493,6 +495,7 @@ export default function Admin() {
     setProfiles(profs);
     setHourLogs(logs);
     setEvents(evts);
+    setOpportunities(opps);
     setLoading(false);
   };
 
@@ -523,6 +526,7 @@ export default function Admin() {
 
   const tabs = [
     { id: 'overview', label: 'Overview' },
+    { id: 'monthly', label: '📈 Monthly Impact' },
     { id: 'impact', label: '📊 Impact' },
     { id: 'users', label: 'Users' },
     { id: 'content', label: 'Content' },
@@ -598,6 +602,8 @@ export default function Admin() {
             </div>
           </div>
         </div>
+      ) : tab === 'monthly' ? (
+        <MonthlyImpactCharts hourLogs={hourLogs} opportunities={opportunities} events={events} />
       ) : tab === 'impact' ? (
         <ImpactDashboard hourLogs={hourLogs} profiles={profiles} events={events} posts={[]} />
       ) : tab === 'leaderboard' ? (
