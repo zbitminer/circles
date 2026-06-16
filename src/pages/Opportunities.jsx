@@ -119,7 +119,7 @@ export default function Opportunities() {
       </div>
 
       {/* Map preview */}
-      {!loading && filtered.length > 0 && viewMode === 'grid' && (
+      {!loading && filtered.length > 0 && (
         <div className="mb-6">
           <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
         </div>
