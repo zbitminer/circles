@@ -274,6 +274,22 @@ export default function Directory() {
         <p className="text-muted-foreground text-sm">Browse volunteers, see shared causes, and connect with your community</p>
       </div>
 
+      {/* How it Works - 3 Steps */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        {[
+          { step: '1', emoji: '🔍', title: 'Explore Members', desc: 'Search by name, location, or cause to find like-minded volunteers.' },
+          { step: '2', emoji: '👤', title: 'View Profiles', desc: 'Learn about their background, impact, and shared causes with you.' },
+          { step: '3', emoji: '💫', title: 'Follow & Network', desc: 'Follow members and build your community of collaborators.' },
+        ].map(({ step, emoji, title, desc }) => (
+          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center bg-card border border-border">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs bg-primary text-primary-foreground">{step}</div>
+            <div className="text-xl">{emoji}</div>
+            <h3 className="font-semibold text-xs text-foreground">{title}</h3>
+            <p className="text-xs text-muted-foreground">{desc}</p>
+          </div>
+        ))}
+      </div>
+
       {/* Main Tabs */}
       <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-6 w-fit">
         {tabs.map(t => (
