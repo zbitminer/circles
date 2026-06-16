@@ -18,33 +18,47 @@ export default function Home() {
       {/* ① Hero */}
       <section className="bg-primary text-primary-foreground">
         <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-          {/* Tagline — each word in a different color */}
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            <span className="text-white">I give.</span>{' '}
-            <span className="text-accent">I receive.</span>{' '}
-            <span className="text-yellow-300">I belong.</span>{' '}
-            <span className="text-green-300">I grow.</span>
+          <p className="text-accent text-sm font-bold uppercase tracking-widest mb-4">Join Northern Israel's Time Bank Revolution</p>
+          <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Transform Lives<br />Through Giving
           </h1>
-
-          <p className="text-primary-foreground/90 text-lg md:text-xl italic font-semibold mb-4">
-            This is what happens when I step into the circle.
+          <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-3 leading-relaxed">
+            Exchange skills, build community, and create lasting impact — one hour at a time.
           </p>
-          <p className="text-primary-foreground/75 text-base md:text-lg max-w-2xl mx-auto mb-3 leading-relaxed">
-            When I give, support comes back to me. When I belong to something larger than myself, I grow further than I ever could on my own.
+          <p className="text-primary-foreground/60 text-sm mb-10 italic">
+            I give. I receive. I belong. I grow.
           </p>
-          <p className="text-primary-foreground/90 text-lg font-semibold mb-10">
-            When I enter the circle. I'm home.
-          </p>
-
-          {!user ? (
-            <Link to="/register" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg">
-              Register — Join the Circle
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/opportunities" className="inline-block bg-accent text-white font-bold text-lg px-8 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg">
+              Explore Opportunities
             </Link>
-          ) : (
-            <Link to="/feed" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg">
-              Go to Community Feed →
-            </Link>
-          )}
+            {!user ? (
+              <Link to="/register" className="inline-block border-2 border-primary-foreground/40 text-primary-foreground font-bold text-lg px-8 py-4 rounded-2xl hover:bg-white/10 transition-colors">
+                Start Your Journey
+              </Link>
+            ) : (
+              <Link to="/feed" className="inline-block border-2 border-primary-foreground/40 text-primary-foreground font-bold text-lg px-8 py-4 rounded-2xl hover:bg-white/10 transition-colors">
+                Go to Community Feed →
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Stats Banner */}
+      <section className="bg-foreground text-background">
+        <div className="max-w-4xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {[
+            { value: '2,847', label: 'Active Volunteers' },
+            { value: '15,420', label: 'Hours Exchanged' },
+            { value: '847', label: 'Skills Shared' },
+            { value: '94', label: 'Communities Served' },
+          ].map(({ value, label }) => (
+            <div key={label}>
+              <div className="font-display text-3xl md:text-4xl font-bold text-accent mb-1">{value}</div>
+              <div className="text-sm text-background/60">{label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -158,21 +172,87 @@ export default function Home() {
 
       <TestimonialsSection />
 
-      {/* ⑥ I Open My Door CTA */}
+      {/* Volunteer Pathway */}
+      <section className="bg-muted">
+        <div className="max-w-4xl mx-auto px-6 py-14">
+          <div className="text-center mb-10">
+            <h2 className="font-display text-3xl font-bold text-foreground mb-2">Find Your Place in the Circle</h2>
+            <p className="text-muted-foreground">Every contribution matters. Choose the commitment level that fits your life.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                level: 'Beginner Level',
+                title: 'Community Helper',
+                time: '2–4 hours/month',
+                radius: 'Your neighborhood',
+                skills: 'Basic conversation, empathy',
+                tasks: ['Help neighbors with shopping or errands', 'Provide companionship to elderly community members', 'Participate in local cleanup events', 'Share simple skills (cooking, gardening, tech basics)'],
+                color: 'border-green-400',
+                badge: 'bg-green-100 text-green-800',
+              },
+              {
+                level: 'Intermediate Level',
+                title: 'Skill Sharer',
+                time: '6–10 hours/month',
+                radius: 'Your city',
+                skills: 'A teachable skill or profession',
+                tasks: ['Run a workshop or class', 'Mentor someone new to your field', 'Offer rides or tech support', 'Coordinate a community event'],
+                color: 'border-primary',
+                badge: 'bg-primary/10 text-primary',
+              },
+              {
+                level: 'Advanced Level',
+                title: 'Circle Leader',
+                time: '10+ hours/month',
+                radius: 'Regional impact',
+                skills: 'Leadership, organization',
+                tasks: ['Lead a volunteer team', 'Launch a new giving initiative', 'Partner with local organizations', 'Represent Circles of Giving in your community'],
+                color: 'border-accent',
+                badge: 'bg-accent/10 text-accent',
+              },
+            ].map(({ level, title, time, radius, skills, tasks, color, badge }) => (
+              <div key={title} className={`bg-card border-2 ${color} rounded-2xl p-6`}>
+                <span className={`text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full ${badge}`}>{level}</span>
+                <h3 className="font-display text-xl font-bold mt-3 mb-3">{title}</h3>
+                <div className="text-xs text-muted-foreground space-y-1 mb-4 border-l-2 border-border pl-3">
+                  <p><span className="font-semibold text-foreground">Time:</span> {time}</p>
+                  <p><span className="font-semibold text-foreground">Radius:</span> {radius}</p>
+                  <p><span className="font-semibold text-foreground">Skills:</span> {skills}</p>
+                </div>
+                <p className="text-xs font-semibold text-foreground mb-2">What You'll Do:</p>
+                <ul className="space-y-1.5">
+                  {tasks.map(t => (
+                    <li key={t} className="text-xs text-muted-foreground flex gap-2">
+                      <span className="text-accent flex-shrink-0">✦</span>{t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/opportunities" className="inline-block bg-primary text-primary-foreground font-bold px-8 py-3 rounded-2xl hover:opacity-90 transition-opacity">
+              Start Here →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* "Your Time is Valuable" closing */}
       <section className="bg-primary text-primary-foreground">
-        <div className="max-w-2xl mx-auto px-6 py-14 text-center">
-          <span className="text-4xl mb-4 block">🚪</span>
-          <h2 className="font-display text-3xl font-bold mb-4">I Open My Door</h2>
-          <p className="text-primary-foreground/80 text-lg mb-8">
-            Ready to open yours? Join a community that welcomes you — exactly as you are.
+        <div className="max-w-2xl mx-auto px-6 py-16 text-center">
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">Your Time is Valuable</h2>
+          <p className="text-primary-foreground/75 text-lg leading-relaxed mb-8">
+            In a world that measures worth in currency, we measure it in connection. Join thousands of volunteers who are redefining community, one hour at a time.
           </p>
           {user ? (
-            <Link to="/feed" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg">
-              Enter the Community →
+            <Link to="/profile" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg mr-4">
+              Create Your Profile
             </Link>
           ) : (
-            <Link to="/register" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg">
-              Register & Open My Door →
+            <Link to="/register" className="inline-block bg-accent text-white font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg mr-4">
+              Join Now
             </Link>
           )}
         </div>
