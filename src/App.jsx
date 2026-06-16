@@ -19,6 +19,7 @@ import SosBoard from './pages/SosBoard';
 import ShabbatMeals from './pages/ShabbatMeals';
 import Corporate from './pages/Corporate';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -58,6 +59,7 @@ const AuthenticatedApp = () => {
         <Route path="/shabbat" element={<ShabbatMeals />} />
         <Route path="/corporate" element={<Corporate />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfUse />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
