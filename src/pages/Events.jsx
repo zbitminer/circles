@@ -6,7 +6,7 @@ import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
+const CAUSES = ['All', 'Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -15,7 +15,7 @@ export default function Events() {
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community Events', capacity: '', image_url: '' });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'

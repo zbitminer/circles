@@ -6,15 +6,14 @@ import LocationMap from '@/components/LocationMap';
 
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
-  { label: 'Environment', emoji: '🌿' },
-  { label: 'Education', emoji: '📚' },
-  { label: 'Health', emoji: '❤️' },
-  { label: 'Animals', emoji: '🐾' },
-  { label: 'Community', emoji: '🏘️' },
-  { label: 'Elderly', emoji: '🤝' },
-  { label: 'Youth', emoji: '⭐' },
-  { label: 'Disaster Relief', emoji: '🆘' },
-  { label: 'Arts & Culture', emoji: '🎨' },
+  { label: 'Transportation & Escort', emoji: '🚗' },
+  { label: 'Combating Loneliness', emoji: '🤝' },
+  { label: 'Food Preparation & Delivery', emoji: '🍲' },
+  { label: 'Technological Assistance', emoji: '💻' },
+  { label: 'Maintenance & Home Repair', emoji: '🔧' },
+  { label: 'Learning & Skills Workshops', emoji: '📚' },
+  { label: 'Trauma & Emotional Support', emoji: '💛' },
+  { label: 'Community Events', emoji: '🏘️' },
   { label: 'Other', emoji: '💡' },
 ];
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
@@ -33,7 +32,7 @@ export default function Opportunities() {
   const [typeFilter, setTypeFilter] = useState('All');
   const [showForm, setShowForm] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Environment', type: 'In-person', deadline: '' });
+  const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Community Events', type: 'In-person', deadline: '' });
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
 
