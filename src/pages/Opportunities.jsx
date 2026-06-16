@@ -111,6 +111,31 @@ export default function Opportunities() {
         </div>
       </div>
 
+      {/* How it Works */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        {[
+          { step: '1', emoji: '🔍', title: 'Browse Opportunities', desc: 'Explore volunteer roles by cause, type, or location.' },
+          { step: '2', emoji: '✋', title: 'Express Interest', desc: 'Click "I\'m Interested" and the organizer will be in touch.' },
+          { step: '3', emoji: '🌟', title: 'Make an Impact', desc: 'Show up, contribute, and log your hours.' },
+        ].map(({ step, emoji, title, desc }) => (
+          <div key={step} className="bg-card border border-border rounded-2xl p-5 flex gap-4 items-start">
+            <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm flex-shrink-0">{step}</div>
+            <div>
+              <div className="text-xl mb-1">{emoji}</div>
+              <h3 className="font-semibold text-sm mb-0.5">{title}</h3>
+              <p className="text-xs text-muted-foreground">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Map preview */}
+      {!loading && filtered.length > 0 && (
+        <div className="mb-6">
+          <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+        </div>
+      )}
+
       {/* Create Form */}
       {showForm && isMod && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
