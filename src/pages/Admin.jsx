@@ -507,9 +507,9 @@ export default function Admin() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <Shield className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-        <h1 className="font-display text-2xl font-bold mb-2">Admin Only</h1>
-        <p className="text-muted-foreground">You need admin access to view this dashboard.</p>
+        <Shield className="w-12 h-12 mx-auto mb-4" style={{ color: '#C9A84C' }} />
+        <h1 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Admin Only</h1>
+        <p style={{ color: '#6b5c3e' }}>You need admin access to view this dashboard.</p>
       </div>
     );
   }
@@ -540,24 +540,25 @@ export default function Admin() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-            <Shield className="w-5 h-5 text-primary-foreground" />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#1A2744', border: '1px solid #C9A84C' }}>
+            <Shield className="w-5 h-5" style={{ color: '#F5E6C0' }} />
           </div>
           <div>
-            <h1 className="font-display text-2xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground text-sm">Master control panel</p>
+            <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Admin Dashboard</h1>
+            <p className="text-sm" style={{ color: '#6b5c3e' }}>Master control panel</p>
           </div>
         </div>
-        <button onClick={loadData} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground px-3 py-2 rounded-xl hover:bg-muted transition-colors">
+        <button onClick={loadData} className="flex items-center gap-2 text-sm px-3 py-2 rounded-xl transition-colors hover:bg-muted" style={{ color: '#6b5c3e' }}>
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-8 flex-wrap">
+      <div className="flex gap-1 rounded-xl p-1 mb-8 flex-wrap" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t.id ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+            className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            style={tab === t.id ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>
             {t.label}
           </button>
         ))}

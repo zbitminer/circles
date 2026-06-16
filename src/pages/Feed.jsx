@@ -26,33 +26,33 @@ export default function Feed() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Sidebar */}
+        {/* Left Sidebar */}
         <aside className="hidden lg:block lg:col-span-3">
           <div className="sticky top-24 space-y-4">
-            <div className="bg-primary text-primary-foreground rounded-2xl p-6">
-              <h2 className="font-display text-2xl font-bold mb-2">I Give.<br />I Receive.<br />I Belong.</h2>
-              <p className="text-primary-foreground/70 text-sm mb-4">I contribute what I have. I receive what I need. Together, we build circles of belonging.</p>
+            <div className="rounded-2xl p-6" style={{ background: '#1A2744', border: '1px solid #C9A84C' }}>
+              <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#F5E6C0' }}>I Give.<br />I Receive.<br />I Belong.</h2>
+              <p className="text-sm mb-4" style={{ color: 'rgba(245,230,192,0.70)' }}>I contribute what I have. I receive what I need. Together, we build circles of belonging.</p>
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Users className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(245,230,192,0.80)' }}>
+                  <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
                   <span>Vibrant community</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Flame className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(245,230,192,0.80)' }}>
+                  <Flame className="w-4 h-4" style={{ color: '#C9A84C' }} />
                   <span>Real social impact</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <TrendingUp className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(245,230,192,0.80)' }}>
+                  <TrendingUp className="w-4 h-4" style={{ color: '#C9A84C' }} />
                   <span>Grow together</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-card rounded-2xl border border-border p-5">
-              <h3 className="font-semibold text-sm mb-3">Explore Causes</h3>
+            <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+              <h3 className="font-semibold text-sm mb-3" style={{ color: '#1A2744' }}>Explore Causes</h3>
               <div className="flex flex-wrap gap-1.5">
                 {['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Learning & Skills Workshops', 'Community Events', 'Other'].map(cause => (
-                  <span key={cause} className="text-xs px-2.5 py-1 bg-muted rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground cursor-pointer transition-colors">
+                  <span key={cause} className="text-xs px-2.5 py-1 rounded-full cursor-pointer transition-colors" style={{ background: '#f0e8d0', color: '#6b5c3e', border: '1px solid #C9A84C' }}>
                     {cause}
                   </span>
                 ))}
@@ -64,8 +64,8 @@ export default function Feed() {
         {/* Feed */}
         <div className="lg:col-span-6 space-y-5">
           <div>
-            <h1 className="font-display text-3xl font-bold text-foreground mb-1">Community Feed</h1>
-            <p className="text-muted-foreground text-sm">Stories, updates, and inspiration from fellow volunteers</p>
+            <h1 className="font-display text-3xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Feed</h1>
+            <p className="text-sm" style={{ color: '#6b5c3e' }}>Stories, updates, and inspiration from fellow volunteers</p>
           </div>
 
           {user && <CreatePost currentUser={user} onCreated={loadPosts} />}
@@ -73,7 +73,7 @@ export default function Feed() {
           {loading ? (
             <div className="space-y-4">
               {[1, 2, 3].map(i => (
-                <div key={i} className="bg-card rounded-2xl border border-border p-5 animate-pulse">
+                <div key={i} className="rounded-2xl p-5 animate-pulse" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
                   <div className="flex gap-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-muted" />
                     <div className="space-y-2 flex-1">
@@ -89,10 +89,10 @@ export default function Feed() {
               ))}
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-16 bg-card rounded-2xl border border-border">
+            <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
               <div className="text-5xl mb-4">🌱</div>
-              <h3 className="font-display text-xl font-bold mb-2">Be the first to share!</h3>
-              <p className="text-muted-foreground text-sm">Your volunteer story could inspire someone to take action today.</p>
+              <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Be the first to share!</h3>
+              <p className="text-sm" style={{ color: '#6b5c3e' }}>Your volunteer story could inspire someone to take action today.</p>
             </div>
           ) : (
             posts.map(post => (
@@ -110,16 +110,16 @@ export default function Feed() {
         {/* Right sidebar */}
         <aside className="hidden lg:block lg:col-span-3">
           <div className="sticky top-24">
-            <div className="bg-card rounded-2xl border border-border p-5">
-              <h3 className="font-semibold text-sm mb-4">Quick Links</h3>
+            <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+              <h3 className="font-semibold text-sm mb-4" style={{ color: '#1A2744' }}>Quick Links</h3>
               <div className="space-y-2 text-sm">
-                <a href="/opportunities" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-1">
+                <a href="/opportunities" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
                   📋 Browse Opportunities
                 </a>
-                <a href="/events" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-1">
+                <a href="/events" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
                   📅 Upcoming Events
                 </a>
-                <a href="/profile" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors py-1">
+                <a href="/profile" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
                   👤 My Profile & Impact
                 </a>
               </div>

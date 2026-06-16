@@ -31,9 +31,7 @@ export default function Profile() {
   const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
   const [submittingLog, setSubmittingLog] = useState(false);
 
-  useEffect(() => {
-    loadAll();
-  }, []);
+  useEffect(() => { loadAll(); }, []);
 
   const loadAll = async () => {
     setLoading(true);
@@ -101,8 +99,8 @@ export default function Profile() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-32 bg-card rounded-2xl border border-border" />
-          <div className="h-48 bg-card rounded-2xl border border-border" />
+          <div className="h-32 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />
+          <div className="h-48 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />
         </div>
       </div>
     );
@@ -111,12 +109,12 @@ export default function Profile() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8 space-y-6">
       {/* Profile Header */}
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="bg-primary h-24" />
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="h-24" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', borderBottom: '2px solid #C9A84C' }} />
         <div className="px-6 pb-6">
           <div className="flex items-end gap-4 -mt-10 mb-4">
             <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
-              <div className="w-20 h-20 rounded-2xl bg-accent flex items-center justify-center text-white text-2xl font-bold border-4 border-card overflow-hidden">
+              <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold overflow-hidden" style={{ background: '#C9A84C', border: '4px solid #FAF7EE' }}>
                 {profile?.avatar_url ? (
                   <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
                 ) : initials}
@@ -127,49 +125,40 @@ export default function Profile() {
               <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </div>
             <div className="pb-1">
-              <h1 className="font-display text-2xl font-bold">{user?.full_name}</h1>
-              {profile?.location && <p className="text-muted-foreground text-sm">📍 {profile.location}</p>}
+              <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
+              {profile?.location && <p className="text-sm" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
             </div>
           </div>
 
           {editingBio ? (
             <div className="space-y-3">
-              <textarea
-                value={bioText}
-                onChange={e => setBioText(e.target.value)}
-                placeholder="Tell the community about yourself and why you volunteer..."
-                rows={3}
-                className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none"
-              />
-              <input
-                value={locationText}
-                onChange={e => setLocationText(e.target.value)}
-                placeholder="Your city or region"
-                className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30"
-              />
+              <textarea value={bioText} onChange={e => setBioText(e.target.value)} placeholder="Tell the community about yourself and why you volunteer..." rows={3} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" />
+              <input value={locationText} onChange={e => setLocationText(e.target.value)} placeholder="Your city or region" className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
               <div>
-                <p className="text-xs font-medium text-muted-foreground mb-2">Causes you care about:</p>
+                <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Causes you care about:</p>
                 <div className="flex flex-wrap gap-1.5">
                   {CAUSES.map(cause => (
                     <button key={cause} type="button" onClick={() => toggleCause(cause)}
-                      className={`text-xs px-2.5 py-1 rounded-full border transition-all ${
-                        selectedCauses.includes(cause) ? 'bg-primary text-primary-foreground border-primary' : 'border-border text-muted-foreground hover:border-primary/50'
-                      }`}>
+                      className="text-xs px-2.5 py-1 rounded-full transition-all"
+                      style={selectedCauses.includes(cause)
+                        ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                        : { background: '#f0e8d0', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                      }>
                       {cause}
                     </button>
                   ))}
                 </div>
               </div>
               <div className="flex gap-2">
-                <button onClick={saveBio} className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90">
+                <button onClick={saveBio} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#C9A84C', color: '#1A2744' }}>
                   <Check className="w-4 h-4" /> Save
                 </button>
-                <button onClick={() => setEditingBio(false)} className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
+                <button onClick={() => setEditingBio(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
               </div>
             </div>
           ) : (
             <div>
-              <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+              <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b5c3e' }}>
                 {profile?.bio || 'No bio yet. Tell the community about yourself!'}
               </p>
               {profile?.causes?.length > 0 && (
@@ -179,7 +168,7 @@ export default function Profile() {
                   ))}
                 </div>
               )}
-              <button onClick={() => setEditingBio(true)} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <button onClick={() => setEditingBio(true)} className="flex items-center gap-2 text-sm transition-colors" style={{ color: '#C9A84C' }}>
                 <Edit2 className="w-3.5 h-3.5" /> Edit profile
               </button>
             </div>
@@ -189,132 +178,85 @@ export default function Profile() {
 
       {/* Impact Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-card rounded-2xl border border-border p-5 text-center">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
-            <Clock className="w-5 h-5 text-primary" />
+        {[
+          { icon: Clock, label: 'Hours Volunteered', value: profile?.total_hours || 0, iconColor: '#1A2744', bgColor: 'rgba(26,39,68,0.10)' },
+          { icon: Calendar, label: 'Events Attended', value: profile?.events_attended || 0, iconColor: '#C9A84C', bgColor: 'rgba(201,168,76,0.15)' },
+          { icon: Award, label: 'Opportunities', value: profile?.opportunities_completed || 0, iconColor: '#6b8f6e', bgColor: '#e8f5e9' },
+        ].map(({ icon: Icon, label, value, iconColor, bgColor }) => (
+          <div key={label} className="rounded-2xl p-5 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: bgColor }}>
+              <Icon className="w-5 h-5" style={{ color: iconColor }} />
+            </div>
+            <p className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>{value}</p>
+            <p className="text-xs mt-1" style={{ color: '#6b5c3e' }}>{label}</p>
           </div>
-          <p className="font-display text-3xl font-bold text-foreground">{profile?.total_hours || 0}</p>
-          <p className="text-xs text-muted-foreground mt-1">Hours Volunteered</p>
-        </div>
-        <div className="bg-card rounded-2xl border border-border p-5 text-center">
-          <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
-            <Calendar className="w-5 h-5 text-accent" />
-          </div>
-          <p className="font-display text-3xl font-bold text-foreground">{profile?.events_attended || 0}</p>
-          <p className="text-xs text-muted-foreground mt-1">Events Attended</p>
-        </div>
-        <div className="bg-card rounded-2xl border border-border p-5 text-center">
-          <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center mx-auto mb-3">
-            <Award className="w-5 h-5 text-green-700" />
-          </div>
-          <p className="font-display text-3xl font-bold text-foreground">{profile?.opportunities_completed || 0}</p>
-          <p className="text-xs text-muted-foreground mt-1">Opportunities</p>
-        </div>
+        ))}
       </div>
 
       {/* Community Control Panel */}
-      <div className="bg-card rounded-2xl border border-border p-6">
-        <h2 className="font-display text-xl font-bold mb-1">Community Control Panel</h2>
-        <p className="text-sm text-muted-foreground mb-5">Jump into community action from right here</p>
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
+        <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Jump into community action from right here</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          <Link to="/feed" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-primary/10 hover:border-primary border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
-              <Rss className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Community Feed</p>
-              <p className="text-xs text-muted-foreground">Post & interact</p>
-            </div>
-          </Link>
-          <Link to="/opportunities" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-accent/10 hover:border-accent border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center transition-colors">
-              <Briefcase className="w-5 h-5 text-accent" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Opportunities</p>
-              <p className="text-xs text-muted-foreground">Find volunteer roles</p>
-            </div>
-          </Link>
-          <Link to="/events" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-purple-50 hover:border-purple-300 border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-purple-100 group-hover:bg-purple-200 flex items-center justify-center transition-colors">
-              <Calendar className="w-5 h-5 text-purple-600" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Events</p>
-              <p className="text-xs text-muted-foreground">RSVP & attend</p>
-            </div>
-          </Link>
-          <Link to="/sos" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-red-50 hover:border-red-300 border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-red-100 group-hover:bg-red-200 flex items-center justify-center transition-colors">
-              <AlertTriangle className="w-5 h-5 text-red-600" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">SOS Board</p>
-              <p className="text-xs text-muted-foreground">Urgent help requests</p>
-            </div>
-          </Link>
-          <Link to="/shabbat" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-amber-50 hover:border-amber-300 border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-amber-100 group-hover:bg-amber-200 flex items-center justify-center transition-colors">
-              <Utensils className="w-5 h-5 text-amber-600" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Shabbat Meals</p>
-              <p className="text-xs text-muted-foreground">Host or join a table</p>
-            </div>
-          </Link>
-          <Link to="/directory" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-green-50 hover:border-green-300 border border-transparent transition-all text-center">
-            <div className="w-11 h-11 rounded-xl bg-green-100 group-hover:bg-green-200 flex items-center justify-center transition-colors">
-              <Users className="w-5 h-5 text-green-600" />
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Directory</p>
-              <p className="text-xs text-muted-foreground">Browse members</p>
-            </div>
-          </Link>
+          {[
+            { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
+            { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
+            { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
+            { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
+            { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
+            { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
+          ].map(({ to, Icon, label, sub, iconColor, bg }) => (
+            <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
+                <Icon className="w-5 h-5" style={{ color: iconColor }} />
+              </div>
+              <div>
+                <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</p>
+                <p className="text-xs" style={{ color: '#6b5c3e' }}>{sub}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 
       {/* Hour Logs */}
-      <div className="bg-card rounded-2xl border border-border p-6">
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-display text-xl font-bold">Volunteer Hours Log</h2>
-          <button
-            onClick={() => setShowLogForm(!showLogForm)}
-            className="flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
+          <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Volunteer Hours Log</h2>
+          <button onClick={() => setShowLogForm(!showLogForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
             <Plus className="w-4 h-4" /> Log Hours
           </button>
         </div>
 
         {showLogForm && (
-          <form onSubmit={submitLog} className="bg-muted rounded-xl p-4 mb-5 space-y-3">
+          <form onSubmit={submitLog} className="rounded-xl p-4 mb-5 space-y-3" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Activity Name *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Activity Name *</label>
                 <input required value={logForm.activity_name} onChange={e => setLogForm({...logForm, activity_name: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="e.g. Food bank volunteering" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Hours *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Hours *</label>
                 <input required type="number" min="0.5" step="0.5" value={logForm.hours} onChange={e => setLogForm({...logForm, hours: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="e.g. 3" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Date *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Date *</label>
                 <input required type="date" value={logForm.date} onChange={e => setLogForm({...logForm, date: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Cause Category</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Cause Category</label>
                 <select value={logForm.cause_category} onChange={e => setLogForm({...logForm, cause_category: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30">
                   {CAUSES.map(c => <option key={c}>{c}</option>)}
                 </select>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-muted-foreground mb-1">Notes (optional)</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Notes (optional)</label>
                 <input value={logForm.notes} onChange={e => setLogForm({...logForm, notes: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="Any notes about this activity..." />
               </div>
             </div>
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setShowLogForm(false)} className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
-              <button type="submit" disabled={submittingLog} className="px-5 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50">
+              <button type="button" onClick={() => setShowLogForm(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
+              <button type="submit" disabled={submittingLog} className="px-5 py-2 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
                 {submittingLog ? 'Saving...' : 'Save Hours'}
               </button>
             </div>
@@ -324,25 +266,25 @@ export default function Profile() {
         {logs.length === 0 ? (
           <div className="text-center py-10">
             <div className="text-4xl mb-3">⏱️</div>
-            <p className="font-semibold mb-1">No hours logged yet</p>
-            <p className="text-sm text-muted-foreground">Start tracking your volunteer contributions!</p>
+            <p className="font-semibold mb-1" style={{ color: '#1A2744' }}>No hours logged yet</p>
+            <p className="text-sm" style={{ color: '#6b5c3e' }}>Start tracking your volunteer contributions!</p>
           </div>
         ) : (
           <div className="space-y-3">
             {logs.map(log => (
-              <div key={log.id} className="flex items-start justify-between p-4 bg-muted rounded-xl">
+              <div key={log.id} className="flex items-start justify-between p-4 rounded-xl" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-semibold text-sm">{log.activity_name}</p>
+                    <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{log.activity_name}</p>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${CAUSE_COLORS[log.cause_category] || 'bg-muted text-muted-foreground'}`}>{log.cause_category}</span>
                   </div>
-                  <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                    <span className="font-semibold text-primary">{log.hours}h</span>
+                  <div className="flex items-center gap-3 mt-1 text-xs" style={{ color: '#888' }}>
+                    <span className="font-semibold" style={{ color: '#C9A84C' }}>{log.hours}h</span>
                     {log.date && <span>{format(new Date(log.date), 'MMM d, yyyy')}</span>}
                     {log.notes && <span>· {log.notes}</span>}
                   </div>
                 </div>
-                <button onClick={() => deleteLog(log)} className="p-1.5 hover:bg-card rounded-lg text-muted-foreground hover:text-destructive transition-colors">
+                <button onClick={() => deleteLog(log)} className="p-1.5 rounded-lg transition-colors hover:text-red-600" style={{ color: '#aaa' }}>
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>

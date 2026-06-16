@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Building2, Users, Heart, CheckCircle } from 'lucide-react';
+import { Building2, Heart, CheckCircle } from 'lucide-react';
 
 const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
@@ -8,7 +8,7 @@ const BENEFITS = [
   { icon: '🤝', title: 'Team Building', desc: 'Meaningful shared experiences that strengthen employee bonds' },
   { icon: '🌍', title: 'Social Impact', desc: 'Make a real difference in Israeli communities together' },
   { icon: '📋', title: 'CSR Reporting', desc: 'We provide documentation for your CSR reports and annual reviews' },
-  { icon: '🎯', title: 'Tailored Programs', desc: 'Activities matched to your team\'s skills and schedule' },
+  { icon: '🎯', title: 'Tailored Programs', desc: "Activities matched to your team's skills and schedule" },
 ];
 
 export default function Corporate() {
@@ -39,10 +39,10 @@ export default function Corporate() {
   if (submitted) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="bg-card border border-border rounded-2xl p-10">
+        <div className="p-10 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h2 className="font-display text-2xl font-bold mb-2">Thank You!</h2>
-          <p className="text-muted-foreground">We've received your inquiry and will be in touch within 2 business days to discuss a customized volunteering program for your team.</p>
+          <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank You!</h2>
+          <p style={{ color: '#6b5c3e' }}>We've received your inquiry and will be in touch within 2 business days to discuss a customized volunteering program for your team.</p>
         </div>
       </div>
     );
@@ -51,64 +51,68 @@ export default function Corporate() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-primary to-accent text-white rounded-2xl p-8 mb-8 text-center">
-        <Building2 className="w-12 h-12 mx-auto mb-3 opacity-80" />
-        <h1 className="font-display text-3xl font-bold mb-2">Corporate Volunteering</h1>
-        <p className="text-white/80 text-lg max-w-xl mx-auto">Partner with Circles of Giving for impactful team volunteer days and CSR activities across Israel.</p>
+      <div className="rounded-2xl p-8 mb-8 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
+        <Building2 className="w-12 h-12 mx-auto mb-3" style={{ color: '#C9A84C' }} />
+        <h1 className="font-display text-3xl font-bold mb-2" style={{ color: '#F5E6C0' }}>Corporate Volunteering</h1>
+        <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(245,230,192,0.80)' }}>Partner with Circles of Giving for impactful team volunteer days and CSR activities across Israel.</p>
       </div>
 
       {/* Benefits */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {BENEFITS.map(b => (
-          <div key={b.title} className="bg-card border border-border rounded-2xl p-4 text-center">
+          <div key={b.title} className="rounded-2xl p-4 text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
             <div className="text-3xl mb-2">{b.icon}</div>
-            <h3 className="font-semibold text-sm mb-1">{b.title}</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">{b.desc}</p>
+            <h3 className="font-semibold text-sm mb-1" style={{ color: '#1A2744' }}>{b.title}</h3>
+            <p className="text-xs leading-relaxed" style={{ color: '#6b5c3e' }}>{b.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Form */}
-      <div className="bg-card border border-border rounded-2xl p-6">
-        <h2 className="font-display text-xl font-bold mb-1">Get In Touch</h2>
-        <p className="text-muted-foreground text-sm mb-6">Tell us about your company and we'll design the perfect volunteering experience.</p>
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Get In Touch</h2>
+        <p className="text-sm mb-6" style={{ color: '#6b5c3e' }}>Tell us about your company and we'll design the perfect volunteering experience.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Company Name *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Company Name *</label>
               <input required value={form.company_name} onChange={e => setForm({ ...form, company_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Your company" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Contact Name *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Contact Name *</label>
               <input required value={form.contact_name} onChange={e => setForm({ ...form, contact_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Your name" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Email *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Email *</label>
               <input required type="email" value={form.contact_email} onChange={e => setForm({ ...form, contact_email: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="you@company.com" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Phone</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Phone</label>
               <input value={form.contact_phone} onChange={e => setForm({ ...form, contact_phone: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="+972..." />
             </div>
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Number of Employees</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Number of Employees</label>
               <select value={form.employee_count} onChange={e => setForm({ ...form, employee_count: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
                 {['1-10', '11-50', '51-200', '201-500', '500+'].map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-muted-foreground mb-1">Preferred Date</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Preferred Date</label>
               <input type="date" value={form.preferred_date} onChange={e => setForm({ ...form, preferred_date: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-muted-foreground mb-2">Causes of Interest (select all that apply)</label>
+            <label className="block text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Causes of Interest (select all that apply)</label>
             <div className="flex flex-wrap gap-2">
               {CAUSES.map(c => (
                 <button key={c} type="button" onClick={() => toggleCause(c)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition-all ${form.cause_interests.includes(c) ? 'bg-primary text-primary-foreground border-primary' : 'bg-card border-border text-muted-foreground hover:border-primary/50'}`}>
+                  className="text-xs px-3 py-1.5 rounded-full transition-all"
+                  style={form.cause_interests.includes(c)
+                    ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                    : { background: '#f0e8d0', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                  }>
                   {c}
                 </button>
               ))}
@@ -116,12 +120,12 @@ export default function Corporate() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-muted-foreground mb-1">Message</label>
+            <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Message</label>
             <textarea rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Tell us about your team, goals, or any specific requirements..." />
           </div>
 
-          <button type="submit" disabled={submitting} className="w-full py-3.5 bg-primary text-primary-foreground font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2">
-            <Heart className="w-4 h-4" />
+          <button type="submit" disabled={submitting} className="w-full py-3.5 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+            <Heart className="w-4 h-4" style={{ color: '#C9A84C' }} />
             {submitting ? 'Sending...' : 'Submit Inquiry'}
           </button>
         </form>
