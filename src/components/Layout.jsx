@@ -111,6 +111,7 @@ export default function Layout() {
               <li><a href="/sos" className="transition-colors" style={{ color: 'inherit' }}>SOS Urgent Board</a></li>
               <li><a href="/shabbat" className="transition-colors" style={{ color: 'inherit' }}>Shabbat & Holiday Meals</a></li>
               <li><a href="/corporate" className="transition-colors" style={{ color: 'inherit' }}>Corporate Volunteering</a></li>
+              <li><a href="/contact" className="transition-colors" style={{ color: 'inherit' }}>Contact</a></li>
             </ul>
           </div>
 
