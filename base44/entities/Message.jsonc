@@ -1,0 +1,55 @@
+{
+  "name": "Message",
+  "type": "object",
+  "properties": {
+    "from_user_id": {
+      "type": "string"
+    },
+    "from_user_name": {
+      "type": "string"
+    },
+    "to_user_id": {
+      "type": "string"
+    },
+    "to_user_name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "conversation_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "from_user_id",
+    "to_user_id",
+    "content",
+    "conversation_id"
+  ],
+  "rls": {
+    "create": {
+      "data.from_user_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.from_user_id": "{{user.id}}"
+        },
+        {
+          "data.to_user_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

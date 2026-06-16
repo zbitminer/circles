@@ -20,6 +20,8 @@ import ShabbatMeals from './pages/ShabbatMeals';
 import Corporate from './pages/Corporate';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
+import MessagesPage from './pages/Messages';
+import Analytics from './pages/Analytics';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -60,6 +62,8 @@ const AuthenticatedApp = () => {
         <Route path="/corporate" element={<Corporate />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfUse />} />
+        <Route path="/messages" element={<MessagesPage />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

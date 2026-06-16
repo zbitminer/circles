@@ -1,0 +1,41 @@
+{
+  "name": "Badge",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "badge_name": {
+      "type": "string",
+      "enum": [
+        "first_volunteer",
+        "fifty_hours",
+        "hundred_hours",
+        "five_events",
+        "ten_events",
+        "helpful_volunteer",
+        "community_champion",
+        "trusted_host"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon_emoji": {
+      "type": "string"
+    },
+    "unlocked_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "user_id",
+    "badge_name",
+    "label",
+    "icon_emoji"
+  ]
+}

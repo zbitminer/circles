@@ -1,7 +1,8 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame, AlertTriangle, UtensilsCrossed, Building2 } from 'lucide-react';
+import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame, AlertTriangle, UtensilsCrossed, Building2, MessageSquare, BarChart3 } from 'lucide-react';
+import NotificationBell from './NotificationBell';
 
 const navItems = [
   { path: '/', label: 'Home', icon: Home },
@@ -11,6 +12,8 @@ const navItems = [
   { path: '/events', label: 'Events', icon: Calendar },
   { path: '/shabbat', label: 'Shabbat Meals', icon: UtensilsCrossed },
   { path: '/directory', label: 'Directory', icon: Users },
+  { path: '/messages', label: 'Messages', icon: MessageSquare },
+  { path: '/analytics', label: 'Impact', icon: BarChart3 },
   { path: '/corporate', label: 'For Businesses', icon: Building2 },
   { path: '/profile', label: 'My Profile', icon: User },
 ];
@@ -40,13 +43,16 @@ export default function Layout() {
             </div>
           </Link>
 
-          <button
-            className="p-2 rounded-lg hover:bg-white/10"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            style={{ color: '#F5E6C0' }}
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-3">
+            {user && <NotificationBell currentUser={user} />}
+            <button
+              className="p-2 rounded-lg hover:bg-white/10"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              style={{ color: '#F5E6C0' }}
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Dropdown Nav */}

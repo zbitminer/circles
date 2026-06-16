@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus } from 'lucide-react';
+import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import BadgeDisplay from '@/components/BadgeDisplay';
+import ReviewCard from '@/components/ReviewCard';
+import StarRating from '@/components/StarRating';
 
 const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
@@ -30,6 +33,10 @@ export default function Profile() {
   const [showLogForm, setShowLogForm] = useState(false);
   const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
   const [submittingLog, setSubmittingLog] = useState(false);
+  const [badges, setBadges] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ rating: 0, content: '' });
 
   useEffect(() => { loadAll(); }, []);
 
@@ -48,6 +55,10 @@ export default function Profile() {
     setSelectedCauses(p.causes || []);
     const hourLogs = await base44.entities.HourLog.filter({ user_id: u.id });
     setLogs(hourLogs.sort((a, b) => new Date(b.date) - new Date(a.date)));
+    const badgesList = await base44.entities.Badge.filter({ user_id: u.id });
+    setBadges(badgesList);
+    const reviewsList = await base44.entities.Review.filter({ reviewee_id: u.id });
+    setReviews(reviewsList);
     setLoading(false);
   };
 
@@ -217,6 +228,60 @@ export default function Profile() {
             </Link>
           ))}
         </div>
+      </div>
+
+      {/* Badges */}
+      {badges.length > 0 && (
+        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <BadgeDisplay badges={badges} />
+        </div>
+      )}
+
+      {/* Reviews */}
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Community Reviews</h2>
+          <button onClick={() => setShowReviewForm(!showReviewForm)} className="text-sm px-3 py-1.5 rounded-lg transition-colors" style={{ background: '#f0e8d0', color: '#1A2744' }}>
+            + Write Review
+          </button>
+        </div>
+
+        {showReviewForm && (
+          <form onSubmit={async (e) => {
+            e.preventDefault();
+            await base44.entities.Review.create({
+              reviewer_id: user.id,
+              reviewer_name: user.full_name,
+              reviewee_id: profile.user_id,
+              rating: reviewForm.rating,
+              content: reviewForm.content,
+              review_type: 'volunteer'
+            });
+            setReviewForm({ rating: 0, content: '' });
+            setShowReviewForm(false);
+            loadAll();
+          }} className="mb-5 p-4 rounded-xl space-y-3" style={{ background: '#f0e8d0' }}>
+            <div>
+              <label className="text-xs font-medium" style={{ color: '#6b5c3e' }}>Rating</label>
+              <StarRating rating={reviewForm.rating} onRate={(r) => setReviewForm({...reviewForm, rating: r})} />
+            </div>
+            <div>
+              <textarea value={reviewForm.content} onChange={e => setReviewForm({...reviewForm, content: e.target.value})} placeholder="Share your experience..." rows={2} className="w-full bg-white rounded-lg px-3 py-2 text-sm outline-none border" required />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <button type="button" onClick={() => setShowReviewForm(false)} className="text-xs px-3 py-1" style={{ color: '#6b5c3e' }}>Cancel</button>
+              <button type="submit" className="text-xs px-4 py-1.5 rounded-lg font-semibold" style={{ background: '#1A2744', color: '#F5E6C0' }}>Post Review</button>
+            </div>
+          </form>
+        )}
+
+        {reviews.length === 0 ? (
+          <p className="text-sm text-center py-6" style={{ color: '#6b5c3e' }}>No reviews yet</p>
+        ) : (
+          <div className="space-y-3">
+            {reviews.map(review => <ReviewCard key={review.id} review={review} />)}
+          </div>
+        )}
       </div>
 
       {/* Hour Logs */}

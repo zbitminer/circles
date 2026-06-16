@@ -1,0 +1,53 @@
+{
+  "name": "Review",
+  "type": "object",
+  "properties": {
+    "reviewer_id": {
+      "type": "string"
+    },
+    "reviewer_name": {
+      "type": "string"
+    },
+    "reviewee_id": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "content": {
+      "type": "string"
+    },
+    "review_type": {
+      "type": "string",
+      "enum": [
+        "shabbat_host",
+        "opportunity",
+        "volunteer"
+      ]
+    },
+    "related_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reviewer_id",
+    "reviewee_id",
+    "rating",
+    "content",
+    "review_type"
+  ],
+  "rls": {
+    "create": {
+      "data.reviewer_id": "{{user.id}}"
+    },
+    "read": {},
+    "update": {
+      "data.reviewer_id": "{{user.id}}"
+    },
+    "delete": {
+      "data.reviewer_id": "{{user.id}}"
+    }
+  }
+}

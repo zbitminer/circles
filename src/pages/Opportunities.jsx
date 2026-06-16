@@ -30,6 +30,7 @@ export default function Opportunities() {
   const [user, setUser] = useState(null);
   const [causeFilter, setCauseFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [selected, setSelected] = useState(null);
   const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Community Events', type: 'In-person', deadline: '' });
@@ -50,7 +51,8 @@ export default function Opportunities() {
 
   const filtered = opportunities.filter(o =>
     (causeFilter === 'All' || o.cause_category === causeFilter) &&
-    (typeFilter === 'All' || o.type === typeFilter)
+    (typeFilter === 'All' || o.type === typeFilter) &&
+    (searchQuery === '' || o.title.toLowerCase().includes(searchQuery.toLowerCase()) || o.description.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   const causeEmoji = Object.fromEntries(CAUSES.map(c => [c.label, c.emoji]));
@@ -169,6 +171,18 @@ export default function Opportunities() {
           </form>
         </div>
       )}
+
+      {/* Search */}
+      <div className="mb-6">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          placeholder="🔍 Search opportunities by title, organization, or keywords..."
+          className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30"
+          style={{ borderColor: '#C9A84C', background: '#FAF7EE' }}
+        />
+      </div>
 
       {/* Filters */}
       <div className="mb-6 space-y-3">
