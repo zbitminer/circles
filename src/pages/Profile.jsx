@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera } from 'lucide-react';
+import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
@@ -208,6 +209,68 @@ export default function Profile() {
           </div>
           <p className="font-display text-3xl font-bold text-foreground">{profile?.opportunities_completed || 0}</p>
           <p className="text-xs text-muted-foreground mt-1">Opportunities</p>
+        </div>
+      </div>
+
+      {/* Community Control Panel */}
+      <div className="bg-card rounded-2xl border border-border p-6">
+        <h2 className="font-display text-xl font-bold mb-1">Community Control Panel</h2>
+        <p className="text-sm text-muted-foreground mb-5">Jump into community action from right here</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <Link to="/feed" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-primary/10 hover:border-primary border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+              <Rss className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Community Feed</p>
+              <p className="text-xs text-muted-foreground">Post & interact</p>
+            </div>
+          </Link>
+          <Link to="/opportunities" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-accent/10 hover:border-accent border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center transition-colors">
+              <Briefcase className="w-5 h-5 text-accent" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Opportunities</p>
+              <p className="text-xs text-muted-foreground">Find volunteer roles</p>
+            </div>
+          </Link>
+          <Link to="/events" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-purple-50 hover:border-purple-300 border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-purple-100 group-hover:bg-purple-200 flex items-center justify-center transition-colors">
+              <Calendar className="w-5 h-5 text-purple-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Events</p>
+              <p className="text-xs text-muted-foreground">RSVP & attend</p>
+            </div>
+          </Link>
+          <Link to="/sos" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-red-50 hover:border-red-300 border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-red-100 group-hover:bg-red-200 flex items-center justify-center transition-colors">
+              <AlertTriangle className="w-5 h-5 text-red-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">SOS Board</p>
+              <p className="text-xs text-muted-foreground">Urgent help requests</p>
+            </div>
+          </Link>
+          <Link to="/shabbat" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-amber-50 hover:border-amber-300 border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-amber-100 group-hover:bg-amber-200 flex items-center justify-center transition-colors">
+              <Utensils className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Shabbat Meals</p>
+              <p className="text-xs text-muted-foreground">Host or join a table</p>
+            </div>
+          </Link>
+          <Link to="/directory" className="group flex flex-col items-center gap-3 p-4 bg-muted rounded-2xl hover:bg-green-50 hover:border-green-300 border border-transparent transition-all text-center">
+            <div className="w-11 h-11 rounded-xl bg-green-100 group-hover:bg-green-200 flex items-center justify-center transition-colors">
+              <Users className="w-5 h-5 text-green-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Directory</p>
+              <p className="text-xs text-muted-foreground">Browse members</p>
+            </div>
+          </Link>
         </div>
       </div>
 
