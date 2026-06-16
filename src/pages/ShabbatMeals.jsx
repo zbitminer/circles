@@ -76,6 +76,25 @@ export default function ShabbatMeals() {
         </div>
       </div>
 
+      {/* How it works */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 text-center">
+          <div className="text-2xl mb-2">🏠</div>
+          <h3 className="font-semibold text-sm text-amber-900 mb-1">Host a Meal</h3>
+          <p className="text-xs text-amber-700">Open your home for Shabbat or a holiday. List your date, location, and how many guests you can welcome.</p>
+        </div>
+        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 text-center">
+          <div className="text-2xl mb-2">🙋</div>
+          <h3 className="font-semibold text-sm text-amber-900 mb-1">Join a Table</h3>
+          <p className="text-xs text-amber-700">Browse upcoming meals nearby, RSVP with one click, and show up ready to connect with your community.</p>
+        </div>
+        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 text-center">
+          <div className="text-2xl mb-2">✨</div>
+          <h3 className="font-semibold text-sm text-amber-900 mb-1">Build Community</h3>
+          <p className="text-xs text-amber-700">Whether you're new in town, a lone soldier, or simply looking for connection — every table is a circle of belonging.</p>
+        </div>
+      </div>
+
       {/* Create Form */}
       {showForm && user && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
