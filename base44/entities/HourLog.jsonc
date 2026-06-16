@@ -18,15 +18,14 @@
     "cause_category": {
       "type": "string",
       "enum": [
-        "Environment",
-        "Education",
-        "Health",
-        "Animals",
-        "Community",
-        "Elderly",
-        "Youth",
-        "Disaster Relief",
-        "Arts & Culture",
+        "Transportation & Escort",
+        "Combating Loneliness",
+        "Food Preparation & Delivery",
+        "Technological Assistance",
+        "Maintenance & Home Repair",
+        "Learning & Skills Workshops",
+        "Trauma & Emotional Support",
+        "Community Events",
         "Other"
       ]
     },
@@ -39,28 +38,5 @@
     "activity_name",
     "hours",
     "date"
-  ],
-  "rls": {
-    "create": {
-      "data.user_id": "{{user.id}}"
-    },
-    "read": {
-      "$or": [
-        {
-          "data.user_id": "{{user.id}}"
-        },
-        {
-          "user_condition": {
-            "role": "admin"
-          }
-        }
-      ]
-    },
-    "update": {
-      "data.user_id": "{{user.id}}"
-    },
-    "delete": {
-      "data.user_id": "{{user.id}}"
-    }
-  }
+  ]
 }
