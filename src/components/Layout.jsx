@@ -121,8 +121,9 @@ export default function Layout() {
             </div>
           </div>
         </div>
-        <div className="border-t text-center py-4 text-xs" style={{ borderColor: 'rgba(201,168,76,0.3)', color: 'rgba(245,230,192,0.4)' }}>
-          © {new Date().getFullYear()} Circles of Giving. All rights reserved.
+        <div className="border-t text-center py-4 text-xs space-y-2" style={{ borderColor: 'rgba(201,168,76,0.3)', color: 'rgba(245,230,192,0.4)' }}>
+          <p>© {new Date().getFullYear()} Circles of Giving. All rights reserved.</p>
+          <p><a href="/privacy" className="transition-colors hover:text-opacity-100" style={{ color: 'inherit' }}>Privacy Policy</a></p>
         </div>
       </footer>
     </div>
