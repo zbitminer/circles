@@ -58,6 +58,22 @@ export default function Analytics() {
         <p className="text-sm mt-2" style={{ color: '#6b5c3e' }}>Track your volunteer contributions</p>
       </div>
 
+      {/* How it Works - 3 Steps */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        {[
+          { step: '1', emoji: '⏱️', title: 'Log Hours', desc: 'Record your volunteer activities and hours in your profile.' },
+          { step: '2', emoji: '📈', title: 'Track Progress', desc: 'See your total impact grow over time.' },
+          { step: '3', emoji: '🏆', title: 'Get Recognized', desc: 'Generate certificates and earn badges for your contributions.' },
+        ].map(({ step, emoji, title, desc }) => (
+          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
+            <div className="text-xl">{emoji}</div>
+            <h3 className="font-semibold text-xs" style={{ color: '#1A2744' }}>{title}</h3>
+            <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
