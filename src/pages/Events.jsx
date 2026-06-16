@@ -256,7 +256,7 @@ export default function Events() {
                 category: 'Community Events',
                 description: 'Over 120 community members — including lone soldiers, new immigrants, and elderly neighbors — shared a festive holiday meal together.',
                 attendees: 120,
-                emoji: '🍎',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/dde20d403_generated_image.png',
                 highlight: true,
               },
               {
@@ -266,7 +266,7 @@ export default function Events() {
                 category: 'Technological Assistance',
                 description: 'Volunteers helped 45 elderly residents set up smartphones, WhatsApp, and video calls to stay connected with family.',
                 attendees: 45,
-                emoji: '📱',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ea33792bf_generated_image.png',
               },
               {
                 title: 'Emergency Food Drive — Gaza Border Communities',
@@ -275,7 +275,7 @@ export default function Events() {
                 category: 'Food Preparation & Delivery',
                 description: 'Circles of Giving mobilized 80+ volunteers to pack and deliver food parcels to families displaced from the Gaza border region.',
                 attendees: 83,
-                emoji: '🫶',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/42134c836_generated_image.png',
                 highlight: true,
               },
               {
@@ -285,7 +285,7 @@ export default function Events() {
                 category: 'Combating Loneliness',
                 description: 'A community walk raising awareness about senior loneliness, followed by paired conversations between volunteers and elderly residents.',
                 attendees: 60,
-                emoji: '🚶',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e71f86894_generated_image.png',
               },
               {
                 title: 'Home Repair Day for Bereaved Families',
@@ -294,7 +294,7 @@ export default function Events() {
                 category: 'Maintenance & Home Repair',
                 description: 'Skilled volunteers spent the day making repairs and improvements to the homes of families who lost loved ones in the war.',
                 attendees: 32,
-                emoji: '🔨',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',
               },
               {
                 title: 'Skills Exchange Workshop — Cooking & Culture',
@@ -303,11 +303,11 @@ export default function Events() {
                 category: 'Learning & Skills Workshops',
                 description: 'Volunteers taught traditional recipes from 7 different cultural backgrounds, exchanging skills and stories in a festive multi-cultural cook-off.',
                 attendees: 55,
-                emoji: '🍳',
+                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d52e102aa_generated_image.png',
               },
             ].map((evt) => (
               <div key={evt.title} className={`bg-card rounded-2xl border overflow-hidden opacity-85 ${evt.highlight ? 'border-primary/30' : 'border-border'}`}>
-                <div className="w-full h-16 bg-muted flex items-center justify-center text-3xl">{evt.emoji}</div>
+                <img src={evt.image} alt={evt.title} className="w-full h-36 object-cover" />
                 <div className={`px-4 py-3 ${evt.highlight ? 'bg-primary/5' : ''}`}>
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-accent font-semibold">{evt.category}</span>
