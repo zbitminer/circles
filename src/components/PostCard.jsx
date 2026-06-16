@@ -107,10 +107,14 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
       {/* Header */}
       <div className="p-5 pb-3 flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-semibold flex-shrink-0">
+          <div className="w-11 h-11 rounded-xl flex-shrink-0 overflow-hidden shadow-sm border border-border">
             {post.author_avatar
-              ? <img src={post.author_avatar} alt="" className="w-full h-full rounded-full object-cover" />
-              : initials(post.author_name)}
+              ? <img src={post.author_avatar} alt={post.author_name} className="w-full h-full object-cover" />
+              : (
+                <div className="w-full h-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-sm font-bold">
+                  {initials(post.author_name)}
+                </div>
+              )}
           </div>
           <div>
             <p className="font-semibold text-sm text-foreground">{post.author_name || 'Anonymous'}</p>
@@ -196,8 +200,11 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
           ) : (
             comments.map(c => (
               <div key={c.id} className="flex gap-2">
-                <div className="w-7 h-7 rounded-full bg-secondary flex items-center justify-center text-xs font-semibold flex-shrink-0">
-                  {initials(c.author_name)}
+                <div className="w-7 h-7 rounded-xl flex-shrink-0 overflow-hidden border border-border">
+                  {c.author_avatar
+                    ? <img src={c.author_avatar} alt={c.author_name} className="w-full h-full object-cover" />
+                    : <div className="w-full h-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold">{initials(c.author_name)}</div>
+                  }
                 </div>
                 <div className="bg-muted rounded-xl px-3 py-2 flex-1">
                   <p className="text-xs font-semibold mb-0.5">{c.author_name}</p>
