@@ -84,7 +84,49 @@ export default function Layout() {
         <Outlet />
       </main>
 
+      {/* Footer */}
+      <footer className="bg-primary text-primary-foreground mt-12">
+        <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-8 h-8 rounded-full object-contain bg-white/10" />
+              <span className="font-display font-bold text-lg">Circles of Giving</span>
+            </div>
+            <p className="text-primary-foreground/70 text-sm leading-relaxed">
+              A community that brings together people who want to create change and make an impact — through caring, collaboration, and mutual aid.
+            </p>
+          </div>
 
+          {/* Quick links */}
+          <div>
+            <h4 className="font-semibold text-sm mb-3 text-accent">Quick Links</h4>
+            <ul className="space-y-1.5 text-sm text-primary-foreground/75">
+              <li><a href="/opportunities" className="hover:text-accent transition-colors">Volunteer Opportunities</a></li>
+              <li><a href="/events" className="hover:text-accent transition-colors">Events</a></li>
+              <li><a href="/sos" className="hover:text-accent transition-colors">SOS Urgent Board</a></li>
+              <li><a href="/shabbat" className="hover:text-accent transition-colors">Shabbat & Holiday Meals</a></li>
+              <li><a href="/corporate" className="hover:text-accent transition-colors">Corporate Volunteering</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-semibold text-sm mb-3 text-accent">Contact</h4>
+            <ul className="space-y-1.5 text-sm text-primary-foreground/75">
+              <li>🌐 <a href="https://www.circlesofgiving.org" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">circlesofgiving.org</a></li>
+              <li>📧 <a href="mailto:info@circlesofgiving.org" className="hover:text-accent transition-colors">info@circlesofgiving.org</a></li>
+            </ul>
+            <div className="mt-4 flex gap-3">
+              <a href="https://www.facebook.com/circlesofgiving" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/60 hover:text-accent transition-colors text-sm">Facebook</a>
+              <a href="https://www.instagram.com/circlesofgiving" target="_blank" rel="noopener noreferrer" className="text-primary-foreground/60 hover:text-accent transition-colors text-sm">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/10 text-center py-4 text-xs text-primary-foreground/40">
+          © {new Date().getFullYear()} Circles of Giving. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }
