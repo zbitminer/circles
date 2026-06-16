@@ -61,6 +61,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ② How it Works - 3 Steps */}
+      <section className="max-w-4xl mx-auto px-6 py-14">
+        <div className="text-center mb-10">
+          <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>How It Works</h2>
+          <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>Get started in three simple steps</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { step: '1', emoji: '🔍', title: 'Browse', desc: 'Explore volunteer opportunities, skill exchanges, or community needs based on what matters to you.' },
+            { step: '2', emoji: '✋', title: 'Connect', desc: 'Express interest or reach out directly to volunteers and community members who share your values.' },
+            { step: '3', emoji: '🌟', title: 'Impact', desc: 'Log your hours, share your story, and watch your contributions transform lives in real time.' },
+          ].map(({ step, emoji, title, desc }) => (
+            <div key={step} className="flex flex-col items-center gap-3 p-5 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
+              <div className="text-2xl">{emoji}</div>
+              <h3 className="font-semibold text-sm" style={{ color: '#1A2744' }}>{title}</h3>
+              <p className="text-xs text-center" style={{ color: '#6b5c3e' }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ③ Give / Receive / Connect */}
       <section className="max-w-4xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
