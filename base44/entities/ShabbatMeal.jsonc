@@ -1,0 +1,56 @@
+{
+  "name": "ShabbatMeal",
+  "type": "object",
+  "properties": {
+    "host_name": {
+      "type": "string"
+    },
+    "host_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "location": {
+      "type": "string"
+    },
+    "seats_available": {
+      "type": "number"
+    },
+    "dietary_options": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_holiday": {
+      "type": "boolean",
+      "default": false
+    },
+    "holiday_name": {
+      "type": "string"
+    },
+    "guests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "full",
+        "cancelled"
+      ],
+      "default": "open"
+    }
+  },
+  "required": [
+    "host_name",
+    "date",
+    "location",
+    "seats_available"
+  ]
+}

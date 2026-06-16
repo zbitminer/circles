@@ -1,0 +1,60 @@
+{
+  "name": "SosRequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "cause_category": {
+      "type": "string",
+      "enum": [
+        "Transportation & Escort",
+        "Combating Loneliness",
+        "Food Preparation & Delivery",
+        "Technological Assistance",
+        "Maintenance & Home Repair",
+        "Learning & Skills Workshops",
+        "Trauma & Emotional Support",
+        "Community Events",
+        "Other"
+      ]
+    },
+    "urgency_hours": {
+      "type": "number",
+      "enum": [
+        24,
+        48
+      ],
+      "default": 24
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "claimed",
+        "resolved"
+      ],
+      "default": "open"
+    },
+    "claimed_by_id": {
+      "type": "string"
+    },
+    "claimed_by_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "contact_name"
+  ]
+}

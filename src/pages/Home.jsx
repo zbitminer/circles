@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Gift, HandHeart, Users } from 'lucide-react';
+import ImpactStats from '@/components/ImpactStats';
+import TestimonialsSection from '@/components/TestimonialsSection';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -94,6 +96,8 @@ export default function Home() {
         )}
       </section>
 
+      <ImpactStats />
+
       {/* ④ Mission */}
       <section className="bg-muted">
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
@@ -151,6 +155,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <TestimonialsSection />
 
       {/* ⑥ I Open My Door CTA */}
       <section className="bg-primary text-primary-foreground">

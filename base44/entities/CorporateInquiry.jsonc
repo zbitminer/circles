@@ -1,0 +1,56 @@
+{
+  "name": "CorporateInquiry",
+  "type": "object",
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "employee_count": {
+      "type": "string",
+      "enum": [
+        "1-10",
+        "11-50",
+        "51-200",
+        "201-500",
+        "500+"
+      ]
+    },
+    "preferred_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "cause_interests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "scheduled",
+        "completed"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "company_name",
+    "contact_name",
+    "contact_email"
+  ]
+}

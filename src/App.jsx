@@ -15,6 +15,9 @@ import Profile from './pages/Profile';
 import Moderation from './pages/Moderation';
 import Admin from './pages/Admin';
 import Directory from './pages/Directory';
+import SosBoard from './pages/SosBoard';
+import ShabbatMeals from './pages/ShabbatMeals';
+import Corporate from './pages/Corporate';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -50,6 +53,9 @@ const AuthenticatedApp = () => {
         <Route path="/moderation" element={<Moderation />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/directory" element={<Directory />} />
+        <Route path="/sos" element={<SosBoard />} />
+        <Route path="/shabbat" element={<ShabbatMeals />} />
+        <Route path="/corporate" element={<Corporate />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
