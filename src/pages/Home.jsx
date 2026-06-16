@@ -18,7 +18,6 @@ export default function Home() {
       {/* ① Hero */}
       <section style={{ background: 'linear-gradient(180deg, #1A2744 0%, #0f1a30 100%)', borderBottom: '2px solid #C9A84C' }}>
         <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-          <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: '#C9A84C' }}>Join Northern Israel's Time Bank Revolution</p>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-tight" style={{ color: '#F5E6C0' }}>
             Transform Lives<br />Through Giving
           </h1>
