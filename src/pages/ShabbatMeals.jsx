@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Star } from 'lucide-react';
+import LocationMap from '@/components/LocationMap';
 import { format, isFuture } from 'date-fns';
 
 export default function ShabbatMeals() {
@@ -94,6 +95,13 @@ export default function ShabbatMeals() {
           <p className="text-xs text-amber-700">Whether you're new in town, a lone soldier, or simply looking for connection — every table is a circle of belonging.</p>
         </div>
       </div>
+
+      {/* Map */}
+      {!loading && upcoming.length > 0 && (
+        <div className="mb-6">
+          <LocationMap items={upcoming} onSelectItem={setSelected} labelKey="host_name" locationKey="location" />
+        </div>
+      )}
 
       {/* Create Form */}
       {showForm && user && (
