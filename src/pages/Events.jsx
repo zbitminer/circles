@@ -83,36 +83,39 @@ export default function Events() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="font-display text-3xl font-bold text-foreground mb-1">Volunteer Events</h1>
-          <p className="text-muted-foreground text-sm">Discover and RSVP to local and virtual events</p>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Volunteer Events</h1>
+          <p className="text-sm" style={{ color: '#6b5c3e' }}>Discover and RSVP to local and virtual events</p>
         </div>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex bg-muted rounded-xl p-1 gap-1">
+          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              className="p-2 rounded-lg transition-all"
+              style={viewMode === 'grid' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
               title="Grid view"
             >
               <LayoutGrid className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('calendar')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'calendar' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              className="p-2 rounded-lg transition-all"
+              style={viewMode === 'calendar' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
               title="Calendar view"
             >
               <CalendarDays className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'map' ? 'bg-card shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+              className="p-2 rounded-lg transition-all"
+              style={viewMode === 'map' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
               title="Map view"
             >
               <Map className="w-4 h-4" />
             </button>
           </div>
           {isMod && (
-            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 bg-accent text-white px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity">
+            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
               <Plus className="w-4 h-4" /> Create Event
             </button>
           )}
@@ -178,10 +181,14 @@ export default function Events() {
       )}
 
       {/* Cause filters */}
-      <div className="flex gap-1 bg-card border border-border rounded-xl p-1 mb-6 flex-wrap">
+      <div className="flex gap-1.5 mb-6 flex-wrap p-3 rounded-xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
         {CAUSES.map(c => (
           <button key={c} onClick={() => setCauseFilter(c)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+            className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
+            style={causeFilter === c
+              ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+              : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+            }>
             {c}
           </button>
         ))}
@@ -201,10 +208,10 @@ export default function Events() {
       ) : viewMode === 'map' ? (
         <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 bg-card rounded-2xl border border-border">
+        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-5xl mb-4">📅</div>
-          <h3 className="font-display text-xl font-bold mb-2">No events yet</h3>
-          <p className="text-muted-foreground text-sm">Events will appear here. Check back soon!</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No events yet</h3>
+          <p className="text-sm" style={{ color: '#6b5c3e' }}>Events will appear here. Check back soon!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -214,37 +221,49 @@ export default function Events() {
             const full = isFull(evt);
             return (
               <div key={evt.id} onClick={() => setSelected(evt)}
-                className="bg-card rounded-2xl border border-border overflow-hidden cursor-pointer hover:shadow-md hover:border-primary/20 transition-all group">
-                <img
-                  src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
-                  alt={evt.title}
-                  className="w-full h-36 object-cover"
-                />
-                <div className="bg-primary px-5 py-4">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs text-accent font-semibold uppercase tracking-wide">{evt.cause_category}</span>
-                    {past && <span className="text-xs text-primary-foreground/50">Past event</span>}
-                    {attending && !past && <span className="text-xs bg-accent text-white px-2 py-0.5 rounded-full">✓ Going</span>}
-                  </div>
-                  <h3 className="font-display font-bold text-primary-foreground text-lg group-hover:text-accent transition-colors">{evt.title}</h3>
+                className="cursor-pointer hover:shadow-xl transition-all group overflow-hidden"
+                style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '8px', boxShadow: '0 2px 8px rgba(26,39,68,0.10)' }}>
+                {/* Ornate corner accents */}
+                <div className="relative">
+                  <img
+                    src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
+                    alt={evt.title}
+                    className="w-full h-36 object-cover"
+                  />
+                  {/* Corner decorations */}
+                  <div className="absolute top-1 left-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C', borderRadius: '2px 0 0 0' }} />
+                  <div className="absolute top-1 right-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid #C9A84C', borderRight: '2px solid #C9A84C', borderRadius: '0 2px 0 0' }} />
                 </div>
-                <div className="p-5 space-y-2">
+                <div className="px-4 pt-3 pb-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{evt.cause_category}</span>
+                    {past && <span className="text-xs" style={{ color: '#aaa' }}>Past event</span>}
+                    {attending && !past && <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: '#C9A84C', color: '#fff' }}>✓ Going</span>}
+                  </div>
+                  <h3 className="font-display font-bold text-lg mb-2 group-hover:opacity-80 transition-opacity" style={{ color: '#1A2744' }}>{evt.title}</h3>
+                </div>
+                <div className="px-4 pb-4 space-y-1.5">
                   {evt.date && (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="w-4 h-4 flex-shrink-0" />
+                    <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
+                      <Calendar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
                       {format(new Date(evt.date), 'EEE, MMM d, yyyy · h:mm a')}
                     </div>
                   )}
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 flex-shrink-0" />
+                  <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
                     {evt.location}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="w-4 h-4 flex-shrink-0" />
+                  <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
+                    <Users className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
                     {evt.attendees?.length || 0} attending
                     {evt.capacity && <span>· {evt.capacity} max</span>}
-                    {full && <span className="text-accent font-medium">· Full</span>}
+                    {full && <span className="font-medium" style={{ color: '#C9A84C' }}>· Full</span>}
                   </div>
+                </div>
+                {/* Bottom corner accents */}
+                <div className="relative h-0">
+                  <div className="absolute bottom-2 left-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C', borderRadius: '0 0 0 2px' }} />
+                  <div className="absolute bottom-2 right-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid #C9A84C', borderRight: '2px solid #C9A84C', borderRadius: '0 0 2px 0' }} />
                 </div>
               </div>
             );
@@ -256,8 +275,8 @@ export default function Events() {
       {!loading && viewMode === 'grid' && (
         <div className="mt-12">
           <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-display text-2xl font-bold text-foreground">Past Events</h2>
-            <span className="text-xs bg-muted text-muted-foreground px-2.5 py-1 rounded-full">From Our History</span>
+            <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Past Events</h2>
+            <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }}>From Our History</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
@@ -318,18 +337,18 @@ export default function Events() {
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d52e102aa_generated_image.png',
               },
             ].map((evt) => (
-              <div key={evt.title} className={`bg-card rounded-2xl border overflow-hidden opacity-85 ${evt.highlight ? 'border-primary/30' : 'border-border'}`}>
+              <div key={evt.title} className="overflow-hidden" style={{ background: '#FAF7EE', border: `1.5px solid ${evt.highlight ? '#C9A84C' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
                 <img src={evt.image} alt={evt.title} className="w-full h-36 object-cover" />
-                <div className={`px-4 py-3 ${evt.highlight ? 'bg-primary/5' : ''}`}>
+                <div className="px-4 py-3">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs text-accent font-semibold">{evt.category}</span>
-                    <span className="text-xs text-muted-foreground">{evt.date}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{evt.category}</span>
+                    <span className="text-xs" style={{ color: '#888' }}>{evt.date}</span>
                   </div>
-                  <h3 className="font-semibold text-sm text-foreground mb-1">{evt.title}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{evt.description}</p>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1"><MapPin className="w-3 h-3" />{evt.location}</div>
-                    <div className="flex items-center gap-1"><Users className="w-3 h-3" />{evt.attendees} attended</div>
+                  <h3 className="font-display font-semibold text-sm mb-1" style={{ color: '#1A2744' }}>{evt.title}</h3>
+                  <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b5c3e' }}>{evt.description}</p>
+                  <div className="flex items-center gap-3 text-xs" style={{ color: '#888' }}>
+                    <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} />{evt.location}</div>
+                    <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C9A84C' }} />{evt.attendees} attended</div>
                   </div>
                 </div>
               </div>
@@ -341,34 +360,36 @@ export default function Events() {
       {/* Event Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="bg-card rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
-            {selected.image_url && (
-              <img src={selected.image_url} alt={selected.title} className="w-full h-48 object-cover" />
-            )}
-            <div className="bg-primary px-6 py-5">
+          <div className="max-w-lg w-full shadow-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+            <img
+              src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
+              alt={selected.title}
+              className="w-full h-48 object-cover"
+            />
+            <div className="px-6 py-5" style={{ background: '#1A2744', borderBottom: '1px solid #C9A84C' }}>
               <div className="flex items-start justify-between">
-                <span className="text-xs text-accent font-semibold uppercase tracking-wide">{selected.cause_category}</span>
-                <button onClick={() => setSelected(null)} className="p-1 hover:bg-white/10 rounded-lg"><X className="w-4 h-4 text-primary-foreground" /></button>
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{selected.cause_category}</span>
+                <button onClick={() => setSelected(null)} className="p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: '#F5E6C0' }} /></button>
               </div>
-              <h2 className="font-display text-2xl font-bold text-primary-foreground mt-2">{selected.title}</h2>
+              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: '#F5E6C0' }}>{selected.title}</h2>
             </div>
             <div className="p-6">
               <div className="space-y-3 mb-4">
                 {selected.date && (
-                  <div className="flex items-center gap-2 text-sm"><Calendar className="w-4 h-4 text-accent" />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a')}</div>
+                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a')}</div>
                 )}
-                <div className="flex items-center gap-2 text-sm"><MapPin className="w-4 h-4 text-accent" />{selected.location}</div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Users className="w-4 h-4 text-accent" />
+                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>
+                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}>
+                  <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
                   {selected.attendees?.length || 0} attending
                   {selected.capacity && ` · ${selected.capacity} max capacity`}
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">{selected.description}</p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b5c3e' }}>{selected.description}</p>
 
               {isMod && selected.attendees?.length > 0 && (
-                <div className="bg-muted rounded-xl p-4 mb-4">
-                  <p className="text-xs font-semibold mb-2 text-muted-foreground">Attendee Count: {selected.attendees.length}</p>
+                <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
+                  <p className="text-xs font-semibold mb-2" style={{ color: '#6b5c3e' }}>Attendee Count: {selected.attendees.length}</p>
                 </div>
               )}
 
@@ -376,18 +397,19 @@ export default function Events() {
                 <button
                   onClick={() => handleRSVP(selected)}
                   disabled={isFull(selected) && !selected.attendees?.includes(user.id)}
-                  className={`w-full py-3 font-semibold rounded-xl transition-all ${
+                  className="w-full py-3 font-semibold rounded-xl transition-all"
+                  style={
                     selected.attendees?.includes(user.id)
-                      ? 'bg-muted text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
+                      ? { background: '#f0e8d0', color: '#6b5c3e' }
                       : isFull(selected)
-                      ? 'bg-muted text-muted-foreground cursor-not-allowed'
-                      : 'bg-accent text-white hover:opacity-90'
-                  }`}
+                      ? { background: '#e0d5be', color: '#aaa', cursor: 'not-allowed' }
+                      : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
+                  }
                 >
-                  {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : 'RSVP — I\'ll Be There!'}
+                  {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : "RSVP — I'll Be There!"}
                 </button>
               ) : (
-                <p className="text-center text-sm text-muted-foreground">Sign in to RSVP</p>
+                <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to RSVP</p>
               )}
 
               <EventChat eventId={selected.id} currentUser={user} />
