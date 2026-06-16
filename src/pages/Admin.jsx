@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import {
   Users, FileText, Calendar, Clock, Briefcase, Shield, Trophy, BarChart2,
   Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw,
-  CheckCircle, XCircle, UserPlus, Send, Eye
+  CheckCircle, XCircle, UserPlus, Send, Eye, Rss
 } from 'lucide-react';
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
