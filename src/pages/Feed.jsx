@@ -51,7 +51,7 @@ export default function Feed() {
             <div className="bg-card rounded-2xl border border-border p-5">
               <h3 className="font-semibold text-sm mb-3">Explore Causes</h3>
               <div className="flex flex-wrap gap-1.5">
-                {['Environment', 'Education', 'Health', 'Animals', 'Community', 'Youth'].map(cause => (
+                {['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Learning & Skills Workshops', 'Community Events', 'Other'].map(cause => (
                   <span key={cause} className="text-xs px-2.5 py-1 bg-muted rounded-full text-muted-foreground hover:bg-primary hover:text-primary-foreground cursor-pointer transition-colors">
                     {cause}
                   </span>

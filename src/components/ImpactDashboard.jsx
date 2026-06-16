@@ -7,15 +7,14 @@ import { format, subMonths, startOfMonth, parseISO, isWithinInterval, endOfMonth
 import { Clock, TrendingUp, Users, Award } from 'lucide-react';
 
 const CAUSE_COLORS = {
-  'Environment': '#22c55e',
-  'Education': '#3b82f6',
-  'Health': '#ef4444',
-  'Animals': '#eab308',
-  'Community': '#a855f7',
-  'Elderly': '#f97316',
-  'Youth': '#ec4899',
-  'Disaster Relief': '#6b7280',
-  'Arts & Culture': '#6366f1',
+  'Transportation & Escort': '#3b82f6',
+  'Combating Loneliness': '#f97316',
+  'Food Preparation & Delivery': '#eab308',
+  'Technological Assistance': '#6366f1',
+  'Maintenance & Home Repair': '#6b7280',
+  'Learning & Skills Workshops': '#22c55e',
+  'Trauma & Emotional Support': '#ec4899',
+  'Community Events': '#a855f7',
   'Other': '#14b8a6',
 };
 

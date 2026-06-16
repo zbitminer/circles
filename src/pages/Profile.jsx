@@ -3,18 +3,17 @@ import { base44 } from '@/api/base44Client';
 import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera } from 'lucide-react';
 import { format } from 'date-fns';
 
-const CAUSES = ['Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
+const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
 const CAUSE_COLORS = {
-  'Environment': 'bg-green-100 text-green-800',
-  'Education': 'bg-blue-100 text-blue-800',
-  'Health': 'bg-red-100 text-red-800',
-  'Animals': 'bg-yellow-100 text-yellow-800',
-  'Community': 'bg-purple-100 text-purple-800',
-  'Elderly': 'bg-orange-100 text-orange-800',
-  'Youth': 'bg-pink-100 text-pink-800',
-  'Disaster Relief': 'bg-gray-100 text-gray-800',
-  'Arts & Culture': 'bg-indigo-100 text-indigo-800',
+  'Transportation & Escort': 'bg-blue-100 text-blue-800',
+  'Combating Loneliness': 'bg-orange-100 text-orange-800',
+  'Food Preparation & Delivery': 'bg-yellow-100 text-yellow-800',
+  'Technological Assistance': 'bg-indigo-100 text-indigo-800',
+  'Maintenance & Home Repair': 'bg-gray-100 text-gray-800',
+  'Learning & Skills Workshops': 'bg-green-100 text-green-800',
+  'Trauma & Emotional Support': 'bg-pink-100 text-pink-800',
+  'Community Events': 'bg-purple-100 text-purple-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 
@@ -28,7 +27,7 @@ export default function Profile() {
   const [locationText, setLocationText] = useState('');
   const [selectedCauses, setSelectedCauses] = useState([]);
   const [showLogForm, setShowLogForm] = useState(false);
-  const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Community', notes: '' });
+  const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
   const [submittingLog, setSubmittingLog] = useState(false);
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export default function Profile() {
     const newTotal = (profile.total_hours || 0) + hours;
     await base44.entities.VolunteerProfile.update(profile.id, { total_hours: newTotal });
     setProfile(prev => ({ ...prev, total_hours: newTotal }));
-    setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Community', notes: '' });
+    setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
     setShowLogForm(false);
     setSubmittingLog(false);
     const updated = await base44.entities.HourLog.filter({ user_id: user.id });

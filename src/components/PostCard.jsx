@@ -4,34 +4,38 @@ import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
 const CAUSE_BANNERS = {
-  'Environment': 'bg-green-100',
-  'Education': 'bg-blue-100',
-  'Health': 'bg-red-100',
-  'Animals': 'bg-yellow-100',
-  'Community': 'bg-purple-100',
-  'Elderly': 'bg-orange-100',
-  'Youth': 'bg-pink-100',
-  'Disaster Relief': 'bg-gray-100',
-  'Arts & Culture': 'bg-indigo-100',
+  'Transportation & Escort': 'bg-blue-100',
+  'Combating Loneliness': 'bg-orange-100',
+  'Food Preparation & Delivery': 'bg-yellow-100',
+  'Technological Assistance': 'bg-indigo-100',
+  'Maintenance & Home Repair': 'bg-gray-100',
+  'Learning & Skills Workshops': 'bg-green-100',
+  'Trauma & Emotional Support': 'bg-pink-100',
+  'Community Events': 'bg-purple-100',
   'Other': 'bg-muted',
 };
 
 const CAUSE_EMOJIS = {
-  'Environment': '🌿', 'Education': '📚', 'Health': '❤️', 'Animals': '🐾',
-  'Community': '🏘️', 'Elderly': '🤝', 'Youth': '⭐', 'Disaster Relief': '🆘',
-  'Arts & Culture': '🎨', 'Other': '💡',
+  'Transportation & Escort': '🚗',
+  'Combating Loneliness': '🤝',
+  'Food Preparation & Delivery': '🍲',
+  'Technological Assistance': '💻',
+  'Maintenance & Home Repair': '🔧',
+  'Learning & Skills Workshops': '📚',
+  'Trauma & Emotional Support': '💛',
+  'Community Events': '🏘️',
+  'Other': '💡',
 };
 
 const CAUSE_COLORS = {
-  'Environment': 'bg-green-100 text-green-800',
-  'Education': 'bg-blue-100 text-blue-800',
-  'Health': 'bg-red-100 text-red-800',
-  'Animals': 'bg-yellow-100 text-yellow-800',
-  'Community': 'bg-purple-100 text-purple-800',
-  'Elderly': 'bg-orange-100 text-orange-800',
-  'Youth': 'bg-pink-100 text-pink-800',
-  'Disaster Relief': 'bg-gray-100 text-gray-800',
-  'Arts & Culture': 'bg-indigo-100 text-indigo-800',
+  'Transportation & Escort': 'bg-blue-100 text-blue-800',
+  'Combating Loneliness': 'bg-orange-100 text-orange-800',
+  'Food Preparation & Delivery': 'bg-yellow-100 text-yellow-800',
+  'Technological Assistance': 'bg-indigo-100 text-indigo-800',
+  'Maintenance & Home Repair': 'bg-gray-100 text-gray-800',
+  'Learning & Skills Workshops': 'bg-green-100 text-green-800',
+  'Trauma & Emotional Support': 'bg-pink-100 text-pink-800',
+  'Community Events': 'bg-purple-100 text-purple-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 
