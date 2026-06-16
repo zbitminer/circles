@@ -291,25 +291,27 @@ export default function Directory() {
             return (
               <div key={profile.id} onClick={() => setSelected(profile)}
                 className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-md hover:border-primary/20 transition-all cursor-pointer group">
-                <div className="bg-primary px-5 pt-5 pb-8">
-                  <Avatar profile={profile} />
-                </div>
-                <div className="px-5 -mt-4 pb-5">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
-                      {profile.location && <p className="text-xs text-muted-foreground mt-0.5">📍 {profile.location}</p>}
+                <div className="bg-primary px-5 pt-5 pb-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <Avatar profile={profile} />
+                      <div>
+                        <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
+                        {profile.location && <p className="text-xs text-primary-foreground/70 mt-0.5">📍 {profile.location}</p>}
+                      </div>
                     </div>
                     {currentUser && (
                       <button onClick={e => { e.stopPropagation(); handleFollow(profile.user_id); }}
                         className={`flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-medium transition-all flex-shrink-0 ${
-                          isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
+                          isFollowed ? 'bg-white/20 text-white' : 'bg-accent text-white hover:opacity-90'
                         }`}>
                         {isFollowed ? <UserCheck className="w-3 h-3" /> : <UserPlus className="w-3 h-3" />}
                         {isFollowed ? 'Following' : 'Follow'}
                       </button>
                     )}
                   </div>
+                </div>
+                <div className="px-5 pt-4 pb-5">
                   {profile.bio && <p className="text-xs text-muted-foreground mb-3 line-clamp-2 leading-relaxed">{profile.bio}</p>}
                   <div className="grid grid-cols-3 gap-2 mb-3">
                     <div className="text-center bg-muted rounded-xl py-2">
