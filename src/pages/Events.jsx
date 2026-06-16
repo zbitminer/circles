@@ -240,6 +240,92 @@ export default function Events() {
         </div>
       )}
 
+      {/* Past Events Section */}
+      {!loading && viewMode === 'grid' && (
+        <div className="mt-12">
+          <div className="flex items-center gap-3 mb-6">
+            <h2 className="font-display text-2xl font-bold text-foreground">Past Events</h2>
+            <span className="text-xs bg-muted text-muted-foreground px-2.5 py-1 rounded-full">From Our History</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'Rosh Hashana Community Meal',
+                date: 'September 2024',
+                location: 'Safed Community Center',
+                category: 'Community Events',
+                description: 'Over 120 community members — including lone soldiers, new immigrants, and elderly neighbors — shared a festive holiday meal together.',
+                attendees: 120,
+                emoji: '🍎',
+                highlight: true,
+              },
+              {
+                title: 'Tech Support Day for Seniors',
+                date: 'August 2024',
+                location: 'Haifa, Northern District',
+                category: 'Technological Assistance',
+                description: 'Volunteers helped 45 elderly residents set up smartphones, WhatsApp, and video calls to stay connected with family.',
+                attendees: 45,
+                emoji: '📱',
+              },
+              {
+                title: 'Emergency Food Drive — Gaza Border Communities',
+                date: 'November 2023',
+                location: 'Northern Israel',
+                category: 'Food Preparation & Delivery',
+                description: 'Circles of Giving mobilized 80+ volunteers to pack and deliver food parcels to families displaced from the Gaza border region.',
+                attendees: 83,
+                emoji: '🫶',
+                highlight: true,
+              },
+              {
+                title: 'Loneliness Awareness Walk',
+                date: 'July 2024',
+                location: 'Tiberias Promenade',
+                category: 'Combating Loneliness',
+                description: 'A community walk raising awareness about senior loneliness, followed by paired conversations between volunteers and elderly residents.',
+                attendees: 60,
+                emoji: '🚶',
+              },
+              {
+                title: 'Home Repair Day for Bereaved Families',
+                date: 'May 2024',
+                location: 'Upper Galilee',
+                category: 'Maintenance & Home Repair',
+                description: 'Skilled volunteers spent the day making repairs and improvements to the homes of families who lost loved ones in the war.',
+                attendees: 32,
+                emoji: '🔨',
+              },
+              {
+                title: 'Skills Exchange Workshop — Cooking & Culture',
+                date: 'March 2024',
+                location: 'Karmiel Cultural Center',
+                category: 'Learning & Skills Workshops',
+                description: 'Volunteers taught traditional recipes from 7 different cultural backgrounds, exchanging skills and stories in a festive multi-cultural cook-off.',
+                attendees: 55,
+                emoji: '🍳',
+              },
+            ].map((evt) => (
+              <div key={evt.title} className={`bg-card rounded-2xl border overflow-hidden opacity-85 ${evt.highlight ? 'border-primary/30' : 'border-border'}`}>
+                <div className="w-full h-16 bg-muted flex items-center justify-center text-3xl">{evt.emoji}</div>
+                <div className={`px-4 py-3 ${evt.highlight ? 'bg-primary/5' : ''}`}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs text-accent font-semibold">{evt.category}</span>
+                    <span className="text-xs text-muted-foreground">{evt.date}</span>
+                  </div>
+                  <h3 className="font-semibold text-sm text-foreground mb-1">{evt.title}</h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{evt.description}</p>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1"><MapPin className="w-3 h-3" />{evt.location}</div>
+                    <div className="flex items-center gap-1"><Users className="w-3 h-3" />{evt.attendees} attended</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Event Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
