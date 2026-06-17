@@ -4,16 +4,15 @@ import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, 
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 
-const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
+const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
 const CAUSE_COLORS = {
-  'Transportation': 'bg-blue-100 text-blue-800',
   'Companionship': 'bg-orange-100 text-orange-800',
   'Food': 'bg-yellow-100 text-yellow-800',
+  'Home': 'bg-gray-100 text-gray-800',
+  'Skills Sharing': 'bg-pink-100 text-pink-800',
   'Technology': 'bg-indigo-100 text-indigo-800',
-  'Home Repairs': 'bg-gray-100 text-gray-800',
-  'Education & Learning': 'bg-green-100 text-green-800',
-  'Skill Share': 'bg-pink-100 text-pink-800',
+  'Transportation': 'bg-blue-100 text-blue-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 

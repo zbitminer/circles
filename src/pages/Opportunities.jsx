@@ -8,7 +8,7 @@ const CAUSES = [
   { label: 'All', emoji: '🌐' },
   { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
-  { label: 'Home Repairs', emoji: '🔧' },
+  { label: 'Home', emoji: '🔧' },
   { label: 'Skills Sharing', emoji: '🌟' },
   { label: 'Technology', emoji: '💻' },
   { label: 'Transportation', emoji: '🚗' },

@@ -6,7 +6,7 @@ import { formatDistanceToNow } from 'date-fns';
 const CAUSE_BANNERS = {
   'Companionship': 'bg-orange-100',
   'Food': 'bg-yellow-100',
-  'Home Repairs': 'bg-gray-100',
+  'Home': 'bg-gray-100',
   'Skills Sharing': 'bg-pink-100',
   'Technology': 'bg-indigo-100',
   'Transportation': 'bg-blue-100',
@@ -16,7 +16,7 @@ const CAUSE_BANNERS = {
 const CAUSE_EMOJIS = {
   'Companionship': '🤝',
   'Food': '🍲',
-  'Home Repairs': '🔧',
+  'Home': '🔧',
   'Skills Sharing': '🌟',
   'Technology': '💻',
   'Transportation': '🚗',
@@ -26,7 +26,7 @@ const CAUSE_EMOJIS = {
 const CAUSE_COLORS = {
   'Companionship': 'bg-orange-100 text-orange-800',
   'Food': 'bg-yellow-100 text-yellow-800',
-  'Home Repairs': 'bg-gray-100 text-gray-800',
+  'Home': 'bg-gray-100 text-gray-800',
   'Skills Sharing': 'bg-pink-100 text-pink-800',
   'Technology': 'bg-indigo-100 text-indigo-800',
   'Transportation': 'bg-blue-100 text-blue-800',
