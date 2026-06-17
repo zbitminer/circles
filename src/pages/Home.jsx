@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight } from 'lucide-react';
-import ImpactStats from '@/components/ImpactStats';
 import TestimonialsSection from '@/components/TestimonialsSection';
 
 export default function Home() {
@@ -175,8 +174,6 @@ export default function Home() {
           </p>
         )}
       </section>
-
-      <ImpactStats />
 
       {/* Mission */}
       <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
