@@ -251,7 +251,7 @@ export default function Layout() {
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Quick Links</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
               <li><a href="/contact" className="transition-colors hover:text-white">Contact</a></li>
-              <li><a href="/corporate" className="transition-colors hover:text-white">Corporate Volunteering</a></li>
+              <li><a href="/donate" className="transition-colors hover:text-white">Donate</a></li>
               <li><a href="/events" className="transition-colors hover:text-white">Events</a></li>
               <li><a href="/health" className="transition-colors hover:text-white">Health Support</a></li>
               <li><a href="/opportunities" className="transition-colors hover:text-white">Giving Opportunities</a></li>
