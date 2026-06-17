@@ -6,7 +6,7 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 
-const CAUSES = ['Food', 'Companionship', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
+const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const CAUSE_COLORS = {
   'Food': 'bg-yellow-100 text-yellow-800',

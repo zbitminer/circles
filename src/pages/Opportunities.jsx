@@ -7,8 +7,8 @@ import CategorySearchFilters from '@/components/CategorySearchFilters';
 import FilterBar from '@/components/FilterBar';
 
 const CAUSE_OPTIONS = [
-  { label: 'Food', emoji: '🍲' },
   { label: 'Companionship', emoji: '🤝' },
+  { label: 'Food', emoji: '🍲' },
   { label: 'Home', emoji: '🏠' },
   { label: 'Skill Sharing', emoji: '📚' },
   { label: 'Technology', emoji: '💻' },
@@ -49,7 +49,7 @@ export default function Opportunities() {
   };
 
   const categoryEmoji = {
-    'Food': '🍲', 'Companionship': '🤝', 'Home': '🏠', 'Skill Sharing': '📚',
+    'Companionship': '🤝', 'Food': '🍲', 'Home': '🏠', 'Skill Sharing': '📚',
     'Technology': '💻', 'Transportation': '🚗',
   };
 

@@ -2,14 +2,14 @@ import { X } from 'lucide-react';
 
 const CATEGORIES = [
   {
-    label: 'Food',
-    emoji: '🍲',
-    subcategories: ['Baking', 'Delivery', 'Meal Preparation', 'Recipes'],
-  },
-  {
     label: 'Companionship',
     emoji: '🤝',
     subcategories: ['Visiting', 'Outing', 'Escort', 'Calls'],
+  },
+  {
+    label: 'Food',
+    emoji: '🍲',
+    subcategories: ['Baking', 'Delivery', 'Meal Preparation', 'Recipes'],
   },
   {
     label: 'Home',

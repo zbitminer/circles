@@ -18,8 +18,8 @@
     "cause_category": {
       "type": "string",
       "enum": [
-        "Food",
         "Companionship",
+        "Food",
         "Home",
         "Skill Sharing",
         "Technology",

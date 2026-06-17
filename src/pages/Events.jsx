@@ -8,7 +8,7 @@ import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Food', 'Companionship', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
+const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const CAUSE_FALLBACK_IMAGES = {
   'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
