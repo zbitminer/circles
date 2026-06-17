@@ -22,7 +22,8 @@
         "Home",
         "Skill Sharing",
         "Technology",
-        "Transportation"
+        "Transportation",
+        "Other"
       ]
     },
     "urgency_hours": {
