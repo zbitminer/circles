@@ -5,7 +5,7 @@ const CATEGORIES = [
   {
     label: 'Transportation',
     emoji: '🚗',
-    subcategories: ['Medical', 'Errands', 'Deliveries', 'Escort'],
+    subcategories: ['Medical', 'Errands', 'Deliveries'],
   },
   {
     label: 'Companionship',
@@ -23,19 +23,19 @@ const CATEGORIES = [
     subcategories: ['Drop Box', 'Digital Forms'],
   },
   {
-    label: 'Technology',
-    emoji: '💻',
-    subcategories: ['Computer/Phone', 'Appointments', 'Digital Forms', 'Translation', 'Real Time Support'],
-  },
-  {
     label: 'Home',
     emoji: '🏠',
     subcategories: ['Daily Chores Task', 'Organization', 'Maintenance', 'Garden'],
   },
   {
-    label: 'Education & Skill Share',
+    label: 'Education & Learning',
     emoji: '📚',
     subcategories: ['In Person/Zoom', 'Health Teach', 'Language', 'Arts/Music', 'Cooking', 'Torah', 'Health Wellness'],
+  },
+  {
+    label: 'Technology',
+    emoji: '💻',
+    subcategories: ['Computer/Phone', 'Appointments', 'Digital Forms', 'Translation', 'Real Time Support'],
   },
 ];
 

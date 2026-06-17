@@ -6,7 +6,7 @@ import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 
-const CAUSES = ['Companionship', 'Food', 'Home', 'Education & Skill Share', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
+const CAUSES = ['Companionship', 'Food', 'Home', 'Education & Learning', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
 
 const STATUS_COLORS = {
   open: 'bg-red-100 text-red-700',

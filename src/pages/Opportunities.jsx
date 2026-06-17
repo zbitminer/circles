@@ -11,7 +11,7 @@ const CAUSES = [
   { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
   { label: 'Home', emoji: '🏠' },
-  { label: 'Education & Skill Share', emoji: '📚' },
+  { label: 'Education & Learning', emoji: '📚' },
   { label: 'Technology', emoji: '💻' },
   { label: 'Transportation', emoji: '🚗' },
   { label: 'Electronic Forms', emoji: '📋' },
@@ -54,7 +54,7 @@ export default function Opportunities() {
   const categoryEmoji = {
     'Companionship': '🤝', 'Food': '🍲',
     'Home': '🏠', 'Technology': '💻', 'Transportation': '🚗',
-    'Education & Skill Share': '📚', 'Electronic Forms': '📋', 'Other': '💡',
+    'Education & Learning': '📚', 'Electronic Forms': '📋', 'Other': '💡',
   };
 
   const filtered = opportunities.filter(o => {
