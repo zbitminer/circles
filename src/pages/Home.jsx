@@ -67,23 +67,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Banner */}
-      <section className="py-8" style={{ background: '#F9F9F9', borderBottom: '1px solid #e0e0e0' }}>
-        <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            { value: '347', label: 'Active Members' },
-            { value: '15,420', label: 'Hours Given' },
-            { value: '847', label: 'Skills Shared' },
-            { value: '94', label: 'Communities Served' },
-          ].map(({ value, label }) => (
-            <div key={label}>
-              <div className="text-3xl md:text-4xl font-extrabold mb-1" style={{ color: '#D95D1A' }}>{value}</div>
-              <div className="text-sm font-medium" style={{ color: '#777' }}>{label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* How the Circle Works */}
       <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
         {/* Abstract circle artwork */}
