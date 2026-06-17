@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame, AlertTriangle, UtensilsCrossed, Building2, MessageSquare, BarChart3 } from 'lucide-react';
+import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame, AlertTriangle, UtensilsCrossed, Building2, MessageSquare, BarChart3, Heart } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { path: '/shabbat', label: 'Shabbat Meals', icon: UtensilsCrossed },
   { path: '/directory', label: 'Directory', icon: Users },
   { path: '/messages', label: 'Messages', icon: MessageSquare },
+  { path: '/health', label: 'Health Support', icon: Heart },
   { path: '/analytics', label: 'Impact', icon: BarChart3 },
   { path: '/corporate', label: 'For Businesses', icon: Building2 },
   { path: '/profile', label: 'My Profile', icon: User },
@@ -111,6 +112,7 @@ export default function Layout() {
               <li><a href="/sos" className="transition-colors" style={{ color: 'inherit' }}>SOS Urgent Board</a></li>
               <li><a href="/shabbat" className="transition-colors" style={{ color: 'inherit' }}>Shabbat & Holiday Meals</a></li>
               <li><a href="/corporate" className="transition-colors" style={{ color: 'inherit' }}>Corporate Volunteering</a></li>
+              <li><a href="/health" className="transition-colors" style={{ color: 'inherit' }}>Health Support</a></li>
               <li><a href="/contact" className="transition-colors" style={{ color: 'inherit' }}>Contact</a></li>
             </ul>
           </div>

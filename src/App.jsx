@@ -24,6 +24,7 @@ import MessagesPage from './pages/Messages';
 import Analytics from './pages/Analytics';
 import Contact from './pages/Contact';
 import Sitemap from './pages/Sitemap';
+import Health from './pages/Health';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/sitemap" element={<Sitemap />} />
+        <Route path="/health" element={<Health />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

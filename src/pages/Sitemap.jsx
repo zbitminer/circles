@@ -1,4 +1,4 @@
-import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, Lock, FileText } from 'lucide-react';
+import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, Lock, FileText, Heart } from 'lucide-react';
 
 export default function Sitemap() {
   const sections = [
@@ -16,6 +16,7 @@ export default function Sitemap() {
         { icon: Briefcase, name: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
         { icon: Calendar, name: 'Events', path: '/events', desc: 'Discover & RSVP to volunteer events' },
         { icon: AlertTriangle, name: 'SOS Board', path: '/sos', desc: 'Post & respond to urgent needs' },
+        { icon: Heart, name: 'Health Support', path: '/health', desc: 'Medical, mental health & wellness help' },
       ],
     },
     {

@@ -1,0 +1,56 @@
+{
+  "name": "HealthRequest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "health_category": {
+      "type": "string",
+      "enum": [
+        "medical",
+        "mental_health",
+        "wellness"
+      ]
+    },
+    "urgency": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "claimed",
+        "resolved"
+      ],
+      "default": "open"
+    },
+    "claimed_by_id": {
+      "type": "string"
+    },
+    "claimed_by_name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "contact_name",
+    "health_category"
+  ]
+}
