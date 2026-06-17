@@ -8,7 +8,7 @@ import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Education & Learning', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
+const CAUSES = ['All', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const CAUSE_FALLBACK_IMAGES = {
   'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
@@ -16,10 +16,7 @@ const CAUSE_FALLBACK_IMAGES = {
   'Food': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
   'Technology': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
   'Home': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
-  'Electronic Forms': 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80',
-
-  'Education & Learning': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
-  'Other': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',
+  'Skill Sharing': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
 };
 
 export default function Events() {

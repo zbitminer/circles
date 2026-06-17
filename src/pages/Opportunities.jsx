@@ -7,14 +7,11 @@ import CategorySearchFilters from '@/components/CategorySearchFilters';
 import FilterBar from '@/components/FilterBar';
 
 const CAUSE_OPTIONS = [
-  { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
   { label: 'Home', emoji: '🏠' },
-  { label: 'Education & Learning', emoji: '📚' },
+  { label: 'Skill Sharing', emoji: '📚' },
   { label: 'Technology', emoji: '💻' },
   { label: 'Transportation', emoji: '🚗' },
-  { label: 'Electronic Forms', emoji: '📋' },
-  { label: 'Other', emoji: '💡' },
 ];
 
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
@@ -51,9 +48,8 @@ export default function Opportunities() {
   };
 
   const categoryEmoji = {
-    'Companionship': '🤝', 'Food': '🍲',
-    'Home': '🏠', 'Technology': '💻', 'Transportation': '🚗',
-    'Education & Learning': '📚', 'Electronic Forms': '📋', 'Other': '💡',
+    'Food': '🍲', 'Home': '🏠', 'Skill Sharing': '📚',
+    'Technology': '💻', 'Transportation': '🚗',
   };
 
   const filtered = opportunities.filter(o => {

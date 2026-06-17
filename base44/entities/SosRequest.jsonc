@@ -17,14 +17,11 @@
     "cause_category": {
       "type": "string",
       "enum": [
-        "Companionship",
         "Food",
         "Home",
-        "Education & Learning",
+        "Skill Sharing",
         "Technology",
-        "Transportation",
-        "Electronic Forms",
-        "Other"
+        "Transportation"
       ]
     },
     "urgency_hours": {

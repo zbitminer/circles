@@ -5,7 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 
-const CAUSES = ['Companionship', 'Food', 'Home', 'Education & Learning', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
+const CAUSES = ['Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const STATUS_COLORS = {
   open: 'bg-red-100 text-red-700',

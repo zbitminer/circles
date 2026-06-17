@@ -2,39 +2,29 @@ import { X } from 'lucide-react';
 
 const CATEGORIES = [
   {
-    label: 'Transportation',
-    emoji: '🚗',
-    subcategories: ['Medical', 'Errands', 'Deliveries'],
-  },
-  {
-    label: 'Companionship',
-    emoji: '🤝',
-    subcategories: ['Visiting', 'Outing', 'Escort', 'Calls'],
-  },
-  {
     label: 'Food',
     emoji: '🍲',
-    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Diet Delivery'],
-  },
-  {
-    label: 'Electronic Forms',
-    emoji: '📋',
-    subcategories: ['Drop Box', 'Digital Forms'],
+    subcategories: ['Baking', 'Delivery', 'Meal Preparation', 'Recipes'],
   },
   {
     label: 'Home',
     emoji: '🏠',
-    subcategories: ['Daily Chores Task', 'Organization', 'Maintenance', 'Garden'],
+    subcategories: ['Daily Tasks', 'Garden', 'Organizing', 'Repairs'],
   },
   {
-    label: 'Education & Learning',
+    label: 'Skill Sharing',
     emoji: '📚',
-    subcategories: ['In Person/Zoom', 'Health Teach', 'Language', 'Arts/Music', 'Cooking', 'Torah', 'Health Wellness'],
+    subcategories: ['Arts/Music', 'Cooking', 'Language', 'Torah'],
   },
   {
     label: 'Technology',
     emoji: '💻',
-    subcategories: ['Computer/Phone', 'Appointments', 'Digital Forms', 'Translation', 'Real Time Support'],
+    subcategories: ['Appointments', 'Computer Phone', 'Digital Forms', 'Real Time Support', 'Translation'],
+  },
+  {
+    label: 'Transportation',
+    emoji: '🚗',
+    subcategories: ['Deliveries', 'Errands', 'Medical'],
   },
 ];
 
