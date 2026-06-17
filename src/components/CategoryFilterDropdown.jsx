@@ -5,7 +5,7 @@ const CATEGORIES = [
   {
     label: 'Companionship',
     emoji: '🤝',
-    subcategories: ['Calls', 'Escort', 'Visiting'],
+    subcategories: ['Call', 'Escort', 'Visit'],
   },
   {
     label: 'Education & Learning',
