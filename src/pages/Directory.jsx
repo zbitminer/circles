@@ -6,16 +6,16 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 
-const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Skills Sharing', 'Technology', 'Transportation', 'Drop Box', 'Other'];
+const CAUSES = ['Companionship', 'Food', 'Home', 'Education & Skill Share', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
 
 const CAUSE_COLORS = {
   'Companionship': 'bg-orange-100 text-orange-800',
   'Food': 'bg-yellow-100 text-yellow-800',
-  'Home Repairs': 'bg-gray-100 text-gray-800',
-  'Skills Sharing': 'bg-pink-100 text-pink-800',
+  'Home': 'bg-gray-100 text-gray-800',
+  'Education & Skill Share': 'bg-pink-100 text-pink-800',
   'Technology': 'bg-indigo-100 text-indigo-800',
   'Transportation': 'bg-blue-100 text-blue-800',
-  'Drop Box': 'bg-green-100 text-green-800',
+  'Electronic Forms': 'bg-green-100 text-green-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 

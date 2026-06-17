@@ -3,24 +3,24 @@ import { ChevronDown, X } from 'lucide-react';
 
 const CATEGORIES = [
   {
-    label: 'Companionship',
-    emoji: '🤝',
-    subcategories: ['Call', 'Escort', 'Visit'],
+    label: 'Transportation',
+    emoji: '🚗',
+    subcategories: ['Medical', 'Errands', 'Deliveries', 'Escort'],
   },
   {
-    label: 'Education & Learning',
-    emoji: '📚',
-    subcategories: ['In Person/Zoom', 'Health Teach', 'Language', 'Arts/Music', 'Cooking', 'Torah', 'Health Wellness'],
+    label: 'Companionship',
+    emoji: '🤝',
+    subcategories: ['Visiting', 'Outing', 'Escort', 'Calls'],
   },
   {
     label: 'Food',
     emoji: '🍲',
-    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Baser Delivery'],
+    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Diet Delivery'],
   },
   {
-    label: 'Home Repairs',
-    emoji: '🔧',
-    subcategories: ['Daily Chores Task', 'Organization', 'Repairs/Maintenance', 'Garden'],
+    label: 'Electronic Forms',
+    emoji: '📋',
+    subcategories: ['Drop Box', 'Digital Forms'],
   },
   {
     label: 'Technology',
@@ -28,14 +28,14 @@ const CATEGORIES = [
     subcategories: ['Computer/Phone', 'Appointments', 'Digital Forms', 'Translation', 'Real Time Support'],
   },
   {
-    label: 'Transportation',
-    emoji: '🚗',
-    subcategories: ['Medical', 'Errands', 'Deliveries', 'Escort'],
+    label: 'Home',
+    emoji: '🏠',
+    subcategories: ['Daily Chores Task', 'Organization', 'Maintenance', 'Garden'],
   },
   {
-    label: 'Drop Box',
-    emoji: '📦',
-    subcategories: ['Electronic Forms'],
+    label: 'Education & Skill Share',
+    emoji: '📚',
+    subcategories: ['In Person/Zoom', 'Health Teach', 'Language', 'Arts/Music', 'Cooking', 'Torah', 'Health Wellness'],
   },
 ];
 

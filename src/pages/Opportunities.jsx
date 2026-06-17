@@ -10,11 +10,11 @@ const CAUSES = [
   { label: 'All', emoji: '🌐' },
   { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
-  { label: 'Home Repairs', emoji: '🔧' },
-  { label: 'Skills Sharing', emoji: '🌟' },
+  { label: 'Home', emoji: '🏠' },
+  { label: 'Education & Skill Share', emoji: '📚' },
   { label: 'Technology', emoji: '💻' },
   { label: 'Transportation', emoji: '🚗' },
-  { label: 'Drop Box', emoji: '📦' },
+  { label: 'Electronic Forms', emoji: '📋' },
   { label: 'Other', emoji: '💡' },
 ];
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
@@ -52,9 +52,9 @@ export default function Opportunities() {
   };
 
   const categoryEmoji = {
-    'Companionship': '🤝', 'Education & Learning': '📚', 'Food': '🍲',
-    'Home Repairs': '🔧', 'Technology': '💻', 'Transportation': '🚗',
-    'Skills Sharing': '🌟', 'Drop Box': '📦', 'Other': '💡',
+    'Companionship': '🤝', 'Food': '🍲',
+    'Home': '🏠', 'Technology': '💻', 'Transportation': '🚗',
+    'Education & Skill Share': '📚', 'Electronic Forms': '📋', 'Other': '💡',
   };
 
   const filtered = opportunities.filter(o => {
