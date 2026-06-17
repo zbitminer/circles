@@ -250,13 +250,15 @@ export default function Layout() {
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Quick Links</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
+              <li><a href="/feed" className="transition-colors hover:text-white">Belong</a></li>
               <li><a href="/contact" className="transition-colors hover:text-white">Contact</a></li>
               <li><a href="/donate" className="transition-colors hover:text-white">Donate</a></li>
               <li><a href="/events" className="transition-colors hover:text-white">Events</a></li>
-              <li><a href="/health" className="transition-colors hover:text-white">Health Support</a></li>
-              <li><a href="/opportunities" className="transition-colors hover:text-white">Giving Opportunities</a></li>
-              <li><a href="/shabbat" className="transition-colors hover:text-white">Shabbat & Holiday Meals</a></li>
-              <li><a href="/sos" className="transition-colors hover:text-white">SOS Urgent Board</a></li>
+              <li><a href="/opportunities" className="transition-colors hover:text-white">Give</a></li>
+              <li><a href="/sos" className="transition-colors hover:text-white">Receive</a></li>
+              <li><a href="/shabbat" className="transition-colors hover:text-white">Shabbat</a></li>
+              <li><a href="/sos" className="transition-colors hover:text-white">Urgent</a></li>
+              <li><a href="/health" className="transition-colors hover:text-white">Wellness</a></li>
             </ul>
           </div>
           <div>
