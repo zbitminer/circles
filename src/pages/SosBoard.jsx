@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { AlertTriangle, MapPin, Clock, Plus, X, CheckCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
+import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
@@ -20,6 +21,7 @@ export default function SosBoard() {
   const [form, setForm] = useState({ title: '', description: '', contact_name: '', location: '', cause_category: 'Other', urgency_hours: 24 });
   const [submitting, setSubmitting] = useState(false);
   const [filter, setFilter] = useState('open');
+  const [dropdownFilter, setDropdownFilter] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -33,7 +35,11 @@ export default function SosBoard() {
     setLoading(false);
   };
 
-  const filtered = requests.filter(r => filter === 'all' || r.status === filter);
+  const filtered = requests.filter(r => {
+    const statusMatch = filter === 'all' || r.status === filter;
+    const dropdownCatMatch = !dropdownFilter || (r.cause_category === dropdownFilter.category);
+    return statusMatch && dropdownCatMatch;
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,6 +143,15 @@ export default function SosBoard() {
             {label}
           </button>
         ))}
+      </div>
+
+      {/* Category dropdown */}
+      <div className="mb-5">
+        <CategoryFilterDropdown
+          selected={dropdownFilter}
+          onSelect={(sel) => setDropdownFilter(sel)}
+          className="sm:w-64"
+        />
       </div>
 
       {/* Two-column layout */}

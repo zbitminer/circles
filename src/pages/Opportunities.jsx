@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map } from 'lucide-react';
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
+import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
@@ -34,6 +35,7 @@ export default function Opportunities() {
   const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '' });
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
+  const [dropdownFilter, setDropdownFilter] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -47,13 +49,32 @@ export default function Opportunities() {
     setLoading(false);
   };
 
-  const filtered = opportunities.filter(o =>
-    (causeFilter === 'All' || o.cause_category === causeFilter) &&
-    (typeFilter === 'All' || o.type === typeFilter) &&
-    (searchQuery === '' || o.title.toLowerCase().includes(searchQuery.toLowerCase()) || o.description.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const categoryEmoji = {
+    'Companionship': '🤝', 'Education & Learning': '📚', 'Food': '🍲',
+    'Home': '🏠', 'Technology': '💻', 'Transportation': '🚗',
+    'Skills Sharing': '🌟', 'Other': '💡',
+  };
 
-  const causeEmoji = Object.fromEntries(CAUSES.map(c => [c.label, c.emoji]));
+  const filtered = opportunities.filter(o => {
+    const catMatch = causeFilter === 'All' || o.cause_category === causeFilter;
+    const dropdownCatMatch = !dropdownFilter || (o.cause_category === dropdownFilter.category);
+    const typeMatch = typeFilter === 'All' || o.type === typeFilter;
+    const searchMatch = searchQuery === '' || o.title.toLowerCase().includes(searchQuery.toLowerCase()) || o.description.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization.toLowerCase().includes(searchQuery.toLowerCase());
+    return catMatch && dropdownCatMatch && typeMatch && searchMatch;
+  });
+
+  const handleDropdownSelect = (selection) => {
+    setDropdownFilter(selection);
+    if (selection) {
+      setCauseFilter('All');
+    }
+  };
+
+  const handleCauseFilter = (cause) => {
+    setCauseFilter(cause);
+    setDropdownFilter(null);
+  };
+
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
   const handleApply = async (opp) => {
@@ -159,17 +180,22 @@ export default function Opportunities() {
 
       {/* Filters */}
       <div className="mb-6 space-y-3">
-        <div className="flex flex-wrap gap-2">
-          {CAUSES.map(({ label, emoji }) => (
-            <button key={label} onClick={() => setCauseFilter(label)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
-              style={causeFilter === label
-                ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
-              }>
-              <span>{emoji}</span><span>{label}</span>
-            </button>
-          ))}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="sm:w-64">
+            <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
+          </div>
+          <div className="flex flex-wrap gap-2 items-center">
+            {CAUSES.map(({ label, emoji }) => (
+              <button key={label} onClick={() => handleCauseFilter(label)}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
+                style={causeFilter === label && !dropdownFilter
+                  ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                  : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+                }>
+                <span>{emoji}</span><span>{label}</span>
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex gap-2 flex-wrap">
           {TYPES.map(t => (
@@ -212,7 +238,7 @@ export default function Opportunities() {
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[opp.type] || 'bg-muted text-muted-foreground'}`}>
                   {opp.type}
                 </span>
-                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{causeEmoji[opp.cause_category]} {opp.cause_category}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{categoryEmoji[opp.cause_category] || '💡'} {opp.cause_category}</span>
               </div>
               <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A2744' }}>{opp.title}</h3>
               <p className="text-sm mb-2" style={{ color: '#C9A84C' }}>{opp.organization}</p>
