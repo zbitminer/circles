@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map } from 'lucide-react';
+import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
@@ -366,8 +367,8 @@ export default function Directory() {
           )}
 
           {/* Search + cause filters */}
-          <div className="space-y-3 mb-6">
-            <div className="relative">
+          <div className="mb-6">
+            <div className="relative mb-3">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 value={search}
@@ -376,22 +377,24 @@ export default function Directory() {
                 className="w-full bg-card border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary/40 transition-colors"
               />
             </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="sm:w-64">
-                <CategoryFilterDropdown
-                  selected={dropdownFilter}
-                  onSelect={(sel) => { setDropdownFilter(sel); if (sel) setCauseFilter('All'); }}
-                />
+            <FilterBar activeCount={(causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0)}>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="sm:w-64">
+                  <CategoryFilterDropdown
+                    selected={dropdownFilter}
+                    onSelect={(sel) => { setDropdownFilter(sel); if (sel) setCauseFilter('All'); }}
+                  />
+                </div>
+                <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
+                  {['All', ...CAUSES].map(c => (
+                    <button key={c} onClick={() => { setCauseFilter(c); setDropdownFilter(null); }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c && !dropdownFilter ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                      {c}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
-                {['All', ...CAUSES].map(c => (
-                  <button key={c} onClick={() => { setCauseFilter(c); setDropdownFilter(null); }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c && !dropdownFilter ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-                    {c}
-                  </button>
-                ))}
-              </div>
-            </div>
+            </FilterBar>
           </div>
 
           <div className="flex items-center gap-2 mb-5 text-sm text-muted-foreground">

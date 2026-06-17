@@ -4,6 +4,7 @@ import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map } from 'lucide-react'
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
+import FilterBar from '@/components/FilterBar';
 
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
@@ -179,37 +180,39 @@ export default function Opportunities() {
       </div>
 
       {/* Filters */}
-      <div className="mb-6 space-y-3">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="sm:w-64">
-            <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
+      <FilterBar activeCount={(causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (typeFilter !== 'All' ? 1 : 0)} className="mb-6">
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="sm:w-64">
+              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
+            </div>
+            <div className="flex flex-wrap gap-2 items-center">
+              {CAUSES.map(({ label, emoji }) => (
+                <button key={label} onClick={() => handleCauseFilter(label)}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
+                  style={causeFilter === label && !dropdownFilter
+                    ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                    : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+                  }>
+                  <span>{emoji}</span><span>{label}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2 items-center">
-            {CAUSES.map(({ label, emoji }) => (
-              <button key={label} onClick={() => handleCauseFilter(label)}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
-                style={causeFilter === label && !dropdownFilter
-                  ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                  : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+          <div className="flex gap-2 flex-wrap">
+            {TYPES.map(t => (
+              <button key={t} onClick={() => setTypeFilter(t)}
+                className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
+                style={typeFilter === t
+                  ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
+                  : { background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }
                 }>
-                <span>{emoji}</span><span>{label}</span>
+                {t}
               </button>
             ))}
           </div>
         </div>
-        <div className="flex gap-2 flex-wrap">
-          {TYPES.map(t => (
-            <button key={t} onClick={() => setTypeFilter(t)}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
-              style={typeFilter === t
-                ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
-                : { background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }
-              }>
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
+      </FilterBar>
 
       {/* Content + Map two-column */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

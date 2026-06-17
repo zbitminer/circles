@@ -4,6 +4,7 @@ import { AlertTriangle, MapPin, Clock, Plus, X, CheckCircle } from 'lucide-react
 import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
+import FilterBar from '@/components/FilterBar';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
@@ -131,28 +132,27 @@ export default function SosBoard() {
         </div>
       )}
 
-      {/* Filter tabs */}
-      <div className="flex gap-1 rounded-xl p-1 mb-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-        {[['open', '🔴 Open'], ['claimed', '🟡 Claimed'], ['resolved', '✅ Resolved'], ['all', 'All']].map(([val, label]) => (
-          <button key={val} onClick={() => setFilter(val)}
-            className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
-            style={filter === val
-              ? { background: '#1A2744', color: '#F5E6C0' }
-              : { color: '#6b5c3e' }
-            }>
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {/* Category dropdown */}
-      <div className="mb-5">
-        <CategoryFilterDropdown
-          selected={dropdownFilter}
-          onSelect={(sel) => setDropdownFilter(sel)}
-          className="sm:w-64"
-        />
-      </div>
+      <FilterBar activeCount={(filter !== 'open' && filter !== 'all' ? 1 : 0) + (dropdownFilter ? 1 : 0)} className="mb-5">
+        <div className="space-y-3">
+          <div className="flex gap-1 rounded-xl p-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+            {[['open', '🔴 Open'], ['claimed', '🟡 Claimed'], ['resolved', '✅ Resolved'], ['all', 'All']].map(([val, label]) => (
+              <button key={val} onClick={() => setFilter(val)}
+                className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
+                style={filter === val
+                  ? { background: '#1A2744', color: '#F5E6C0' }
+                  : { color: '#6b5c3e' }
+                }>
+                {label}
+              </button>
+            ))}
+          </div>
+          <CategoryFilterDropdown
+            selected={dropdownFilter}
+            onSelect={(sel) => setDropdownFilter(sel)}
+            className="sm:w-64"
+          />
+        </div>
+      </FilterBar>
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

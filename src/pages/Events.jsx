@@ -5,6 +5,7 @@ import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
+import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
@@ -194,25 +195,27 @@ export default function Events() {
       )}
 
       {/* Filters */}
-      <div className="mb-6 space-y-3">
-        <div className="flex flex-col sm:flex-row gap-3 items-start">
-          <div className="sm:w-64">
-            <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
-          </div>
-          <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            {CAUSES.map(c => (
-              <button key={c} onClick={() => handleCauseFilter(c)}
-                className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
-                style={causeFilter === c && !dropdownFilter
-                  ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                  : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
-                }>
-                {c}
-              </button>
-            ))}
+      <FilterBar activeCount={(causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0)} className="mb-6">
+        <div className="space-y-3">
+          <div className="flex flex-col sm:flex-row gap-3 items-start">
+            <div className="sm:w-64">
+              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
+            </div>
+            <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+              {CAUSES.map(c => (
+                <button key={c} onClick={() => handleCauseFilter(c)}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
+                  style={causeFilter === c && !dropdownFilter
+                    ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                    : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+                  }>
+                  {c}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </FilterBar>
 
       {/* Events — Calendar or Grid */}
       {loading ? (
