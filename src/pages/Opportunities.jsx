@@ -8,6 +8,7 @@ import FilterBar from '@/components/FilterBar';
 
 const CAUSE_OPTIONS = [
   { label: 'Food', emoji: '🍲' },
+  { label: 'Companionship', emoji: '🤝' },
   { label: 'Home', emoji: '🏠' },
   { label: 'Skill Sharing', emoji: '📚' },
   { label: 'Technology', emoji: '💻' },
@@ -48,7 +49,7 @@ export default function Opportunities() {
   };
 
   const categoryEmoji = {
-    'Food': '🍲', 'Home': '🏠', 'Skill Sharing': '📚',
+    'Food': '🍲', 'Companionship': '🤝', 'Home': '🏠', 'Skill Sharing': '📚',
     'Technology': '💻', 'Transportation': '🚗',
   };
 

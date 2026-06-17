@@ -7,6 +7,11 @@ const CATEGORIES = [
     subcategories: ['Baking', 'Delivery', 'Meal Preparation', 'Recipes'],
   },
   {
+    label: 'Companionship',
+    emoji: '🤝',
+    subcategories: ['Visiting', 'Outing', 'Escort', 'Calls'],
+  },
+  {
     label: 'Home',
     emoji: '🏠',
     subcategories: ['Daily Tasks', 'Garden', 'Organizing', 'Repairs'],

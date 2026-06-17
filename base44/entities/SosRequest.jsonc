@@ -18,6 +18,7 @@
       "type": "string",
       "enum": [
         "Food",
+        "Companionship",
         "Home",
         "Skill Sharing",
         "Technology",
