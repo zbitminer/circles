@@ -7,17 +7,16 @@ import BadgeDisplay from '@/components/BadgeDisplay';
 import ReviewCard from '@/components/ReviewCard';
 import StarRating from '@/components/StarRating';
 
-const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
+const CAUSES = ['Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'];
 
 const CAUSE_COLORS = {
-  'Transportation & Escort': 'bg-blue-100 text-blue-800',
-  'Combating Loneliness': 'bg-orange-100 text-orange-800',
-  'Food Preparation & Delivery': 'bg-yellow-100 text-yellow-800',
-  'Technological Assistance': 'bg-indigo-100 text-indigo-800',
-  'Maintenance & Home Repair': 'bg-gray-100 text-gray-800',
-  'Learning & Skills Workshops': 'bg-green-100 text-green-800',
-  'Trauma & Emotional Support': 'bg-pink-100 text-pink-800',
-  'Community Events': 'bg-purple-100 text-purple-800',
+  'Transportation': 'bg-blue-100 text-blue-800',
+  'Companionship': 'bg-orange-100 text-orange-800',
+  'Food': 'bg-yellow-100 text-yellow-800',
+  'Technology': 'bg-indigo-100 text-indigo-800',
+  'Home Repairs': 'bg-gray-100 text-gray-800',
+  'Education & Learning': 'bg-green-100 text-green-800',
+  'Skill Share': 'bg-pink-100 text-pink-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 
@@ -31,7 +30,7 @@ export default function Profile() {
   const [locationText, setLocationText] = useState('');
   const [selectedCauses, setSelectedCauses] = useState([]);
   const [showLogForm, setShowLogForm] = useState(false);
-  const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
+  const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Food', notes: '' });
   const [submittingLog, setSubmittingLog] = useState(false);
   const [badges, setBadges] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -80,7 +79,7 @@ export default function Profile() {
     const newTotal = (profile.total_hours || 0) + hours;
     await base44.entities.VolunteerProfile.update(profile.id, { total_hours: newTotal });
     setProfile(prev => ({ ...prev, total_hours: newTotal }));
-    setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Community Events', notes: '' });
+    setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Food', notes: '' });
     setShowLogForm(false);
     setSubmittingLog(false);
     const updated = await base44.entities.HourLog.filter({ user_id: user.id });

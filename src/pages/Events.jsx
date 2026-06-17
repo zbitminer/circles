@@ -6,17 +6,16 @@ import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
+const CAUSES = ['All', 'Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'];
 
 const CAUSE_FALLBACK_IMAGES = {
-  'Transportation & Escort': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
-  'Combating Loneliness': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
-  'Food Preparation & Delivery': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
-  'Technological Assistance': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
-  'Maintenance & Home Repair': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
-  'Learning & Skills Workshops': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80',
-  'Trauma & Emotional Support': 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=600&q=80',
-  'Community Events': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
+  'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
+  'Companionship': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
+  'Food': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
+  'Technology': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
+  'Home Repairs': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
+  'Education & Learning': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80',
+  'Skill Share': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
   'Other': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',
 };
 
@@ -27,7 +26,7 @@ export default function Events() {
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Community Events', capacity: '', image_url: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Food', capacity: '', image_url: '' });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'
@@ -71,7 +70,7 @@ export default function Events() {
       created_by_name: user?.full_name,
       status: 'upcoming',
     });
-    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Community', capacity: '', image_url: '' });
+    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Food', capacity: '', image_url: '' });
     setShowForm(false);
     setSubmitting(false);
     loadEvents();
@@ -297,7 +296,7 @@ export default function Events() {
                 title: 'Rosh Hashana Community Meal',
                 date: 'September 2024',
                 location: 'Safed Community Center',
-                category: 'Community Events',
+                category: 'Food',
                 description: 'Over 120 community members — including lone soldiers, new immigrants, and elderly neighbors — shared a festive holiday meal together.',
                 attendees: 120,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/dde20d403_generated_image.png',
@@ -307,7 +306,7 @@ export default function Events() {
                 title: 'Tech Support Day for Seniors',
                 date: 'August 2024',
                 location: 'Haifa, Northern District',
-                category: 'Technological Assistance',
+                category: 'Technology',
                 description: 'Volunteers helped 45 elderly residents set up smartphones, WhatsApp, and video calls to stay connected with family.',
                 attendees: 45,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ea33792bf_generated_image.png',
@@ -316,7 +315,7 @@ export default function Events() {
                 title: 'Emergency Food Drive — Gaza Border Communities',
                 date: 'November 2023',
                 location: 'Northern Israel',
-                category: 'Food Preparation & Delivery',
+                category: 'Food',
                 description: 'Circles of Giving mobilized 80+ volunteers to pack and deliver food parcels to families displaced from the Gaza border region.',
                 attendees: 83,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/42134c836_generated_image.png',
@@ -326,7 +325,7 @@ export default function Events() {
                 title: 'Loneliness Awareness Walk',
                 date: 'July 2024',
                 location: 'Tiberias Promenade',
-                category: 'Combating Loneliness',
+                category: 'Companionship',
                 description: 'A community walk raising awareness about senior loneliness, followed by paired conversations between volunteers and elderly residents.',
                 attendees: 60,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e71f86894_generated_image.png',
@@ -335,7 +334,7 @@ export default function Events() {
                 title: 'Home Repair Day for Bereaved Families',
                 date: 'May 2024',
                 location: 'Upper Galilee',
-                category: 'Maintenance & Home Repair',
+                category: 'Home Repairs',
                 description: 'Skilled volunteers spent the day making repairs and improvements to the homes of families who lost loved ones in the war.',
                 attendees: 32,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',
@@ -344,7 +343,7 @@ export default function Events() {
                 title: 'Skills Exchange Workshop — Cooking & Culture',
                 date: 'March 2024',
                 location: 'Karmiel Cultural Center',
-                category: 'Learning & Skills Workshops',
+                category: 'Education & Learning',
                 description: 'Volunteers taught traditional recipes from 7 different cultural backgrounds, exchanging skills and stories in a festive multi-cultural cook-off.',
                 attendees: 55,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d52e102aa_generated_image.png',

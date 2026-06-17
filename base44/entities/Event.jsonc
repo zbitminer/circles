@@ -18,14 +18,13 @@
     "cause_category": {
       "type": "string",
       "enum": [
-        "Transportation & Escort",
-        "Combating Loneliness",
-        "Food Preparation & Delivery",
-        "Technological Assistance",
-        "Maintenance & Home Repair",
-        "Learning & Skills Workshops",
-        "Trauma & Emotional Support",
-        "Community Events",
+        "Transportation",
+        "Companionship",
+        "Food",
+        "Technology",
+        "Home Repairs",
+        "Education & Learning",
+        "Skill Share",
         "Other"
       ]
     },

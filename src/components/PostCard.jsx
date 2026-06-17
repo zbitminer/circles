@@ -4,38 +4,35 @@ import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
 const CAUSE_BANNERS = {
-  'Transportation & Escort': 'bg-blue-100',
-  'Combating Loneliness': 'bg-orange-100',
-  'Food Preparation & Delivery': 'bg-yellow-100',
-  'Technological Assistance': 'bg-indigo-100',
-  'Maintenance & Home Repair': 'bg-gray-100',
-  'Learning & Skills Workshops': 'bg-green-100',
-  'Trauma & Emotional Support': 'bg-pink-100',
-  'Community Events': 'bg-purple-100',
+  'Transportation': 'bg-blue-100',
+  'Companionship': 'bg-orange-100',
+  'Food': 'bg-yellow-100',
+  'Technology': 'bg-indigo-100',
+  'Home Repairs': 'bg-gray-100',
+  'Education & Learning': 'bg-green-100',
+  'Skill Share': 'bg-pink-100',
   'Other': 'bg-muted',
 };
 
 const CAUSE_EMOJIS = {
-  'Transportation & Escort': '🚗',
-  'Combating Loneliness': '🤝',
-  'Food Preparation & Delivery': '🍲',
-  'Technological Assistance': '💻',
-  'Maintenance & Home Repair': '🔧',
-  'Learning & Skills Workshops': '📚',
-  'Trauma & Emotional Support': '💛',
-  'Community Events': '🏘️',
+  'Transportation': '🚗',
+  'Companionship': '🤝',
+  'Food': '🍲',
+  'Technology': '💻',
+  'Home Repairs': '🔧',
+  'Education & Learning': '📚',
+  'Skill Share': '🌟',
   'Other': '💡',
 };
 
 const CAUSE_COLORS = {
-  'Transportation & Escort': 'bg-blue-100 text-blue-800',
-  'Combating Loneliness': 'bg-orange-100 text-orange-800',
-  'Food Preparation & Delivery': 'bg-yellow-100 text-yellow-800',
-  'Technological Assistance': 'bg-indigo-100 text-indigo-800',
-  'Maintenance & Home Repair': 'bg-gray-100 text-gray-800',
-  'Learning & Skills Workshops': 'bg-green-100 text-green-800',
-  'Trauma & Emotional Support': 'bg-pink-100 text-pink-800',
-  'Community Events': 'bg-purple-100 text-purple-800',
+  'Transportation': 'bg-blue-100 text-blue-800',
+  'Companionship': 'bg-orange-100 text-orange-800',
+  'Food': 'bg-yellow-100 text-yellow-800',
+  'Technology': 'bg-indigo-100 text-indigo-800',
+  'Home Repairs': 'bg-gray-100 text-gray-800',
+  'Education & Learning': 'bg-green-100 text-green-800',
+  'Skill Share': 'bg-pink-100 text-pink-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 

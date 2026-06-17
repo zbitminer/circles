@@ -4,18 +4,16 @@ import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, 
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 
-const CAUSES = ['Environment', 'Education', 'Health', 'Animals', 'Community', 'Elderly', 'Youth', 'Disaster Relief', 'Arts & Culture', 'Other'];
+const CAUSES = ['Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'];
 
 const CAUSE_COLORS = {
-  'Environment': 'bg-green-100 text-green-800',
-  'Education': 'bg-blue-100 text-blue-800',
-  'Health': 'bg-red-100 text-red-800',
-  'Animals': 'bg-yellow-100 text-yellow-800',
-  'Community': 'bg-purple-100 text-purple-800',
-  'Elderly': 'bg-orange-100 text-orange-800',
-  'Youth': 'bg-pink-100 text-pink-800',
-  'Disaster Relief': 'bg-gray-100 text-gray-800',
-  'Arts & Culture': 'bg-indigo-100 text-indigo-800',
+  'Transportation': 'bg-blue-100 text-blue-800',
+  'Companionship': 'bg-orange-100 text-orange-800',
+  'Food': 'bg-yellow-100 text-yellow-800',
+  'Technology': 'bg-indigo-100 text-indigo-800',
+  'Home Repairs': 'bg-gray-100 text-gray-800',
+  'Education & Learning': 'bg-green-100 text-green-800',
+  'Skill Share': 'bg-pink-100 text-pink-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 
