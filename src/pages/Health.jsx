@@ -157,14 +157,14 @@ export default function Health() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-        <div className="flex gap-1 rounded-xl p-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-          {[{ value: 'all', label: 'All' }, ...HEALTH_CATEGORIES].map(c => (
-            <button key={c.value} onClick={() => setFilter(c.value)}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-              style={filter === c.value ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}
-            >{c.label}</button>
+        <select value={filter} onChange={e => setFilter(e.target.value)}
+          className="px-4 py-2.5 rounded-xl text-sm font-medium outline-none cursor-pointer"
+          style={{ background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }}>
+          <option value="all">All</option>
+          {HEALTH_CATEGORIES.map(c => (
+            <option key={c.value} value={c.value}>{c.label}</option>
           ))}
-        </div>
+        </select>
         <div className="relative flex-1 max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#aaa' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-muted rounded-xl pl-10 pr-4 py-2.5 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Search requests..." />

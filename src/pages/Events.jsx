@@ -180,17 +180,14 @@ export default function Events() {
       )}
 
       {/* Cause filters */}
-      <div className="flex gap-1.5 mb-6 flex-wrap p-3 rounded-xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-        {CAUSES.map(c => (
-          <button key={c} onClick={() => setCauseFilter(c)}
-            className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
-            style={causeFilter === c
-              ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-              : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
-            }>
-            {c}
-          </button>
-        ))}
+      <div className="mb-6">
+        <select value={causeFilter} onChange={e => setCauseFilter(e.target.value)}
+          className="px-4 py-2.5 rounded-xl text-sm font-medium outline-none cursor-pointer"
+          style={{ background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }}>
+          {CAUSES.map(c => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
       </div>
 
       {/* Events — Calendar or Grid */}

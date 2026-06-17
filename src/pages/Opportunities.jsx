@@ -159,31 +159,21 @@ export default function Opportunities() {
       </div>
 
       {/* Filters */}
-      <div className="mb-6 space-y-3">
-        <div className="flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-wrap gap-3">
+        <select value={causeFilter} onChange={e => setCauseFilter(e.target.value)}
+          className="px-4 py-2.5 rounded-xl text-sm font-medium outline-none cursor-pointer"
+          style={{ background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }}>
           {CAUSES.map(({ label, emoji }) => (
-            <button key={label} onClick={() => setCauseFilter(label)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
-              style={causeFilter === label
-                ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
-              }>
-              <span>{emoji}</span><span>{label}</span>
-            </button>
+            <option key={label} value={label}>{emoji} {label}</option>
           ))}
-        </div>
-        <div className="flex gap-2 flex-wrap">
+        </select>
+        <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)}
+          className="px-4 py-2.5 rounded-xl text-sm font-medium outline-none cursor-pointer"
+          style={{ background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }}>
           {TYPES.map(t => (
-            <button key={t} onClick={() => setTypeFilter(t)}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
-              style={typeFilter === t
-                ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
-                : { background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }
-              }>
-              {t}
-            </button>
+            <option key={t} value={t}>{t}</option>
           ))}
-        </div>
+        </select>
       </div>
 
       {/* Content + Map two-column */}

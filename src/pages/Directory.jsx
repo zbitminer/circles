@@ -374,14 +374,13 @@ export default function Directory() {
                 className="w-full bg-card border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary/40 transition-colors"
               />
             </div>
-            <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
-              {['All', ...CAUSES].map(c => (
-                <button key={c} onClick={() => setCauseFilter(c)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-                  {c}
-                </button>
+            <select value={causeFilter} onChange={e => setCauseFilter(e.target.value)}
+              className="px-4 py-2.5 rounded-xl text-sm font-medium outline-none cursor-pointer bg-card border border-border text-foreground">
+              <option value="All">All</option>
+              {CAUSES.map(c => (
+                <option key={c} value={c}>{c}</option>
               ))}
-            </div>
+            </select>
           </div>
 
           <div className="flex items-center gap-2 mb-5 text-sm text-muted-foreground">
