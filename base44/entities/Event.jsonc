@@ -19,7 +19,6 @@
       "type": "string",
       "enum": [
         "Companionship",
-        "Education & Learning",
         "Food",
         "Home Repairs",
         "Other",

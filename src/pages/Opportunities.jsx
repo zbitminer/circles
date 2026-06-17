@@ -7,7 +7,6 @@ import LocationMap from '@/components/LocationMap';
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
   { label: 'Companionship', emoji: '🤝' },
-  { label: 'Education & Learning', emoji: '📚' },
   { label: 'Food', emoji: '🍲' },
   { label: 'Home Repairs', emoji: '🔧' },
   { label: 'Other', emoji: '💡' },

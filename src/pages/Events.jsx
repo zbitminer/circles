@@ -6,7 +6,7 @@ import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Companionship', 'Education & Learning', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
+const CAUSES = ['All', 'Companionship', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
 
 const CAUSE_FALLBACK_IMAGES = {
   'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
@@ -14,7 +14,7 @@ const CAUSE_FALLBACK_IMAGES = {
   'Food': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
   'Technology': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
   'Home Repairs': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
-  'Education & Learning': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80',
+
   'Skill Share': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
   'Other': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',
 };
@@ -338,15 +338,6 @@ export default function Events() {
                 description: 'Skilled volunteers spent the day making repairs and improvements to the homes of families who lost loved ones in the war.',
                 attendees: 32,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',
-              },
-              {
-                title: 'Skills Exchange Workshop — Cooking & Culture',
-                date: 'March 2024',
-                location: 'Karmiel Cultural Center',
-                category: 'Education & Learning',
-                description: 'Volunteers taught traditional recipes from 7 different cultural backgrounds, exchanging skills and stories in a festive multi-cultural cook-off.',
-                attendees: 55,
-                image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d52e102aa_generated_image.png',
               },
             ].map((evt) => (
               <div key={evt.title} className="overflow-hidden" style={{ background: '#FAF7EE', border: `1.5px solid ${evt.highlight ? '#C9A84C' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>

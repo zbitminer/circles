@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Building2, Heart, CheckCircle } from 'lucide-react';
 
-const CAUSES = ['Companionship', 'Education & Learning', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
+const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
 
 const BENEFITS = [
   { icon: '🤝', title: 'Team Building', desc: 'Meaningful shared experiences that strengthen employee bonds' },
