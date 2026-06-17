@@ -7,7 +7,7 @@ import BadgeDisplay from '@/components/BadgeDisplay';
 import ReviewCard from '@/components/ReviewCard';
 import StarRating from '@/components/StarRating';
 
-const CAUSES = ['Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'];
+const CAUSES = ['Companionship', 'Education & Learning', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
 
 const CAUSE_COLORS = {
   'Transportation': 'bg-blue-100 text-blue-800',

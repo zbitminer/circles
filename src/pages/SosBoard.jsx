@@ -4,7 +4,7 @@ import { AlertTriangle, MapPin, Clock, Plus, X, CheckCircle } from 'lucide-react
 import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 
-const CAUSES = ['Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'];
+const CAUSES = ['Companionship', 'Education & Learning', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
 
 const STATUS_COLORS = {
   open: 'bg-red-100 text-red-700',

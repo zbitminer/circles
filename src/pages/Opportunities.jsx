@@ -6,14 +6,14 @@ import LocationMap from '@/components/LocationMap';
 
 const CAUSES = [
   { label: 'All', emoji: '🌐' },
-  { label: 'Transportation', emoji: '🚗' },
   { label: 'Companionship', emoji: '🤝' },
-  { label: 'Food', emoji: '🍲' },
-  { label: 'Technology', emoji: '💻' },
-  { label: 'Home Repairs', emoji: '🔧' },
   { label: 'Education & Learning', emoji: '📚' },
-  { label: 'Skill Share', emoji: '🌟' },
+  { label: 'Food', emoji: '🍲' },
+  { label: 'Home Repairs', emoji: '🔧' },
   { label: 'Other', emoji: '💡' },
+  { label: 'Skill Share', emoji: '🌟' },
+  { label: 'Technology', emoji: '💻' },
+  { label: 'Transportation', emoji: '🚗' },
 ];
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
 

@@ -54,7 +54,7 @@ export default function Feed() {
             <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
               <h3 className="font-semibold text-sm mb-3" style={{ color: '#1A2744' }}>Explore Causes</h3>
               <div className="flex flex-wrap gap-1.5">
-                {['Transportation', 'Companionship', 'Food', 'Technology', 'Home Repairs', 'Education & Learning', 'Skill Share', 'Other'].map(cause => (
+                {['Companionship', 'Education & Learning', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'].map(cause => (
                   <span key={cause} className="text-xs px-2.5 py-1 rounded-full cursor-pointer transition-colors" style={{ background: '#f0e8d0', color: '#6b5c3e', border: '1px solid #C9A84C' }}>
                     {cause}
                   </span>
