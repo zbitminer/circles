@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Heart, MapPin, Clock, User, Plus, X, Search } from 'lucide-react';
+import LocationMap from '@/components/LocationMap';
 
 const HEALTH_CATEGORIES = [
   { value: 'medical', label: '🩺 Medical', desc: 'Doctor visits, medications, rehabilitation' },
@@ -83,7 +84,7 @@ export default function Health() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
         <div className="flex items-start justify-between flex-wrap gap-4">
@@ -186,6 +187,9 @@ export default function Health() {
         </div>
       </div>
 
+      {/* Two-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7">
       {/* Requests Grid */}
       {loading ? (
         <div className="space-y-3">
@@ -243,6 +247,17 @@ export default function Health() {
           })}
         </div>
       )}
+        </div>
+
+        {/* Right: sticky map */}
+        {!loading && filtered.length > 0 && (
+          <div className="hidden lg:block lg:col-span-5">
+            <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+              <LocationMap items={filtered} onSelectItem={() => {}} labelKey="title" locationKey="location" />
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Detail Modal */}
       {selected && (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { AlertTriangle, MapPin, Clock, Plus, X, CheckCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import LocationMap from '@/components/LocationMap';
 
 const CAUSES = ['Transportation & Escort', 'Combating Loneliness', 'Food Preparation & Delivery', 'Technological Assistance', 'Maintenance & Home Repair', 'Learning & Skills Workshops', 'Trauma & Emotional Support', 'Community Events', 'Other'];
 
@@ -56,7 +57,7 @@ export default function SosBoard() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8">
+    <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="rounded-2xl p-6 mb-6" style={{ background: 'linear-gradient(135deg, #8b1a1a, #c0392b)', border: '2px solid #C9A84C' }}>
         <div className="flex items-start justify-between">
@@ -154,6 +155,9 @@ export default function SosBoard() {
         ))}
       </div>
 
+      {/* Two-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7">
       {/* Requests */}
       {loading ? (
         <div className="space-y-3">
@@ -208,6 +212,17 @@ export default function SosBoard() {
           ))}
         </div>
       )}
+        </div>
+
+        {/* Right: sticky map */}
+        {!loading && filtered.length > 0 && (
+          <div className="hidden lg:block lg:col-span-5">
+            <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+              <LocationMap items={filtered} onSelectItem={() => {}} labelKey="title" locationKey="location" />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

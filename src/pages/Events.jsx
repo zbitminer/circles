@@ -230,7 +230,9 @@ export default function Events() {
           <p className="text-sm" style={{ color: '#6b5c3e' }}>Events will appear here. Check back soon!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map(evt => {
             const past = evt.date && isPast(new Date(evt.date));
             const attending = user && evt.attendees?.includes(user.id);
@@ -284,6 +286,17 @@ export default function Events() {
               </div>
             );
           })}
+            </div>
+          </div>
+
+          {/* Right: sticky map */}
+          {filtered.length > 0 && (
+            <div className="hidden lg:block lg:col-span-5">
+              <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+                <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+              </div>
+            </div>
+          )}
         </div>
       )}
 

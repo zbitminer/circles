@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/PostCard';
 import CreatePost from '@/components/CreatePost';
+import LocationMap from '@/components/LocationMap';
 import { Flame, Users, TrendingUp } from 'lucide-react';
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
     loadPosts();
+    base44.entities.Event.list('-date', 20).then(setEvents).catch(() => {});
   }, []);
 
   const loadPosts = async () => {
@@ -125,17 +128,22 @@ export default function Feed() {
 
         {/* Right sidebar */}
         <aside className="hidden lg:block lg:col-span-3">
-          <div className="sticky top-24">
+          <div className="sticky top-24 space-y-4">
+            {events.length > 0 && (
+              <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: '300px' }}>
+                <LocationMap items={events} onSelectItem={() => {}} labelKey="title" locationKey="location" />
+              </div>
+            )}
             <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
               <h3 className="font-semibold text-sm mb-4" style={{ color: '#1A2744' }}>Quick Links</h3>
               <div className="space-y-2 text-sm">
-                <a href="/opportunities" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
+                <a href="/opportunities" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   📋 Browse Opportunities
                 </a>
-                <a href="/events" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
+                <a href="/events" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   📅 Upcoming Events
                 </a>
-                <a href="/profile" className="flex items-center gap-2 py-1 transition-colors" style={{ color: '#6b5c3e' }}>
+                <a href="/profile" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   👤 My Profile & Impact
                 </a>
               </div>

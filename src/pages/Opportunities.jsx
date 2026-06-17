@@ -118,12 +118,7 @@ export default function Opportunities() {
         ))}
       </div>
 
-      {/* Map preview */}
-      {!loading && filtered.length > 0 && (
-        <div className="mb-6">
-          <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
-        </div>
-      )}
+
 
       {/* Create Form */}
       {showForm && isMod && (
@@ -212,13 +207,17 @@ export default function Opportunities() {
         </div>
       </div>
 
-      {/* Grid / Map */}
+      {/* Content + Map two-column */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left: main content */}
+        <div className="lg:col-span-7">
+      {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#FAF7EE' }} />)}
         </div>
       ) : viewMode === 'map' ? (
-        <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+        <div className="lg:hidden"><LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" /></div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-5xl mb-4">🔍</div>
@@ -255,6 +254,17 @@ export default function Opportunities() {
           ))}
         </div>
       )}
+        </div>
+
+        {/* Right: sticky map */}
+        {!loading && filtered.length > 0 && viewMode !== 'map' && (
+          <div className="hidden lg:block lg:col-span-5">
+            <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+              <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Detail Modal */}
       {selected && (
