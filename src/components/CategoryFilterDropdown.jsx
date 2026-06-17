@@ -89,30 +89,26 @@ export default function CategoryFilterDropdown({ selected, onSelect, className =
           className="absolute top-full left-0 mt-1 w-72 rounded-xl shadow-xl z-50 max-h-80 overflow-y-auto"
           style={{ background: '#fff', border: '1px solid #e0e0e0' }}
         >
-          {CATEGORIES.map(({ label, emoji, subcategories }) => (
-            <div key={label}>
-              <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C', background: '#FAF7EE' }}>
-                {emoji} {label}
-              </div>
-              {subcategories.map(sub => {
-                const isActive = selected?.category === label && selected?.subcategory === sub;
-                return (
-                  <button
-                    key={sub}
-                    onClick={() => handleSelect({ category: label, subcategory: sub, emoji })}
-                    className="w-full text-left px-6 py-2 text-sm transition-colors hover:bg-muted"
-                    style={{
-                      color: isActive ? '#D95D1A' : '#555',
-                      background: isActive ? '#FFF8F0' : 'transparent',
-                      fontWeight: isActive ? '600' : '400',
-                    }}
-                  >
-                    {sub}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
+          {CATEGORIES.map(({ label, emoji, subcategories }) =>
+            subcategories.map(sub => {
+              const isActive = selected?.category === label && selected?.subcategory === sub;
+              return (
+                <button
+                  key={`${label}-${sub}`}
+                  onClick={() => handleSelect({ category: label, subcategory: sub, emoji })}
+                  className="w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-muted flex items-center gap-2"
+                  style={{
+                    color: isActive ? '#D95D1A' : '#555',
+                    background: isActive ? '#FFF8F0' : 'transparent',
+                    fontWeight: isActive ? '600' : '400',
+                  }}
+                >
+                  <span>{emoji}</span>
+                  <span>{sub}</span>
+                </button>
+              );
+            })
+          )}
         </div>
       )}
     </div>
