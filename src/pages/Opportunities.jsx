@@ -3,11 +3,10 @@ import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map } from 'lucide-react';
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
-import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
+import CategorySearchFilters from '@/components/CategorySearchFilters';
 import FilterBar from '@/components/FilterBar';
 
-const CAUSES = [
-  { label: 'All', emoji: '🌐' },
+const CAUSE_OPTIONS = [
   { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
   { label: 'Home', emoji: '🏠' },
@@ -17,6 +16,7 @@ const CAUSES = [
   { label: 'Electronic Forms', emoji: '📋' },
   { label: 'Other', emoji: '💡' },
 ];
+
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
 
 const TYPE_COLORS = {
@@ -29,7 +29,6 @@ export default function Opportunities() {
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [causeFilter, setCauseFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -37,7 +36,7 @@ export default function Opportunities() {
   const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '' });
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
-  const [dropdownFilter, setDropdownFilter] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -58,24 +57,11 @@ export default function Opportunities() {
   };
 
   const filtered = opportunities.filter(o => {
-    const catMatch = causeFilter === 'All' || o.cause_category === causeFilter;
-    const dropdownCatMatch = !dropdownFilter || (o.cause_category === dropdownFilter.category);
+    const catMatch = !categoryFilter || o.cause_category === categoryFilter.category;
     const typeMatch = typeFilter === 'All' || o.type === typeFilter;
     const searchMatch = searchQuery === '' || o.title.toLowerCase().includes(searchQuery.toLowerCase()) || o.description.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization.toLowerCase().includes(searchQuery.toLowerCase());
-    return catMatch && dropdownCatMatch && typeMatch && searchMatch;
+    return catMatch && typeMatch && searchMatch;
   });
-
-  const handleDropdownSelect = (selection) => {
-    setDropdownFilter(selection);
-    if (selection) {
-      setCauseFilter('All');
-    }
-  };
-
-  const handleCauseFilter = (cause) => {
-    setCauseFilter(cause);
-    setDropdownFilter(null);
-  };
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
@@ -145,7 +131,7 @@ export default function Opportunities() {
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Cause Category</label>
               <select value={form.cause_category} onChange={e => setForm({...form, cause_category: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {CAUSES.filter(c => c.label !== 'All').map(c => <option key={c.label} value={c.label}>{c.emoji} {c.label}</option>)}
+                {CAUSE_OPTIONS.map(c => <option key={c.label} value={c.label}>{c.emoji} {c.label}</option>)}
               </select>
             </div>
             <div>
@@ -181,39 +167,26 @@ export default function Opportunities() {
       </div>
 
       {/* Filters */}
-      <FilterBar activeCount={(causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (typeFilter !== 'All' ? 1 : 0)} className="mb-6">
-        <div className="space-y-3">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="sm:w-64">
-              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
-            </div>
-            <div className="flex flex-wrap gap-2 items-center">
-              {CAUSES.map(({ label, emoji }) => (
-                <button key={label} onClick={() => handleCauseFilter(label)}
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium transition-all"
-                  style={causeFilter === label && !dropdownFilter
-                    ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                    : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+      <div className="mb-6">
+        <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <CategorySearchFilters selectedFilter={categoryFilter} onSelectFilter={setCategoryFilter} className="mb-4" />
+          <div className="pt-4 border-t" style={{ borderColor: '#C9A84C' }}>
+            <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Type</p>
+            <div className="flex gap-2 flex-wrap">
+              {TYPES.map(t => (
+                <button key={t} onClick={() => setTypeFilter(t)}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
+                  style={typeFilter === t
+                    ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
+                    : { background: '#fff', color: '#6b5c3e', border: '1px solid #C9A84C' }
                   }>
-                  <span>{emoji}</span><span>{label}</span>
+                  {t}
                 </button>
               ))}
             </div>
           </div>
-          <div className="flex gap-2 flex-wrap">
-            {TYPES.map(t => (
-              <button key={t} onClick={() => setTypeFilter(t)}
-                className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
-                style={typeFilter === t
-                  ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
-                  : { background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }
-                }>
-                {t}
-              </button>
-            ))}
-          </div>
         </div>
-      </FilterBar>
+      </div>
 
       {/* Content + Map two-column */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

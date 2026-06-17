@@ -3,8 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { AlertTriangle, MapPin, Clock, Plus, X, CheckCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
-import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
-import FilterBar from '@/components/FilterBar';
+import CategorySearchFilters from '@/components/CategorySearchFilters';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Education & Learning', 'Technology', 'Transportation', 'Electronic Forms', 'Other'];
 
@@ -22,7 +21,7 @@ export default function SosBoard() {
   const [form, setForm] = useState({ title: '', description: '', contact_name: '', location: '', cause_category: 'Other', urgency_hours: 24 });
   const [submitting, setSubmitting] = useState(false);
   const [filter, setFilter] = useState('open');
-  const [dropdownFilter, setDropdownFilter] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -38,8 +37,8 @@ export default function SosBoard() {
 
   const filtered = requests.filter(r => {
     const statusMatch = filter === 'all' || r.status === filter;
-    const dropdownCatMatch = !dropdownFilter || (r.cause_category === dropdownFilter.category);
-    return statusMatch && dropdownCatMatch;
+    const catMatch = !categoryFilter || r.cause_category === categoryFilter.category;
+    return statusMatch && catMatch;
   });
 
   const handleSubmit = async (e) => {
@@ -132,27 +131,23 @@ export default function SosBoard() {
         </div>
       )}
 
-      <FilterBar activeCount={(filter !== 'open' && filter !== 'all' ? 1 : 0) + (dropdownFilter ? 1 : 0)} className="mb-5">
-        <div className="space-y-3">
-          <div className="flex gap-1 rounded-xl p-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            {[['open', '🔴 Open'], ['claimed', '🟡 Claimed'], ['resolved', '✅ Resolved'], ['all', 'All']].map(([val, label]) => (
-              <button key={val} onClick={() => setFilter(val)}
-                className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
-                style={filter === val
-                  ? { background: '#1A2744', color: '#F5E6C0' }
-                  : { color: '#6b5c3e' }
-                }>
-                {label}
-              </button>
-            ))}
-          </div>
-          <CategoryFilterDropdown
-            selected={dropdownFilter}
-            onSelect={(sel) => setDropdownFilter(sel)}
-            className="sm:w-64"
-          />
+      <div className="mb-5 space-y-3">
+        <div className="flex gap-1 rounded-xl p-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+          {[['open', '🔴 Open'], ['claimed', '🟡 Claimed'], ['resolved', '✅ Resolved'], ['all', 'All']].map(([val, label]) => (
+            <button key={val} onClick={() => setFilter(val)}
+              className="flex-1 py-2 rounded-lg text-xs font-medium transition-all"
+              style={filter === val
+                ? { background: '#1A2744', color: '#F5E6C0' }
+                : { color: '#6b5c3e' }
+              }>
+              {label}
+            </button>
+          ))}
         </div>
-      </FilterBar>
+        <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <CategorySearchFilters selectedFilter={categoryFilter} onSelectFilter={setCategoryFilter} />
+        </div>
+      </div>
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
