@@ -107,22 +107,6 @@ export default function Health() {
         </div>
       </div>
 
-      {/* How it works */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        {[
-          { step: '1', emoji: '📝', title: 'Post a Request', desc: 'Describe your health need — medical, mental health, or wellness support.' },
-          { step: '2', emoji: '🤝', title: 'Get Matched', desc: 'A community volunteer claims your request and reaches out.' },
-          { step: '3', emoji: '💚', title: 'Receive Support', desc: 'Get the help you need — transportation, companionship, or wellness guidance.' },
-        ].map(({ step, emoji, title, desc }) => (
-          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
-            <div className="text-xl">{emoji}</div>
-            <h3 className="font-semibold text-xs" style={{ color: '#1A2744' }}>{title}</h3>
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
-          </div>
-        ))}
-      </div>
-
       {/* Create Form */}
       {showForm && (
         <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>

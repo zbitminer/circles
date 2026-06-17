@@ -180,22 +180,6 @@ export default function Events() {
         </div>
       )}
 
-      {/* How it Works - 3 Steps */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        {[
-          { step: '1', emoji: '🗓️', title: 'Discover Events', desc: 'Browse upcoming volunteer events by cause, location, or date.' },
-          { step: '2', emoji: '✋', title: 'RSVP', desc: 'Sign up for an event and confirm your attendance.' },
-          { step: '3', emoji: '🎉', title: 'Attend & Impact', desc: 'Show up, volunteer, and help create real change.' },
-        ].map(({ step, emoji, title, desc }) => (
-          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
-            <div className="text-xl">{emoji}</div>
-            <h3 className="font-semibold text-xs" style={{ color: '#1A2744' }}>{title}</h3>
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
-          </div>
-        ))}
-      </div>
-
       {/* Cause filters */}
       <div className="flex gap-1.5 mb-6 flex-wrap p-3 rounded-xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
         {CAUSES.map(c => (

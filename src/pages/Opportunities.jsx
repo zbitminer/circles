@@ -100,26 +100,6 @@ export default function Opportunities() {
         </div>
       </div>
 
-      {/* How it Works */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        {[
-          { step: '1', emoji: '🔍', title: 'Browse Opportunities', desc: "Explore volunteer roles by cause, type, or location." },
-          { step: '2', emoji: '✋', title: 'Express Interest', desc: "Click \"I'm Interested\" and the organizer will be in touch." },
-          { step: '3', emoji: '🌟', title: 'Make an Impact', desc: "Show up, contribute, and log your hours." },
-        ].map(({ step, emoji, title, desc }) => (
-          <div key={step} className="flex gap-4 items-start p-5 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
-            <div>
-              <div className="text-xl mb-1">{emoji}</div>
-              <h3 className="font-semibold text-sm mb-0.5" style={{ color: '#1A2744' }}>{title}</h3>
-              <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-
-
       {/* Create Form */}
       {showForm && isMod && (
         <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
