@@ -8,14 +8,15 @@ import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
+const CAUSES = ['All', 'Companionship', 'Food', 'Home Repairs', 'Skills Sharing', 'Technology', 'Transportation', 'Drop Box', 'Other'];
 
 const CAUSE_FALLBACK_IMAGES = {
   'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
   'Companionship': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
   'Food': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
   'Technology': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
-  'Home': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
+  'Home Repairs': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
+  'Drop Box': 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80',
 
   'Skills Sharing': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
   'Other': 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80',

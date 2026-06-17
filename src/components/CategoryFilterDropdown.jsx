@@ -15,12 +15,12 @@ const CATEGORIES = [
   {
     label: 'Food',
     emoji: '🍲',
-    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Diet Delivery'],
+    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Baser Delivery'],
   },
   {
-    label: 'Home',
-    emoji: '🏠',
-    subcategories: ['Daily Chores & Tasks', 'Organization', 'Repairs/Maintenance', 'Garden', 'Skill Share'],
+    label: 'Home Repairs',
+    emoji: '🔧',
+    subcategories: ['Daily Chores Task', 'Organization', 'Repairs/Maintenance', 'Garden'],
   },
   {
     label: 'Technology',
@@ -30,7 +30,12 @@ const CATEGORIES = [
   {
     label: 'Transportation',
     emoji: '🚗',
-    subcategories: ['Medical', 'Errands', 'Deliveries'],
+    subcategories: ['Medical', 'Errands', 'Deliveries', 'Escort'],
+  },
+  {
+    label: 'Drop Box',
+    emoji: '📦',
+    subcategories: ['Electronic Forms'],
   },
 ];
 

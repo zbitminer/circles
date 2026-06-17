@@ -20,10 +20,11 @@
       "enum": [
         "Companionship",
         "Food",
-        "Home",
+        "Home Repairs",
         "Skills Sharing",
         "Technology",
         "Transportation",
+        "Drop Box",
         "Other"
       ]
     },
