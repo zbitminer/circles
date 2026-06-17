@@ -44,7 +44,7 @@ export default function Opportunities() {
   const loadOpportunities = async () => {
     setLoading(true);
     const data = await base44.entities.Opportunity.list('-created_date', 100);
-    setOpportunities(data.filter(o => o.status === 'active'));
+    setOpportunities(data.filter(o => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title)));
     setLoading(false);
   };
 
