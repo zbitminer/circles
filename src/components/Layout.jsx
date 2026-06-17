@@ -36,7 +36,7 @@ export default function Layout() {
       {/* Top Nav */}
       <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }}>
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white p-0.5" />
             <div className="flex flex-col leading-none">
               <span className="font-extrabold text-lg tracking-tight text-white">Circles of Giving</span>
@@ -44,15 +44,38 @@ export default function Layout() {
             </div>
           </Link>
 
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {[
+              { label: 'Give', path: '/opportunities' },
+              { label: 'Receive', path: '/sos' },
+              { label: 'Belong', path: '/directory' },
+              { label: 'Grow', path: '/events' },
+            ].map(({ label, path }) => (
+              <Link
+                key={label}
+                to={path}
+                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
+                style={{ color: location.pathname === path ? '#D95D1A' : '#aaa' }}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
           <div className="flex items-center gap-3">
             {user && <NotificationBell currentUser={user} />}
-            {!user && (
-              <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-4 py-2 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+            {!user ? (
+              <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
                 Register Now →
+              </Link>
+            ) : (
+              <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
+                <User className="w-4 h-4" />
               </Link>
             )}
             <button
-              className="p-2 rounded-lg hover:bg-white/10 text-white"
+              className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
