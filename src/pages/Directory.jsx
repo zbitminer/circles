@@ -4,7 +4,7 @@ import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, 
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 
-const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
+const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
 const CAUSE_COLORS = {
   'Transportation': 'bg-blue-100 text-blue-800',

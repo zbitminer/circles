@@ -9,10 +9,10 @@ const CAUSES = [
   { label: 'Companionship', emoji: '🤝' },
   { label: 'Food', emoji: '🍲' },
   { label: 'Home Repairs', emoji: '🔧' },
-  { label: 'Other', emoji: '💡' },
-  { label: 'Skill Share', emoji: '🌟' },
+  { label: 'Skills Sharing', emoji: '🌟' },
   { label: 'Technology', emoji: '💻' },
   { label: 'Transportation', emoji: '🚗' },
+  { label: 'Other', emoji: '💡' },
 ];
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
 

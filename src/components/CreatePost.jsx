@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Image, X, Plus } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
-const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Other', 'Skill Share', 'Technology', 'Transportation'];
+const CAUSES = ['Companionship', 'Food', 'Home Repairs', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
 export default function CreatePost({ currentUser, onCreated }) {
   const [content, setContent] = useState('');

@@ -4,35 +4,32 @@ import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
 const CAUSE_BANNERS = {
-  'Transportation': 'bg-blue-100',
   'Companionship': 'bg-orange-100',
   'Food': 'bg-yellow-100',
-  'Technology': 'bg-indigo-100',
   'Home Repairs': 'bg-gray-100',
-  'Education & Learning': 'bg-green-100',
-  'Skill Share': 'bg-pink-100',
+  'Skills Sharing': 'bg-pink-100',
+  'Technology': 'bg-indigo-100',
+  'Transportation': 'bg-blue-100',
   'Other': 'bg-muted',
 };
 
 const CAUSE_EMOJIS = {
-  'Transportation': '🚗',
   'Companionship': '🤝',
   'Food': '🍲',
-  'Technology': '💻',
   'Home Repairs': '🔧',
-  'Education & Learning': '📚',
-  'Skill Share': '🌟',
+  'Skills Sharing': '🌟',
+  'Technology': '💻',
+  'Transportation': '🚗',
   'Other': '💡',
 };
 
 const CAUSE_COLORS = {
-  'Transportation': 'bg-blue-100 text-blue-800',
   'Companionship': 'bg-orange-100 text-orange-800',
   'Food': 'bg-yellow-100 text-yellow-800',
-  'Technology': 'bg-indigo-100 text-indigo-800',
   'Home Repairs': 'bg-gray-100 text-gray-800',
-  'Education & Learning': 'bg-green-100 text-green-800',
-  'Skill Share': 'bg-pink-100 text-pink-800',
+  'Skills Sharing': 'bg-pink-100 text-pink-800',
+  'Technology': 'bg-indigo-100 text-indigo-800',
+  'Transportation': 'bg-blue-100 text-blue-800',
   'Other': 'bg-muted text-muted-foreground',
 };
 

@@ -20,10 +20,10 @@
         "Companionship",
         "Food",
         "Home Repairs",
-        "Other",
-        "Skill Share",
+        "Skills Sharing",
         "Technology",
-        "Transportation"
+        "Transportation",
+        "Other"
       ]
     },
     "type": {
