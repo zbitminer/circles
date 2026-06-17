@@ -86,54 +86,103 @@ export default function Home() {
 
       {/* How the Circle Works */}
       <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
+        {/* Abstract circle artwork */}
+        <div className="flex justify-center mb-8">
+          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full relative overflow-hidden" style={{
+            background: 'radial-gradient(circle at 30% 30%, rgba(217,93,26,0.25), transparent 50%), radial-gradient(circle at 70% 40%, rgba(0,125,125,0.20), transparent 50%), radial-gradient(circle at 50% 70%, rgba(218,165,32,0.22), transparent 50%), radial-gradient(circle at 40% 60%, rgba(217,93,26,0.12), transparent 40%)',
+          }}>
+            <svg viewBox="0 0 200 200" className="w-full h-full">
+              {/* Abstract lotus/flower shapes */}
+              <g transform="translate(100,100)">
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const x = Math.cos(rad) * 42;
+                  const y = Math.sin(rad) * 42;
+                  return (
+                    <ellipse key={i} cx={x} cy={y} rx={14} ry={22} fill="none" stroke={i % 2 === 0 ? '#D95D1A' : i % 3 === 0 ? '#007D7D' : '#DAA520'} strokeWidth="1.5" transform={`rotate(${angle + 20}, ${x}, ${y})`} opacity="0.7" />
+                  );
+                })}
+                <circle cx="0" cy="0" r="18" fill="none" stroke="#D95D1A" strokeWidth="1.5" opacity="0.5" />
+                <circle cx="0" cy="0" r="28" fill="none" stroke="#DAA520" strokeWidth="1" opacity="0.4" />
+                <circle cx="0" cy="0" r="38" fill="none" stroke="#007D7D" strokeWidth="0.8" opacity="0.3" />
+              </g>
+            </svg>
+          </div>
+        </div>
+
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>HOW THE CIRCLE WORKS</span>
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-2" style={{ color: '#1A1A1A' }}>Register first to access the full platform</h2>
-          <p className="text-sm" style={{ color: '#777' }}>Three ways to participate — give, receive, or belong</p>
+          <h2 className="text-2xl md:text-3xl font-extrabold" style={{ color: '#1A1A1A' }}>Register first to access the full platform</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Give Card */}
-          <Link to="/opportunities" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#D95D1A' }}>
+          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(217,93,26,0.08)' }}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="12" cy="12" r="4" stroke="#D95D1A" strokeWidth="2"/><circle cx="20" cy="12" r="4" stroke="#D95D1A" strokeWidth="2"/><path d="M8 22c0-2.2 1.8-4 4-4h2" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><path d="M18 18h2c2.2 0 4 1.8 4 4" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><line x1="16" y1="10" x2="16" y2="14" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><line x1="14" y1="12" x2="18" y2="12" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/></svg>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                {/* Lotus/flower icon */}
+                {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const cx = 18 + Math.cos(rad) * 8;
+                  const cy = 18 + Math.sin(rad) * 8;
+                  return <ellipse key={i} cx={cx} cy={cy} rx="4" ry="9" stroke="#D95D1A" strokeWidth="1.5" transform={`rotate(${angle}, ${cx}, ${cy})`} fill="none" />;
+                })}
+                <circle cx="18" cy="18" r="4" fill="#D95D1A" opacity="0.3" />
+              </svg>
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#D95D1A' }}>Give.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
-              Share your time, skills, talents, or resources with those who need them most.
+              Share your time, skills, talents, or resources.
             </p>
-            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#D95D1A' }}>
+            <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D95D1A', color: '#fff' }}>
               Give Now <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
+            </Link>
+          </div>
 
           {/* Receive Card */}
-          <Link to="/sos" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#007D7D' }}>
+          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,125,125,0.08)' }}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 8v4M16 20v4M8 12h4m8 0h4" stroke="#007D7D" strokeWidth="2" strokeLinecap="round"/><circle cx="16" cy="16" r="10" stroke="#007D7D" strokeWidth="2"/><circle cx="12" cy="14" r="1" fill="#007D7D"/><circle cx="20" cy="14" r="1" fill="#007D7D"/><path d="M12 20c0 0 2 2 4 2s4-2 4-2" stroke="#007D7D" strokeWidth="2" strokeLinecap="round"/></svg>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                {/* Hands cradling figure */}
+                <path d="M8 20c-2 0-4 2-4 4v4c0 2 2 4 4 4h1" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M28 20c2 0 4 2 4 4v4c0 2-2 4-4 4h-1" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="18" cy="14" r="5" stroke="#007D7D" strokeWidth="1.5" />
+                <path d="M13 18c0-3 2-5 5-5s5 2 5 5" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="16" cy="13" r="0.8" fill="#007D7D" />
+                <circle cx="20" cy="13" r="0.8" fill="#007D7D" />
+                <path d="M16 17c0 0 1 1.5 2 1.5s2-1.5 2-1.5" stroke="#007D7D" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#007D7D' }}>Receive.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
-              Find support from trusted community members — from rides to companionship.
+              Find support from trusted community members.
             </p>
-            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#007D7D' }}>
+            <Link to="/sos" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#007D7D', color: '#fff' }}>
               Get Support <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
+            </Link>
+          </div>
 
           {/* Belong Card */}
-          <Link to="/directory" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#DAA520' }}>
+          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(218,165,32,0.08)' }}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="10" cy="10" r="6" stroke="#DAA520" strokeWidth="2"/><circle cx="22" cy="10" r="6" stroke="#DAA520" strokeWidth="2"/><circle cx="16" cy="20" r="6" stroke="#DAA520" strokeWidth="2"/><line x1="12.5" y1="13" x2="15" y2="17" stroke="#DAA520" strokeWidth="2"/><line x1="19.5" y1="13" x2="17" y2="17" stroke="#DAA520" strokeWidth="2"/></svg>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                {/* Three linked figures */}
+                <circle cx="10" cy="12" r="4" stroke="#DAA520" strokeWidth="1.5" />
+                <circle cx="26" cy="12" r="4" stroke="#DAA520" strokeWidth="1.5" />
+                <circle cx="18" cy="24" r="4" stroke="#DAA520" strokeWidth="1.5" />
+                <line x1="12.5" y1="14.5" x2="16" y2="21.5" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" />
+                <line x1="23.5" y1="14.5" x2="20" y2="21.5" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" />
+                <line x1="10" y1="15" x2="26" y2="15" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2" />
+              </svg>
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#DAA520' }}>Belong.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
               Connect with others through our community programs and grow together.
             </p>
-            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#DAA520' }}>
+            <Link to="/directory" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#DAA520', color: '#fff' }}>
               Join the Community <ArrowRight className="w-4 h-4" />
-            </span>
-          </Link>
+            </Link>
+          </div>
         </div>
 
         {!user && (
