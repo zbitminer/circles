@@ -85,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* How the Circle Works */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
+      <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>HOW THE CIRCLE WORKS</span>
           <h2 className="text-2xl md:text-3xl font-extrabold mb-2" style={{ color: '#1A1A1A' }}>Register first to access the full platform</h2>
@@ -184,7 +184,9 @@ export default function Home() {
         </div>
       </section>
 
-      <TestimonialsSection />
+      <div id="trust">
+        <TestimonialsSection />
+      </div>
 
       {/* Volunteer Levels */}
       <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>

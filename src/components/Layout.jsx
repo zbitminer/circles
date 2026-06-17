@@ -1,41 +1,89 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Home, Calendar, Briefcase, User, Shield, Menu, X, Users, Flame, AlertTriangle, UtensilsCrossed, Building2, MessageSquare, BarChart3, Heart } from 'lucide-react';
+import { Menu, X, Shield, ChevronDown } from 'lucide-react';
 import NotificationBell from './NotificationBell';
 
-const navItems = [
-  { path: '/', label: 'Home', icon: Home },
-  { path: '/feed', label: 'Feed', icon: Flame },
-  { path: '/sos', label: 'SOS Board', icon: AlertTriangle },
-  { path: '/opportunities', label: 'Opportunities', icon: Briefcase },
-  { path: '/events', label: 'Events', icon: Calendar },
-  { path: '/shabbat', label: 'Shabbat Meals', icon: UtensilsCrossed },
-  { path: '/directory', label: 'Directory', icon: Users },
-  { path: '/messages', label: 'Messages', icon: MessageSquare },
-  { path: '/health', label: 'Health Support', icon: Heart },
-  { path: '/analytics', label: 'Impact', icon: BarChart3 },
-  { path: '/corporate', label: 'For Businesses', icon: Building2 },
-  { path: '/profile', label: 'My Profile', icon: User },
+/* ── Dropdown definitions matching wireframe ── */
+const dropdowns = [
+  {
+    label: 'Give',
+    items: [
+      { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
+      { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
+      { label: 'Shabbat Meals', path: '/shabbat', desc: 'Host or join a Shabbat table' },
+    ],
+  },
+  {
+    label: 'Receive',
+    items: [
+      { label: 'SOS Board', path: '/sos', desc: 'Urgent requests for help' },
+      { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
+      { label: 'Health Support', path: '/health', desc: 'Medical, mental & wellness help' },
+    ],
+  },
+  {
+    label: 'Belong',
+    items: [
+      { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
+      { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
+      { label: 'Messages', path: '/messages', desc: 'Private conversations' },
+      { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
+    ],
+  },
+];
+
+/* ── Top-level links (Row 1 of wireframe) ── */
+const topLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'How it Works', path: '/#how-it-works' },
+  { label: 'Volunteers', path: '/directory' },
+  { label: 'Our Community', path: '/feed' },
+  { label: 'Events', path: '/events' },
+  { label: 'Trust', path: '/#trust' },
 ];
 
 export default function Layout() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileExpanded, setMobileExpanded] = useState({});
+  const navRef = useRef(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
   }, []);
 
+  // Close desktop dropdown when clicking outside
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+
   const isAdmin = user?.role === 'admin';
   const isMod = user?.role === 'moderator' || isAdmin;
 
+  const isActive = (path) => {
+    if (path.startsWith('/#')) return false;
+    return location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
+  };
+
+  const toggleMobileSection = (key) => {
+    setMobileExpanded(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Top Nav */}
-      <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }}>
+      {/* ═══ Top Nav ═══ */}
+      <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }} ref={navRef}>
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white p-0.5" />
             <div className="flex flex-col leading-none">
@@ -44,25 +92,21 @@ export default function Layout() {
             </div>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {[
-              { label: 'Give', path: '/opportunities' },
-              { label: 'Receive', path: '/sos' },
-              { label: 'Belong', path: '/directory' },
-              { label: 'Grow', path: '/events' },
-            ].map(({ label, path }) => (
+          {/* Desktop: top-level links */}
+          <nav className="hidden lg:flex items-center gap-0.5">
+            {topLinks.map(({ label, path }) => (
               <Link
                 key={label}
                 to={path}
-                className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
-                style={{ color: location.pathname === path ? '#D95D1A' : '#aaa' }}
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white"
+                style={{ color: isActive(path) ? '#D95D1A' : '#aaa' }}
               >
                 {label}
               </Link>
             ))}
           </nav>
 
+          {/* Right side */}
           <div className="flex items-center gap-3">
             {user && <NotificationBell currentUser={user} />}
             {!user ? (
@@ -71,7 +115,7 @@ export default function Layout() {
               </Link>
             ) : (
               <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
-                <User className="w-4 h-4" />
+                <span>Profile</span>
               </Link>
             )}
             <button
@@ -83,31 +127,106 @@ export default function Layout() {
           </div>
         </div>
 
-        {/* Dropdown Nav */}
-        {mobileOpen && (
-          <div className="border-t px-4 py-3 flex flex-col gap-1" style={{ background: '#1A1A1A', borderColor: '#333' }}>
-            {navItems.map(({ path, label, icon: Icon }) => (
-              <Link
-                key={path}
-                to={path}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all hover:bg-white/10"
-                style={{ color: location.pathname === path ? '#D95D1A' : '#ccc' }}
-              >
-                <Icon className="w-4 h-4" />
-                {label}
-              </Link>
+        {/* Desktop: dropdown bar */}
+        <div className="hidden lg:block border-t" style={{ background: '#151515', borderColor: '#333' }}>
+          <div className="max-w-6xl mx-auto px-4 h-10 flex items-center gap-1">
+            {dropdowns.map(({ label, items }) => (
+              <div key={label} className="relative">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setOpenDropdown(openDropdown === label ? null : label); }}
+                  className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
+                  style={{ color: openDropdown === label ? '#D95D1A' : '#aaa' }}
+                >
+                  {label}
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === label ? 'rotate-180' : ''}`} />
+                </button>
+                {openDropdown === label && (
+                  <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-2xl overflow-hidden z-50" style={{ background: '#1A1A1A', border: '1px solid #333' }}>
+                    {items.map(({ label: itemLabel, path, desc }) => (
+                      <Link
+                        key={itemLabel}
+                        to={path}
+                        onClick={() => setOpenDropdown(null)}
+                        className="block px-4 py-3 hover:bg-white/5 transition-colors"
+                      >
+                        <p className="text-sm font-semibold" style={{ color: isActive(path) ? '#D95D1A' : '#ddd' }}>{itemLabel}</p>
+                        <p className="text-xs mt-0.5" style={{ color: '#777' }}>{desc}</p>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
-            {isMod && (
-              <Link to="/moderation" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-white/10" style={{ color: '#ccc' }}>
-                <Shield className="w-4 h-4" /> Moderate
-              </Link>
-            )}
-            {isAdmin && (
-              <Link to="/admin" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium hover:bg-white/10" style={{ color: '#ccc' }}>
-                <Shield className="w-4 h-4" /> Admin
-              </Link>
-            )}
+          </div>
+        </div>
+
+        {/* ═══ Mobile dropdown ═══ */}
+        {mobileOpen && (
+          <div className="border-t lg:hidden" style={{ background: '#1A1A1A', borderColor: '#333' }}>
+            {/* Top links */}
+            <div className="px-4 py-2 flex flex-wrap gap-1">
+              {topLinks.map(({ label, path }) => (
+                <Link
+                  key={label}
+                  to={path}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-white/10"
+                  style={{ color: isActive(path) ? '#D95D1A' : '#aaa' }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Dropdown sections */}
+            <div className="divide-y" style={{ borderColor: '#333' }}>
+              {dropdowns.map(({ label, items }) => (
+                <div key={label}>
+                  <button
+                    onClick={() => toggleMobileSection(label)}
+                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold"
+                    style={{ color: '#D95D1A' }}
+                  >
+                    {label}
+                    <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded[label] ? 'rotate-180' : ''}`} />
+                  </button>
+                  {mobileExpanded[label] && (
+                    <div className="pb-2">
+                      {items.map(({ label: itemLabel, path }) => (
+                        <Link
+                          key={itemLabel}
+                          to={path}
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-6 py-2.5 text-sm transition-colors hover:bg-white/5"
+                          style={{ color: isActive(path) ? '#D95D1A' : '#bbb' }}
+                        >
+                          {itemLabel}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Mod/Admin links */}
+            <div className="px-4 py-3 border-t space-y-1" style={{ borderColor: '#333' }}>
+              {isMod && (
+                <Link to="/moderation" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-white/10" style={{ color: '#aaa' }}>
+                  <Shield className="w-4 h-4" /> Moderate
+                </Link>
+              )}
+              {isAdmin && (
+                <Link to="/admin" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-white/10" style={{ color: '#aaa' }}>
+                  <Shield className="w-4 h-4" /> Admin
+                </Link>
+              )}
+              {!user && (
+                <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 mt-2 rounded-xl font-bold text-sm" style={{ background: '#D95D1A', color: '#fff' }}>
+                  Register Now →
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </header>
@@ -116,10 +235,9 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Footer */}
+      {/* ═══ Footer ═══ */}
       <footer className="mt-12" style={{ background: '#1A1A1A', borderTop: '3px solid #D95D1A' }}>
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-8 h-8 rounded-full object-contain bg-white p-0.5" />
@@ -129,8 +247,6 @@ export default function Layout() {
               A community that brings together people who want to create change and make an impact — through caring, collaboration, and mutual aid.
             </p>
           </div>
-
-          {/* Quick links */}
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Quick Links</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
@@ -143,8 +259,6 @@ export default function Layout() {
               <li><a href="/contact" className="transition-colors hover:text-white">Contact</a></li>
             </ul>
           </div>
-
-          {/* Contact */}
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Contact</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
