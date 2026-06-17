@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map } from 'lucide-react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
+import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
@@ -174,6 +175,7 @@ export default function Directory() {
   const [hourLogs, setHourLogs] = useState([]);
   const [search, setSearch] = useState('');
   const [causeFilter, setCauseFilter] = useState('All');
+  const [dropdownFilter, setDropdownFilter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const [following, setFollowing] = useState([]);
@@ -217,7 +219,8 @@ export default function Directory() {
       : enriched;
     return base.filter(p => {
       const matchesCause = causeFilter === 'All' || p.causes?.includes(causeFilter);
-      if (!matchesCause) return false;
+      const dropdownCatMatch = !dropdownFilter || p.causes?.includes(dropdownFilter.category);
+      if (!matchesCause || !dropdownCatMatch) return false;
       if (!search.trim()) return true;
       const q = search.toLowerCase();
       return (
@@ -227,7 +230,7 @@ export default function Directory() {
         p.causes?.some(c => c.toLowerCase().includes(q))
       );
     });
-  }, [enriched, causeFilter, search, mainTab, following]);
+  }, [enriched, causeFilter, search, mainTab, following, dropdownFilter]);
 
   const suggested = useMemo(() =>
     myCauses.length > 0
@@ -373,13 +376,21 @@ export default function Directory() {
                 className="w-full bg-card border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary/40 transition-colors"
               />
             </div>
-            <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
-              {['All', ...CAUSES].map(c => (
-                <button key={c} onClick={() => setCauseFilter(c)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
-                  {c}
-                </button>
-              ))}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="sm:w-64">
+                <CategoryFilterDropdown
+                  selected={dropdownFilter}
+                  onSelect={(sel) => { setDropdownFilter(sel); if (sel) setCauseFilter('All'); }}
+                />
+              </div>
+              <div className="flex gap-1 bg-card border border-border rounded-xl p-1 flex-wrap">
+                {['All', ...CAUSES].map(c => (
+                  <button key={c} onClick={() => { setCauseFilter(c); setDropdownFilter(null); }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${causeFilter === c && !dropdownFilter ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
+                    {c}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
