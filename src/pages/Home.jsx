@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Gift, HandHeart, Users } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import ImpactStats from '@/components/ImpactStats';
 import TestimonialsSection from '@/components/TestimonialsSection';
 
@@ -15,141 +15,157 @@ export default function Home() {
   return (
     <div className="pb-24 md:pb-0">
 
-      {/* ① Hero */}
-      <section style={{ background: 'linear-gradient(180deg, #1A2744 0%, #0f1a30 100%)', borderBottom: '2px solid #C9A84C' }}>
-        <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-tight" style={{ color: '#F5E6C0' }}>
-            Transform Lives<br />Through Giving
+      {/* Hero */}
+      <section className="relative bg-white overflow-hidden" style={{ borderBottom: '1px solid #e0e0e0' }}>
+        <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 text-center relative z-10">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6" style={{ background: 'rgba(217,93,26,0.08)', color: '#D95D1A' }}>
+            <span className="w-2 h-2 rounded-full" style={{ background: '#D95D1A' }} />
+            347 MEMBERS · SAFED & BEYOND
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto" style={{ color: '#1A1A1A' }}>
+            A Community Platform Based on Giving, Receiving & Belonging
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-3 leading-relaxed" style={{ color: 'rgba(245,230,192,0.80)' }}>
-            Exchange skills, build community, and create lasting impact — one hour at a time.
+
+          {/* Subheadline */}
+          <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed" style={{ color: '#555' }}>
+            Share your talents, skills, & passions. Support one another. Grow together.
           </p>
-          <p className="text-sm mb-10 italic" style={{ color: 'rgba(245,230,192,0.60)' }}>
-            I give. I receive. I belong. I grow.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/opportunities" className="inline-block font-bold text-lg px-8 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#C9A84C', color: '#1A2744' }}>
-              Explore Opportunities
+
+          {/* CTA */}
+          {!user ? (
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              style={{ background: '#D95D1A', color: '#fff' }}
+            >
+              Join the Circle — Free <ArrowRight className="w-5 h-5" />
             </Link>
-            {!user ? (
-              <Link to="/register" className="inline-block border-2 font-bold text-lg px-8 py-4 rounded-2xl hover:bg-white/10 transition-colors" style={{ borderColor: 'rgba(245,230,192,0.40)', color: '#F5E6C0' }}>
-                Start Your Journey
-              </Link>
-            ) : (
-              <Link to="/feed" className="inline-block border-2 font-bold text-lg px-8 py-4 rounded-2xl hover:bg-white/10 transition-colors" style={{ borderColor: 'rgba(245,230,192,0.40)', color: '#F5E6C0' }}>
-                Go to Community Feed →
-              </Link>
-            )}
+          ) : (
+            <Link
+              to="/opportunities"
+              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              style={{ background: '#D95D1A', color: '#fff' }}
+            >
+              Explore Opportunities <ArrowRight className="w-5 h-5" />
+            </Link>
+          )}
+
+          {/* Hero Illustration */}
+          <div className="mt-12 flex justify-center">
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
+              <img
+                src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/2b5f3a1e3_generated_image.png"
+                alt="Diverse hands reaching toward the center"
+                className="w-full h-full object-contain"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Stats Banner */}
-      <section style={{ background: '#1A2744', borderBottom: '1px solid #C9A84C' }}>
-        <div className="max-w-4xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      {/* Stats Banner */}
+      <section className="py-8" style={{ background: '#F9F9F9', borderBottom: '1px solid #e0e0e0' }}>
+        <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { value: '2,847', label: 'Active Volunteers' },
-            { value: '15,420', label: 'Hours Exchanged' },
+            { value: '347', label: 'Active Members' },
+            { value: '15,420', label: 'Hours Given' },
             { value: '847', label: 'Skills Shared' },
             { value: '94', label: 'Communities Served' },
           ].map(({ value, label }) => (
             <div key={label}>
-              <div className="font-display text-3xl md:text-4xl font-bold mb-1" style={{ color: '#C9A84C' }}>{value}</div>
-              <div className="text-sm" style={{ color: 'rgba(245,230,192,0.60)' }}>{label}</div>
+              <div className="text-3xl md:text-4xl font-extrabold mb-1" style={{ color: '#D95D1A' }}>{value}</div>
+              <div className="text-sm font-medium" style={{ color: '#777' }}>{label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ② How it Works - 3 Steps */}
-      <section className="max-w-4xl mx-auto px-6 py-14">
-        <div className="text-center mb-10">
-          <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>How It Works</h2>
-          <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>Get started in three simple steps</p>
+      {/* How the Circle Works */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>HOW THE CIRCLE WORKS</span>
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-2" style={{ color: '#1A1A1A' }}>Register first to access the full platform</h2>
+          <p className="text-sm" style={{ color: '#777' }}>Three ways to participate — give, receive, or belong</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { step: '1', emoji: '🔍', title: 'Browse', desc: 'Explore volunteer opportunities, skill exchanges, or community needs based on what matters to you.' },
-            { step: '2', emoji: '✋', title: 'Connect', desc: 'Express interest or reach out directly to volunteers and community members who share your values.' },
-            { step: '3', emoji: '🌟', title: 'Impact', desc: 'Log your hours, share your story, and watch your contributions transform lives in real time.' },
-          ].map(({ step, emoji, title, desc }) => (
-            <div key={step} className="flex flex-col items-center gap-3 p-5 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
-              <div className="text-2xl">{emoji}</div>
-              <h3 className="font-semibold text-sm" style={{ color: '#1A2744' }}>{title}</h3>
-              <p className="text-xs text-center" style={{ color: '#6b5c3e' }}>{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ③ Give / Receive / Connect */}
-      <section className="max-w-4xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link to="/opportunities" className="group overflow-hidden flex flex-col items-center gap-4 p-8 text-center transition-all hover:shadow-xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(26,39,68,0.10)' }}>
-              <HandHeart className="w-8 h-8" style={{ color: '#1A2744' }} />
+          {/* Give Card */}
+          <Link to="/opportunities" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#D95D1A' }}>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(217,93,26,0.08)' }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="12" cy="12" r="4" stroke="#D95D1A" strokeWidth="2"/><circle cx="20" cy="12" r="4" stroke="#D95D1A" strokeWidth="2"/><path d="M8 22c0-2.2 1.8-4 4-4h2" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><path d="M18 18h2c2.2 0 4 1.8 4 4" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><line x1="16" y1="10" x2="16" y2="14" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/><line x1="14" y1="12" x2="18" y2="12" stroke="#D95D1A" strokeWidth="2" strokeLinecap="round"/></svg>
             </div>
-            <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Give</h2>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-              List what you have — time, skills, resources. Go to the <strong>Needs Board</strong> where members list what they want to give.
+            <h2 className="text-2xl font-extrabold" style={{ color: '#D95D1A' }}>Give.</h2>
+            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+              Share your time, skills, talents, or resources with those who need them most.
             </p>
-            <span className="mt-auto text-sm font-semibold" style={{ color: '#C9A84C' }}>Browse Opportunities →</span>
+            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#D95D1A' }}>
+              Give Now <ArrowRight className="w-4 h-4" />
+            </span>
           </Link>
 
-          <Link to="/opportunities" className="group overflow-hidden flex flex-col items-center gap-4 p-8 text-center transition-all hover:shadow-xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,168,76,0.15)' }}>
-              <Gift className="w-8 h-8" style={{ color: '#C9A84C' }} />
+          {/* Receive Card */}
+          <Link to="/sos" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#007D7D' }}>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,125,125,0.08)' }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 8v4M16 20v4M8 12h4m8 0h4" stroke="#007D7D" strokeWidth="2" strokeLinecap="round"/><circle cx="16" cy="16" r="10" stroke="#007D7D" strokeWidth="2"/><circle cx="12" cy="14" r="1" fill="#007D7D"/><circle cx="20" cy="14" r="1" fill="#007D7D"/><path d="M12 20c0 0 2 2 4 2s4-2 4-2" stroke="#007D7D" strokeWidth="2" strokeLinecap="round"/></svg>
             </div>
-            <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Receive</h2>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-              Find what you need — support, skills, community. Explore the <strong>Needs Board</strong> to see what others are offering.
+            <h2 className="text-2xl font-extrabold" style={{ color: '#007D7D' }}>Receive.</h2>
+            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+              Find support from trusted community members — from rides to companionship.
             </p>
-            <span className="mt-auto text-sm font-semibold" style={{ color: '#C9A84C' }}>Explore Needs Board →</span>
+            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#007D7D' }}>
+              Get Support <ArrowRight className="w-4 h-4" />
+            </span>
           </Link>
 
-          <Link to="/directory" className="group overflow-hidden flex flex-col items-center gap-4 p-8 text-center transition-all hover:shadow-xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,168,76,0.15)' }}>
-              <Users className="w-8 h-8" style={{ color: '#C9A84C' }} />
+          {/* Belong Card */}
+          <Link to="/directory" className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl border-2 transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', borderColor: '#DAA520' }}>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(218,165,32,0.08)' }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="10" cy="10" r="6" stroke="#DAA520" strokeWidth="2"/><circle cx="22" cy="10" r="6" stroke="#DAA520" strokeWidth="2"/><circle cx="16" cy="20" r="6" stroke="#DAA520" strokeWidth="2"/><line x1="12.5" y1="13" x2="15" y2="17" stroke="#DAA520" strokeWidth="2"/><line x1="19.5" y1="13" x2="17" y2="17" stroke="#DAA520" strokeWidth="2"/></svg>
             </div>
-            <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Connect</h2>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-              Meet the people behind the circles. Go to the <strong>Community Profiles</strong> page to see all members.
+            <h2 className="text-2xl font-extrabold" style={{ color: '#DAA520' }}>Belong.</h2>
+            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+              Connect with others through our community programs and grow together.
             </p>
-            <span className="mt-auto text-sm font-semibold" style={{ color: '#C9A84C' }}>View Community →</span>
+            <span className="inline-flex items-center gap-1 mt-2 text-sm font-bold group-hover:gap-2 transition-all" style={{ color: '#DAA520' }}>
+              Join the Community <ArrowRight className="w-4 h-4" />
+            </span>
           </Link>
         </div>
 
         {!user && (
-          <p className="text-center text-sm mt-6 rounded-xl py-3 px-4" style={{ background: '#FAF7EE', border: '1px solid #C9A84C', color: '#6b5c3e' }}>
+          <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
             🔒 <strong>Must register first</strong> to give, receive, or connect.{' '}
-            <Link to="/register" className="font-semibold hover:underline" style={{ color: '#1A2744' }}>Create your free account →</Link>
+            <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Create your free account →</Link>
           </p>
         )}
       </section>
 
       <ImpactStats />
 
-      {/* ④ Mission */}
-      <section style={{ background: '#FAF7EE', borderTop: '1px solid #C9A84C', borderBottom: '1px solid #C9A84C' }}>
+      {/* Mission */}
+      <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
-          <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: '#C9A84C' }}>Our Mission</span>
-          <p className="text-xl md:text-2xl font-bold leading-relaxed mb-4" style={{ color: '#1A2744' }}>
-            I contribute what I have. I receive what I need. Together, we solve <span className="underline decoration-2" style={{ textDecorationColor: '#C9A84C' }}>real</span> social challenges — and build circles of belonging that sustain us all.
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Our Mission</span>
+          <p className="text-xl md:text-2xl font-bold leading-relaxed mb-4" style={{ color: '#1A1A1A' }}>
+            I contribute what I have. I receive what I need. Together, we solve <span className="underline decoration-2" style={{ textDecorationColor: '#DAA520' }}>real</span> social challenges — and build circles of belonging that sustain us all.
           </p>
-          <p className="text-base leading-relaxed" style={{ color: '#6b5c3e' }}>
+          <p className="text-base leading-relaxed" style={{ color: '#555' }}>
             Circles of Giving is a vibrant, expanding community of members who want to make meaningful changes in their lives individually and collectively — by giving and sharing their unique talents, skills, and passions.
           </p>
         </div>
       </section>
 
-      {/* ⑤ Platform Goals */}
+      {/* Platform Goals */}
       <section className="max-w-3xl mx-auto px-6 py-14">
         <div className="text-center mb-10">
-          <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Platform Goals</h2>
-          <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>From an individual perspective</p>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Platform Goals</span>
+          <h2 className="text-2xl font-extrabold" style={{ color: '#1A1A1A' }}>From an individual perspective</h2>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-4">
           {[
             { num: '01', title: 'I choose generosity over self-interest', body: "I come here to give — not because I have to, but because I've discovered that giving freely is one of the greatest joys I know." },
             { num: '02', title: 'I bring my spark', body: "I have a passion, a skill, a story that only I can share. This is the place where I light it up and offer it to others." },
@@ -157,11 +173,11 @@ export default function Home() {
             { num: '04', title: 'I help solve what no one can solve alone', body: "I bring what I have to the table. Together, we turn individual contributions into something powerful enough to change communities." },
             { num: '05', title: 'I belong here', body: "I am a full member of this circle — contributing, receiving, and growing alongside everyone in it." },
           ].map(({ num, title, body }) => (
-            <div key={num} className="flex gap-5 items-start p-6 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-              <span className="text-2xl font-display font-bold flex-shrink-0 leading-none pt-1" style={{ color: 'rgba(201,168,76,0.5)' }}>{num}</span>
+            <div key={num} className="flex gap-5 items-start p-6 rounded-2xl border" style={{ background: '#fff', borderColor: '#e0e0e0' }}>
+              <span className="text-2xl font-extrabold flex-shrink-0 leading-none pt-1" style={{ color: 'rgba(217,93,26,0.3)' }}>{num}</span>
               <div>
-                <h3 className="font-semibold text-lg underline decoration-2 underline-offset-2 mb-2" style={{ color: '#1A2744', textDecorationColor: '#C9A84C' }}>{title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>{body}</p>
+                <h3 className="font-bold text-lg underline decoration-2 underline-offset-2 mb-2" style={{ color: '#1A1A1A', textDecorationColor: '#DAA520' }}>{title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#555' }}>{body}</p>
               </div>
             </div>
           ))}
@@ -170,32 +186,31 @@ export default function Home() {
 
       <TestimonialsSection />
 
-      {/* Volunteer Pathway */}
-      <section style={{ background: '#FAF7EE', borderTop: '1px solid #C9A84C', borderBottom: '1px solid #C9A84C' }}>
+      {/* Volunteer Levels */}
+      <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
         <div className="max-w-4xl mx-auto px-6 py-14">
           <div className="text-center mb-10">
-            <h2 className="font-display text-3xl font-bold mb-2" style={{ color: '#1A2744' }}>Find Your Place in the Circle</h2>
-            <p style={{ color: '#6b5c3e' }}>Every contribution matters. Choose the commitment level that fits your life.</p>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Volunteer Pathways</span>
+            <h2 className="text-2xl font-extrabold" style={{ color: '#1A1A1A' }}>Find Your Place in the Circle</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { level: 'Beginner Level', title: 'Community Helper', time: '2–4 hours/month', radius: 'Your neighborhood', skills: 'Basic conversation, empathy', tasks: ['Help neighbors with shopping or errands', 'Provide companionship to elderly community members', 'Participate in local cleanup events', 'Share simple skills (cooking, gardening, tech basics)'], borderColor: '#6b8f6e', badgeBg: '#e8f5e9', badgeColor: '#2d5a31' },
-              { level: 'Intermediate Level', title: 'Skill Sharer', time: '6–10 hours/month', radius: 'Your city', skills: 'A teachable skill or profession', tasks: ['Run a workshop or class', 'Mentor someone new to your field', 'Offer rides or tech support', 'Coordinate a community event'], borderColor: '#1A2744', badgeBg: 'rgba(26,39,68,0.10)', badgeColor: '#1A2744' },
-              { level: 'Advanced Level', title: 'Circle Leader', time: '10+ hours/month', radius: 'Regional impact', skills: 'Leadership, organization', tasks: ['Lead a volunteer team', 'Launch a new giving initiative', 'Partner with local organizations', 'Represent Circles of Giving in your community'], borderColor: '#C9A84C', badgeBg: 'rgba(201,168,76,0.15)', badgeColor: '#8a6a10' },
-            ].map(({ level, title, time, radius, skills, tasks, borderColor, badgeBg, badgeColor }) => (
-              <div key={title} className="p-6 rounded-2xl" style={{ background: '#FAF7EE', border: `2px solid ${borderColor}` }}>
+              { level: 'Beginner', title: 'Community Helper', time: '2–4 hours/month', skills: 'Basic conversation, empathy', tasks: ['Help neighbors with errands', 'Provide companionship', 'Join local cleanup events', 'Share simple skills'], borderColor: '#007D7D', badgeColor: '#007D7D', badgeBg: 'rgba(0,125,125,0.1)' },
+              { level: 'Intermediate', title: 'Skill Sharer', time: '6–10 hours/month', skills: 'A teachable skill or profession', tasks: ['Run a workshop or class', 'Mentor someone in your field', 'Offer rides or tech support', 'Coordinate a community event'], borderColor: '#D95D1A', badgeColor: '#D95D1A', badgeBg: 'rgba(217,93,26,0.1)' },
+              { level: 'Advanced', title: 'Circle Leader', time: '10+ hours/month', skills: 'Leadership & organization', tasks: ['Lead a volunteer team', 'Launch a giving initiative', 'Partner with organizations', 'Represent the community'], borderColor: '#DAA520', badgeColor: '#DAA520', badgeBg: 'rgba(218,165,32,0.1)' },
+            ].map(({ level, title, time, skills, tasks, borderColor, badgeColor, badgeBg }) => (
+              <div key={title} className="p-6 rounded-2xl border-2" style={{ background: '#fff', borderColor }}>
                 <span className="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full" style={{ background: badgeBg, color: badgeColor }}>{level}</span>
-                <h3 className="font-display text-xl font-bold mt-3 mb-3" style={{ color: '#1A2744' }}>{title}</h3>
-                <div className="text-xs space-y-1 mb-4 border-l-2 pl-3" style={{ borderColor: '#C9A84C', color: '#6b5c3e' }}>
-                  <p><span className="font-semibold" style={{ color: '#1A2744' }}>Time:</span> {time}</p>
-                  <p><span className="font-semibold" style={{ color: '#1A2744' }}>Radius:</span> {radius}</p>
-                  <p><span className="font-semibold" style={{ color: '#1A2744' }}>Skills:</span> {skills}</p>
+                <h3 className="text-xl font-extrabold mt-3 mb-3" style={{ color: '#1A1A1A' }}>{title}</h3>
+                <div className="text-xs space-y-1 mb-4 border-l-2 pl-3" style={{ borderColor, color: '#555' }}>
+                  <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Time:</span> {time}</p>
+                  <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Skills:</span> {skills}</p>
                 </div>
-                <p className="text-xs font-semibold mb-2" style={{ color: '#1A2744' }}>What You'll Do:</p>
+                <p className="text-xs font-bold mb-2" style={{ color: '#1A1A1A' }}>What You'll Do:</p>
                 <ul className="space-y-1.5">
                   {tasks.map(t => (
-                    <li key={t} className="text-xs flex gap-2" style={{ color: '#6b5c3e' }}>
-                      <span style={{ color: '#C9A84C' }} className="flex-shrink-0">✦</span>{t}
+                    <li key={t} className="text-xs flex gap-2" style={{ color: '#555' }}>
+                      <span style={{ color: badgeColor }} className="flex-shrink-0">✦</span>{t}
                     </li>
                   ))}
                 </ul>
@@ -203,27 +218,27 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link to="/opportunities" className="inline-block font-bold px-8 py-3 rounded-2xl hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-              Start Here →
+            <Link to="/opportunities" className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+              Start Here <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* Closing CTA */}
-      <section style={{ background: 'linear-gradient(180deg, #1A2744 0%, #0f1a30 100%)', borderTop: '2px solid #C9A84C' }}>
+      <section style={{ background: '#1A1A1A' }}>
         <div className="max-w-2xl mx-auto px-6 py-16 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4" style={{ color: '#F5E6C0' }}>Your Time is Valuable</h2>
-          <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(245,230,192,0.75)' }}>
-            In a world that measures worth in currency, we measure it in connection. Join thousands of volunteers who are redefining community, one hour at a time.
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Your Time is Valuable</h2>
+          <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
           </p>
           {user ? (
-            <Link to="/profile" className="inline-block font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#C9A84C', color: '#1A2744' }}>
-              Create Your Profile
+            <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#D95D1A', color: '#fff' }}>
+              Create Your Profile <ArrowRight className="w-5 h-5" />
             </Link>
           ) : (
-            <Link to="/register" className="inline-block font-bold text-lg px-10 py-4 rounded-2xl hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#C9A84C', color: '#1A2744' }}>
-              Join Now
+            <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#D95D1A', color: '#fff' }}>
+              Join Now <ArrowRight className="w-5 h-5" />
             </Link>
           )}
         </div>
