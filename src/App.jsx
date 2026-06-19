@@ -28,6 +28,7 @@ import Health from './pages/Health';
 import Donate from './pages/Donate';
 import About from './pages/About';
 import Trust from './pages/Trust';
+import PlatformOverview from './pages/PlatformOverview';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -76,6 +77,7 @@ const AuthenticatedApp = () => {
         <Route path="/donate" element={<Donate />} />
         <Route path="/about" element={<About />} />
         <Route path="/trust" element={<Trust />} />
+        <Route path="/platform" element={<PlatformOverview />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
