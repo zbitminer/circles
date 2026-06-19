@@ -42,7 +42,7 @@ const topLinks = [
   { label: 'Events', path: '/events' },
   { label: 'Corporate', path: '/corporate' },
   { label: 'About', path: '/about' },
-  { label: 'Trust', path: '/#trust' },
+  { label: 'Trust', path: '/trust' },
 ];
 
 export default function Layout() {
