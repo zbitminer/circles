@@ -41,6 +41,7 @@ const topLinks = [
   { label: 'Our Community', path: '/feed' },
   { label: 'Events', path: '/events' },
   { label: 'Corporate', path: '/corporate' },
+  { label: 'About', path: '/about' },
   { label: 'Trust', path: '/#trust' },
 ];
 

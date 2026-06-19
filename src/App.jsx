@@ -26,6 +26,7 @@ import Contact from './pages/Contact';
 import Sitemap from './pages/Sitemap';
 import Health from './pages/Health';
 import Donate from './pages/Donate';
+import About from './pages/About';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -72,6 +73,7 @@ const AuthenticatedApp = () => {
         <Route path="/sitemap" element={<Sitemap />} />
         <Route path="/health" element={<Health />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path="/about" element={<About />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
