@@ -40,6 +40,7 @@ const topLinks = [
   { label: 'Volunteers', path: '/directory' },
   { label: 'Our Community', path: '/feed' },
   { label: 'Events', path: '/events' },
+  { label: 'Corporate', path: '/corporate' },
   { label: 'Trust', path: '/#trust' },
 ];
 
