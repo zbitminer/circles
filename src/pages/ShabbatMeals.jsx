@@ -67,6 +67,76 @@ export default function ShabbatMeals() {
         </div>
       </div>
 
+      {/* Intro quote */}
+      <div className="rounded-2xl p-6 mb-6 text-center italic" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <p className="text-lg font-medium" style={{ color: '#1A2744' }}>"The table is not just for eating—it is the place where community is built."</p>
+        <p className="text-sm mt-3 max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
+          For many in our community—students, new immigrants, singles, and elderly neighbors—spending Shabbat alone can feel isolating.
+          Our <strong>Shabbat Meals Initiative</strong> connects hosts who have an extra seat with guests who are looking for a place to belong.
+        </p>
+      </div>
+
+      {/* Host / Guest CTA cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="rounded-2xl p-6" style={{ background: '#1A2744', border: '1.5px solid #C9A84C' }}>
+          <div className="text-3xl mb-3">🪑</div>
+          <h3 className="font-display text-lg font-bold mb-2 text-white">Are You a Host?</h3>
+          <ul className="text-sm space-y-1.5 mb-4" style={{ color: 'rgba(245,230,192,0.85)' }}>
+            <li>• Host an individual or a small family</li>
+            <li>• Create a lasting bond with someone in your neighborhood</li>
+            <li>• Help us fight the epidemic of loneliness in our city</li>
+          </ul>
+          <button onClick={() => setShowForm(true)} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
+            I Want to Host
+          </button>
+        </div>
+        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <div className="text-3xl mb-3">🤝</div>
+          <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#1A2744' }}>Looking for a Meal?</h3>
+          <ul className="text-sm space-y-1.5 mb-4" style={{ color: '#6b5c3e' }}>
+            <li>• Experience the warmth of a local Shabbat</li>
+            <li>• Meet new people and become part of our community</li>
+            <li>• 100% confidential and free of charge</li>
+          </ul>
+          <button onClick={() => document.getElementById('meals-list')?.scrollIntoView({ behavior: 'smooth' })} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+            I Want to Join a Meal
+          </button>
+        </div>
+      </div>
+
+      {/* Shabbat in the North */}
+      <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="flex items-start gap-3 mb-3">
+          <span className="text-2xl">🌍</span>
+          <div>
+            <h3 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Shabbat in the North</h3>
+            <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>
+              Our initiative is especially active in <strong style={{ color: '#1A2744' }}>Safed and the Upper Galilee</strong>. Our Shabbat tables have become a vital source of comfort and normalcy for displaced families and those feeling the weight of the current situation.
+            </p>
+          </div>
+        </div>
+        <blockquote className="border-l-4 pl-4 text-sm italic mt-3" style={{ borderColor: '#C9A84C', color: '#6b5c3e' }}>
+          "Opening my door to a displaced family reminded me of why we call this place home. The table becomes a sanctuary." — <strong>Sarah, Safed</strong>
+        </blockquote>
+      </div>
+
+      {/* FAQ */}
+      <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <h3 className="font-display text-lg font-bold mb-4" style={{ color: '#1A2744' }}>💡 Frequently Asked Questions</h3>
+        <div className="space-y-4">
+          {[
+            { q: 'Is there a cost?', a: 'No, all Shabbat meal connections are provided free of charge through the generosity of our donors and volunteers.' },
+            { q: 'Can I host if I\'m not a regular?', a: 'Absolutely! Our tables are diverse and inclusive. We welcome everyone who wants to participate in this beautiful tradition.' },
+            { q: 'How do you handle dietary requirements?', a: 'When you sign up, simply note your preferences or requirements, and we will do our best to find a perfect match.' },
+          ].map(({ q, a }) => (
+            <div key={q}>
+              <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>Q: {q}</p>
+              <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>{a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* How it works */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
         {[
@@ -145,7 +215,7 @@ export default function ShabbatMeals() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-xl p-1 mb-5 w-fit" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+      <div id="meals-list" className="flex gap-1 rounded-xl p-1 mb-5 w-fit" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
         <button onClick={() => setTab('all')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'all' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>All Meals</button>
         {user && <button onClick={() => setTab('mine')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'mine' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>My Hosted Meals</button>}
       </div>
