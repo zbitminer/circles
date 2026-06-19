@@ -85,6 +85,69 @@ export default function Health() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
+      {/* Hero Banner */}
+      <div className="rounded-2xl p-8 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
+        <div className="text-4xl mb-3">🕊️</div>
+        <h1 className="font-display text-3xl md:text-4xl font-bold mb-3" style={{ color: '#F5E6C0' }}>
+          A Nation in Trauma — Together We Heal
+        </h1>
+        <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(245,230,192,0.85)' }}>
+          Circles of Giving acts as a virtual bridge connecting mental health professionals, wellness volunteers,
+          and those in need of practical support and emotional healing. No one should face a crisis alone.
+        </p>
+      </div>
+
+      {/* Wellness Pillars */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {[
+          {
+            emoji: '🩺',
+            title: 'Medical Assistance',
+            desc: 'Community volunteers help with doctor appointments, medication pickups, rehabilitation support, and navigating the healthcare system.',
+            color: '#c0392b',
+            bg: 'rgba(220,40,40,0.07)',
+          },
+          {
+            emoji: '🧠',
+            title: 'Trauma & Mental Health',
+            desc: 'Our network connects trauma survivors with certified counselors, therapists, and peer-support volunteers — especially critical for families displaced by conflict.',
+            color: '#6c5ce7',
+            bg: 'rgba(100,80,180,0.07)',
+          },
+          {
+            emoji: '🌿',
+            title: 'Wellness & Resilience',
+            desc: 'From nutrition guidance to movement workshops, community members share skills and resources to support everyday wellbeing and long-term resilience.',
+            color: '#27ae60',
+            bg: 'rgba(39,174,96,0.07)',
+          },
+        ].map(({ emoji, title, desc, color, bg }) => (
+          <div key={title} className="rounded-2xl p-5" style={{ background: bg, border: `1.5px solid ${color}22` }}>
+            <div className="text-2xl mb-3">{emoji}</div>
+            <h3 className="font-semibold text-base mb-2" style={{ color: '#1A2744' }}>{title}</h3>
+            <p className="text-xs leading-relaxed" style={{ color: '#6b5c3e' }}>{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* How It Works */}
+      <div className="rounded-2xl p-6 mb-8" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A2744' }}>How Wellness Support Works</h2>
+        <ol className="space-y-3">
+          {[
+            { num: '1', text: 'Post a request describing the type of support you need — medical, mental health, or wellness.' },
+            { num: '2', text: 'A volunteer or professional from our community sees your request and offers to help.' },
+            { num: '3', text: 'Connect privately and arrange the support — all in a safe, confidential environment.' },
+            { num: '4', text: 'Mark the request resolved once you\'ve received the help you needed.' },
+          ].map(({ num, text }) => (
+            <li key={num} className="flex items-start gap-3 text-sm" style={{ color: '#6b5c3e' }}>
+              <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#C9A84C', color: '#1A2744' }}>{num}</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
       {/* Header */}
       <div className="rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
         <div className="flex items-start justify-between flex-wrap gap-4">
