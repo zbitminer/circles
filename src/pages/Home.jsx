@@ -163,7 +163,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Our Mission</span>
           <p className="text-xl md:text-2xl font-bold leading-relaxed mb-4" style={{ color: '#1A1A1A' }}>
-            I contribute what I have. I receive what I need. Together, we solve <span className="underline decoration-2" style={{ textDecorationColor: '#DAA520' }}>real</span> social challenges — and build circles of belonging that sustain us all.
+            Building our community through <span className="underline decoration-2" style={{ textDecorationColor: '#DAA520' }}>connections</span> — one relationship, one act of giving, one shared moment at a time.
           </p>
           <p className="text-base leading-relaxed" style={{ color: '#555' }}>
             Circles of Giving is a vibrant, expanding community of members who want to make meaningful changes in their lives individually and collectively — by giving and sharing their unique talents, skills, and passions.
