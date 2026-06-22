@@ -209,30 +209,33 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { level: 'Beginner', title: 'Community Helper', time: '2–4 hours/month', skills: 'Basic conversation, empathy', tasks: ['Help neighbors with errands', 'Provide companionship', 'Join local cleanup events', 'Share simple skills'], borderColor: '#007D7D', badgeColor: '#007D7D', badgeBg: 'rgba(0,125,125,0.1)' },
-              { level: 'Intermediate', title: 'Skill Sharer', time: '6–10 hours/month', skills: 'A teachable skill or profession', tasks: ['Run a workshop or class', 'Mentor someone in your field', 'Offer rides or tech support', 'Coordinate a community event'], borderColor: '#D95D1A', badgeColor: '#D95D1A', badgeBg: 'rgba(217,93,26,0.1)' },
-              { level: 'Advanced', title: 'Circle Leader', time: '10+ hours/month', skills: 'Leadership & organization', tasks: ['Lead a volunteer team', 'Launch a giving initiative', 'Partner with organizations', 'Represent the community'], borderColor: '#DAA520', badgeColor: '#DAA520', badgeBg: 'rgba(218,165,32,0.1)' },
-            ].map(({ level, title, time, skills, tasks, borderColor, badgeColor, badgeBg }) => (
-              <div key={title} className="p-6 rounded-2xl border-2" style={{ background: '#fff', borderColor }}>
-                <span className="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full" style={{ background: badgeBg, color: badgeColor }}>{level}</span>
-                <h3 className="text-xl font-extrabold mt-3 mb-3" style={{ color: '#1A1A1A' }}>{title}</h3>
-                <div className="text-xs space-y-1 mb-4 border-l-2 pl-3" style={{ borderColor, color: '#555' }}>
-                  <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Time:</span> {time}</p>
-                  <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Skills:</span> {skills}</p>
+              { level: 'Beginner', title: 'Community Helper', time: '2–4 hours/month', skills: 'Basic conversation, empathy', tasks: ['Help neighbors with errands', 'Provide companionship', 'Join local cleanup events', 'Share simple skills'], accentColor: '#008080', badgeColor: '#008080', badgeBg: 'rgba(0,128,128,0.1)' },
+              { level: 'Intermediate', title: 'Skill Sharer', time: '6–10 hours/month', skills: 'A teachable skill or profession', tasks: ['Run a workshop or class', 'Mentor someone in your field', 'Offer rides or tech support', 'Coordinate a community event'], accentColor: '#CC6633', badgeColor: '#CC6633', badgeBg: 'rgba(204,102,51,0.1)' },
+              { level: 'Advanced', title: 'Circle Leader', time: '10+ hours/month', skills: 'Leadership & organization', tasks: ['Lead a volunteer team', 'Launch a giving initiative', 'Partner with organizations', 'Represent the community'], accentColor: '#DAA520', badgeColor: '#DAA520', badgeBg: 'rgba(218,165,32,0.1)' },
+            ].map(({ level, title, time, skills, tasks, accentColor, badgeColor, badgeBg }) => (
+              <div key={title} className="relative p-6 rounded-2xl overflow-hidden" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                <div className="absolute top-0 left-0 bottom-0 w-1.5" style={{ background: accentColor }} />
+                <div className="pl-3">
+                  <span className="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full" style={{ background: badgeBg, color: badgeColor }}>{level}</span>
+                  <h3 className="text-xl font-extrabold mt-3 mb-3" style={{ color: '#1A1A1A' }}>{title}</h3>
+                  <div className="text-xs space-y-1 mb-4 border-l-2 pl-3" style={{ borderColor: accentColor, color: '#555' }}>
+                    <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Time:</span> {time}</p>
+                    <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Skills:</span> {skills}</p>
+                  </div>
+                  <p className="text-xs font-bold mb-2" style={{ color: '#1A1A1A' }}>What You'll Do:</p>
+                  <ul className="space-y-1.5">
+                    {tasks.map(t => (
+                      <li key={t} className="text-xs flex gap-2" style={{ color: '#555' }}>
+                        <span style={{ color: accentColor }} className="flex-shrink-0">●</span>{t}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="text-xs font-bold mb-2" style={{ color: '#1A1A1A' }}>What You'll Do:</p>
-                <ul className="space-y-1.5">
-                  {tasks.map(t => (
-                    <li key={t} className="text-xs flex gap-2" style={{ color: '#555' }}>
-                      <span style={{ color: badgeColor }} className="flex-shrink-0">✦</span>{t}
-                    </li>
-                  ))}
-                </ul>
               </div>
             ))}
           </div>
           <div className="text-center mt-8">
-            <Link to="/opportunities" className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+            <Link to="/opportunities" className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full hover:opacity-90 transition-opacity shadow-md" style={{ background: '#E67E22', color: '#fff' }}>
               Start Here <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
