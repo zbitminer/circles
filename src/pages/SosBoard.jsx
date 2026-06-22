@@ -87,7 +87,7 @@ export default function SosBoard() {
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Receiving Help</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Post SOS requests for help within 24–48 hours</p>
+          <p className="text-sm" style={{ color: '#6b5c3e' }}>Post urgent requests for help within 24–48 hours</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
@@ -99,7 +99,7 @@ export default function SosBoard() {
             </button>
           </div>
           <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-            <Plus className="w-4 h-4" /> Post SOS
+            <Plus className="w-4 h-4" /> Post Urgent
           </button>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default function SosBoard() {
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
               <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
-                {submitting ? 'Posting...' : 'Post SOS Request'}
+                {submitting ? 'Posting...' : 'Post Urgent Request'}
               </button>
             </div>
           </form>
@@ -195,7 +195,7 @@ export default function SosBoard() {
         <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-5xl mb-4">✅</div>
           <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No {statusFilter === 'all' ? '' : statusFilter} requests</h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Check back soon or post a new SOS request.</p>
+          <p className="text-sm" style={{ color: '#6b5c3e' }}>Check back soon or post a new urgent request.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
