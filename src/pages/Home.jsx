@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { ArrowRight, Heart } from 'lucide-react';
-import TestimonialsSection from '@/components/TestimonialsSection';
+import BuildingCommunitySection from '@/components/home/BuildingCommunitySection';
+import HowItWorksSection from '@/components/home/HowItWorksSection';
+import LiveCommunitySection from '@/components/home/LiveCommunitySection';
+import UpcomingCirclesSection from '@/components/home/UpcomingCirclesSection';
+import CommunityGridSection from '@/components/home/CommunityGridSection';
+import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
+import RealImpactSection from '@/components/home/RealImpactSection';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -66,13 +72,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How the Circle Works */}
-      <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
+      {/* How It Works */}
+      <HowItWorksSection />
 
-
+      {/* Ways to Engage — Give / Receive / Belong */}
+      <section className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>HOW THE CIRCLE WORKS</span>
-          <h2 className="text-2xl md:text-3xl font-extrabold" style={{ color: '#1A1A1A' }}>Register first to access the full platform</h2>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>WAYS TO ENGAGE</span>
+          <h2 className="text-2xl md:text-3xl font-extrabold" style={{ color: '#1A1A1A' }}>Give, Receive, or Belong</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -158,18 +165,14 @@ export default function Home() {
         )}
       </section>
 
-      {/* Mission */}
-      <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
-        <div className="max-w-3xl mx-auto px-6 py-14 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>From an Individual Perspective</span>
-          <p className="text-xl font-bold leading-relaxed mb-3" style={{ color: '#1A1A1A' }}>
-            Building our community through <span className="underline decoration-2" style={{ textDecorationColor: '#DAA520' }}>connections</span> — one relationship, one act of giving, one shared moment at a time.
-          </p>
-          <p className="text-xl font-bold leading-relaxed" style={{ color: '#555' }}>
-            Circles of Giving is a vibrant, expanding community of members who want to make meaningful changes in their lives individually and collectively — by giving and sharing their unique talents, skills, and passions.
-          </p>
-        </div>
-      </section>
+      {/* Building Community Thru Giving */}
+      <BuildingCommunitySection />
+
+      {/* Live Community — Happening Right Now */}
+      <LiveCommunitySection />
+
+      {/* Upcoming Circles */}
+      <UpcomingCirclesSection />
 
       {/* Platform Goals */}
       <section className="max-w-3xl mx-auto px-6 py-14">
@@ -195,9 +198,14 @@ export default function Home() {
         </div>
       </section>
 
-      <div id="trust">
-        <TestimonialsSection />
-      </div>
+      {/* Community Grid — Real People. Real Giving. */}
+      <CommunityGridSection />
+
+      {/* Volunteer Spotlight */}
+      <VolunteerSpotlightSection />
+
+      {/* Real Impact */}
+      <RealImpactSection />
 
       {/* Volunteer Levels */}
       <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
