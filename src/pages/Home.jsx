@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Heart } from 'lucide-react';
 import TestimonialsSection from '@/components/TestimonialsSection';
 
 export default function Home() {
@@ -249,15 +249,20 @@ export default function Home() {
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
             In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
           </p>
-          {user ? (
-            <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
-              Create Your Profile <ArrowRight className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {user ? (
+              <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+                Create Your Profile <ArrowRight className="w-5 h-5" />
+              </Link>
+            ) : (
+              <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+                Join Now <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
+            <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg border-2" style={{ background: 'transparent', color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
+              <Heart className="w-5 h-5" /> Donate
             </Link>
-          ) : (
-            <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
-              Join Now <ArrowRight className="w-5 h-5" />
-            </Link>
-          )}
+          </div>
         </div>
       </section>
 
