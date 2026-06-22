@@ -68,14 +68,7 @@ export default function Home() {
 
       {/* How the Circle Works */}
       <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
-        {/* Abstract circle artwork */}
-        <div className="flex justify-center mb-8">
-          <img
-            src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/9e9f161ac_IMG_0089.png"
-            alt="How the Circle Works"
-            className="w-40 h-40 md:w-48 md:h-48 object-contain"
-          />
-        </div>
+
 
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>HOW THE CIRCLE WORKS</span>
