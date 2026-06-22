@@ -19,7 +19,6 @@ const dropdowns = [
     items: [
       { label: 'SOS', path: '/sos', desc: 'Urgent requests for help' },
       { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
-      { label: 'Health Support', path: '/health', desc: 'Medical, mental & wellness help' },
     ],
   },
   {
