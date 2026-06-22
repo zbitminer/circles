@@ -51,6 +51,27 @@ export default function Trust() {
         </p>
       </div>
 
+      {/* Trust Cards + Standards Banner */}
+      <div className="mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+          {[
+            { icon: Eye, title: 'Active Moderation', desc: 'Our moderators review community posts and flagged content to keep every circle respectful, safe, and welcoming for all.' },
+            { icon: FileCheck, title: 'Transparent Stewardship', desc: 'We honor every contribution as a sacred trust, dedicating our resources to the frontline of need where they can do the most good.' },
+            { icon: Heart, title: 'Care, Not Profit', desc: 'Circles of Giving is a community initiative. All meal connections, support requests, and mutual aid are provided free of charge.' },
+            { icon: Users, title: 'Peer Accountability', desc: 'Reviews and ratings help build a track record of trust between hosts and guests, volunteers and recipients—so you always know who you\'re connecting with.' },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="p-6 rounded-2xl" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+              <Icon className="w-5 h-5 mb-3" style={{ color: '#C9A84C' }} />
+              <h3 className="font-bold text-base mb-2" style={{ color: '#2C3E50' }}>{title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-2xl py-6 text-center" style={{ background: '#34495E' }}>
+          <h2 className="font-display text-2xl font-bold text-white">Our Community Standards</h2>
+        </div>
+      </div>
+
       {/* Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
         {pillars.map(({ icon: Icon, title, desc }) => (
