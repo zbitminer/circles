@@ -100,69 +100,74 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Give Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(217,93,26,0.08)' }}>
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                {/* Lotus/flower icon */}
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(211,94,53,0.08)' }}>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                {/* Flower with heart center */}
                 {[0, 60, 120, 180, 240, 300].map((angle, i) => {
                   const rad = (angle * Math.PI) / 180;
-                  const cx = 18 + Math.cos(rad) * 8;
-                  const cy = 18 + Math.sin(rad) * 8;
-                  return <ellipse key={i} cx={cx} cy={cy} rx="4" ry="9" stroke="#D95D1A" strokeWidth="1.5" transform={`rotate(${angle}, ${cx}, ${cy})`} fill="none" />;
+                  const cx = 20 + Math.cos(rad) * 9;
+                  const cy = 20 + Math.sin(rad) * 9;
+                  return <path key={i} d={`M ${cx} ${cy} C ${cx + 4} ${cy - 6}, ${cx - 4} ${cy - 6}, ${cx} ${cy}`} stroke="#D35E35" strokeWidth="1.5" fill="none" strokeLinecap="round" transform={`rotate(${angle + 90}, ${cx}, ${cy})`} />;
                 })}
-                <circle cx="18" cy="18" r="4" fill="#D95D1A" opacity="0.3" />
+                <path d="M20 17 C 18 14, 15 15, 15 18 C 15 20, 20 23, 20 23 C 20 23, 25 20, 25 18 C 25 15, 22 14, 20 17 Z" fill="#D35E35" />
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#D95D1A' }}>Give.</h2>
+            <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
               Share your time, skills, talents, or resources.
             </p>
-            <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D95D1A', color: '#fff' }}>
-              Give Now <ArrowRight className="w-4 h-4" />
+            <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D35E35', color: '#fff' }}>
+              Give Now →
             </Link>
           </div>
 
           {/* Receive Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(0,125,125,0.08)' }}>
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                {/* Hands cradling figure */}
-                <path d="M8 20c-2 0-4 2-4 4v4c0 2 2 4 4 4h1" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M28 20c2 0 4 2 4 4v4c0 2-2 4-4 4h-1" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="18" cy="14" r="5" stroke="#007D7D" strokeWidth="1.5" />
-                <path d="M13 18c0-3 2-5 5-5s5 2 5 5" stroke="#007D7D" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="16" cy="13" r="0.8" fill="#007D7D" />
-                <circle cx="20" cy="13" r="0.8" fill="#007D7D" />
-                <path d="M16 17c0 0 1 1.5 2 1.5s2-1.5 2-1.5" stroke="#007D7D" strokeWidth="1.2" strokeLinecap="round" />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(36,125,125,0.08)' }}>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                {/* Figure being held by hands */}
+                <circle cx="20" cy="13" r="4.5" stroke="#247D7D" strokeWidth="1.5" fill="none" />
+                <path d="M15 20 C 15 17, 17 15, 20 15 C 23 15, 25 17, 25 20 L 25 24 L 15 24 Z" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+                <path d="M8 28 C 6 28, 5 30, 5 32 L 5 35 C 5 36, 6 37, 7 37 L 10 37" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                <path d="M32 28 C 34 28, 35 30, 35 32 L 35 35 C 35 36, 34 37, 33 37 L 30 37" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                <path d="M8 28 C 12 27, 15 26, 15 26" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                <path d="M32 28 C 28 27, 25 26, 25 26" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#007D7D' }}>Receive.</h2>
+            <h2 className="text-2xl font-extrabold" style={{ color: '#247D7D', fontFamily: 'Georgia, serif' }}>Receive.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
               Find support from trusted community members.
             </p>
-            <Link to="/sos" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#007D7D', color: '#fff' }}>
-              Get Support <ArrowRight className="w-4 h-4" />
+            <Link to="/sos" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#247D7D', color: '#fff' }}>
+              Get Support →
             </Link>
           </div>
 
           {/* Belong Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(218,165,32,0.08)' }}>
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                {/* Three linked figures */}
-                <circle cx="10" cy="12" r="4" stroke="#DAA520" strokeWidth="1.5" />
-                <circle cx="26" cy="12" r="4" stroke="#DAA520" strokeWidth="1.5" />
-                <circle cx="18" cy="24" r="4" stroke="#DAA520" strokeWidth="1.5" />
-                <line x1="12.5" y1="14.5" x2="16" y2="21.5" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" />
-                <line x1="23.5" y1="14.5" x2="20" y2="21.5" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" />
-                <line x1="10" y1="15" x2="26" y2="15" stroke="#DAA520" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2" />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,151,56,0.08)' }}>
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                {/* Circular network of people holding hands */}
+                {[0, 72, 144, 216, 288].map((angle, i) => {
+                  const rad = (angle * Math.PI) / 180;
+                  const cx = 20 + Math.cos(rad) * 11;
+                  const cy = 20 + Math.sin(rad) * 11;
+                  return (
+                    <g key={i}>
+                      <circle cx={cx} cy={cy - 2} r="3" stroke="#C99738" strokeWidth="1.5" fill="none" />
+                      <path d={`M ${cx - 3} ${cy + 1} L ${cx - 3} ${cy + 5} M ${cx + 3} ${cy + 1} L ${cx + 3} ${cy + 5}`} stroke="#C99738" strokeWidth="1.5" strokeLinecap="round" />
+                    </g>
+                  );
+                })}
+                <circle cx="20" cy="20" r="11" stroke="#C99738" strokeWidth="1.2" fill="none" strokeDasharray="3 3" opacity="0.6" />
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#DAA520' }}>Belong.</h2>
+            <h2 className="text-2xl font-extrabold" style={{ color: '#C99738', fontFamily: 'Georgia, serif' }}>Belong.</h2>
             <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
               Connect with others through our community programs and grow together.
             </p>
-            <Link to="/directory" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#DAA520', color: '#fff' }}>
-              Join the Community <ArrowRight className="w-4 h-4" />
+            <Link to="/directory" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#C99738', color: '#fff' }}>
+              Join the Community →
             </Link>
           </div>
         </div>
