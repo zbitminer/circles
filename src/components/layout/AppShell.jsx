@@ -11,7 +11,7 @@ const dropdowns = [
     items: [
       { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
       { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
-      { label: 'Shabbat Meals', path: '/shabbat', desc: 'Host or join a Shabbat table' },
+      { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
     ],
   },
   {
@@ -247,7 +247,7 @@ export default function AppShell() {
               <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
               <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
               <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
-              <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat/Holidays</Link></li>
+              <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
               <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
               <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
             </ul>

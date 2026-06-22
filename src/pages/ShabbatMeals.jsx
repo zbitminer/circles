@@ -72,7 +72,7 @@ export default function ShabbatMeals() {
         <p className="text-lg font-medium" style={{ color: '#1A2744' }}>"The table is not just for eating—it is the place where community is built."</p>
         <p className="text-sm mt-3 max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
           For many in our community—students, new immigrants, singles, and elderly neighbors—spending Shabbat alone can feel isolating.
-          Our <strong>Shabbat Meals Initiative</strong> connects hosts who have an extra seat with guests who are looking for a place to belong.
+          Our <strong>Shabbat & Holidays Initiative</strong> connects hosts who have an extra seat with guests who are looking for a place to belong.
         </p>
       </div>
 
@@ -125,7 +125,7 @@ export default function ShabbatMeals() {
         <h3 className="font-display text-lg font-bold mb-4" style={{ color: '#1A2744' }}>💡 Frequently Asked Questions</h3>
         <div className="space-y-4">
           {[
-            { q: 'Is there a cost?', a: 'No, all Shabbat meal connections are provided free of charge through the generosity of our donors and volunteers.' },
+            { q: 'Is there a cost?', a: 'No, all Shabbat and holiday meal connections are provided free of charge through the generosity of our donors and volunteers.' },
             { q: 'Can I host if I\'m not a regular?', a: 'Absolutely! Our tables are diverse and inclusive. We welcome everyone who wants to participate in this beautiful tradition.' },
             { q: 'How do you handle dietary requirements?', a: 'When you sign up, simply note your preferences or requirements, and we will do our best to find a perfect match.' },
           ].map(({ q, a }) => (
@@ -164,14 +164,14 @@ export default function ShabbatMeals() {
         <div className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-3xl mb-2">🔐</div>
           <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat meal.</p>
+          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
           <a href="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</a>
         </div>
       )}
       {showForm && user && (
         <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat Meal</h2>
+            <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat or Holiday Meal</h2>
             <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
           </div>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
