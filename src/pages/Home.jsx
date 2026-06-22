@@ -162,11 +162,11 @@ export default function Home() {
         )}
       </section>
 
-      {/* How It Works — Three Steps. Infinite Impact. */}
-      <HowItWorksSection />
-
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
+
+      {/* How It Works — Three Steps. Infinite Impact. */}
+      <HowItWorksSection />
 
       {/* Live Community — Happening Right Now */}
       <LiveCommunitySection />
