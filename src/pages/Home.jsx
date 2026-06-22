@@ -174,30 +174,6 @@ export default function Home() {
       {/* Upcoming Circles */}
       <UpcomingCirclesSection />
 
-      {/* Platform Goals */}
-      <section className="max-w-3xl mx-auto px-6 py-14">
-        <div className="text-center mb-10">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Platform Goals</span>
-        </div>
-        <div className="space-y-4">
-          {[
-            { num: '01', title: 'I choose generosity over self-interest', body: "I come here to give — not because I have to, but because I've discovered that giving freely is one of the greatest joys I know." },
-            { num: '02', title: 'I bring my spark', body: "I have a passion, a skill, a story that only I can share. This is the place where I light it up and offer it to others." },
-            { num: '03', title: 'I teach and I learn', body: "I am both a teacher and a student here. My knowledge grows when I share it — and I'm always surprised by what others teach me in return." },
-            { num: '04', title: 'I help solve what no one can solve alone', body: "I bring what I have to the table. Together, we turn individual contributions into something powerful enough to change communities." },
-            { num: '05', title: 'I belong here', body: "I am a full member of this circle — contributing, receiving, and growing alongside everyone in it." },
-          ].map(({ num, title, body }) => (
-            <div key={num} className="flex gap-5 items-start p-6 rounded-2xl border" style={{ background: '#fff', borderColor: '#e0e0e0' }}>
-              <span className="text-2xl font-extrabold flex-shrink-0 leading-none pt-1" style={{ color: 'rgba(217,93,26,0.3)' }}>{num}</span>
-              <div>
-                <h3 className="font-bold text-lg underline decoration-2 underline-offset-2 mb-2" style={{ color: '#1A1A1A', textDecorationColor: '#DAA520' }}>{title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#555' }}>{body}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Community Grid — Real People. Real Giving. */}
       <CommunityGridSection />
 
