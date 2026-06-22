@@ -70,26 +70,11 @@ export default function Home() {
       <section id="how-it-works" className="max-w-4xl mx-auto px-6 py-16">
         {/* Abstract circle artwork */}
         <div className="flex justify-center mb-8">
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full relative overflow-hidden" style={{
-            background: 'radial-gradient(circle at 30% 30%, rgba(217,93,26,0.25), transparent 50%), radial-gradient(circle at 70% 40%, rgba(0,125,125,0.20), transparent 50%), radial-gradient(circle at 50% 70%, rgba(218,165,32,0.22), transparent 50%), radial-gradient(circle at 40% 60%, rgba(217,93,26,0.12), transparent 40%)',
-          }}>
-            <svg viewBox="0 0 200 200" className="w-full h-full">
-              {/* Abstract lotus/flower shapes */}
-              <g transform="translate(100,100)">
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
-                  const rad = (angle * Math.PI) / 180;
-                  const x = Math.cos(rad) * 42;
-                  const y = Math.sin(rad) * 42;
-                  return (
-                    <ellipse key={i} cx={x} cy={y} rx={14} ry={22} fill="none" stroke={i % 2 === 0 ? '#D95D1A' : i % 3 === 0 ? '#007D7D' : '#DAA520'} strokeWidth="1.5" transform={`rotate(${angle + 20}, ${x}, ${y})`} opacity="0.7" />
-                  );
-                })}
-                <circle cx="0" cy="0" r="18" fill="none" stroke="#D95D1A" strokeWidth="1.5" opacity="0.5" />
-                <circle cx="0" cy="0" r="28" fill="none" stroke="#DAA520" strokeWidth="1" opacity="0.4" />
-                <circle cx="0" cy="0" r="38" fill="none" stroke="#007D7D" strokeWidth="0.8" opacity="0.3" />
-              </g>
-            </svg>
-          </div>
+          <img
+            src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/9e9f161ac_IMG_0089.png"
+            alt="How the Circle Works"
+            className="w-40 h-40 md:w-48 md:h-48 object-contain"
+          />
         </div>
 
         <div className="text-center mb-12">
