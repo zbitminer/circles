@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ShieldCheck, Lock, Users, Heart, Eye, FileCheck } from 'lucide-react';
 
 export default function Trust() {
@@ -93,6 +94,28 @@ export default function Trust() {
         <a href="/contact" className="inline-block px-6 py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
           Contact Our Team
         </a>
+      </section>
+
+      {/* Terms & Conditions */}
+      <section className="mt-8 pt-8 border-t" style={{ borderColor: '#C9A84C' }}>
+        <div className="text-center">
+          <h2 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Terms & Conditions</h2>
+          <p className="text-sm leading-relaxed max-w-2xl mx-auto mb-4" style={{ color: '#6b5c3e' }}>
+            By using Circles of Giving, you agree to our community guidelines, privacy practices, and terms of use.
+            Please review our full policies to understand your rights and responsibilities as a member.
+          </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link to="/terms" className="inline-block px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+              Terms of Use
+            </Link>
+            <Link to="/privacy" className="inline-block px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#FAF7EE', color: '#1A2744', border: '1.5px solid #C9A84C' }}>
+              Privacy Policy
+            </Link>
+          </div>
+          <p className="text-xs mt-6" style={{ color: '#6b5c3e' }}>
+            © {new Date().getFullYear()} Circles of Giving. All rights reserved.
+          </p>
+        </div>
       </section>
     </div>
   );
