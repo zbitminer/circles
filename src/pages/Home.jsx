@@ -161,7 +161,7 @@ export default function Home() {
       {/* Mission */}
       <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Our Mission</span>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>From an Individual Perspective</span>
           <p className="text-xl font-bold leading-relaxed mb-3" style={{ color: '#1A1A1A' }}>
             Building our community through <span className="underline decoration-2" style={{ textDecorationColor: '#DAA520' }}>connections</span> — one relationship, one act of giving, one shared moment at a time.
           </p>
@@ -175,7 +175,6 @@ export default function Home() {
       <section className="max-w-3xl mx-auto px-6 py-14">
         <div className="text-center mb-10">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>Platform Goals</span>
-          <h2 className="text-2xl font-extrabold" style={{ color: '#1A1A1A' }}>From an individual perspective</h2>
         </div>
         <div className="space-y-4">
           {[
