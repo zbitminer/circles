@@ -119,12 +119,30 @@ export default function About() {
         </div>
       </section>
 
-      {/* Memorial dedication */}
-      <div className="rounded-2xl p-6 text-center italic text-sm leading-relaxed" style={{ background: '#FAF7EE', border: '1px solid #C9A84C', color: '#6b5c3e' }}>
-        <span className="text-xl mr-2">✡️</span>
-        Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#1A2744' }}>Godwin & Geraldine Steinberg</strong> and{' '}
-        <strong style={{ color: '#1A2744' }}>Herman P. & Sophia Taubman</strong>, whose legacy of generosity continues to inspire our commitment to the community today.
-      </div>
+      {/* Tribute Section */}
+      <section className="mb-10">
+        <div className="text-center mb-8">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#C9A84C' }}>In Loving Memory</span>
+          <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>A Legacy of Generosity</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {[
+            { img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/cbb4ccf68_IMG_0110.jpeg', names: 'Godwin & Geraldine Steinberg' },
+            { img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88394047c_IMG_0111.jpeg', names: 'Herman P. & Sophia Taubman' },
+          ].map(({ img, names }) => (
+            <div key={names} className="rounded-2xl overflow-hidden text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={img} alt={names} className="w-full h-full object-cover" />
+              </div>
+              <p className="font-display font-bold text-base py-4 px-4" style={{ color: '#1A2744' }}>{names}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-sm italic leading-relaxed mt-6 max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
+          <span className="text-xl mr-1">✡️</span>
+          Circles of Giving is proudly dedicated to their memory — a legacy of generosity that continues to inspire our commitment to the community today.
+        </p>
+      </section>
     </div>
   );
 }
