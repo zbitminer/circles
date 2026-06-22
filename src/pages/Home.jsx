@@ -72,9 +72,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <HowItWorksSection />
-
       {/* Ways to Engage — Give / Receive / Belong */}
       <section className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
@@ -164,6 +161,9 @@ export default function Home() {
           </p>
         )}
       </section>
+
+      {/* How It Works — Three Steps. Infinite Impact. */}
+      <HowItWorksSection />
 
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
