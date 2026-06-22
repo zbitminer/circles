@@ -37,12 +37,11 @@ const dropdowns = [
 const topLinks = [
   { label: 'Home', path: '/' },
   { label: 'How it Works', path: '/#how-it-works' },
-  { label: 'Volunteers', path: '/directory' },
-  { label: 'Our Community', path: '/feed' },
+  { label: 'Community', path: '/feed' },
+  { label: 'Volunteer', path: '/opportunities' },
   { label: 'Events', path: '/events' },
-  { label: 'Corporate', path: '/corporate' },
-  { label: 'About', path: '/about' },
-  { label: 'Trust', path: '/trust' },
+  { label: 'Hosting Shabbat/Holidays', path: '/shabbat' },
+  { label: 'About Us', path: '/about' },
 ];
 
 export default function AppShell() {
@@ -258,9 +257,9 @@ export default function AppShell() {
               <li><a href="/events" className="transition-colors hover:text-white">Events</a></li>
               <li><a href="/opportunities" className="transition-colors hover:text-white">Give</a></li>
               <li><a href="/sos" className="transition-colors hover:text-white">Receive</a></li>
-              <li><a href="/shabbat" className="transition-colors hover:text-white">Shabbat</a></li>
+              <li><a href="/shabbat" className="transition-colors hover:text-white">Shabbat/Holidays</a></li>
               <li><a href="/sos" className="transition-colors hover:text-white">Urgent</a></li>
-              <li><a href="/health" className="transition-colors hover:text-white">Wellness</a></li>
+              <li><a href="/trust" className="transition-colors hover:text-white">Trust</a></li>
             </ul>
           </div>
           <div>
