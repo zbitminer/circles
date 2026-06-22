@@ -40,7 +40,7 @@ const topLinks = [
   { label: 'Community', path: '/feed' },
   { label: 'Volunteer', path: '/opportunities' },
   { label: 'Events', path: '/events' },
-  { label: 'Hosting Shabbat/Holidays', path: '/shabbat' },
+  { label: 'Shabbat & Holidays', path: '/shabbat' },
   { label: 'About Us', path: '/about' },
 ];
 
