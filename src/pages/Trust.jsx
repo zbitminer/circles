@@ -160,9 +160,9 @@ export default function Trust() {
           If you ever feel unsafe or encounter content that violates our standards, our moderation team is here to help.
           Reach out and we\'ll respond promptly.
         </p>
-        <a href="/contact" className="inline-block px-6 py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+        <Link to="/contact" className="inline-block px-6 py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
           Contact Our Team
-        </a>
+        </Link>
       </section>
 
       {/* Terms & Conditions */}

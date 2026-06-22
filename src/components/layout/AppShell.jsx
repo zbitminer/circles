@@ -251,15 +251,15 @@ export default function AppShell() {
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Quick Links</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
-              <li><a href="/feed" className="transition-colors hover:text-white">Belong</a></li>
-              <li><a href="/contact" className="transition-colors hover:text-white">Contact</a></li>
-              <li><a href="/donate" className="transition-colors hover:text-white">Donate</a></li>
-              <li><a href="/events" className="transition-colors hover:text-white">Events</a></li>
-              <li><a href="/opportunities" className="transition-colors hover:text-white">Give</a></li>
-              <li><a href="/sos" className="transition-colors hover:text-white">Receive</a></li>
-              <li><a href="/shabbat" className="transition-colors hover:text-white">Shabbat/Holidays</a></li>
-              <li><a href="/sos" className="transition-colors hover:text-white">Urgent</a></li>
-              <li><a href="/trust" className="transition-colors hover:text-white">Trust</a></li>
+              <li><Link to="/feed" className="transition-colors hover:text-white">Belong</Link></li>
+              <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
+              <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
+              <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
+              <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
+              <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
+              <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat/Holidays</Link></li>
+              <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
+              <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
             </ul>
           </div>
           <div>
@@ -277,9 +277,9 @@ export default function AppShell() {
         <div className="border-t text-center py-4 text-xs space-y-2" style={{ borderColor: '#333', color: '#555' }}>
           <p>© {new Date().getFullYear()} Circles of Giving. All rights reserved.</p>
           <p className="space-x-3">
-            <a href="/privacy" className="transition-colors hover:text-white">Privacy Policy</a>
+            <Link to="/privacy" className="transition-colors hover:text-white">Privacy Policy</Link>
             <span>•</span>
-            <a href="/terms" className="transition-colors hover:text-white">Terms of Use</a>
+            <Link to="/terms" className="transition-colors hover:text-white">Terms of Use</Link>
           </p>
         </div>
       </footer>
