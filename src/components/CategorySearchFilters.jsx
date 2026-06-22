@@ -31,6 +31,11 @@ const CATEGORIES = [
     emoji: '🚗',
     subcategories: ['Deliveries', 'Errands', 'Medical'],
   },
+  {
+    label: 'Wellness',
+    emoji: '🌿',
+    subcategories: ['Body', 'Mind', 'Connection', 'Spirit'],
+  },
 ];
 
 export default function CategorySearchFilters({ selectedFilter, onSelectFilter, className = '' }) {
