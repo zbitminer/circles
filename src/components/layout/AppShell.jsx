@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Menu, X, Shield, ChevronDown } from 'lucide-react';
-import NotificationBell from './NotificationBell';
+import NotificationBell from '../NotificationBell';
 
 /* ── Dropdown definitions matching wireframe ── */
 const dropdowns = [
@@ -45,7 +45,7 @@ const topLinks = [
   { label: 'Trust', path: '/trust' },
 ];
 
-export default function Layout() {
+export default function AppShell() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);

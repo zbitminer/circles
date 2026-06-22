@@ -6,7 +6,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
-import Layout from './components/Layout';
+import AppShell from './components/layout/AppShell';
 import Feed from './pages/Feed';
 import Home from './pages/Home';
 import Opportunities from './pages/Opportunities';
@@ -55,7 +55,7 @@ const AuthenticatedApp = () => {
 
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<AppShell />}>
         <Route path="/" element={<Home />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/opportunities" element={<Opportunities />} />
