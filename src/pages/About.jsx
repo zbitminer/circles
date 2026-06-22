@@ -105,6 +105,20 @@ export default function About() {
         </div>
       </section>
 
+      {/* Founder & Director Bio */}
+      <section className="rounded-2xl p-8 mb-10 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 text-2xl font-bold" style={{ background: '#1A2744', color: '#C9A84C' }}>
+          R.B.
+        </div>
+        <div className="text-center sm:text-left">
+          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Director & Founder</span>
+          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Rachel Bracha (Joan) Laurence</h3>
+          <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
+            A dedicated social entrepreneur since 1991, Rachel has spent over three decades designing programs that bridge gaps between diverse populations. Her vision for Circles of Giving emerged from a deep-seated belief that true community resilience relies on reciprocal relationships rather than one-way charity.
+          </p>
+        </div>
+      </section>
+
       {/* Memorial dedication */}
       <div className="rounded-2xl p-6 text-center italic text-sm leading-relaxed" style={{ background: '#FAF7EE', border: '1px solid #C9A84C', color: '#6b5c3e' }}>
         <span className="text-xl mr-2">✡️</span>
