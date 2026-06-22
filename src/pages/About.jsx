@@ -125,23 +125,39 @@ export default function About() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#C9A84C' }}>In Loving Memory</span>
           <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>A Legacy of Generosity</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {[
-            { img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/cbb4ccf68_IMG_0110.jpeg', caption: 'Geraldine Steinberg' },
-            { img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88394047c_IMG_0111.jpeg', caption: 'Godwin Steinberg' },
-          ].map(({ img, caption }) => (
-            <div key={caption} className="rounded-2xl overflow-hidden text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+            {
+              img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/cbb4ccf68_IMG_0110.jpeg',
+              caption: 'Geraldine Steinberg',
+              tribute: 'A woman of grace and unwavering kindness, Geraldine\'s warmth touched every life she encountered. Her door was always open, her table always set, and her heart always full — a beacon of hospitality who taught us that the greatest gift we can give is ourselves.',
+            },
+            {
+              img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88394047c_IMG_0111.jpeg',
+              caption: 'Godwin Steinberg',
+              tribute: 'A man of wisdom and quiet strength, Godwin led by example. His lifelong commitment to justice, education, and community service laid the foundation upon which Circles of Giving stands. He believed that one person\'s kindness could ripple outward and change the world.',
+            },
+          ].map(({ img, caption, tribute }) => (
+            <div key={caption} className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
               <div className="aspect-[4/3] overflow-hidden">
                 <img src={img} alt={caption} className="w-full h-full object-cover" />
               </div>
-              <p className="font-display font-bold text-base py-4 px-4" style={{ color: '#1A2744' }}>{caption}</p>
+              <div className="p-6 text-center">
+                <p className="font-display font-bold text-lg mb-3" style={{ color: '#1A2744' }}>{caption}</p>
+                <p className="text-sm italic leading-relaxed" style={{ color: '#6b5c3e' }}>{tribute}</p>
+              </div>
             </div>
           ))}
         </div>
-        <p className="text-center text-sm italic leading-relaxed mt-6 max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
-          <span className="text-xl mr-1">✡️</span>
-          Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#1A2744' }}>Godwin & Geraldine Steinberg</strong> and <strong style={{ color: '#1A2744' }}>Herman P. & Sophia Taubman</strong> — a legacy of generosity that continues to inspire our commitment to the community today.
-        </p>
+        <div className="rounded-2xl p-8 mt-8 text-center max-w-2xl mx-auto" style={{ background: '#1A2744' }}>
+          <p className="text-base leading-relaxed mb-3" style={{ color: '#C9A84C' }}>
+            <span className="text-xl mr-1">✡️</span>
+            Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#fff' }}>Godwin & Geraldine Steinberg</strong> and <strong style={{ color: '#fff' }}>Herman P. & Sophia Taubman</strong>.
+          </p>
+          <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,230,192,0.85)' }}>
+            Their lives were a testament to the truth that generosity is not measured in wealth, but in the lives we touch and the love we leave behind. Their legacy of giving continues to ripple through every circle we build — inspiring each of us to show up, to care deeply, and to give freely. May their memory be a blessing.
+          </p>
+        </div>
       </section>
     </div>
   );
