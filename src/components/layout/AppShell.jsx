@@ -33,15 +33,10 @@ const dropdowns = [
   },
 ];
 
-/* ── Top-level links (Row 1 of wireframe) ── */
+/* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
   { label: 'Home', path: '/' },
-  { label: 'How it Works', path: '/#how-it-works' },
-  { label: 'Community', path: '/feed' },
-  { label: 'Volunteer', path: '/opportunities' },
-  { label: 'Events', path: '/events' },
-  { label: 'Shabbat & Holidays', path: '/shabbat' },
-  { label: 'About Us', path: '/about' },
+  { label: 'About', path: '/about' },
 ];
 
 export default function AppShell() {
@@ -93,7 +88,7 @@ export default function AppShell() {
             </div>
           </Link>
 
-          {/* Desktop: top-level links */}
+          {/* Desktop: top-level links + dropdowns */}
           <nav className="hidden lg:flex items-center gap-0.5">
             {topLinks.map(({ label, path }) => (
               <Link
@@ -105,37 +100,12 @@ export default function AppShell() {
                 {label}
               </Link>
             ))}
-          </nav>
-
-          {/* Right side */}
-          <div className="flex items-center gap-3">
-            {user && <NotificationBell currentUser={user} />}
-            {!user ? (
-              <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
-                Register Now →
-              </Link>
-            ) : (
-              <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
-                <span>Profile</span>
-              </Link>
-            )}
-            <button
-              className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Desktop: dropdown bar */}
-        <div className="hidden lg:block border-t" style={{ background: '#151515', borderColor: '#333' }}>
-          <div className="max-w-6xl mx-auto px-4 h-10 flex items-center gap-1">
+            <div className="w-px h-5 mx-1" style={{ background: '#333' }} />
             {dropdowns.map(({ label, items }) => (
               <div key={label} className="relative">
                 <button
                   onClick={(e) => { e.stopPropagation(); setOpenDropdown(openDropdown === label ? null : label); }}
-                  className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
+                  className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
                   style={{ color: openDropdown === label ? '#D95D1A' : '#aaa' }}
                 >
                   {label}
@@ -158,6 +128,26 @@ export default function AppShell() {
                 )}
               </div>
             ))}
+          </nav>
+
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            {user && <NotificationBell currentUser={user} />}
+            {!user ? (
+              <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+                Register Now →
+              </Link>
+            ) : (
+              <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
+                <span>Profile</span>
+              </Link>
+            )}
+            <button
+              className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
 
