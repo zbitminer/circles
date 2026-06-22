@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Lock, Users, Heart, Eye, FileCheck } from 'lucide-react';
+import { ShieldCheck, Lock, Users, Heart, Eye, FileCheck, ArrowRight, Clock } from 'lucide-react';
 
 export default function Trust() {
   const pillars = [
@@ -37,6 +37,54 @@ export default function Trust() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 pb-24">
+      {/* Joined this week bar */}
+      <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">
+        <div className="flex -space-x-2">
+          {['R', 'E', 'S', 'M', 'Y'].map((letter, i) => (
+            <div key={i} className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: ['#3498DB', '#E74C3C', '#2ECC71', '#9B59B6', '#E67E22'][i], border: '2px solid #fff' }}>
+              {letter}
+            </div>
+          ))}
+        </div>
+        <span className="text-sm" style={{ color: '#6b5c3e' }}>
+          Joined this week: <strong>Rivka, Eitan, Shira</strong> + 12 more
+        </span>
+      </div>
+
+      {/* A space you can trust */}
+      <div className="mb-14">
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-center mb-8" style={{ color: '#2C3E50', fontFamily: 'Georgia, serif' }}>
+          A space you can trust
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+          {[
+            { icon: ShieldCheck, title: 'Verified Members', desc: 'Every member joins through trusted community referral — no anonymous strangers.' },
+            { icon: Users, title: 'Real People Only', desc: 'No bots, no algorithms. Only genuine human beings who show up for each other.' },
+            { icon: Heart, title: 'Values-Driven', desc: 'Built on Tzedakah, Chesed, and Tikkun Olam — ancient values for modern community.' },
+            { icon: Clock, title: 'Always Free', desc: 'Circles will always be free to join. Giving and receiving should never have a price tag.' },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="p-6 rounded-2xl" style={{ background: '#fbfaf7', border: '1px solid #e0e0e0' }}>
+              <Icon className="w-6 h-6 mb-3" style={{ color: '#E67E22' }} />
+              <h3 className="font-bold text-base mb-2" style={{ color: '#2C3E50' }}>{title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Banner */}
+        <div className="rounded-2xl py-10 px-6 text-center" style={{ background: '#E67E22' }}>
+          <h2 className="font-display text-2xl md:text-3xl font-bold mb-2" style={{ color: '#fff', fontFamily: 'Georgia, serif' }}>
+            Your circle is waiting.
+          </h2>
+          <p className="text-sm md:text-base mb-6" style={{ color: 'rgba(255,255,255,0.9)' }}>
+            Register free in 2 minutes. Start giving. Start receiving. Belong.
+          </p>
+          <Link to="/register" className="inline-flex items-center gap-2 font-bold text-sm px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#fff', color: '#E67E22' }}>
+            Join the Circle — Register Free <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+
       {/* Hero */}
       <div className="text-center mb-14">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5" style={{ background: '#1A2744' }}>
