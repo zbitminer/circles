@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map } from 'lucide-react';
+import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight } from 'lucide-react';
 import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
@@ -485,6 +486,67 @@ export default function Directory() {
           myCauses={myCauses}
         />
       )}
+
+      {/* Volunteer Pathways */}
+      <section className="mt-12 -mx-4 px-4 py-14" style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#CC6633' }}>Volunteer Pathways</span>
+            <h2 className="text-2xl md:text-3xl font-extrabold" style={{ color: '#1A1A1A' }}>Find Your Place in the Circle</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { level: 'Beginner', title: 'Community Helper', time: '2–4 hours/month', skills: 'Basic conversation, empathy', tasks: ['Help neighbors with errands', 'Provide companionship', 'Join local cleanup events', 'Share simple skills'], accentColor: '#008080', badgeColor: '#008080', badgeBg: 'rgba(0,128,128,0.1)' },
+              { level: 'Intermediate', title: 'Skill Sharer', time: '6–10 hours/month', skills: 'A teachable skill or profession', tasks: ['Run a workshop or class', 'Mentor someone in your field', 'Offer rides or tech support', 'Coordinate a community event'], accentColor: '#CC6633', badgeColor: '#CC6633', badgeBg: 'rgba(204,102,51,0.1)' },
+              { level: 'Advanced', title: 'Circle Leader', time: '10+ hours/month', skills: 'Leadership & organization', tasks: ['Lead a volunteer team', 'Launch a giving initiative', 'Partner with organizations', 'Represent the community'], accentColor: '#DAA520', badgeColor: '#DAA520', badgeBg: 'rgba(218,165,32,0.1)' },
+            ].map(({ level, title, time, skills, tasks, accentColor, badgeColor, badgeBg }) => (
+              <div key={title} className="relative p-6 rounded-2xl overflow-hidden" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                <div className="absolute top-0 left-0 bottom-0 w-1.5" style={{ background: accentColor }} />
+                <div className="pl-3">
+                  <span className="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full" style={{ background: badgeBg, color: badgeColor }}>{level}</span>
+                  <h3 className="text-xl font-extrabold mt-3 mb-3" style={{ color: '#1A1A1A' }}>{title}</h3>
+                  <div className="text-xs space-y-1 mb-4 border-l-2 pl-3" style={{ borderColor: accentColor, color: '#555' }}>
+                    <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Time:</span> {time}</p>
+                    <p><span className="font-bold" style={{ color: '#1A1A1A' }}>Skills:</span> {skills}</p>
+                  </div>
+                  <p className="text-xs font-bold mb-2" style={{ color: '#1A1A1A' }}>What You'll Do:</p>
+                  <ul className="space-y-1.5">
+                    {tasks.map(t => (
+                      <li key={t} className="text-xs flex gap-2" style={{ color: '#555' }}>
+                        <span style={{ color: accentColor }} className="flex-shrink-0">◆</span>{t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/opportunities" className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full hover:opacity-90 transition-opacity shadow-md" style={{ background: '#E67E22', color: '#fff' }}>
+              Start Here <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="-mx-4" style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
+        <div className="max-w-2xl mx-auto px-6 py-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Your Time is Valuable</h2>
+          <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
+          </p>
+          {currentUser ? (
+            <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+              Create Your Profile <ArrowRight className="w-5 h-5" />
+            </Link>
+          ) : (
+            <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+              Join Now <ArrowRight className="w-5 h-5" />
+            </Link>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
