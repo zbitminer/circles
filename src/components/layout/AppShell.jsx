@@ -35,7 +35,11 @@ const dropdowns = [
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
   { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
+  { label: 'How It Works', path: '/about' },
+  { label: 'Events', path: '/events' },
+  { label: 'Trust', path: '/trust' },
+  { label: 'Our Community', path: '/feed' },
+  { label: 'Volunteers', path: '/directory' },
 ];
 
 export default function AppShell() {
