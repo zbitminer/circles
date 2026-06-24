@@ -58,13 +58,13 @@ Deno.serve(async (req) => {
     doc.text('www.circlesofgiving.org', 148, 195, { align: 'center' });
 
     const pdf = doc.output('arraybuffer');
-    return new Response(pdf, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename=volunteer-certificate.pdf'
-      }
-    });
+    const uint8 = new Uint8Array(pdf);
+    let binary = '';
+    for (let i = 0; i < uint8.length; i++) {
+      binary += String.fromCharCode(uint8[i]);
+    }
+    const pdfBase64 = btoa(binary);
+    return Response.json({ pdf_base64: pdfBase64, filename: 'volunteer-certificate.pdf' });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }

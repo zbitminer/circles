@@ -38,8 +38,9 @@ export default function Analytics() {
       start_date: logs.length > 0 ? logs[logs.length - 1].date : new Date().toISOString(),
       end_date: new Date().toISOString()
     });
-    if (response.data?.pdf_url) {
-      window.open(response.data.pdf_url, '_blank');
+    if (response.data?.pdf_base64) {
+      const dataUrl = `data:application/pdf;base64,${response.data.pdf_base64}`;
+      window.open(dataUrl, '_blank');
     }
   };
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/PostCard';
 import CreatePost from '@/components/CreatePost';
@@ -121,15 +122,15 @@ export default function Feed() {
             <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
               <h3 className="font-semibold text-sm mb-4" style={{ color: '#1A2744' }}>Quick Links</h3>
               <div className="space-y-2 text-sm">
-                <a href="/opportunities" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                <Link to="/opportunities" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   📋 Browse Opportunities
-                </a>
-                <a href="/events" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                </Link>
+                <Link to="/events" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   📅 Upcoming Events
-                </a>
-                <a href="/profile" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                </Link>
+                <Link to="/profile" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
                   👤 My Profile & Impact
-                </a>
+                </Link>
               </div>
             </div>
           </div>
