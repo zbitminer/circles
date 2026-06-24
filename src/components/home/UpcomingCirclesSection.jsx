@@ -41,6 +41,12 @@ const FALLBACK_EVENTS = [
 
 const AVATAR_COLORS = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B', '#EC4899'];
 
+const PLACEHOLDER_IMG =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="#e8e2d6"/><text x="50%" y="50%" font-family="Georgia,serif" font-size="28" fill="#9a8c6a" text-anchor="middle" dominant-baseline="middle">Circles of Giving</text></svg>'
+  );
+
 export default function UpcomingCirclesSection() {
   const [events, setEvents] = useState(FALLBACK_EVENTS);
   const [loading, setLoading] = useState(true);
@@ -102,7 +108,7 @@ export default function UpcomingCirclesSection() {
             <div key={event.id} className="rounded-2xl overflow-hidden bg-white shadow-sm border" style={{ borderColor: '#eee' }}>
               {/* Image */}
               <div className="relative h-40 overflow-hidden">
-                <img src={event.image_url} alt={event.title} className="w-full h-full object-cover" />
+                <img src={event.image_url} alt={event.title} className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = PLACEHOLDER_IMG; }} />
                 <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#111827' }}>
                   {event.date_label}
                 </div>
