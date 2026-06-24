@@ -40,33 +40,33 @@ export default function Home() {
           </p>
 
           {/* CTA */}
-          {!user ? (
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-              style={{ background: '#D95D1A', color: '#fff' }}
-            >
+          {!user ?
+          <Link
+            to="/register"
+            className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+            style={{ background: '#D95D1A', color: '#fff' }}>
+            
               Join the Circle — Free <ArrowRight className="w-5 h-5" />
-            </Link>
-          ) : (
-            <Link
-              to="/opportunities"
-              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-              style={{ background: '#D95D1A', color: '#fff' }}
-            >
+            </Link> :
+
+          <Link
+            to="/opportunities"
+            className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+            style={{ background: '#D95D1A', color: '#fff' }}>
+            
               Explore Opportunities <ArrowRight className="w-5 h-5" />
             </Link>
-          )}
+          }
 
           {/* Hero Illustration */}
           <div className="mt-12 flex justify-center">
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
-              <img
-                src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/2b5f3a1e3_generated_image.png"
-                alt="Diverse hands reaching toward the center"
-                className="w-full h-full object-contain"
-                onError={(e) => { e.target.style.display = 'none'; }}
-              />
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
+
+              alt="Diverse hands reaching toward the center"
+              className="w-full h-full object-contain"
+              onError={(e) => {e.target.style.display = 'none';}} />
+              
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function Home() {
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                 {/* Flower with heart center */}
                 {[0, 60, 120, 180, 240, 300].map((angle, i) => {
-                  const rad = (angle * Math.PI) / 180;
+                  const rad = angle * Math.PI / 180;
                   const cx = 20 + Math.cos(rad) * 9;
                   const cy = 20 + Math.sin(rad) * 9;
                   return <path key={i} d={`M ${cx} ${cy} C ${cx + 4} ${cy - 6}, ${cx - 4} ${cy - 6}, ${cx} ${cy}`} stroke="#D35E35" strokeWidth="1.5" fill="none" strokeLinecap="round" transform={`rotate(${angle + 90}, ${cx}, ${cy})`} />;
@@ -131,15 +131,15 @@ export default function Home() {
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                 {/* Circular network of people holding hands */}
                 {[0, 72, 144, 216, 288].map((angle, i) => {
-                  const rad = (angle * Math.PI) / 180;
+                  const rad = angle * Math.PI / 180;
                   const cx = 20 + Math.cos(rad) * 11;
                   const cy = 20 + Math.sin(rad) * 11;
                   return (
                     <g key={i}>
                       <circle cx={cx} cy={cy - 2} r="3" stroke="#C99738" strokeWidth="1.5" fill="none" />
                       <path d={`M ${cx - 3} ${cy + 1} L ${cx - 3} ${cy + 5} M ${cx + 3} ${cy + 1} L ${cx + 3} ${cy + 5}`} stroke="#C99738" strokeWidth="1.5" strokeLinecap="round" />
-                    </g>
-                  );
+                    </g>);
+
                 })}
                 <circle cx="20" cy="20" r="11" stroke="#C99738" strokeWidth="1.2" fill="none" strokeDasharray="3 3" opacity="0.6" />
               </svg>
@@ -154,12 +154,12 @@ export default function Home() {
           </div>
         </div>
 
-        {!user && (
-          <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
+        {!user &&
+        <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
             🔒 <strong>Must register first</strong> to give, receive, or connect.{' '}
             <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Create your free account →</Link>
           </p>
-        )}
+        }
       </section>
 
       {/* Building Community Thru Giving */}
@@ -191,15 +191,15 @@ export default function Home() {
             In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            {user ? (
-              <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+            {user ?
+            <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
                 Create Your Profile <ArrowRight className="w-5 h-5" />
-              </Link>
-            ) : (
-              <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+              </Link> :
+
+            <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
                 Join Now <ArrowRight className="w-5 h-5" />
               </Link>
-            )}
+            }
             <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg border-2" style={{ background: 'transparent', color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
               <Heart className="w-5 h-5" /> Donate
             </Link>
@@ -207,6 +207,6 @@ export default function Home() {
         </div>
       </section>
 
-    </div>
-  );
+    </div>);
+
 }
