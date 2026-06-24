@@ -8,6 +8,19 @@ const CATEGORY_EMOJI = {
   'Books': '📚', 'Music': '🎵', 'Personal Development': '✨', 'Miscellaneous': '🌟',
 };
 
+const CATEGORY_IMAGES = {
+  'Balanced Lifestyle': 'https://images.unsplash.com/photo-1545205597-3d9d02dff293?w=400&h=200&fit=crop',
+  'Home Life Management': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=200&fit=crop',
+  'Kitchen Academy': 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=200&fit=crop',
+  'Artistic Space': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=200&fit=crop',
+  'Language Learning': 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400&h=200&fit=crop',
+  'Torah Study': 'https://images.unsplash.com/photo-1519677101722-5a1ad9233835?w=400&h=200&fit=crop',
+  'Books': 'https://images.unsplash.com/photo-1481627834876-b7833e8f557f?w=400&h=200&fit=crop',
+  'Music': 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=200&fit=crop',
+  'Personal Development': 'https://images.unsplash.com/photo-1506126613408-eca6ce7e1e9a?w=400&h=200&fit=crop',
+  'Miscellaneous': 'https://images.unsplash.com/photo-1466692476868-bef3165268af?w=400&h=200&fit=crop',
+};
+
 export default function WorkshopListings() {
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +56,13 @@ export default function WorkshopListings() {
     const cats = (inq.workshop_categories || []).map(parseCategory).filter((c) => c.main);
     const mainCat = cats[0]?.main;
     return (
-      <div key={inq.id} className="p-5 transition-all hover:shadow-lg" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+      <div key={inq.id} className="overflow-hidden transition-all hover:shadow-lg" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+        {CATEGORY_IMAGES[mainCat] && (
+          <div className="h-28 w-full overflow-hidden">
+            <img src={CATEGORY_IMAGES[mainCat]} alt={mainCat} className="w-full h-full object-cover" loading="lazy" />
+          </div>
+        )}
+        <div className="p-5">
         <div className="flex items-start justify-between mb-3">
           <span className="text-2xl">{CATEGORY_EMOJI[mainCat] || '🎓'}</span>
           <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
@@ -81,6 +100,7 @@ export default function WorkshopListings() {
           </div>
         )}
         {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b5c3e' }}>{inq.notes}</p>}
+        </div>
       </div>
     );
   };

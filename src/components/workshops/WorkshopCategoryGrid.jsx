@@ -11,8 +11,14 @@ export default function WorkshopCategoryGrid({ selected = [], onToggle }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {WORKSHOP_CATEGORIES.map(({ label, emoji, subcategories }) => (
-        <div key={label} className="rounded-xl p-4" style={{ background: '#fff', border: '1px solid #C9A84C' }}>
+      {WORKSHOP_CATEGORIES.map(({ label, emoji, image, subcategories }) => (
+        <div key={label} className="rounded-xl overflow-hidden" style={{ background: '#fff', border: '1px solid #C9A84C' }}>
+          {image && (
+            <div className="h-24 w-full overflow-hidden">
+              <img src={image} alt={label} className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          )}
+          <div className="p-4">
           <p className="text-sm font-semibold mb-2 flex items-center gap-1.5" style={{ color: '#1A2744' }}>
             <span className="text-base">{emoji}</span> {label}
           </p>
@@ -36,6 +42,7 @@ export default function WorkshopCategoryGrid({ selected = [], onToggle }) {
                 </button>
               );
             })}
+          </div>
           </div>
         </div>
       ))}

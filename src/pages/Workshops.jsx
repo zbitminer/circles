@@ -11,8 +11,10 @@ export default function Workshops() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero */}
-      <div className="rounded-2xl overflow-hidden mb-8" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
-        <div className="px-6 py-10 text-center">
+      <div className="rounded-2xl overflow-hidden mb-8 relative" style={{ border: '2px solid #C9A84C' }}>
+        <img src="https://images.unsplash.com/photo-1522202176986-ec32a4399979?w=800&h=400&fit=crop" alt="Community learning" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(26,39,68,0.92), rgba(45,64,112,0.88))' }} />
+        <div className="relative px-6 py-10 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: 'rgba(201,168,76,0.2)', border: '1px solid #C9A84C' }}>
             <Sparkles className="w-4 h-4" style={{ color: '#C9A84C' }} />
             <span className="text-xs font-semibold" style={{ color: '#F5E6C0' }}>Education & Enrichment</span>
