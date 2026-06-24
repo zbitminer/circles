@@ -24,10 +24,10 @@ export default function Home() {
       <section className="relative bg-white overflow-hidden" style={{ borderBottom: '1px solid #e0e0e0' }}>
         <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6 hidden" style={{ background: 'rgba(217,93,26,0.08)', color: '#D95D1A' }}>
-            <span className="w-2 h-2 rounded-full" style={{ background: '#D95D1A' }} />
-            347 MEMBERS · SAFED & BEYOND
-          </div>
+          
+
+
+          
 
           {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto" style={{ color: '#1A1A1A' }}>
