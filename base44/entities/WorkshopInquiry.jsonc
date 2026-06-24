@@ -1,0 +1,83 @@
+{
+  "name": "WorkshopInquiry",
+  "type": "object",
+  "properties": {
+    "inquiry_type": {
+      "type": "string",
+      "enum": [
+        "participate",
+        "lead"
+      ],
+      "default": "participate"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "female",
+        "male"
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "In-person",
+        "Zoom",
+        "Both"
+      ]
+    },
+    "workshop_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "has_studio": {
+      "type": "boolean"
+    },
+    "studio_address": {
+      "type": "string"
+    },
+    "workshop_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "scheduled",
+        "completed"
+      ],
+      "default": "new"
+    }
+  },
+  "required": [
+    "inquiry_type",
+    "first_name",
+    "last_name",
+    "phone",
+    "email"
+  ]
+}

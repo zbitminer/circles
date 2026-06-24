@@ -15,6 +15,7 @@ import AppShell from './components/layout/AppShell';
 import Feed from './pages/Feed';
 import Home from './pages/Home';
 import Opportunities from './pages/Opportunities';
+import Workshops from './pages/Workshops';
 import Events from './pages/Events';
 import Profile from './pages/Profile';
 import Moderation from './pages/Moderation';
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
         <Route path="/" element={<Home />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/opportunities" element={<Opportunities />} />
+        <Route path="/workshops" element={<Workshops />} />
         <Route path="/events" element={<Events />} />
         <Route path="/directory" element={<Directory />} />
         <Route path="/sos" element={<SosBoard />} />
