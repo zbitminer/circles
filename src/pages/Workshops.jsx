@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Sparkles, GraduationCap, Heart } from 'lucide-react';
 import ParticipateForm from '@/components/workshops/ParticipateForm';
 import LeadForm from '@/components/workshops/LeadForm';
+import WorkshopListings from '@/components/workshops/WorkshopListings';
 
 export default function Workshops() {
   const [tab, setTab] = useState('participate');
@@ -57,6 +58,11 @@ export default function Workshops() {
           {tab === 'participate' ? 'Tell us what you\'d love to learn — we\'ll match you when a group forms.' : 'Share your knowledge with the community as a workshop leader.'}
         </p>
         {tab === 'participate' ? <ParticipateForm /> : <LeadForm />}
+      </div>
+
+      {/* Sample / live workshop listings */}
+      <div className="mt-10">
+        <WorkshopListings />
       </div>
 
       <p className="text-center text-xs mt-6" style={{ color: '#6b5c3e' }}>
