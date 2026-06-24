@@ -4,14 +4,19 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Mail, Lock, Loader2 } from "lucide-react";
+import { UserPlus, Mail, Lock, Loader2, MapPin, User } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
 import { toast } from "@/components/ui/use-toast";
 
+const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
+
 export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [selectedCauses, setSelectedCauses] = useState([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -44,6 +49,23 @@ export default function Register() {
       const result = await base44.auth.verifyOtp({ email, otpCode });
       if (result?.access_token) {
         base44.auth.setToken(result.access_token);
+      }
+      // Save profile data collected during registration
+      try {
+        const me = await base44.auth.me();
+        if (name) await base44.auth.updateMe({ full_name: name });
+        await base44.entities.VolunteerProfile.create({
+          user_id: me.id,
+          location,
+          causes: selectedCauses,
+          total_hours: 0,
+          events_attended: 0,
+          opportunities_completed: 0,
+          followers: [],
+          following: [],
+        });
+      } catch {
+        // best-effort; Profile page will create a default profile if this fails
       }
       window.location.href = "/";
     } catch (err) {
@@ -164,6 +186,22 @@ export default function Register() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
+          <Label htmlFor="name">Full Name</Label>
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            <Input
+              id="name"
+              type="text"
+              autoComplete="name"
+              placeholder="Your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="pl-10 h-12"
+              required
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
@@ -177,6 +215,20 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
               className="pl-10 h-12"
               required
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="location">Location</Label>
+          <div className="relative">
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
+            <Input
+              id="location"
+              type="text"
+              placeholder="City or region"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="pl-10 h-12"
             />
           </div>
         </div>
@@ -210,6 +262,21 @@ export default function Register() {
               className="pl-10 h-12"
               required
             />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label>Causes you care about</Label>
+          <div className="flex flex-wrap gap-2">
+            {CAUSES.map((cause) => (
+              <button
+                key={cause}
+                type="button"
+                onClick={() => setSelectedCauses((prev) => prev.includes(cause) ? prev.filter((c) => c !== cause) : [...prev, cause])}
+                className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${selectedCauses.includes(cause) ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary/50"}`}
+              >
+                {cause}
+              </button>
+            ))}
           </div>
         </div>
         <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
