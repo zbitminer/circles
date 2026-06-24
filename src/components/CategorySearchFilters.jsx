@@ -32,6 +32,11 @@ const CATEGORIES = [
     subcategories: ['Deliveries', 'Errands', 'Medical'],
   },
   {
+    label: 'Creative Workshops',
+    emoji: '🎨',
+    subcategories: ['Painting', 'Music', 'Writing', 'Crafts', 'Photography'],
+  },
+  {
     label: 'Wellness',
     emoji: '🌿',
     subcategories: ['Body', 'Mind', 'Connection', 'Spirit'],
