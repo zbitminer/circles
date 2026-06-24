@@ -32,7 +32,7 @@ export default function Opportunities() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [selected, setSelected] = useState(null);
-  const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '' });
+  const [form, setForm] = useState({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [categoryFilter, setCategoryFilter] = useState(null);
@@ -68,17 +68,21 @@ export default function Opportunities() {
 
   const handleApply = async (opp) => {
     if (!user) return;
-    const applicants = opp.applicants?.includes(user.id) ? opp.applicants : [...(opp.applicants || []), user.id];
-    await base44.entities.Opportunity.update(opp.id, { applicants });
-    loadOpportunities();
-    setSelected(prev => prev ? { ...prev, applicants } : prev);
+    try {
+      const res = await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
+      const applicants = res.data?.applicants || [...(opp.applicants || []), user.id];
+      loadOpportunities();
+      setSelected(prev => prev ? { ...prev, applicants } : prev);
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not enroll — the workshop may be full.');
+    }
   };
 
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await base44.entities.Opportunity.create({ ...form, applicants: [], created_by_name: user?.full_name, status: 'active' });
-    setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '' });
+    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
+    setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
     setShowForm(false);
     setSubmitting(false);
     loadOpportunities();
@@ -144,6 +148,10 @@ export default function Opportunities() {
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Application Deadline</label>
               <input type="date" value={form.deadline} onChange={e => setForm({...form, deadline: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
+            </div>
+            <div>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Capacity (max spots)</label>
+              <input type="number" min="1" value={form.capacity} onChange={e => setForm({...form, capacity: e.target.value ? Number(e.target.value) : ''})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Leave empty for unlimited" />
             </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
@@ -262,7 +270,14 @@ export default function Opportunities() {
                 {opp.location && (
                   <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} />{opp.location}</div>
                 )}
-                <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C9A84C' }} />{opp.applicants?.length || 0} interested</div>
+                {opp.capacity ? (
+                  <div className="flex items-center gap-1 font-medium" style={{ color: (opp.applicants?.length || 0) >= opp.capacity ? '#c0392b' : '#C9A84C' }}>
+                    <Users className="w-3 h-3" />
+                    {Math.max(0, opp.capacity - (opp.applicants?.length || 0))} spots left
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C9A84C' }} />{opp.applicants?.length || 0} interested</div>
+                )}
               </div>
               {opp.deadline && (
                 <div className="mt-2 flex items-center gap-1 text-xs font-medium" style={{ color: '#C9A84C' }}>
@@ -300,17 +315,30 @@ export default function Opportunities() {
               {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{selected.cause_category}</span></div>
               {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: '#C9A84C' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
-              <div className="flex items-center gap-2" style={{ color: '#555' }}><Users className="w-4 h-4" style={{ color: '#C9A84C' }} /> {selected.applicants?.length || 0} people interested</div>
+              <div className="flex items-center gap-2" style={{ color: '#555' }}>
+                <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
+                {selected.capacity
+                  ? `${selected.applicants?.length || 0} / ${selected.capacity} enrolled · ${Math.max(0, selected.capacity - (selected.applicants?.length || 0))} spots left`
+                  : `${selected.applicants?.length || 0} people interested`}
+              </div>
             </div>
             {user ? (
-              <button onClick={() => handleApply(selected)} disabled={selected.applicants?.includes(user.id)}
-                className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
-                style={selected.applicants?.includes(user.id)
-                  ? { background: '#f0e8d0', color: '#6b5c3e' }
-                  : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
-                }>
-                {selected.applicants?.includes(user.id) ? '✓ You expressed interest' : "I'm Interested"}
-              </button>
+              (() => {
+                const isFull = selected.capacity && (selected.applicants?.length || 0) >= selected.capacity;
+                const isEnrolled = selected.applicants?.includes(user.id);
+                return (
+                  <button onClick={() => handleApply(selected)} disabled={isEnrolled || isFull}
+                    className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
+                    style={isEnrolled
+                      ? { background: '#f0e8d0', color: '#6b5c3e' }
+                      : isFull
+                        ? { background: '#f0e8d0', color: '#c0392b' }
+                        : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
+                    }>
+                    {isEnrolled ? '✓ You expressed interest' : isFull ? 'Workshop Full' : "I'm Interested"}
+                  </button>
+                );
+              })()
             ) : (
               <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to express interest</p>
             )}
