@@ -5,7 +5,7 @@ import WorkshopCategoryGrid from './WorkshopCategoryGrid';
 
 export default function ParticipateForm() {
   const [form, setForm] = useState({
-    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', format: 'In-person',
+    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
   });
   const [categories, setCategories] = useState([]);
   const [submitting, setSubmitting] = useState(false);
@@ -59,6 +59,9 @@ export default function ParticipateForm() {
             {LANGUAGES.map((l) => <option key={l}>{l}</option>)}
           </select>
         </Field>
+        {form.language === 'Other' && (
+          <Field label="Other language *"><input required value={form.other_language} onChange={(e) => set('other_language', e.target.value)} className={inputCls} placeholder="Specify language" /></Field>
+        )}
         <Field label="Format *">
           <select value={form.format} onChange={(e) => set('format', e.target.value)} className={inputCls}>
             {FORMATS.map((f) => <option key={f}>{f}</option>)}

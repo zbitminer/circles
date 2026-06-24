@@ -5,8 +5,8 @@ import WorkshopCategoryGrid from './WorkshopCategoryGrid';
 
 export default function LeadForm() {
   const [form, setForm] = useState({
-    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', format: 'In-person',
-    has_studio: false, studio_address: '', workshop_date: '', notes: '',
+    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
+    zoom_link: '', has_studio: false, studio_address: '', workshop_date: '', notes: '',
   });
   const [categories, setCategories] = useState([]);
   const [submitting, setSubmitting] = useState(false);
@@ -60,11 +60,17 @@ export default function LeadForm() {
             {LANGUAGES.map((l) => <option key={l}>{l}</option>)}
           </select>
         </Field>
+        {form.language === 'Other' && (
+          <Field label="Other language *"><input required value={form.other_language} onChange={(e) => set('other_language', e.target.value)} className={inputCls} placeholder="Specify language" /></Field>
+        )}
         <Field label="Format *">
           <select value={form.format} onChange={(e) => set('format', e.target.value)} className={inputCls}>
             {FORMATS.map((f) => <option key={f}>{f}</option>)}
           </select>
         </Field>
+        {(form.format === 'Zoom' || form.format === 'Both') && (
+          <Field label="Zoom link"><input type="url" value={form.zoom_link} onChange={(e) => set('zoom_link', e.target.value)} className={inputCls} placeholder="https://zoom.us/..." /></Field>
+        )}
         <Field label="Do you have a studio? *">
           <select value={form.has_studio ? 'yes' : 'no'} onChange={(e) => set('has_studio', e.target.value === 'yes')} className={inputCls}>
             <option value="no">No</option><option value="yes">Yes</option>

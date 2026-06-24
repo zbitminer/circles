@@ -35,6 +35,9 @@
     "language": {
       "type": "string"
     },
+    "other_language": {
+      "type": "string"
+    },
     "format": {
       "type": "string",
       "enum": [
@@ -42,6 +45,9 @@
         "Zoom",
         "Both"
       ]
+    },
+    "zoom_link": {
+      "type": "string"
     },
     "workshop_categories": {
       "type": "array",
