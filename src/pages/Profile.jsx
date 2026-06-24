@@ -4,6 +4,7 @@ import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefc
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
+import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
 import StarRating from '@/components/StarRating';
 
@@ -201,6 +202,9 @@ export default function Profile() {
           </div>
         ))}
       </div>
+
+      {/* Calendar */}
+      <ProfileCalendar userId={user.id} />
 
       {/* Community Control Panel */}
       <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
