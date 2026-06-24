@@ -10,6 +10,7 @@ const dropdowns = [
     label: 'Give',
     items: [
       { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
+      { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
       { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
       { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
     ],

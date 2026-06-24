@@ -40,6 +40,9 @@ export default function Opportunities() {
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
     loadOpportunities();
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (cat) setCategoryFilter({ category: cat, subcategory: null, emoji: '🎨' });
   }, []);
 
   const loadOpportunities = async () => {
