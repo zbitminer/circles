@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Menu, X, Shield, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 
 /* ── Dropdown definitions matching wireframe ── */
@@ -65,9 +65,6 @@ export default function AppShell() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
-
-  const isAdmin = user?.role === 'admin';
-  const isMod = user?.role === 'moderator' || isAdmin;
 
   const isActive = (path) => {
     if (path.startsWith('/#')) return false;
@@ -204,24 +201,14 @@ export default function AppShell() {
               ))}
             </div>
 
-            {/* Mod/Admin links */}
-            <div className="px-4 py-3 border-t space-y-1" style={{ borderColor: '#333' }}>
-              {isMod && (
-                <Link to="/moderation" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-white/10" style={{ color: '#aaa' }}>
-                  <Shield className="w-4 h-4" /> Moderate
-                </Link>
-              )}
-              {isAdmin && (
-                <Link to="/admin" onClick={() => setMobileOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm hover:bg-white/10" style={{ color: '#aaa' }}>
-                  <Shield className="w-4 h-4" /> Admin
-                </Link>
-              )}
-              {!user && (
-                <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 mt-2 rounded-xl font-bold text-sm" style={{ background: '#D95D1A', color: '#fff' }}>
+            {/* Register CTA */}
+            {!user && (
+              <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
+                <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl font-bold text-sm" style={{ background: '#D95D1A', color: '#fff' }}>
                   Register Now →
                 </Link>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </header>
