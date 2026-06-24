@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import AppShell from './components/layout/AppShell';
@@ -35,7 +36,7 @@ import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
@@ -48,37 +49,30 @@ const AuthenticatedApp = () => {
     );
   }
 
-  if (authError) {
-    if (authError.type === 'user_not_registered') {
-      return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      navigateToLogin();
-      return null;
-    }
+  if (authError?.type === 'user_not_registered') {
+    return <UserNotRegisteredError />;
   }
 
   return (
     <Routes>
+      {/* Auth routes — always accessible */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Public browsing routes */}
       <Route element={<AppShell />}>
         <Route path="/" element={<Home />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/moderation" element={<Moderation />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/directory" element={<Directory />} />
         <Route path="/sos" element={<SosBoard />} />
         <Route path="/shabbat" element={<ShabbatMeals />} />
         <Route path="/corporate" element={<Corporate />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfUse />} />
-        <Route path="/messages" element={<MessagesPage />} />
-        <Route path="/analytics" element={<Analytics />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/sitemap" element={<Sitemap />} />
         <Route path="/health" element={<Health />} />
@@ -87,6 +81,18 @@ const AuthenticatedApp = () => {
         <Route path="/trust" element={<Trust />} />
         <Route path="/platform" element={<PlatformOverview />} />
       </Route>
+
+      {/* Protected routes — require login */}
+      <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+        <Route element={<AppShell />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/moderation" element={<Moderation />} />
+          <Route path="/admin" element={<Admin />} />
+        </Route>
+      </Route>
+
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
