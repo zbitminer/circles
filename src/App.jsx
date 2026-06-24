@@ -88,8 +88,8 @@ const AuthenticatedApp = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<MessagesPage />} />
           <Route path="/analytics" element={<Analytics />} />
-          <Route path="/moderation" element={<Moderation />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/moderation" element={<ProtectedRoute requiredRoles={['admin', 'moderator']} unauthenticatedElement={<Navigate to="/login" replace />} />} />
+          <Route path="/admin" element={<ProtectedRoute requiredRoles={['admin']} unauthenticatedElement={<Navigate to="/login" replace />} />} />
         </Route>
       </Route>
 
