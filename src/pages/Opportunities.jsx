@@ -78,10 +78,11 @@ export default function Opportunities() {
   const handleApply = async (opp) => {
     if (!user) return;
     try {
-      const res = await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
-      const applicants = res.data?.applicants || [...(opp.applicants || []), user.id];
-      loadOpportunities();
-      setSelected(prev => prev ? { ...prev, applicants } : prev);
+      await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
+      // Reload opportunities and update the selected one with fresh data
+      const updated = await base44.entities.Opportunity.get(opp.id);
+      setOpportunities(prev => prev.map(o => o.id === opp.id ? updated : o));
+      setSelected(updated);
     } catch (err) {
       alert(err?.response?.data?.error || 'Could not enroll — the workshop may be full.');
     }
