@@ -52,6 +52,10 @@ export default function Profile() {
     setBioText(p.bio || '');
     setLocationText(p.location || '');
     setSelectedCauses(p.causes || []);
+    // Proactively check for matching opportunities and create missing notifications
+    if (p.causes && p.causes.length > 0) {
+      base44.functions.invoke('notifyMatchingOpportunities', { data: { user_id: u.id, causes: p.causes } }).catch(() => {});
+    }
     const hourLogs = await base44.entities.HourLog.filter({ user_id: u.id });
     setLogs(hourLogs.sort((a, b) => new Date(b.date) - new Date(a.date)));
     const badgesList = await base44.entities.Badge.filter({ user_id: u.id });

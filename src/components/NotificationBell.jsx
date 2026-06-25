@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Bell, X } from 'lucide-react';
 
 export default function NotificationBell({ currentUser }) {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
   const [showPanel, setShowPanel] = useState(false);
 
   useEffect(() => {
     if (!currentUser) return;
     loadNotifications();
+    // Proactively check for matching opportunities based on profile causes
+    checkMatchingOpportunities();
     const unsubscribe = base44.entities.Notification.subscribe((event) => {
       if (event.data.user_id === currentUser.id) {
         loadNotifications();
@@ -26,11 +30,30 @@ export default function NotificationBell({ currentUser }) {
     setNotifications(notifs);
   };
 
+  const checkMatchingOpportunities = async () => {
+    try {
+      const profiles = await base44.entities.VolunteerProfile.filter({ user_id: currentUser.id });
+      const profile = profiles[0];
+      if (profile && profile.causes && profile.causes.length > 0) {
+        await base44.functions.invoke('notifyMatchingOpportunities', { data: { user_id: currentUser.id, causes: profile.causes } });
+        loadNotifications();
+      }
+    } catch {}
+  };
+
   const unreadCount = notifications.filter((n) => !n.is_read).length;
 
   const handleMarkAsRead = async (notifId) => {
     await base44.entities.Notification.update(notifId, { is_read: true });
     loadNotifications();
+  };
+
+  const handleClick = async (notif) => {
+    handleMarkAsRead(notif.id);
+    setShowPanel(false);
+    if (notif.type === 'new_opportunity' && notif.related_id) {
+      navigate(`/opportunities?opportunity=${notif.related_id}`);
+    }
   };
 
   return (
@@ -67,7 +90,7 @@ export default function NotificationBell({ currentUser }) {
           notifications.map((notif) =>
           <div
             key={notif.id}
-            onClick={() => handleMarkAsRead(notif.id)}
+            onClick={() => handleClick(notif)}
             className="p-4 border-b cursor-pointer transition-colors hover:opacity-80"
             style={{
               borderColor: '#C9A84C',

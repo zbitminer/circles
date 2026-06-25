@@ -36,6 +36,7 @@ export default function Opportunities() {
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [categoryFilter, setCategoryFilter] = useState(null);
+  const [pendingFocusId, setPendingFocusId] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -43,13 +44,21 @@ export default function Opportunities() {
     const params = new URLSearchParams(window.location.search);
     const cat = params.get('category');
     if (cat) setCategoryFilter({ category: cat, subcategory: null, emoji: '🎨' });
+    const focusOpp = params.get('opportunity');
+    if (focusOpp) setPendingFocusId(focusOpp);
   }, []);
 
   const loadOpportunities = async () => {
     setLoading(true);
     const data = await base44.entities.Opportunity.list('-created_date', 100);
-    setOpportunities(data.filter(o => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title)));
+    const active = data.filter(o => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title));
+    setOpportunities(active);
     setLoading(false);
+    if (pendingFocusId) {
+      const focus = active.find(o => o.id === pendingFocusId);
+      if (focus) setSelected(focus);
+      setPendingFocusId(null);
+    }
   };
 
   const categoryEmoji = {
