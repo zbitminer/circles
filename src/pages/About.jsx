@@ -106,15 +106,28 @@ export default function About() {
       </section>
 
       {/* Founder & Director Bio */}
-      <section className="rounded-2xl p-8 mb-10 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <div className="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 text-2xl font-bold" style={{ background: '#1A2744', color: '#C9A84C' }}>
-          R.B.
-        </div>
+      <section className="rounded-2xl p-8 mb-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <img src="https://circlesofgiving.org/wp-content/uploads/2025/01/%D7%92%D7%95%D7%90%D7%9F-%D7%9C%D7%95%D7%A8%D7%A0%D7%A1-%D7%94%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%AA.png" alt="Rachel Bracha (Joan) Laurence" className="w-28 h-28 rounded-full object-cover flex-shrink-0" style={{ border: '3px solid #C9A84C' }} />
         <div className="text-center sm:text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Director & Founder</span>
+          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Founder & CEO</span>
           <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Rachel Bracha (Joan) Laurence</h3>
+          <p className="text-sm leading-relaxed mb-2" style={{ color: '#6b5c3e' }}>
+            Joan is a social entrepreneur and community designer with a passion for creating unique communities. She designed her first model community in Santa Clara, Silicon Valley, California. Since then, she has created unique programs in Safed for women, children, and families in crisis, including "The Loving Children's Home" (1991–1996), "The Mother's Child Healing Hostel" (1993–1996), "New Start Hostel" (1997–2006), and "One Heart for One Heart" (2006–2020).
+          </p>
           <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-            A dedicated social entrepreneur since 1991, Rachel has spent over three decades designing programs that bridge gaps between diverse populations. Her vision for Circles of Giving emerged from a deep-seated belief that true community resilience relies on reciprocal relationships rather than one-way charity.
+            Joan holds a Master's from Stanford in Urban Planning and Community Design, and a Master's in Psychology – Families and Human Development from Skidmore College. Circles of Giving is the culmination of her dream to foster unity through building "communities of giving" as the foundation for a healthy society.
+          </p>
+        </div>
+      </section>
+
+      {/* COO Bio */}
+      <section className="rounded-2xl p-8 mb-10 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <img src="https://circlesofgiving.org/wp-content/uploads/2025/02/dikla-1-min.png" alt="Dikla Efron-Rachamim" className="w-28 h-28 rounded-full object-cover flex-shrink-0" style={{ border: '3px solid #C9A84C' }} />
+        <div className="text-center sm:text-left">
+          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>COO — Chief Operating Officer</span>
+          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Dikla Efron-Rachamim</h3>
+          <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
+            Dikla is responsible for ongoing operations, leading organizational efficiency processes, and developing and implementing advanced work methodologies and systems. With 20 years of rich experience in the high-tech sector, she develops strategies and manages the project while maintaining accuracy and professionalism — strengthening the association's activities. Her extensive knowledge and pursuit of excellence bring a significant advantage to all areas of activity under her management.
           </p>
         </div>
       </section>
@@ -122,40 +135,55 @@ export default function About() {
       {/* Tribute Section */}
       <section className="mb-10">
         <div className="text-center mb-8">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#C9A84C' }}>In Loving Memory</span>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#C9A84C' }}>Tributes</span>
           <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>A Legacy of Generosity</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {[
-            {
-              img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/cbb4ccf68_IMG_0110.jpeg',
-              caption: 'Geraldine Steinberg',
-              tribute: 'A woman of grace and unwavering kindness, Geraldine\'s warmth touched every life she encountered. Her door was always open, her table always set, and her heart always full — a beacon of hospitality who taught us that the greatest gift we can give is ourselves.',
-            },
-            {
-              img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88394047c_IMG_0111.jpeg',
-              caption: 'Godwin Steinberg',
-              tribute: 'A man of wisdom and quiet strength, Godwin led by example. His lifelong commitment to justice, education, and community service laid the foundation upon which Circles of Giving stands. He believed that one person\'s kindness could ripple outward and change the world.',
-            },
-          ].map(({ img, caption, tribute }) => (
-            <div key={caption} className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-              <div className="aspect-[4/3] overflow-hidden">
-                <img src={img} alt={caption} className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6 text-center">
-                <p className="font-display font-bold text-lg mb-3" style={{ color: '#1A2744' }}>{caption}</p>
-                <p className="text-sm italic leading-relaxed" style={{ color: '#6b5c3e' }}>{tribute}</p>
-              </div>
-            </div>
-          ))}
+
+        {/* Founding Supporters */}
+        <div className="rounded-2xl p-8 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <h3 className="font-display text-xl font-bold mb-4 text-center" style={{ color: '#1A2744' }}>
+            Godwin (Abraham ben Edward Perry) & Geraldine (Tamar bat Albert)
+          </h3>
+          <p className="text-sm leading-relaxed text-center max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
+            They were the founding supporters who initiated and championed the launch of New Seed Foundation's programs. They inspired their daughter, Joan (Rachel Bracha), to study urban planning and combine it with social services. They encouraged her to open the "warm and loving home" for children and helped raise donations. As an architect, Godwin came to Israel and found the perfect building for the center. Our success over the years stems from their values — focused on the uniqueness of each individual and the importance of giving to others.
+          </p>
         </div>
-        <div className="rounded-2xl p-8 mt-8 text-center max-w-2xl mx-auto" style={{ background: '#1A2744' }}>
+
+        {/* Taubman tribute with image */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-6">
+          <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+            <div className="aspect-[4/3] overflow-hidden">
+              <img src="https://circlesofgiving.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-24-at-14.46.44-892x1024.jpeg" alt="Herman P. and Sofia Taubman" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-6 text-center">
+              <p className="font-display font-bold text-lg mb-3" style={{ color: '#1A2744' }}>Herman P. & Sofia Taubman</p>
+              <p className="text-sm italic leading-relaxed" style={{ color: '#6b5c3e' }}>
+                Herman P. and Sofia Taubman emigrated from Eastern Europe to the United States in the early 1900s. They settled and raised their family in Tulsa, Oklahoma. They cared deeply about Israel and the wellbeing of its citizens, and played a significant role in New Seed Foundation's projects throughout the years. We thank them for their partnership and meaningful involvement in bringing our project to fruition.
+              </p>
+            </div>
+          </div>
+          <div className="rounded-2xl p-6 flex flex-col justify-center" style={{ background: '#1A2744' }}>
+            <h3 className="font-display text-lg font-bold mb-4 text-center" style={{ color: '#C9A84C' }}>With Deep Appreciation</h3>
+            <p className="text-sm leading-relaxed mb-4 text-center" style={{ color: 'rgba(245,230,192,0.85)' }}>
+              We deeply value our partners, whose contributions have been essential to realizing our vision:
+            </p>
+            <ul className="space-y-2 text-center text-sm" style={{ color: '#F5E6C0' }}>
+              <li className="font-semibold">Herman P. & Sofia Taubman</li>
+              <li className="font-semibold">Richard & Rhoda Goldman</li>
+              <li className="font-semibold">Leah Levitas</li>
+              <li className="font-semibold">Phyllis Friedman</li>
+              <li className="font-semibold">Ita Adelstein</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="rounded-2xl p-8 text-center max-w-2xl mx-auto" style={{ background: '#1A2744' }}>
           <p className="text-base leading-relaxed mb-3" style={{ color: '#C9A84C' }}>
             <span className="text-xl mr-1">✡️</span>
-            Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#fff' }}>Godwin & Geraldine Steinberg</strong> and <strong style={{ color: '#fff' }}>Herman P. & Sophia Taubman</strong>.
+            Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#fff' }}>Godwin & Geraldine</strong> and <strong style={{ color: '#fff' }}>Herman P. & Sophia Taubman</strong>.
           </p>
           <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,230,192,0.85)' }}>
-            Their lives were a testament to the truth that generosity is not measured in wealth, but in the lives we touch and the love we leave behind. Their legacy of giving continues to ripple through every circle we build — inspiring each of us to show up, to care deeply, and to give freely. May their memory be a blessing.
+            Their lives were a testament to the truth that generosity is not measured in wealth, but in the lives we touch and the love we leave behind. Their legacy of giving continues to ripple through every circle we build. May their memory be a blessing.
           </p>
         </div>
       </section>
