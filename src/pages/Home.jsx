@@ -62,14 +62,14 @@ export default function Home() {
           {/* Hero Illustration */}
           <div className="mt-12 flex justify-center">
             <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
-              {!heroImgError && (
-                <img
-                  src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
-                  alt="Diverse hands reaching toward the center"
-                  className="w-full h-full object-contain"
-                  onError={() => setHeroImgError(true)}
-                />
-              )}
+              {!heroImgError &&
+              <img
+                src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
+                alt="Diverse hands reaching toward the center"
+                className="w-full h-full object-contain"
+                onError={() => setHeroImgError(true)} />
+
+              }
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ export default function Home() {
               </svg>
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
-            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+            <p className="text-sm leading-relaxed [font-family:'Bebas_Neue',_system-ui]" style={{ color: '#555' }}>
               Share your time, skills, talents, or resources.
             </p>
             <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D35E35', color: '#fff' }}>
