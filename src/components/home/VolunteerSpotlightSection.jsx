@@ -23,7 +23,6 @@ export default function VolunteerSpotlightSection() {
           {/* Left — Text */}
           <div className="lg:col-span-2">
             <h2 className="text-xl font-bold mb-2" style={{ color: '#000' }}>REAL PEOPLE. REAL IMPACT</h2>
-            <h3 className="text-lg font-semibold mb-6" style={{ color: '#000' }}>VOLUNTEER OF THE WEEK</h3>
             <h4 className="text-2xl font-bold mb-3" style={{ color: '#333', fontFamily: 'Georgia, serif' }}>
               In their own words.
             </h4>
