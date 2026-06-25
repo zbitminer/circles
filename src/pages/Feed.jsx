@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/PostCard';
-import PullToRefresh from '@/components/PullToRefresh';
 import CreatePost from '@/components/CreatePost';
 import LocationMap from '@/components/LocationMap';
 import { Flame, Users, TrendingUp } from 'lucide-react';
@@ -29,7 +28,6 @@ export default function Feed() {
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
   return (
-    <PullToRefresh onRefresh={loadPosts}>
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Sidebar */}
@@ -139,6 +137,5 @@ export default function Feed() {
         </aside>
       </div>
     </div>
-    </PullToRefresh>
   );
 }
