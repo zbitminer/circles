@@ -1,4 +1,5 @@
-import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, Lock, FileText, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, FileText, Heart, GraduationCap, Info, Award, LayoutGrid, Map, HandHeart } from 'lucide-react';
 
 export default function Sitemap() {
   const sections = [
@@ -7,6 +8,9 @@ export default function Sitemap() {
       color: '#1A2744',
       pages: [
         { icon: Home, name: 'Home', path: '/', desc: 'Landing page & platform overview' },
+        { icon: Info, name: 'About', path: '/about', desc: 'Our mission, story & tributes' },
+        { icon: LayoutGrid, name: 'Platform Overview', path: '/platform', desc: 'How the platform works' },
+        { icon: Map, name: 'Site Map', path: '/sitemap', desc: 'Complete guide to all pages' },
       ],
     },
     {
@@ -14,6 +18,7 @@ export default function Sitemap() {
       color: '#2d7a3a',
       pages: [
         { icon: Briefcase, name: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
+        { icon: GraduationCap, name: 'Workshops', path: '/workshops', desc: 'Learn or lead enrichment workshops' },
         { icon: Calendar, name: 'Events', path: '/events', desc: 'Discover & RSVP to volunteer events' },
         { icon: AlertTriangle, name: 'SOS Board', path: '/sos', desc: 'Post & respond to urgent needs' },
         { icon: Heart, name: 'Health Support', path: '/health', desc: 'Medical, mental health & wellness help' },
@@ -38,21 +43,29 @@ export default function Sitemap() {
       ],
     },
     {
-      title: 'Organization',
+      title: 'Organization & Giving',
       color: '#c0392b',
       pages: [
         { icon: Building2, name: 'Corporate', path: '/corporate', desc: 'Team volunteering programs' },
+        { icon: HandHeart, name: 'Donate', path: '/donate', desc: 'Support our mission with a donation' },
+        { icon: Award, name: 'Trust', path: '/trust', desc: 'Trust & safety on the platform' },
+      ],
+    },
+    {
+      title: 'Administration',
+      color: '#555',
+      pages: [
         { icon: Shield, name: 'Moderation', path: '/moderation', desc: 'Manage platform content (Mod+)' },
         { icon: Shield, name: 'Admin', path: '/admin', desc: 'Community dashboard (Admin only)' },
       ],
     },
     {
-      title: 'Support',
-      color: '#555',
+      title: 'Support & Legal',
+      color: '#0d7d7d',
       pages: [
         { icon: HelpCircle, name: 'Contact', path: '/contact', desc: 'Get in touch & FAQs' },
-        { icon: FileText, name: 'Privacy', path: '/privacy', desc: 'Privacy policy' },
-        { icon: FileText, name: 'Terms', path: '/terms', desc: 'Terms of use' },
+        { icon: FileText, name: 'Privacy Policy', path: '/privacy', desc: 'How we handle your data' },
+        { icon: FileText, name: 'Terms of Use', path: '/terms', desc: 'Platform terms & conditions' },
       ],
     },
   ];
@@ -75,14 +88,11 @@ export default function Sitemap() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {section.pages.map(({ icon: Icon, name, path, desc }) => (
-                <a
+                <Link
                   key={path}
-                  href={path}
+                  to={path}
                   className="group p-5 rounded-2xl hover:shadow-lg transition-all"
-                  style={{
-                    background: '#FAF7EE',
-                    border: '1.5px solid #C9A84C',
-                  }}
+                  style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}
                 >
                   <div className="flex items-start gap-3">
                     <Icon className="w-5 h-5 mt-1 flex-shrink-0 group-hover:scale-110 transition-transform" style={{ color: section.color }} />
@@ -98,7 +108,7 @@ export default function Sitemap() {
                       </span>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -111,11 +121,11 @@ export default function Sitemap() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
             <span className="font-semibold" style={{ color: '#1A2744' }}>🌐 Public</span>
-            <p style={{ color: '#6b5c3e' }}>Anyone can access (Home, Contact, Privacy, Terms)</p>
+            <p style={{ color: '#6b5c3e' }}>Anyone can access (Home, About, Donate, Contact, Privacy, Terms)</p>
           </div>
           <div>
             <span className="font-semibold" style={{ color: '#1A2744' }}>👤 Members</span>
-            <p style={{ color: '#6b5c3e' }}>Logged-in users only (most pages)</p>
+            <p style={{ color: '#6b5c3e' }}>Logged-in users only (Profile, Messages, Impact, Feed)</p>
           </div>
           <div>
             <span className="font-semibold" style={{ color: '#1A2744' }}>🛡️ Admin/Mod</span>
