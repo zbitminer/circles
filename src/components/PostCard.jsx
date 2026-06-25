@@ -41,6 +41,8 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [loadingComments, setLoadingComments] = useState(false);
+  const [submittingComment, setSubmittingComment] = useState(false);
+  const [commentError, setCommentError] = useState('');
 
   const handleLike = async () => {
     if (!currentUser) return;
@@ -81,18 +83,26 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
 
   const submitComment = async (e) => {
     e.preventDefault();
-    if (!commentText.trim() || !currentUser) return;
-    await base44.entities.Comment.create({
-      post_id: post.id,
-      author_id: currentUser.id,
-      author_name: currentUser.full_name,
-      content: commentText,
-    });
-    setCommentText('');
-    loadComments();
-    onUpdate?.();
-    // Update comment count in background — may fail for non-authors due to Post RLS
-    base44.entities.Post.update(post.id, { comment_count: (post.comment_count || 0) + 1 }).catch(() => {});
+    if (!commentText.trim() || !currentUser || submittingComment) return;
+    setCommentError('');
+    setSubmittingComment(true);
+    try {
+      await base44.entities.Comment.create({
+        post_id: post.id,
+        author_id: currentUser.id,
+        author_name: currentUser.full_name,
+        content: commentText,
+      });
+      setCommentText('');
+      loadComments();
+      onUpdate?.();
+      // Update comment count in background — may fail for non-authors due to Post RLS
+      base44.entities.Post.update(post.id, { comment_count: (post.comment_count || 0) + 1 }).catch(() => {});
+    } catch (err) {
+      setCommentError(err?.response?.data?.error || err?.message || 'Could not post comment. Please try again.');
+    } finally {
+      setSubmittingComment(false);
+    }
   };
 
   const initials = (name) => name ? name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : '?';
@@ -209,16 +219,20 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
             ))
           )}
           {currentUser && (
-            <form onSubmit={submitComment} className="flex gap-2 mt-2">
-              <input
-                value={commentText}
-                onChange={e => setCommentText(e.target.value)}
-                placeholder="Write a comment..."
-                className="flex-1 text-sm bg-muted rounded-xl px-3 py-2 outline-none border border-transparent focus:border-primary/30"
-              />
-              <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground text-sm rounded-xl font-medium hover:opacity-90 transition-opacity">
-                Post
-              </button>
+            <form onSubmit={submitComment} className="mt-2 space-y-1">
+              <div className="flex gap-2">
+                <input
+                  value={commentText}
+                  onChange={e => setCommentText(e.target.value)}
+                  placeholder="Write a comment..."
+                  disabled={submittingComment}
+                  className="flex-1 text-sm bg-muted rounded-xl px-3 py-2 outline-none border border-transparent focus:border-primary/30 disabled:opacity-50"
+                />
+                <button type="submit" disabled={submittingComment || !commentText.trim()} className="px-4 py-2 bg-primary text-primary-foreground text-sm rounded-xl font-medium hover:opacity-90 transition-opacity disabled:opacity-50">
+                  {submittingComment ? 'Posting...' : 'Post'}
+                </button>
+              </div>
+              {commentError && <p className="text-xs text-destructive px-1">{commentError}</p>}
             </form>
           )}
         </div>
