@@ -54,16 +54,20 @@ export default function ShabbatMeals() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
-      <div className="rounded-2xl p-6 mb-6" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
-        <div className="flex items-start justify-between">
-          <div>
-            <div className="text-3xl mb-2">🕯️</div>
-            <h1 className="font-display text-2xl font-bold" style={{ color: '#F5E6C0' }}>Shabbat & Holiday Meals</h1>
-            <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Open your home — share a meal, build community</p>
+      <div className="rounded-2xl overflow-hidden mb-6" style={{ border: '2px solid #C9A84C' }}>
+        <div className="relative h-48 md:h-64">
+          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/19b6f1ee7_generated_image.png" alt="Shabbat table" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,39,68,0.9) 0%, rgba(26,39,68,0.4) 100%)' }} />
+          <div className="absolute inset-0 flex items-end p-6">
+            <div className="flex-1">
+              <div className="text-3xl mb-2">🕯️</div>
+              <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#F5E6C0' }}>Shabbat & Holiday Meals</h1>
+              <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Open your home — share a meal, build community</p>
+            </div>
+            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              <Plus className="w-4 h-4" /> Host a Meal
+            </button>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#C9A84C', color: '#1A2744' }}>
-            <Plus className="w-4 h-4" /> Host a Meal
-          </button>
         </div>
       </div>
 
@@ -78,46 +82,59 @@ export default function ShabbatMeals() {
 
       {/* Host / Guest CTA cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="rounded-2xl p-6" style={{ background: '#1A2744', border: '1.5px solid #C9A84C' }}>
-          <div className="text-3xl mb-3">🪑</div>
-          <h3 className="font-display text-lg font-bold mb-2 text-white">Are You a Host?</h3>
-          <ul className="text-sm space-y-1.5 mb-4" style={{ color: 'rgba(245,230,192,0.85)' }}>
-            <li>• Host an individual or a small family</li>
-            <li>• Create a lasting bond with someone in your neighborhood</li>
-            <li>• Help us fight the epidemic of loneliness in our city</li>
-          </ul>
-          <button onClick={() => setShowForm(true)} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
-            I Want to Host
-          </button>
+        <div className="rounded-2xl overflow-hidden" style={{ background: '#1A2744', border: '1.5px solid #C9A84C' }}>
+          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a7ca42b49_generated_image.png" alt="Communal Shabbat dinner" className="w-full h-36 object-cover" />
+          <div className="p-6">
+            <div className="text-3xl mb-3">🪑</div>
+            <h3 className="font-display text-lg font-bold mb-2 text-white">Are You a Host?</h3>
+            <ul className="text-sm space-y-1.5 mb-4" style={{ color: 'rgba(245,230,192,0.85)' }}>
+              <li>• Host an individual or a small family</li>
+              <li>• Create a lasting bond with someone in your neighborhood</li>
+              <li>• Help us fight the epidemic of loneliness in our city</li>
+            </ul>
+            <button onClick={() => setShowForm(true)} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              I Want to Host
+            </button>
+          </div>
         </div>
-        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <div className="text-3xl mb-3">🤝</div>
-          <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#1A2744' }}>Looking for a Meal?</h3>
-          <ul className="text-sm space-y-1.5 mb-4" style={{ color: '#6b5c3e' }}>
-            <li>• Experience the warmth of a local Shabbat</li>
-            <li>• Meet new people and become part of our community</li>
-            <li>• 100% confidential and free of charge</li>
-          </ul>
-          <button onClick={() => document.getElementById('meals-list')?.scrollIntoView({ behavior: 'smooth' })} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-            I Want to Join a Meal
-          </button>
+        <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17fdc762b_generated_image.png" alt="Passover Seder gathering" className="w-full h-36 object-cover" />
+          <div className="p-6">
+            <div className="text-3xl mb-3">🤝</div>
+            <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#1A2744' }}>Looking for a Meal?</h3>
+            <ul className="text-sm space-y-1.5 mb-4" style={{ color: '#6b5c3e' }}>
+              <li>• Experience the warmth of a local Shabbat</li>
+              <li>• Meet new people and become part of our community</li>
+              <li>• 100% confidential and free of charge</li>
+            </ul>
+            <button onClick={() => document.getElementById('meals-list')?.scrollIntoView({ behavior: 'smooth' })} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+              I Want to Join a Meal
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Shabbat in the North */}
-      <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <div className="flex items-start gap-3 mb-3">
-          <span className="text-2xl">🌍</span>
-          <div>
-            <h3 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Shabbat in the North</h3>
-            <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>
-              Our initiative is especially active in <strong style={{ color: '#1A2744' }}>Safed and the Upper Galilee</strong>. Our Shabbat tables have become a vital source of comfort and normalcy for displaced families and those feeling the weight of the current situation.
-            </p>
+      <div className="rounded-2xl overflow-hidden mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="grid grid-cols-1 md:grid-cols-5">
+          <div className="md:col-span-2 h-48 md:h-auto">
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3afd644ca_generated_image.png" alt="Holiday celebration" className="w-full h-full object-cover" />
+          </div>
+          <div className="md:col-span-3 p-6">
+            <div className="flex items-start gap-3 mb-3">
+              <span className="text-2xl">🌍</span>
+              <div>
+                <h3 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Shabbat in the North</h3>
+                <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>
+                  Our initiative is especially active in <strong style={{ color: '#1A2744' }}>Safed and the Upper Galilee</strong>. Our Shabbat tables have become a vital source of comfort and normalcy for displaced families and those feeling the weight of the current situation.
+                </p>
+              </div>
+            </div>
+            <blockquote className="border-l-4 pl-4 text-sm italic mt-3" style={{ borderColor: '#C9A84C', color: '#6b5c3e' }}>
+              "Opening my door to a displaced family reminded me of why we call this place home. The table becomes a sanctuary." — <strong>Sarah, Safed</strong>
+            </blockquote>
           </div>
         </div>
-        <blockquote className="border-l-4 pl-4 text-sm italic mt-3" style={{ borderColor: '#C9A84C', color: '#6b5c3e' }}>
-          "Opening my door to a displaced family reminded me of why we call this place home. The table becomes a sanctuary." — <strong>Sarah, Safed</strong>
-        </blockquote>
       </div>
 
       {/* FAQ */}
