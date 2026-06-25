@@ -4,14 +4,14 @@ const SPOTLIGHTS = [
     name: 'Rivka M.',
     role: 'Community Circle Leader · Jerusalem',
     bg: '#7E3D8D',
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17557244b_generated_image.png',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/214ad94aa_generated_image.png',
   },
   {
     quote: 'I came to give, but I received so much more — friendships, support, and a real sense of belonging.',
     name: 'Noa S.',
     role: 'Volunteer Coordinator · Tel Aviv',
     bg: '#363840',
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d26b224cd_generated_image.png',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/699fb145d_generated_image.png',
   },
 ];
 
@@ -35,15 +35,17 @@ export default function VolunteerSpotlightSection() {
           {/* Right — Cards */}
           <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {SPOTLIGHTS.map((s) => (
-              <div key={s.name} className="rounded-2xl p-6 flex flex-col items-center text-center" style={{ background: s.bg }}>
+              <div key={s.name} className="rounded-2xl overflow-hidden flex flex-col" style={{ background: s.bg }}>
                 <img
                   src={s.img}
                   alt={s.name}
-                  className="w-20 h-20 rounded-full object-cover mb-4 border-2 border-white/20"
+                  className="w-full h-40 object-cover"
                 />
-                <p className="text-white text-sm leading-relaxed mb-4">"{s.quote}"</p>
-                <p className="text-white font-bold text-sm">{s.name}</p>
-                <p className="text-white/70 text-xs">{s.role}</p>
+                <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                  <p className="text-white text-sm leading-relaxed mb-4">"{s.quote}"</p>
+                  <p className="text-white font-bold text-sm">{s.name}</p>
+                  <p className="text-white/70 text-xs">{s.role}</p>
+                </div>
               </div>
             ))}
           </div>

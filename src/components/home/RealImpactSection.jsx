@@ -9,8 +9,8 @@ export default function RealImpactSection() {
           {/* Left — Photo */}
           <div className="md:w-1/2 h-64 md:h-auto">
             <img
-              src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/728975301_generated_image.png"
-              alt="Community members sharing a meal"
+              src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f3f10b37d_generated_image.png"
+              alt="Israeli community gathering sharing food outdoors in Jerusalem"
               className="w-full h-full object-cover"
             />
           </div>

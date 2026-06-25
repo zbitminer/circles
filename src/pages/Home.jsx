@@ -165,14 +165,17 @@ export default function Home() {
         }
       </section>
 
+      {/* Real Impact — visual hook right after hero */}
+      <RealImpactSection />
+
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
 
       {/* How It Works — Three Steps. Infinite Impact. */}
       <HowItWorksSection />
 
-      {/* Live Community — Happening Right Now */}
-      <LiveCommunitySection />
+      {/* Volunteer Spotlight — social proof */}
+      <VolunteerSpotlightSection />
 
       {/* Upcoming Circles */}
       <UpcomingCirclesSection />
@@ -180,11 +183,8 @@ export default function Home() {
       {/* Community Grid — Real People. Real Giving. */}
       <CommunityGridSection />
 
-      {/* Volunteer Spotlight */}
-      <VolunteerSpotlightSection />
-
-      {/* Real Impact */}
-      <RealImpactSection />
+      {/* Live Community — Happening Right Now */}
+      <LiveCommunitySection />
 
       {/* Closing CTA */}
       <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
