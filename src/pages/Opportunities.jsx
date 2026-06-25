@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map } from 'lucide-react';
 import { format } from 'date-fns';
@@ -37,15 +38,18 @@ export default function Opportunities() {
   const [viewMode, setViewMode] = useState('grid');
   const [categoryFilter, setCategoryFilter] = useState(null);
   const [enrollingId, setEnrollingId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('category');
-    if (cat) setCategoryFilter({ category: cat, subcategory: null, emoji: '🎨' });
-    const focusOpp = params.get('opportunity');
-    loadOpportunities(focusOpp || null);
   }, []);
+
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat) setCategoryFilter({ category: cat, subcategory: null, emoji: '🎨' });
+    const focusOpp = searchParams.get('opportunity');
+    loadOpportunities(focusOpp || null);
+  }, [searchParams]);
 
   const loadOpportunities = async (focusId) => {
     setLoading(true);
@@ -55,7 +59,11 @@ export default function Opportunities() {
     setLoading(false);
     if (focusId) {
       const focus = active.find(o => o.id === focusId);
-      if (focus) setSelected(focus);
+      if (focus) {
+        setSelected(focus);
+        // Clear the query param so back-navigation doesn't re-open the modal
+        setSearchParams({}, { replace: true });
+      }
     }
   };
 
@@ -81,13 +89,13 @@ export default function Opportunities() {
       const result = response.data || response;
       if (result.error) {
         alert(result.error);
-        setEnrollingId(null);
         return;
       }
-      // Reload opportunities and update the selected one with fresh data
-      const updated = await base44.entities.Opportunity.get(opp.id);
-      setOpportunities(prev => prev.map(o => o.id === opp.id ? updated : o));
-      setSelected(updated);
+      // Use the returned applicants list to update state immediately
+      const updatedApplicants = result.applicants || [...(opp.applicants || []), user.id];
+      const updatedOpp = { ...opp, applicants: updatedApplicants };
+      setOpportunities(prev => prev.map(o => o.id === opp.id ? updatedOpp : o));
+      setSelected(updatedOpp);
     } catch (err) {
       const errorMsg = err?.response?.data?.error || err?.message || 'Could not enroll — the workshop may be full.';
       alert(errorMsg);
