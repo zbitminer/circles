@@ -37,6 +37,7 @@ export default function Opportunities() {
   const [viewMode, setViewMode] = useState('grid');
   const [categoryFilter, setCategoryFilter] = useState(null);
   const [pendingFocusId, setPendingFocusId] = useState(null);
+  const [enrollingId, setEnrollingId] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -77,6 +78,7 @@ export default function Opportunities() {
 
   const handleApply = async (opp) => {
     if (!user) return;
+    setEnrollingId(opp.id);
     try {
       await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
       // Reload opportunities and update the selected one with fresh data
@@ -85,6 +87,8 @@ export default function Opportunities() {
       setSelected(updated);
     } catch (err) {
       alert(err?.response?.data?.error || 'Could not enroll — the workshop may be full.');
+    } finally {
+      setEnrollingId(null);
     }
   };
 
@@ -336,8 +340,9 @@ export default function Opportunities() {
               (() => {
                 const isFull = selected.capacity && (selected.applicants?.length || 0) >= selected.capacity;
                 const isEnrolled = selected.applicants?.includes(user.id);
+                const isLoading = enrollingId === selected.id;
                 return (
-                  <button onClick={() => handleApply(selected)} disabled={isEnrolled || isFull}
+                  <button onClick={() => handleApply(selected)} disabled={isEnrolled || isFull || isLoading}
                     className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
                     style={isEnrolled
                       ? { background: '#f0e8d0', color: '#6b5c3e' }
@@ -345,7 +350,7 @@ export default function Opportunities() {
                         ? { background: '#f0e8d0', color: '#c0392b' }
                         : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
                     }>
-                    {isEnrolled ? '✓ You expressed interest' : isFull ? 'Workshop Full' : "I'm Interested"}
+                    {isLoading ? 'Processing...' : isEnrolled ? '✓ You expressed interest' : isFull ? 'Workshop Full' : "I'm Interested"}
                   </button>
                 );
               })()
