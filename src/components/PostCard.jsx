@@ -88,10 +88,11 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
       author_name: currentUser.full_name,
       content: commentText,
     });
-    await base44.entities.Post.update(post.id, { comment_count: (post.comment_count || 0) + 1 });
     setCommentText('');
     loadComments();
     onUpdate?.();
+    // Update comment count in background — may fail for non-authors due to Post RLS
+    base44.entities.Post.update(post.id, { comment_count: (post.comment_count || 0) + 1 }).catch(() => {});
   };
 
   const initials = (name) => name ? name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : '?';
