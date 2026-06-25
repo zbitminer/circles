@@ -151,7 +151,7 @@ export default function Home() {
             <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
               Connect with others through our community programs and grow together.
             </p>
-            <Link to="/directory" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#C99738', color: '#fff' }}>
+            <Link to="/directory" className="inline-flex items-center gap-2 font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2 text-xs" style={{ background: '#C99738', color: '#fff' }}>
               Join the Community →
             </Link>
           </div>
