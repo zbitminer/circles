@@ -4,36 +4,6 @@ import { base44 } from '@/api/base44Client';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 
-/* ── Dropdown definitions matching wireframe ── */
-const dropdowns = [
-  {
-    label: 'Give',
-    items: [
-      { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
-      { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
-      { label: 'Workshops', path: '/workshops', desc: 'Learn or lead enrichment workshops' },
-      { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
-      { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
-    ],
-  },
-  {
-    label: 'Receive',
-    items: [
-      { label: 'Urgent', path: '/sos', desc: 'Urgent requests for help' },
-      { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
-    ],
-  },
-  {
-    label: 'Belong',
-    items: [
-      { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
-      { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
-      { label: 'Messages', path: '/messages', desc: 'Private conversations' },
-      { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
-    ],
-  },
-];
-
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
   { label: 'Home', path: '/' },
@@ -85,6 +55,42 @@ export default function AppShell() {
   const toggleMobileSection = (key) => {
     setMobileExpanded(prev => ({ ...prev, [key]: !prev[key] }));
   };
+
+  const isAdmin = user?.role === 'admin';
+  const isMod = isAdmin || user?.role === 'moderator';
+
+  /* ── Dropdown definitions (role-aware) ── */
+  const dropdowns = [
+    {
+      label: 'Give',
+      items: [
+        { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
+        { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
+        { label: 'Workshops', path: '/workshops', desc: 'Learn or lead enrichment workshops' },
+        { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
+        { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
+      ],
+    },
+    {
+      label: 'Receive',
+      items: [
+        { label: 'Urgent', path: '/sos', desc: 'Urgent requests for help' },
+        { label: 'Health Support', path: '/health', desc: 'Health & wellness requests' },
+        { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
+      ],
+    },
+    {
+      label: 'Belong',
+      items: [
+        { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
+        { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
+        { label: 'Messages', path: '/messages', desc: 'Private conversations' },
+        { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
+        ...(isMod ? [{ label: 'Moderation', path: '/moderation', desc: 'Review reported content' }] : []),
+        ...(isAdmin ? [{ label: 'Admin Panel', path: '/admin', desc: 'Manage platform settings' }] : []),
+      ],
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -252,6 +258,10 @@ export default function AppShell() {
               <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
               <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
               <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
+              <li><Link to="/health" className="transition-colors hover:text-white">Health Support</Link></li>
+              <li><Link to="/platform" className="transition-colors hover:text-white">Platform Overview</Link></li>
+              <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
+              <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
             </ul>
           </div>
           <div>
