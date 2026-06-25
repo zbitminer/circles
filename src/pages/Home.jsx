@@ -85,17 +85,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Give Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(211,94,53,0.08)' }}>
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                {/* Flower with heart center */}
-                {[0, 60, 120, 180, 240, 300].map((angle, i) => {
-                  const rad = angle * Math.PI / 180;
-                  const cx = 20 + Math.cos(rad) * 9;
-                  const cy = 20 + Math.sin(rad) * 9;
-                  return <path key={i} d={`M ${cx} ${cy} C ${cx + 4} ${cy - 6}, ${cx - 4} ${cy - 6}, ${cx} ${cy}`} stroke="#D35E35" strokeWidth="1.5" fill="none" strokeLinecap="round" transform={`rotate(${angle + 90}, ${cx}, ${cy})`} />;
-                })}
-                <path d="M20 17 C 18 14, 15 15, 15 18 C 15 20, 20 23, 20 23 C 20 23, 25 20, 25 18 C 25 15, 22 14, 20 17 Z" fill="#D35E35" />
-              </svg>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(211,94,53,0.08)' }}>
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/41d0f6eb2_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-12 h-12 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
             <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
