@@ -99,16 +99,8 @@ export default function Home() {
 
           {/* Receive Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(36,125,125,0.08)' }}>
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                {/* Figure being held by hands */}
-                <circle cx="20" cy="13" r="4.5" stroke="#247D7D" strokeWidth="1.5" fill="none" />
-                <path d="M15 20 C 15 17, 17 15, 20 15 C 23 15, 25 17, 25 20 L 25 24 L 15 24 Z" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
-                <path d="M8 28 C 6 28, 5 30, 5 32 L 5 35 C 5 36, 6 37, 7 37 L 10 37" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                <path d="M32 28 C 34 28, 35 30, 35 32 L 35 35 C 35 36, 34 37, 33 37 L 30 37" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                <path d="M8 28 C 12 27, 15 26, 15 26" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-                <path d="M32 28 C 28 27, 25 26, 25 26" stroke="#247D7D" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
+            <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(36,125,125,0.08)' }}>
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png" alt="Receive" className="w-20 h-20 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#247D7D', fontFamily: 'Georgia, serif' }}>Receive.</h2>
             <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
