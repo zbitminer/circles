@@ -36,29 +36,26 @@ export default function Opportunities() {
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [categoryFilter, setCategoryFilter] = useState(null);
-  const [pendingFocusId, setPendingFocusId] = useState(null);
   const [enrollingId, setEnrollingId] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
-    loadOpportunities();
     const params = new URLSearchParams(window.location.search);
     const cat = params.get('category');
     if (cat) setCategoryFilter({ category: cat, subcategory: null, emoji: '🎨' });
     const focusOpp = params.get('opportunity');
-    if (focusOpp) setPendingFocusId(focusOpp);
+    loadOpportunities(focusOpp || null);
   }, []);
 
-  const loadOpportunities = async () => {
+  const loadOpportunities = async (focusId) => {
     setLoading(true);
     const data = await base44.entities.Opportunity.list('-created_date', 100);
     const active = data.filter(o => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title));
     setOpportunities(active);
     setLoading(false);
-    if (pendingFocusId) {
-      const focus = active.find(o => o.id === pendingFocusId);
+    if (focusId) {
+      const focus = active.find(o => o.id === focusId);
       if (focus) setSelected(focus);
-      setPendingFocusId(null);
     }
   };
 
@@ -106,7 +103,7 @@ export default function Opportunities() {
     setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
     setShowForm(false);
     setSubmitting(false);
-    loadOpportunities();
+    loadOpportunities(null);
   };
 
   return (
