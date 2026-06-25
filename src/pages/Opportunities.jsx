@@ -80,13 +80,20 @@ export default function Opportunities() {
     if (!user) return;
     setEnrollingId(opp.id);
     try {
-      await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
+      const response = await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
+      const result = response.data || response;
+      if (result.error) {
+        alert(result.error);
+        setEnrollingId(null);
+        return;
+      }
       // Reload opportunities and update the selected one with fresh data
       const updated = await base44.entities.Opportunity.get(opp.id);
       setOpportunities(prev => prev.map(o => o.id === opp.id ? updated : o));
       setSelected(updated);
     } catch (err) {
-      alert(err?.response?.data?.error || 'Could not enroll — the workshop may be full.');
+      const errorMsg = err?.response?.data?.error || err?.message || 'Could not enroll — the workshop may be full.';
+      alert(errorMsg);
     } finally {
       setEnrollingId(null);
     }
