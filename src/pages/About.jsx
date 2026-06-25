@@ -106,28 +106,15 @@ export default function About() {
       </section>
 
       {/* Founder & Director Bio */}
-      <section className="rounded-2xl p-8 mb-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <img src="https://circlesofgiving.org/wp-content/uploads/2025/01/%D7%92%D7%95%D7%90%D7%9F-%D7%9C%D7%95%D7%A8%D7%A0%D7%A1-%D7%94%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%AA.png" alt="Rachel Bracha (Joan) Laurence" className="w-28 h-28 rounded-full object-cover flex-shrink-0" style={{ border: '3px solid #C9A84C' }} />
-        <div className="text-center sm:text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Founder & CEO</span>
-          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Rachel Bracha (Joan) Laurence</h3>
-          <p className="text-sm leading-relaxed mb-2" style={{ color: '#6b5c3e' }}>
-            Joan is a social entrepreneur and community designer with a passion for creating unique communities. She designed her first model community in Santa Clara, Silicon Valley, California. Since then, she has created unique programs in Safed for women, children, and families in crisis, including "The Loving Children's Home" (1991–1996), "The Mother's Child Healing Hostel" (1993–1996), "New Start Hostel" (1997–2006), and "One Heart for One Heart" (2006–2020).
-          </p>
-          <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-            Joan holds a Master's from Stanford in Urban Planning and Community Design, and a Master's in Psychology – Families and Human Development from Skidmore College. Circles of Giving is the culmination of her dream to foster unity through building "communities of giving" as the foundation for a healthy society.
-          </p>
-        </div>
-      </section>
-
-      {/* COO Bio */}
       <section className="rounded-2xl p-8 mb-10 flex flex-col sm:flex-row gap-6 items-center sm:items-start" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <img src="https://circlesofgiving.org/wp-content/uploads/2025/02/dikla-1-min.png" alt="Dikla Efron-Rachamim" className="w-28 h-28 rounded-full object-cover flex-shrink-0" style={{ border: '3px solid #C9A84C' }} />
+        <div className="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 text-2xl font-bold" style={{ background: '#1A2744', color: '#C9A84C' }}>
+          R.B.
+        </div>
         <div className="text-center sm:text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>COO — Chief Operating Officer</span>
-          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Dikla Efron-Rachamim</h3>
+          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Director & Founder</span>
+          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Rachel Bracha (Joan) Laurence</h3>
           <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-            Dikla is responsible for ongoing operations, leading organizational efficiency processes, and developing and implementing advanced work methodologies and systems. With 20 years of rich experience in the high-tech sector, she develops strategies and manages the project while maintaining accuracy and professionalism — strengthening the association's activities. Her extensive knowledge and pursuit of excellence bring a significant advantage to all areas of activity under her management.
+            A dedicated social entrepreneur since 1991, Rachel has spent over three decades designing programs that bridge gaps between diverse populations. Her vision for Circles of Giving emerged from a deep-seated belief that true community resilience relies on reciprocal relationships rather than one-way charity.
           </p>
         </div>
       </section>
