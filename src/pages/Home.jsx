@@ -60,7 +60,7 @@ export default function Home() {
 
           {/* Hero Illustration */}
           <div className="mt-12 flex justify-center">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
+            <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
 
               alt="Diverse hands reaching toward the center"
