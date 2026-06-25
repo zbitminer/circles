@@ -86,7 +86,7 @@ export default function Home() {
           {/* Give Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(211,94,53,0.08)' }}>
-              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/41d0f6eb2_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-20 h-20 object-contain" />
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-20 h-20 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
             <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
