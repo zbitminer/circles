@@ -26,9 +26,9 @@ Deno.serve(async (req) => {
     }
 
     // Atomically add the user via $addToSet (avoids duplicates under concurrent calls)
-    await base44.asServiceRole.entities.Opportunity.updateMany(
-      { id: opportunity_id },
-      { $addToSet: { applicants: user.id } }
+    await base44.asServiceRole.entities.Opportunity.update(
+      opportunity_id,
+      { applicants: [...applicants, user.id] }
     );
 
     return Response.json({ status: 'enrolled', applicants: [...applicants, user.id] });
