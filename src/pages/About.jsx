@@ -141,11 +141,11 @@ export default function About() {
 
         {/* Taubman tribute with image */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto mb-6">
-          <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-            <div className="aspect-[4/3] overflow-hidden">
-              <img src="https://circlesofgiving.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-24-at-14.46.44-892x1024.jpeg" alt="Herman P. and Sofia Taubman" className="w-full h-full object-cover" />
+          <div className="rounded-2xl p-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+            <div className="flex justify-center mb-4">
+              <img src="https://circlesofgiving.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-24-at-14.46.44-892x1024.jpeg" alt="Herman P. and Sofia Taubman" className="w-40 h-40 rounded-full object-cover" style={{ border: '3px solid #C9A84C' }} />
             </div>
-            <div className="p-6 text-center">
+            <div>
               <p className="font-display font-bold text-lg mb-3" style={{ color: '#1A2744' }}>Herman P. & Sofia Taubman</p>
               <p className="text-sm italic leading-relaxed" style={{ color: '#6b5c3e' }}>
                 Herman P. and Sofia Taubman emigrated from Eastern Europe to the United States in the early 1900s. They settled and raised their family in Tulsa, Oklahoma. They cared deeply about Israel and the wellbeing of its citizens, and played a significant role in New Seed Foundation's projects throughout the years. We thank them for their partnership and meaningful involvement in bringing our project to fruition.
