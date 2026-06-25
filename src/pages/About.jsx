@@ -128,6 +128,9 @@ export default function About() {
 
         {/* Founding Supporters */}
         <div className="rounded-2xl p-8 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <div className="flex justify-center mb-6">
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d19942704_IMG_0125.jpg" alt="Goodwin and Geraldine Steinberg" className="w-40 h-40 rounded-full object-cover" style={{ border: '3px solid #C9A84C' }} />
+          </div>
           <h3 className="font-display text-xl font-bold mb-4 text-center" style={{ color: '#1A2744' }}>
             Goodwin (Abraham ben Edward Perry) & Geraldine (Tamar bat Albert)
           </h3>
