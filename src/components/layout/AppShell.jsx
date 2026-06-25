@@ -54,6 +54,16 @@ export default function AppShell() {
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
+    // Prevent img load errors from reaching the vite preview error handler
+    // (DOM nodes in the error event cause DataCloneError on postMessage)
+    const imgErrorHandler = (e) => {
+      if (e.target && e.target.tagName === 'IMG') {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('error', imgErrorHandler, true);
+    return () => window.removeEventListener('error', imgErrorHandler, true);
   }, []);
 
   // Close desktop dropdown when clicking outside
