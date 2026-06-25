@@ -36,6 +36,8 @@ export default function Profile() {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewForm, setReviewForm] = useState({ rating: 0, content: '' });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => { loadAll(); }, []);
 
@@ -92,6 +94,18 @@ export default function Profile() {
     await base44.entities.VolunteerProfile.update(profile.id, { total_hours: newTotal });
     setProfile(prev => ({ ...prev, total_hours: newTotal }));
     setLogs(prev => prev.filter(l => l.id !== log.id));
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      if (profile) await base44.entities.VolunteerProfile.delete(profile.id);
+      await base44.auth.logout();
+      window.location.href = '/';
+    } catch (error) {
+      setDeleting(false);
+      setShowDeleteConfirm(false);
+    }
   };
 
   const initials = user?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
@@ -359,6 +373,37 @@ export default function Profile() {
           </div>
         )}
       </div>
+
+      {/* Delete Account */}
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #dc2626' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#dc2626' }}>Danger Zone</h2>
+        <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>Permanently delete your account and all associated data. This cannot be undone.</p>
+        <button onClick={() => setShowDeleteConfirm(true)} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl" style={{ background: '#dc2626', color: '#fff' }}>
+          <Trash2 className="w-4 h-4" /> Delete Account
+        </button>
+      </div>
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setShowDeleteConfirm(false)}>
+          <div className="rounded-2xl p-6 max-w-sm w-full bg-white" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: '#fdecea' }}>
+                <AlertTriangle className="w-5 h-5" style={{ color: '#c0392b' }} />
+              </div>
+              <h3 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Delete Account?</h3>
+            </div>
+            <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>
+              This will permanently delete your account, profile, hours, badges, and reviews. This action cannot be undone.
+            </p>
+            <div className="flex gap-2 justify-end">
+              <button onClick={() => setShowDeleteConfirm(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
+              <button onClick={handleDeleteAccount} disabled={deleting} className="px-4 py-2 text-sm font-semibold rounded-xl disabled:opacity-50" style={{ background: '#dc2626', color: '#fff' }}>
+                {deleting ? 'Deleting...' : 'Yes, Delete Forever'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -91,6 +91,11 @@
   body {
     @apply text-foreground font-body;
     background-color: hsl(0, 0%, 98%);
+    overscroll-behavior: none;
+  }
+
+  button {
+    @apply select-none;
   }
 
   h1, h2, h3, h4 {

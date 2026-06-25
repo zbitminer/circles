@@ -1,7 +1,7 @@
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowLeft, Home as HomeIcon, Rss, Briefcase, User as UserIcon } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
@@ -16,6 +16,7 @@ const topLinks = [
 
 export default function AppShell() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -58,6 +59,7 @@ export default function AppShell() {
 
   const isAdmin = user?.role === 'admin';
   const isMod = isAdmin || user?.role === 'moderator';
+  const showBack = location.pathname !== '/';
 
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
@@ -95,8 +97,14 @@ export default function AppShell() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══ Top Nav ═══ */}
-      <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }} ref={navRef}>
+      <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A', paddingTop: 'env(safe-area-inset-top)' }} ref={navRef}>
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Back button (mobile, sub-pages) */}
+          {showBack && (
+            <button onClick={() => navigate(-1)} className="lg:hidden p-2 rounded-lg hover:bg-white/10 text-white flex-shrink-0">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          )}
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white p-0.5" />
@@ -230,12 +238,27 @@ export default function AppShell() {
         )}
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 pb-16 lg:pb-0">
         <Outlet />
       </main>
 
+      {/* ═══ Mobile Bottom Tab Bar ═══ */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around" style={{ background: '#1A1A1A', borderTop: '2px solid #D95D1A', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        {[
+          { label: 'Home', path: '/', icon: HomeIcon },
+          { label: 'Feed', path: '/feed', icon: Rss },
+          { label: 'Give', path: '/opportunities', icon: Briefcase },
+          { label: 'Profile', path: '/profile', icon: UserIcon },
+        ].map(({ label, path, icon: Icon }) => (
+          <Link key={label} to={path} className="flex flex-col items-center gap-1 py-2 px-3 transition-colors" style={{ color: isActive(path) ? '#D95D1A' : '#aaa' }}>
+            <Icon className="w-5 h-5" />
+            <span className="text-[10px] font-medium">{label}</span>
+          </Link>
+        ))}
+      </nav>
+
       {/* ═══ Footer ═══ */}
-      <footer className="mt-12" style={{ background: '#1A1A1A', borderTop: '3px solid #D95D1A' }}>
+      <footer className="mt-12 pb-16 lg:pb-0" style={{ background: '#1A1A1A', borderTop: '3px solid #D95D1A' }}>
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
