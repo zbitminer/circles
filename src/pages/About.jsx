@@ -142,10 +142,10 @@ export default function About() {
         {/* Founding Supporters */}
         <div className="rounded-2xl p-8 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <h3 className="font-display text-xl font-bold mb-4 text-center" style={{ color: '#1A2744' }}>
-            Godwin (Abraham ben Edward Perry) & Geraldine (Tamar bat Albert)
+            Goodwin (Abraham ben Edward Perry) & Geraldine (Tamar bat Albert)
           </h3>
           <p className="text-sm leading-relaxed text-center max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
-            They were the founding supporters who initiated and championed the launch of New Seed Foundation's programs. They inspired their daughter, Joan (Rachel Bracha), to study urban planning and combine it with social services. They encouraged her to open the "warm and loving home" for children and helped raise donations. As an architect, Godwin came to Israel and found the perfect building for the center. Our success over the years stems from their values — focused on the uniqueness of each individual and the importance of giving to others.
+            They were the founding supporters who initiated and championed the launch of New Seed Foundation's programs. They inspired their daughter, Joan (Rachel Bracha), to study urban planning and combine it with social services. They encouraged her to open the "warm and loving home" for children and helped raise donations. As an architect, Goodwin came to Israel and found the perfect building for the center. Our success over the years stems from their values — focused on the uniqueness of each individual and the importance of giving to others.
           </p>
         </div>
 
@@ -180,7 +180,7 @@ export default function About() {
         <div className="rounded-2xl p-8 text-center max-w-2xl mx-auto" style={{ background: '#1A2744' }}>
           <p className="text-base leading-relaxed mb-3" style={{ color: '#C9A84C' }}>
             <span className="text-xl mr-1">✡️</span>
-            Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#fff' }}>Godwin & Geraldine</strong> and <strong style={{ color: '#fff' }}>Herman P. & Sophia Taubman</strong>.
+            Circles of Giving is proudly dedicated to the memory of <strong style={{ color: '#fff' }}>Goodwin & Geraldine</strong> and <strong style={{ color: '#fff' }}>Herman P. & Sophia Taubman</strong>.
           </p>
           <p className="text-sm leading-relaxed" style={{ color: 'rgba(245,230,192,0.85)' }}>
             Their lives were a testament to the truth that generosity is not measured in wealth, but in the lives we touch and the love we leave behind. Their legacy of giving continues to ripple through every circle we build. May their memory be a blessing.
