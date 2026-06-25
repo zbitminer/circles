@@ -33,6 +33,24 @@ const CAUSE_COLORS = {
   'Other': 'bg-muted text-muted-foreground',
 };
 
+const CAUSE_FALLBACK_IMAGES = {
+  'Companionship': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c79fb37f1_generated_image.png',
+  'Food': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/82f0b4303_generated_image.png',
+  'Home': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f964c61dc_generated_image.png',
+  'Skills Sharing': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/440c340f7_generated_image.png',
+  'Technology': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ff0585af8_generated_image.png',
+  'Transportation': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png',
+};
+
+const DEFAULT_FALLBACK_IMAGES = [
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c79fb37f1_generated_image.png',
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/82f0b4303_generated_image.png',
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f964c61dc_generated_image.png',
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/440c340f7_generated_image.png',
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ff0585af8_generated_image.png',
+  'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png',
+];
+
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
   const [showMenu, setShowMenu] = useState(false);
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?.id));
@@ -166,16 +184,17 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
         <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{post.content}</p>
       </div>
 
-      {/* Image or placeholder */}
-      {post.image_url ? (
-        <div className="px-5 pb-3">
-          <img src={post.image_url} alt="Post" className="w-full rounded-xl object-cover max-h-80" />
-        </div>
-      ) : (
-        <div className={`mx-5 mb-3 rounded-xl h-24 flex items-center justify-center ${CAUSE_BANNERS[post.cause_tags?.[0]] || 'bg-muted'}`}>
-          <span className="text-4xl opacity-60">{CAUSE_EMOJIS[post.cause_tags?.[0]] || '🌱'}</span>
-        </div>
-      )}
+      {/* Image */}
+      {(() => {
+        const imgSrc = post.image_url
+          || CAUSE_FALLBACK_IMAGES[post.cause_tags?.[0]]
+          || DEFAULT_FALLBACK_IMAGES[post.id ? post.id.charCodeAt(0) % DEFAULT_FALLBACK_IMAGES.length : 0];
+        return (
+          <div className="px-5 pb-3">
+            <img src={imgSrc} alt="Post" className="w-full rounded-xl object-cover max-h-80" />
+          </div>
+        );
+      })()}
 
       {/* Actions */}
       <div className="px-5 py-3 border-t border-border flex items-center gap-4">
