@@ -35,10 +35,11 @@ export default function NotificationBell({ currentUser }) {
       const profiles = await base44.entities.VolunteerProfile.filter({ user_id: currentUser.id });
       const profile = profiles[0];
       if (profile && profile.causes && profile.causes.length > 0) {
-        await base44.functions.invoke('notifyMatchingOpportunities', { data: { user_id: currentUser.id, causes: profile.causes } });
-        loadNotifications();
+        await base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: profile.causes } });
       }
     } catch {}
+    // Always reload notifications, whether or not new ones were created
+    loadNotifications();
   };
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;

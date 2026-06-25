@@ -54,7 +54,7 @@ export default function Profile() {
     setSelectedCauses(p.causes || []);
     // Proactively check for matching opportunities and create missing notifications
     if (p.causes && p.causes.length > 0) {
-      base44.functions.invoke('notifyMatchingOpportunities', { data: { user_id: u.id, causes: p.causes } }).catch(() => {});
+      base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: p.causes } }).catch(() => {});
     }
     const hourLogs = await base44.entities.HourLog.filter({ user_id: u.id });
     setLogs(hourLogs.sort((a, b) => new Date(b.date) - new Date(a.date)));
@@ -69,6 +69,10 @@ export default function Profile() {
     await base44.entities.VolunteerProfile.update(profile.id, { bio: bioText, location: locationText, causes: selectedCauses });
     setProfile(prev => ({ ...prev, bio: bioText, location: locationText, causes: selectedCauses }));
     setEditingBio(false);
+    // Check for matching opportunities with the updated causes
+    if (selectedCauses.length > 0) {
+      base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: selectedCauses } }).catch(() => {});
+    }
   };
 
   const toggleCause = (cause) => {
