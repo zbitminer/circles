@@ -13,7 +13,8 @@
         "sos_claimed",
         "new_message",
         "review_received",
-        "badge_earned"
+        "badge_earned",
+        "new_opportunity"
       ]
     },
     "title": {
