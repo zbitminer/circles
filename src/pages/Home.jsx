@@ -113,22 +113,8 @@ export default function Home() {
 
           {/* Belong Card */}
           <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,151,56,0.08)' }}>
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                {/* Circular network of people holding hands */}
-                {[0, 72, 144, 216, 288].map((angle, i) => {
-                  const rad = angle * Math.PI / 180;
-                  const cx = 20 + Math.cos(rad) * 11;
-                  const cy = 20 + Math.sin(rad) * 11;
-                  return (
-                    <g key={i}>
-                      <circle cx={cx} cy={cy - 2} r="3" stroke="#C99738" strokeWidth="1.5" fill="none" />
-                      <path d={`M ${cx - 3} ${cy + 1} L ${cx - 3} ${cy + 5} M ${cx + 3} ${cy + 1} L ${cx + 3} ${cy + 5}`} stroke="#C99738" strokeWidth="1.5" strokeLinecap="round" />
-                    </g>);
-
-                })}
-                <circle cx="20" cy="20" r="11" stroke="#C99738" strokeWidth="1.2" fill="none" strokeDasharray="3 3" opacity="0.6" />
-              </svg>
+            <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(201,151,56,0.08)' }}>
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a6d867f57_Black_and_White_Corporate_Pitch_Presentation.png" alt="Belong" className="w-20 h-20 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#C99738', fontFamily: 'Georgia, serif' }}>Belong.</h2>
             <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-xl" style={{ color: '#555' }}>
