@@ -1,17 +1,17 @@
 const SPOTLIGHTS = [
   {
-    quote: 'We keep expanding to add more communities.',
-    name: 'Tiffany Aliche',
-    role: 'The Budgetnista',
+    quote: 'Every circle we open brings another family into the community. That\'s what keeps me going.',
+    name: 'Rivka M.',
+    role: 'Community Circle Leader · Jerusalem',
     bg: '#7E3D8D',
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17557244b_generated_image.png',
   },
   {
-    quote: 'My membership on Mighty has insanely high retention. They\'re my marketing engine.',
-    name: 'Amanda Goetz',
-    role: 'Founder & CEO of House of Wise',
+    quote: 'I came to give, but I received so much more — friendships, support, and a real sense of belonging.',
+    name: 'Noa S.',
+    role: 'Volunteer Coordinator · Tel Aviv',
     bg: '#363840',
-    img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d26b224cd_generated_image.png',
   },
 ];
 

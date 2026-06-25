@@ -13,7 +13,7 @@ const FALLBACK_EVENTS = [
     time: '7:00 PM',
     joining: 12,
     btnColor: '#2563EB',
-    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5db1d6ec2_generated_image.png',
+    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/4cc406591_generated_image.png',
   },
   {
     id: 'fallback-2',
@@ -24,7 +24,7 @@ const FALLBACK_EVENTS = [
     time: '6:30 PM',
     joining: 4,
     btnColor: '#A85573',
-    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/6dcda92b5_generated_image.png',
+    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3468ee4d4_generated_image.png',
   },
   {
     id: 'fallback-3',
@@ -35,7 +35,7 @@ const FALLBACK_EVENTS = [
     time: '10:00 AM',
     joining: 8,
     btnColor: '#0F766E',
-    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/458c3c2a6_generated_image.png',
+    image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/46292aca1_generated_image.png',
   },
 ];
 

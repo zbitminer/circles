@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const MEMBERS = [
   {
-    img: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/afe5518a3_generated_image.png',
     caption: 'Rivka · Jerusalem',
     tag: 'MENTOR',
     tagBg: '#FBBF24',
@@ -10,22 +10,22 @@ const MEMBERS = [
     large: true,
   },
   {
-    img: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/7b12843e1_generated_image.png',
     caption: 'Devorah · Tel Aviv',
     large: false,
   },
   {
-    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/af83a5bc6_generated_image.png',
     caption: 'Evening Circle · Haifa',
     large: false,
   },
   {
-    img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5b2d8c9dc_generated_image.png',
     caption: 'Shira · Jerusalem',
     large: false,
   },
   {
-    img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80',
+    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fae5a9a9d_generated_image.png',
     caption: 'Nava & Sara · Beersheva',
     large: false,
   },
