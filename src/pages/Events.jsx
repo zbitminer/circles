@@ -10,13 +10,18 @@ import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
+const DEFAULT_EVENT_IMAGE = 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png';
 const CAUSE_FALLBACK_IMAGES = {
-  'Transportation': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80',
-  'Companionship': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80',
-  'Food': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80',
-  'Technology': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',
-  'Home': 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80',
-  'Skill Sharing': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80',
+  'Transportation': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c924b4348_generated_image.png',
+  'Companionship': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
+  'Combating Loneliness': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
+  'Food': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0c7fa0f39_generated_image.png',
+  'Technology': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a88e4bbf4_generated_image.png',
+  'Home': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/925e6ae43_generated_image.png',
+  'Skill Sharing': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
+  'Learning & Skills Workshops': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/1521c1dd4_generated_image.png',
+  'Community Events': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png',
+  'Creative Workshops': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
 };
 
 export default function Events() {
@@ -249,7 +254,7 @@ export default function Events() {
                 {/* Ornate corner accents */}
                 <div className="relative">
                   <img
-                    src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
+                    src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || DEFAULT_EVENT_IMAGE}
                     alt={evt.title}
                     className="w-full h-36 object-cover"
                   />
