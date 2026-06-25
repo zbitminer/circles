@@ -148,7 +148,7 @@ export default function Home() {
               </svg>
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#C99738', fontFamily: 'Georgia, serif' }}>Belong.</h2>
-            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+            <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
               Connect with others through our community programs and grow together.
             </p>
             <Link to="/directory" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#C99738', color: '#fff' }}>
