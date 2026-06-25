@@ -28,7 +28,24 @@ export default function Feed() {
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
+    <div className="pb-24 md:pb-0">
+      {/* Hero Banner */}
+      <div className="relative h-48 md:h-64 overflow-hidden">
+        <img
+          src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/13c72dca5_generated_image.png"
+          alt="Israeli community gathering in a park"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(26,26,26,0.3), rgba(26,26,26,0.7))' }} />
+        <div className="absolute inset-0 flex items-center justify-center text-center px-4">
+          <div>
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">Our Community</h1>
+            <p className="text-sm md:text-base" style={{ color: 'rgba(255,255,255,0.85)' }}>Stories, updates, and inspiration from fellow volunteers</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Sidebar */}
         <aside className="hidden lg:block lg:col-span-3">
@@ -67,10 +84,6 @@ export default function Feed() {
 
         {/* Feed */}
         <div className="lg:col-span-6 space-y-5">
-          <div>
-            <h1 className="font-display text-3xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Feed</h1>
-            <p className="text-sm" style={{ color: '#6b5c3e' }}>Stories, updates, and inspiration from fellow volunteers</p>
-          </div>
 
           {user && <CreatePost currentUser={user} onCreated={loadPosts} />}
 
@@ -119,22 +132,31 @@ export default function Feed() {
                 <LocationMap items={events} onSelectItem={() => {}} labelKey="title" locationKey="location" />
               </div>
             )}
-            <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-              <h3 className="font-semibold text-sm mb-4" style={{ color: '#1A2744' }}>Quick Links</h3>
-              <div className="space-y-2 text-sm">
-                <Link to="/opportunities" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
-                  📋 Browse Opportunities
-                </Link>
-                <Link to="/events" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
-                  📅 Upcoming Events
-                </Link>
-                <Link to="/profile" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
-                  👤 My Profile & Impact
-                </Link>
+            <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid #C9A84C' }}>
+              <img
+                src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/205ce2265_generated_image.png"
+                alt="Israeli volunteers sorting donations"
+                className="w-full h-36 object-cover"
+              />
+              <div className="p-4" style={{ background: '#FAF7EE' }}>
+                <p className="text-xs font-semibold mb-1" style={{ color: '#1A2744' }}>Get Involved</p>
+                <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>Every hand makes a difference in our community.</p>
+                <div className="space-y-2 text-sm">
+                  <Link to="/opportunities" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                    📋 Browse Opportunities
+                  </Link>
+                  <Link to="/events" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                    📅 Upcoming Events
+                  </Link>
+                  <Link to="/profile" className="flex items-center gap-2 py-1 transition-colors hover:text-brand-orange" style={{ color: '#6b5c3e' }}>
+                    👤 My Profile & Impact
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </aside>
+      </div>
       </div>
     </div>
   );
