@@ -50,13 +50,20 @@ export default function Home() {
               Join the Circle — Free <ArrowRight className="w-5 h-5" />
             </Link> :
 
-          <Link
-            to="/opportunities"
-            className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-            style={{ background: '#D95D1A', color: '#fff' }}>
-            
-              Explore Opportunities <ArrowRight className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              to="/opportunities"
+              className="inline-flex items-center gap-2 font-bold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              style={{ background: '#D95D1A', color: '#fff' }}>
+                I Want to Give <ArrowRight className="w-5 h-5" />
             </Link>
+            <Link
+              to="/opportunities"
+              className="inline-flex items-center gap-2 font-bold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              style={{ background: '#247D7D', color: '#fff' }}>
+                I Need Support <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
           }
 
           {/* Hero Illustration */}
