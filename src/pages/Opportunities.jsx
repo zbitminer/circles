@@ -186,9 +186,14 @@ export default function Opportunities() {
             <p className="font-bold text-sm" style={{ color: '#1A2744' }}>Registration Required</p>
             <p className="text-xs" style={{ color: '#6b5c3e' }}>You must register first to give, receive, or connect with others.</p>
           </div>
-          <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
-            Register Free →
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/login" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+              Log In
+            </Link>
+            <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
+              Register Free →
+            </Link>
+          </div>
         </div>
       )}
 
@@ -409,9 +414,14 @@ export default function Opportunities() {
                 <Megaphone className="w-4 h-4" /> Post a Request
               </Link>
             ) : (
-              <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
-                Register to Post →
-              </Link>
+              <div className="flex items-center justify-center gap-3">
+                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+                  Register to Post →
+                </Link>
+                <Link to="/login" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                  Log In
+                </Link>
+              </div>
             )}
           </div>
         </>
@@ -434,9 +444,14 @@ export default function Opportunities() {
               <div className="text-5xl mb-4">🔒</div>
               <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Register to Give</h3>
               <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You must create an account before you can offer your skills and talents.</p>
-              <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                Create Your Free Account →
-              </Link>
+              <div className="flex items-center justify-center gap-3">
+                <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                  Create Your Free Account →
+                </Link>
+                <Link to="/login" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                  Log In
+                </Link>
+              </div>
             </div>
           )}
         </>
@@ -522,9 +537,14 @@ export default function Opportunities() {
               <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
                 <p className="text-sm font-bold mb-2" style={{ color: '#1A2744' }}>Registration Required</p>
                 <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register to express interest and get matched.</p>
-                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                  Register Free →
-                </Link>
+                <div className="flex items-center justify-center gap-3">
+                  <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                    Register Free →
+                  </Link>
+                  <Link to="/login" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                    Log In
+                  </Link>
+                </div>
               </div>
             )}
           </div>

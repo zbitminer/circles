@@ -129,7 +129,10 @@ export default function ShabbatMeals() {
               <div className="text-3xl mb-2">🔐</div>
               <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
               <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
-              <Link to="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</Link>
+              <div className="flex items-center justify-center gap-3">
+                <Link to="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</Link>
+                <Link to="/register" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>Register Free</Link>
+              </div>
             </div>
           ) : (
             <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
@@ -328,9 +331,14 @@ export default function ShabbatMeals() {
               <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
                 <p className="font-bold text-sm mb-1" style={{ color: '#1A2744' }}>🔒 Registration Required</p>
                 <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register first to join a Shabbat or holiday meal.</p>
-                <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                  Register Free →
-                </Link>
+                <div className="flex items-center justify-center gap-3">
+                  <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                    Register Free →
+                  </Link>
+                  <Link to="/login" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                    Log In
+                  </Link>
+                </div>
               </div>
             )}
           </div>

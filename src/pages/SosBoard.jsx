@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Clock, Plus, X, CheckCircle, LayoutGrid, Map, Users } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
@@ -282,7 +283,18 @@ export default function SosBoard() {
               </button>
             )}
             {!user && (
-              <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to help with this request</p>
+              <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
+                <p className="font-bold text-sm mb-1" style={{ color: '#1A2744' }}>🔒 Registration Required</p>
+                <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register first to claim a request and help.</p>
+                <div className="flex items-center justify-center gap-3">
+                  <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                    Register Free →
+                  </Link>
+                  <Link to="/login" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                    Log In
+                  </Link>
+                </div>
+              </div>
             )}
           </div>
         </div>
