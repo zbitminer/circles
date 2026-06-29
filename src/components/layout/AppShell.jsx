@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
+import RegisterBanner from '../RegisterBanner';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
@@ -227,6 +228,8 @@ export default function AppShell() {
           </div>
         )}
       </header>
+
+      {!user && <RegisterBanner />}
 
       <main className="flex-1">
         <Outlet />
