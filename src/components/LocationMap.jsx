@@ -101,7 +101,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
 
   return (
     <div className="w-full h-[280px] rounded-2xl border border-border overflow-hidden">
-      <MapContainer center={[31.5, 35.0]} zoom={7} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
+      <MapContainer center={[31.5, 35.0]} zoom={7} zoomAnimation={false} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
         <FitBounds markers={markers} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
