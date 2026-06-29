@@ -6,6 +6,7 @@ import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
+import { Link } from 'react-router-dom';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Food', 'Skill Sharing', 'Transportation'];
@@ -445,7 +446,13 @@ export default function Events() {
                   {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : "RSVP — I'll Be There!"}
                 </button>
               ) : (
-                <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to RSVP</p>
+                <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
+                  <p className="font-bold text-sm mb-1" style={{ color: '#1A2744' }}>🔒 Registration Required</p>
+                  <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register first to RSVP to events.</p>
+                  <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                    Register Free →
+                  </Link>
+                </div>
               )}
 
               <EventChat eventId={selected.id} currentUser={user} />

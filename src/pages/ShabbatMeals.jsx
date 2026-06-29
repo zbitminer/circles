@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Star } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
-import { format, isFuture } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { format, isFuture } from 'date-fns';
 
 export default function ShabbatMeals() {
   const [meals, setMeals] = useState([]);
@@ -325,7 +325,13 @@ export default function ShabbatMeals() {
                 {selected.guests?.includes(user.id) ? 'Cancel My RSVP' : spotsLeft(selected) === 0 ? 'No Spots Left' : "I'll Join! 🙏"}
               </button>
             ) : (
-              <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to join this meal</p>
+              <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
+                <p className="font-bold text-sm mb-1" style={{ color: '#1A2744' }}>🔒 Registration Required</p>
+                <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register first to join a Shabbat or holiday meal.</p>
+                <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                  Register Free →
+                </Link>
+              </div>
             )}
           </div>
         </div>
