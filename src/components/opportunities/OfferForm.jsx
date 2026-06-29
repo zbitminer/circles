@@ -70,6 +70,7 @@ export default function OfferForm({ user, onPosted }) {
           multiSelect
           selectedFilters={selectedCategories}
           onSelectFilters={setSelectedCategories}
+          exclude={['Companionship', 'Home', 'Technology']}
         />
       </div>
 

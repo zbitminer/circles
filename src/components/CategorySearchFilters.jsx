@@ -43,7 +43,8 @@ const CATEGORIES = [
   },
 ];
 
-export default function CategorySearchFilters({ selectedFilters = [], onSelectFilters, selectedFilter, onSelectFilter, multiSelect = false, className = '' }) {
+export default function CategorySearchFilters({ selectedFilters = [], onSelectFilters, selectedFilter, onSelectFilter, multiSelect = false, className = '', exclude = [] }) {
+  const cats = CATEGORIES.filter(c => !exclude.includes(c.label));
   // Multi-select mode
   if (multiSelect) {
     const isActive = (cat, sub) => selectedFilters.some(f => f.category === cat && f.subcategory === sub);
@@ -81,7 +82,7 @@ export default function CategorySearchFilters({ selectedFilters = [], onSelectFi
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {CATEGORIES.map(({ label, emoji, subcategories }) => (
+          {cats.map(({ label, emoji, subcategories }) => (
             <div key={label}>
               <p className="text-sm font-semibold mb-2" style={{ color: '#1A2744' }}>
                 {emoji} {label}
@@ -137,7 +138,7 @@ export default function CategorySearchFilters({ selectedFilters = [], onSelectFi
         </button>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {CATEGORIES.map(({ label, emoji, subcategories }) => (
+        {cats.map(({ label, emoji, subcategories }) => (
           <div key={label}>
             <p className="text-sm font-semibold mb-2" style={{ color: '#1A2744' }}>
               {emoji} {label}
