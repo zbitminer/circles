@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Star } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
 import { format, isFuture } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 export default function ShabbatMeals() {
   const [meals, setMeals] = useState([]);
@@ -18,6 +19,12 @@ export default function ShabbatMeals() {
     base44.auth.me().then(setUser).catch(() => {});
     loadMeals();
   }, []);
+
+  useEffect(() => {
+    if (showForm) {
+      requestAnimationFrame(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  }, [showForm]);
 
   const loadMeals = async () => {
     setLoading(true);
@@ -114,6 +121,64 @@ export default function ShabbatMeals() {
         </div>
       </div>
 
+      {/* Host form — renders right below the CTA cards so the buttons feel responsive */}
+      {showForm && (
+        <div id="host-form" className="mb-6">
+          {!user ? (
+            <div className="rounded-2xl p-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+              <div className="text-3xl mb-2">🔐</div>
+              <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
+              <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
+              <Link to="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</Link>
+            </div>
+          ) : (
+            <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat or Holiday Meal</h2>
+                <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
+              </div>
+              <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Date *</label>
+                  <input required type="date" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location *</label>
+                  <input required value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City or neighborhood" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Available Seats *</label>
+                  <input required type="number" min="1" max="20" value={form.seats_available} onChange={e => setForm({ ...form, seats_available: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Dietary Options</label>
+                  <input value={form.dietary_options} onChange={e => setForm({ ...form, dietary_options: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Kosher, vegetarian-friendly" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Description</label>
+                  <textarea rows={2} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Tell guests what to expect..." />
+                </div>
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" id="isHoliday" checked={form.is_holiday} onChange={e => setForm({ ...form, is_holiday: e.target.checked })} className="rounded" />
+                  <label htmlFor="isHoliday" className="text-sm" style={{ color: '#1A2744' }}>This is a holiday meal</label>
+                </div>
+                {form.is_holiday && (
+                  <div>
+                    <input value={form.holiday_name} onChange={e => setForm({ ...form, holiday_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Holiday name (e.g. Rosh Hashana)" />
+                  </div>
+                )}
+                <div className="md:col-span-2 flex gap-3 justify-end">
+                  <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
+                  <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+                    {submitting ? 'Creating...' : '🕯️ List My Meal'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Shabbat in the North */}
       <div className="rounded-2xl overflow-hidden mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <div className="grid grid-cols-1 md:grid-cols-5">
@@ -176,60 +241,7 @@ export default function ShabbatMeals() {
         </div>
       )}
 
-      {/* Create Form — not signed in */}
-      {showForm && !user && (
-        <div className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <div className="text-3xl mb-2">🔐</div>
-          <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
-          <a href="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</a>
-        </div>
-      )}
-      {showForm && user && (
-        <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat or Holiday Meal</h2>
-            <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
-          </div>
-          <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Date *</label>
-              <input required type="date" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location *</label>
-              <input required value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City or neighborhood" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Available Seats *</label>
-              <input required type="number" min="1" max="20" value={form.seats_available} onChange={e => setForm({ ...form, seats_available: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Dietary Options</label>
-              <input value={form.dietary_options} onChange={e => setForm({ ...form, dietary_options: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Kosher, vegetarian-friendly" />
-            </div>
-            <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Description</label>
-              <textarea rows={2} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Tell guests what to expect..." />
-            </div>
-            <div className="flex items-center gap-3">
-              <input type="checkbox" id="isHoliday" checked={form.is_holiday} onChange={e => setForm({ ...form, is_holiday: e.target.checked })} className="rounded" />
-              <label htmlFor="isHoliday" className="text-sm" style={{ color: '#1A2744' }}>This is a holiday meal</label>
-            </div>
-            {form.is_holiday && (
-              <div>
-                <input value={form.holiday_name} onChange={e => setForm({ ...form, holiday_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Holiday name (e.g. Rosh Hashana)" />
-              </div>
-            )}
-            <div className="md:col-span-2 flex gap-3 justify-end">
-              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
-                {submitting ? 'Creating...' : '🕯️ List My Meal'}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+
 
       {/* Tabs */}
       <div id="meals-list" className="flex gap-1 rounded-xl p-1 mb-5 w-fit" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
