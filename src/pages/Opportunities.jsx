@@ -45,6 +45,7 @@ export default function Opportunities() {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [enrollingId, setEnrollingId] = useState(null);
   const [enrollSuccess, setEnrollSuccess] = useState(null);
+  const [organizerProfile, setOrganizerProfile] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('receive');
 
@@ -58,6 +59,16 @@ export default function Opportunities() {
     const focusOpp = searchParams.get('opportunity');
     loadOpportunities(focusOpp || null);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (selected?.created_by_id) {
+      base44.entities.VolunteerProfile.filter({ user_id: selected.created_by_id })
+        .then(ps => setOrganizerProfile(ps[0] || null))
+        .catch(() => setOrganizerProfile(null));
+    } else {
+      setOrganizerProfile(null);
+    }
+  }, [selected]);
 
   const loadOpportunities = async (focusId) => {
     setLoading(true);
@@ -111,7 +122,7 @@ export default function Opportunities() {
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
+    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_id: user?.id, created_by_name: user?.full_name, status: 'active' });
     setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
     setShowForm(false);
     setSubmitting(false);
@@ -377,8 +388,13 @@ export default function Opportunities() {
             {/* Right: sticky map */}
             {!loading && filtered.length > 0 && viewMode !== 'map' && (
               <div className="hidden lg:block lg:col-span-5">
-                <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
-                  <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+                <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0' }}>
+                  <div className="px-4 py-2.5 text-xs font-medium" style={{ background: '#FAF7EE', color: '#6b5c3e', borderBottom: '1px solid #e0e0e0' }}>
+                    📍 Map view — click a pin to see opportunity details
+                  </div>
+                  <div style={{ height: 'calc(100vh - 8rem)' }}>
+                    <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+                  </div>
                 </div>
               </div>
             )}
@@ -467,9 +483,17 @@ export default function Opportunities() {
                           </p>
                         </div>
                         <p className="text-xs leading-relaxed" style={{ color: '#555' }}>
-                          <strong>What happens next?</strong> You've been matched with the organizer. They will review your request and contact you directly to arrange the details. Keep an eye on your messages and email for updates.
+                          <strong>What happens next?</strong> You've been matched with the organizer. They will review your request and contact you directly to arrange the details. You can also message them below to introduce yourself.
                         </p>
                       </div>
+                      {organizerProfile?.phone && (
+                        <p className="text-xs mb-3 p-3 rounded-lg" style={{ background: '#fff', color: '#1A2744', border: '1px solid #C9A84C' }}>
+                          📞 Organizer phone: <strong>{organizerProfile.phone}</strong>
+                        </p>
+                      )}
+                      <Link to={`/messages?to=${selected.created_by_id}&name=${encodeURIComponent(selected.created_by_name || 'Organizer')}`} className="w-full flex items-center justify-center gap-2 py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity mb-2" style={{ background: '#247D7D', color: '#fff' }}>
+                        Message the Organizer
+                      </Link>
                       <button disabled className="w-full py-3 font-semibold rounded-xl" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
                         ✓ Interest Submitted
                       </button>

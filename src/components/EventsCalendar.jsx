@@ -88,12 +88,12 @@ export default function EventsCalendar({ events = [], currentUser, onSelectEvent
               return (
                 <div
                   key={di}
-                  className={`min-h-[80px] p-1.5 border-r border-border last:border-r-0 ${
+                  className={`min-h-[56px] p-1 border-r border-border last:border-r-0 ${
                     inMonth ? 'bg-card' : 'bg-muted/30'
                   }`}
                 >
                   {/* Date number */}
-                  <div className={`w-7 h-7 flex items-center justify-center rounded-full text-sm font-medium mb-1 ${
+                  <div className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-medium mb-0.5 ${
                     today
                       ? 'bg-primary text-primary-foreground'
                       : inMonth

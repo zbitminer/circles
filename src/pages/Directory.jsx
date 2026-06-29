@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight } from 'lucide-react';
+import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight, MessageSquare } from 'lucide-react';
 import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
@@ -55,15 +55,23 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
               )}
             </div>
             {currentUser && (
-              <button
-                onClick={() => onFollow(profile.user_id)}
-                className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold transition-all ${
-                  isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
-                }`}
-              >
-                {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
-                {isFollowed ? 'Following' : 'Follow'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onFollow(profile.user_id)}
+                  className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold transition-all ${
+                    isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
+                  }`}
+                >
+                  {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                  {isFollowed ? 'Following' : 'Follow'}
+                </button>
+                <Link
+                  to={`/messages?to=${profile.user_id}&name=${encodeURIComponent(profile.user?.full_name || '')}`}
+                  className="flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all"
+                >
+                  <MessageSquare className="w-4 h-4" /> Message
+                </Link>
+              </div>
             )}
           </div>
           <div className="grid grid-cols-3 gap-3 mb-4">
@@ -467,6 +475,7 @@ export default function Directory() {
                           <span key={c} className={`text-xs px-2 py-0.5 rounded-full font-medium ${CAUSE_COLORS[c] || 'bg-muted text-muted-foreground'}`}>{c}</span>
                         ))}
                       </div>
+                      <p className="text-xs text-center mt-3 font-medium" style={{ color: '#C9A84C' }}>View Profile →</p>
                     </div>
                   </div>
                 );

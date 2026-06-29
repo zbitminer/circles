@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Send, X } from 'lucide-react';
 
-export default function Messages({ currentUser }) {
+export default function Messages({ currentUser, initialConversation }) {
   const [conversations, setConversations] = useState([]);
   const [selected, setSelected] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -15,7 +15,13 @@ export default function Messages({ currentUser }) {
   }, [currentUser]);
 
   useEffect(() => {
-    if (selected) {
+    if (initialConversation && !selected) {
+      setSelected(initialConversation);
+    }
+  }, [initialConversation]);
+
+  useEffect(() => {
+    if (selected?.conversation_id) {
       loadMessages(selected.conversation_id);
       const unsubscribe = base44.entities.Message.subscribe((event) => {
         if (event.data.conversation_id === selected.conversation_id) {
@@ -23,6 +29,8 @@ export default function Messages({ currentUser }) {
         }
       });
       return unsubscribe;
+    } else {
+      setMessages([]);
     }
   }, [selected]);
 
@@ -60,6 +68,14 @@ export default function Messages({ currentUser }) {
       content: newMessage,
       conversation_id: convId
     });
+    await base44.entities.Notification.create({
+      user_id: selected.user_id,
+      type: 'new_message',
+      title: `New message from ${currentUser.full_name}`,
+      message: newMessage.slice(0, 80),
+      related_id: convId,
+      related_user_name: currentUser.full_name
+    }).catch(() => {});
     setNewMessage('');
     loadMessages(convId);
   };

@@ -8,7 +8,7 @@ import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
+const CAUSES = ['All', 'Food', 'Skill Sharing', 'Transportation'];
 
 const DEFAULT_EVENT_IMAGE = 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png';
 const CAUSE_FALLBACK_IMAGES = {
@@ -131,7 +131,7 @@ export default function Events() {
               <Map className="w-4 h-4" />
             </button>
           </div>
-          {isMod && (
+          {user && (
             <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
               <Plus className="w-4 h-4" /> Create Event
             </button>
@@ -140,7 +140,7 @@ export default function Events() {
       </div>
 
       {/* Create Form */}
-      {showForm && isMod && (
+      {showForm && user && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl font-bold mb-4">New Event</h2>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -202,7 +202,7 @@ export default function Events() {
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <div className="sm:w-64">
-              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
+              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} exclude={['Companionship', 'Home', 'Technology']} />
             </div>
             <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
               {CAUSES.map(c => (
@@ -287,6 +287,7 @@ export default function Events() {
                     {evt.capacity && <span>· {evt.capacity} max</span>}
                     {full && <span className="font-medium" style={{ color: '#C9A84C' }}>· Full</span>}
                   </div>
+                  <p className="text-xs pt-1.5 font-medium" style={{ color: '#C9A84C' }}>Tap to view & RSVP →</p>
                 </div>
                 {/* Bottom corner accents */}
                 <div className="relative h-0">
@@ -302,8 +303,13 @@ export default function Events() {
           {/* Right: sticky map */}
           {filtered.length > 0 && (
             <div className="hidden lg:block lg:col-span-5">
-              <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
-                <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+              <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0' }}>
+                <div className="px-4 py-2.5 text-xs font-medium" style={{ background: '#FAF7EE', color: '#6b5c3e', borderBottom: '1px solid #e0e0e0' }}>
+                  📍 Map view — click a pin to view event details
+                </div>
+                <div style={{ height: 'calc(100vh - 8rem)' }}>
+                  <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+                </div>
               </div>
             </div>
           )}

@@ -12,6 +12,7 @@ export default function OfferForm({ user, onPosted }) {
   const [type, setType] = useState('In-person');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [otherOffer, setOtherOffer] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,15 +21,17 @@ export default function OfferForm({ user, onPosted }) {
 
     const categoryLabel = selectedCategories.map(c => `${c.emoji} ${c.subcategory || c.category}`).join(', ');
     const mainCategory = selectedCategories[0].category;
+    const otherText = otherOffer.trim() ? ` (Other: ${otherOffer.trim()})` : '';
 
     await base44.entities.Opportunity.create({
-      title: `${user.full_name} — Offering: ${categoryLabel}`,
-      description: description || `I'd like to offer my help in: ${categoryLabel}`,
+      title: `${user.full_name} — Offering: ${categoryLabel}${otherText}`,
+      description: (description || `I'd like to offer my help in: ${categoryLabel}`) + otherText,
       organization: 'Community Volunteer',
       location: location || '',
       cause_category: mainCategory,
       type,
       applicants: [],
+      created_by_id: user.id,
       created_by_name: user.full_name,
       status: 'active',
     });
@@ -44,7 +47,7 @@ export default function OfferForm({ user, onPosted }) {
         <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Your Offer Has Been Posted!</h3>
         <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>Community members who need your help will be able to find and connect with you.</p>
         <div className="flex gap-3 justify-center">
-          <button onClick={() => { setSubmitted(false); setSelectedCategories([]); setDescription(''); setLocation(''); }}
+          <button           onClick={() => { setSubmitted(false); setSelectedCategories([]); setDescription(''); setLocation(''); setOtherOffer(''); }}
             className="px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D35E35', color: '#fff' }}>
             Post Another Offer
           </button>
@@ -72,6 +75,16 @@ export default function OfferForm({ user, onPosted }) {
           onSelectFilters={setSelectedCategories}
           exclude={['Companionship', 'Home', 'Technology']}
         />
+        <div className="mt-4">
+          <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Other — describe anything else you'd like to offer</label>
+          <input
+            value={otherOffer}
+            onChange={e => setOtherOffer(e.target.value)}
+            className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30"
+            style={{ borderColor: '#C9A84C' }}
+            placeholder="e.g. I can also help with..."
+          />
+        </div>
       </div>
 
       {/* Description */}
