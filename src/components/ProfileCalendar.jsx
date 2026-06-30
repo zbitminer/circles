@@ -88,7 +88,7 @@ export default function ProfileCalendar({ userId }) {
             <button
               key={key}
               onClick={() => setSelectedDate(day)}
-              className="h-14 rounded-lg p-1.5 flex flex-col items-center justify-start transition-all text-left"
+              className="aspect-square rounded-lg p-1.5 flex flex-col items-center justify-start transition-all text-left"
               style={
                 isSelected
                   ? { background: '#1A2744', color: '#F5E6C0' }

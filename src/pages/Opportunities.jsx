@@ -45,7 +45,6 @@ export default function Opportunities() {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [enrollingId, setEnrollingId] = useState(null);
   const [enrollSuccess, setEnrollSuccess] = useState(null);
-  const [organizerProfile, setOrganizerProfile] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('receive');
 
@@ -59,16 +58,6 @@ export default function Opportunities() {
     const focusOpp = searchParams.get('opportunity');
     loadOpportunities(focusOpp || null);
   }, [searchParams]);
-
-  useEffect(() => {
-    if (selected?.created_by_id) {
-      base44.entities.VolunteerProfile.filter({ user_id: selected.created_by_id })
-        .then(ps => setOrganizerProfile(ps[0] || null))
-        .catch(() => setOrganizerProfile(null));
-    } else {
-      setOrganizerProfile(null);
-    }
-  }, [selected]);
 
   const loadOpportunities = async (focusId) => {
     setLoading(true);
@@ -122,7 +111,7 @@ export default function Opportunities() {
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_id: user?.id, created_by_name: user?.full_name, status: 'active' });
+    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
     setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
     setShowForm(false);
     setSubmitting(false);
@@ -186,14 +175,9 @@ export default function Opportunities() {
             <p className="font-bold text-sm" style={{ color: '#1A2744' }}>Registration Required</p>
             <p className="text-xs" style={{ color: '#6b5c3e' }}>You must register first to give, receive, or connect with others.</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Link to="/login" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-              Log In
-            </Link>
-            <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
-              Register Free →
-            </Link>
-          </div>
+          <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
+            Register Free →
+          </Link>
         </div>
       )}
 
@@ -393,13 +377,8 @@ export default function Opportunities() {
             {/* Right: sticky map */}
             {!loading && filtered.length > 0 && viewMode !== 'map' && (
               <div className="hidden lg:block lg:col-span-5">
-                <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0' }}>
-                  <div className="px-4 py-2.5 text-xs font-medium" style={{ background: '#FAF7EE', color: '#6b5c3e', borderBottom: '1px solid #e0e0e0' }}>
-                    📍 Map view — click a pin to see opportunity details
-                  </div>
-                  <div style={{ height: 'calc(100vh - 8rem)' }}>
-                    <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
-                  </div>
+                <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+                  <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
                 </div>
               </div>
             )}
@@ -414,14 +393,9 @@ export default function Opportunities() {
                 <Megaphone className="w-4 h-4" /> Post a Request
               </Link>
             ) : (
-              <div className="flex items-center justify-center gap-3">
-                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
-                  Register to Post →
-                </Link>
-                <Link to="/login" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-                  Log In
-                </Link>
-              </div>
+              <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+                Register to Post →
+              </Link>
             )}
           </div>
         </>
@@ -444,14 +418,9 @@ export default function Opportunities() {
               <div className="text-5xl mb-4">🔒</div>
               <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Register to Give</h3>
               <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You must create an account before you can offer your skills and talents.</p>
-              <div className="flex items-center justify-center gap-3">
-                <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                  Create Your Free Account →
-                </Link>
-                <Link to="/login" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-                  Log In
-                </Link>
-              </div>
+              <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                Create Your Free Account →
+              </Link>
             </div>
           )}
         </>
@@ -498,17 +467,9 @@ export default function Opportunities() {
                           </p>
                         </div>
                         <p className="text-xs leading-relaxed" style={{ color: '#555' }}>
-                          <strong>What happens next?</strong> You've been matched with the organizer. They will review your request and contact you directly to arrange the details. You can also message them below to introduce yourself.
+                          <strong>What happens next?</strong> You've been matched with the organizer. They will review your request and contact you directly to arrange the details. Keep an eye on your messages and email for updates.
                         </p>
                       </div>
-                      {organizerProfile?.phone && (
-                        <p className="text-xs mb-3 p-3 rounded-lg" style={{ background: '#fff', color: '#1A2744', border: '1px solid #C9A84C' }}>
-                          📞 Organizer phone: <strong>{organizerProfile.phone}</strong>
-                        </p>
-                      )}
-                      <Link to={`/messages?to=${selected.created_by_id}&name=${encodeURIComponent(selected.created_by_name || 'Organizer')}`} className="w-full flex items-center justify-center gap-2 py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity mb-2" style={{ background: '#247D7D', color: '#fff' }}>
-                        Message the Organizer
-                      </Link>
                       <button disabled className="w-full py-3 font-semibold rounded-xl" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
                         ✓ Interest Submitted
                       </button>
@@ -537,14 +498,9 @@ export default function Opportunities() {
               <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
                 <p className="text-sm font-bold mb-2" style={{ color: '#1A2744' }}>Registration Required</p>
                 <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register to express interest and get matched.</p>
-                <div className="flex items-center justify-center gap-3">
-                  <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                    Register Free →
-                  </Link>
-                  <Link to="/login" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-                    Log In
-                  </Link>
-                </div>
+                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                  Register Free →
+                </Link>
               </div>
             )}
           </div>

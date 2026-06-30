@@ -8,8 +8,6 @@ import { UserPlus, Mail, Lock, Loader2, MapPin, User, ArrowRight, ArrowLeft, Che
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
-import FacebookIcon from "@/components/FacebookIcon";
-import AppleIcon from "@/components/AppleIcon";
 import { toast } from "@/components/ui/use-toast";
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
@@ -26,11 +24,6 @@ export default function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpCode, setOtpCode] = useState("");
-  const [ackOver18, setAckOver18] = useState(false);
-  const [ackPrivacy, setAckPrivacy] = useState(false);
-  const [ackTerms, setAckTerms] = useState(false);
-  const [ackNoResponsibility, setAckNoResponsibility] = useState(false);
-  const allAcknowledged = ackOver18 && ackPrivacy && ackTerms && ackNoResponsibility;
 
   const handleRegister = async () => {
     setError("");
@@ -93,14 +86,6 @@ export default function Register() {
 
   const handleGoogle = () => {
     base44.auth.loginWithProvider("google", "/");
-  };
-
-  const handleFacebook = () => {
-    base44.auth.loginWithProvider("facebook", "/");
-  };
-
-  const handleApple = () => {
-    base44.auth.loginWithProvider("apple", "/");
   };
 
   // Step indicator
@@ -193,37 +178,23 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="space-y-3 pt-2">
-            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackOver18 ? 'border-primary bg-primary/5' : 'border-border'}`}>
-              <input type="checkbox" checked={ackOver18} onChange={(e) => setAckOver18(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">I confirm that I am <strong>18 years of age or older</strong></span>
-            </label>
-            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackPrivacy ? 'border-primary bg-primary/5' : 'border-border'}`}>
-              <input type="checkbox" checked={ackPrivacy} onChange={(e) => setAckPrivacy(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">I have read and accept the <Link to="/privacy" className="text-primary font-medium hover:underline" target="_blank">Privacy Policy</Link></span>
-            </label>
-            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackTerms ? 'border-primary bg-primary/5' : 'border-border'}`}>
-              <input type="checkbox" checked={ackTerms} onChange={(e) => setAckTerms(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">I have read and accept the <Link to="/terms" className="text-primary font-medium hover:underline" target="_blank">Terms of Service</Link></span>
-            </label>
-            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackNoResponsibility ? 'border-primary bg-primary/5' : 'border-border'}`}>
-              <input type="checkbox" checked={ackNoResponsibility} onChange={(e) => setAckNoResponsibility(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">I acknowledge that Circles of Giving <strong>bears no responsibility</strong> for interactions between members and that I participate at my own risk</span>
-            </label>
-          </div>
-
-          {!allAcknowledged && (
-            <p className="text-xs text-muted-foreground text-center">Please check all boxes above to continue</p>
-          )}
-
-          <div className="flex gap-3">
+          <div className="flex gap-3 pt-2">
             <Button variant="outline" className="h-12" onClick={() => { setError(""); setStep(1); }}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button className="flex-1 h-12 font-medium" onClick={handleRegister} disabled={loading || !allAcknowledged}>
+            <Button className="flex-1 h-12 font-medium" onClick={handleRegister} disabled={loading}>
               {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Creating account...</> : <>Create account <ArrowRight className="w-4 h-4 ml-1" /></>}
             </Button>
           </div>
+
+          <button
+            type="button"
+            onClick={handleRegister}
+            disabled={loading}
+            className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            Skip for now →
+          </button>
         </div>
       </AuthLayout>
     );
@@ -242,16 +213,6 @@ export default function Register() {
       <Button variant="outline" className="w-full h-12 text-sm font-medium mb-5" onClick={handleGoogle}>
         <GoogleIcon className="w-5 h-5 mr-2" />
         Continue with Google
-      </Button>
-
-      <Button variant="outline" className="w-full h-12 text-sm font-medium mb-5" onClick={handleFacebook}>
-        <FacebookIcon className="w-5 h-5 mr-2" style={{ color: '#1877F2' }} />
-        Continue with Facebook
-      </Button>
-
-      <Button variant="outline" className="w-full h-12 text-sm font-medium mb-5" onClick={handleApple}>
-        <AppleIcon className="w-5 h-5 mr-2" />
-        Continue with Apple
       </Button>
 
       <div className="relative mb-5">

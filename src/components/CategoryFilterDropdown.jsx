@@ -39,8 +39,7 @@ const CATEGORIES = [
   },
 ];
 
-export default function CategoryFilterDropdown({ selected, onSelect, className = '', exclude = [] }) {
-  const cats = CATEGORIES.filter(c => !exclude.includes(c.label));
+export default function CategoryFilterDropdown({ selected, onSelect, className = '' }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -90,7 +89,7 @@ export default function CategoryFilterDropdown({ selected, onSelect, className =
           className="absolute top-full left-0 mt-1 w-72 rounded-xl shadow-xl z-50 max-h-80 overflow-y-auto"
           style={{ background: '#fff', border: '1px solid #e0e0e0' }}
         >
-          {cats.map(({ label, emoji, subcategories }) =>
+          {CATEGORIES.map(({ label, emoji, subcategories }) =>
             subcategories.map(sub => {
               const isActive = selected?.category === label && selected?.subcategory === sub;
               return (

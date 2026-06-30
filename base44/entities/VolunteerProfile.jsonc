@@ -14,9 +14,6 @@
     "location": {
       "type": "string"
     },
-    "phone": {
-      "type": "string"
-    },
     "causes": {
       "type": "array",
       "items": {

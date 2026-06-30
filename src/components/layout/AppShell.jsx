@@ -1,24 +1,17 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Menu, X, ChevronDown, Trophy, MessageSquare } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import RegisterBanner from '../RegisterBanner';
-import ThemeToggle from '../ThemeToggle';
-import AnnouncementBanner from '../AnnouncementBanner';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
   { label: 'Home', path: '/' },
   { label: 'How It Works', path: '/about' },
   { label: 'Events', path: '/events' },
-  { label: 'Urgent', path: '/sos' },
   { label: 'Our Community', path: '/feed' },
   { label: 'Volunteers', path: '/directory' },
-  { label: 'Leaderboard', path: '/leaderboard' },
-  { label: 'Feedback', path: '/feedback' },
-  { label: 'Resources', path: '/resources' },
-  { label: 'Mentorship', path: '/mentorship' },
 ];
 
 export default function AppShell() {
@@ -156,7 +149,6 @@ export default function AppShell() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
             {user && <NotificationBell currentUser={user} />}
             {!user ? (
               <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
@@ -240,7 +232,6 @@ export default function AppShell() {
       {!user && <RegisterBanner />}
 
       <main className="flex-1">
-        <AnnouncementBanner />
         <Outlet />
       </main>
 
@@ -271,10 +262,6 @@ export default function AppShell() {
               <li><Link to="/health" className="transition-colors hover:text-white">Health & Wellness</Link></li>
               <li><Link to="/platform" className="transition-colors hover:text-white">Platform Overview</Link></li>
               <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
-              <li><Link to="/leaderboard" className="transition-colors hover:text-white">Leaderboard</Link></li>
-              <li><Link to="/feedback" className="transition-colors hover:text-white">Feedback</Link></li>
-              <li><Link to="/resources" className="transition-colors hover:text-white">Resources</Link></li>
-              <li><Link to="/mentorship" className="transition-colors hover:text-white">Mentorship</Link></li>
               <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
             </ul>
           </div>

@@ -1,12 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight, MessageSquare } from 'lucide-react';
+import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight } from 'lucide-react';
 import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
-import VerificationBadge from '@/components/VerificationBadge';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -48,10 +47,7 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
         <div className="px-6 -mt-6 pb-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <div className="flex items-center gap-1.5">
-                <h2 className="font-display text-xl font-bold text-foreground">{profile.user?.full_name}</h2>
-                <VerificationBadge profile={profile} user={profile.user} />
-              </div>
+              <h2 className="font-display text-xl font-bold text-foreground">{profile.user?.full_name}</h2>
               {profile.location && (
                 <p className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5">
                   <MapPin className="w-3 h-3" /> {profile.location}
@@ -59,23 +55,15 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
               )}
             </div>
             {currentUser && (
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => onFollow(profile.user_id)}
-                  className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold transition-all ${
-                    isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
-                  }`}
-                >
-                  {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
-                  {isFollowed ? 'Following' : 'Follow'}
-                </button>
-                <Link
-                  to={`/messages?to=${profile.user_id}&name=${encodeURIComponent(profile.user?.full_name || '')}`}
-                  className="flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all"
-                >
-                  <MessageSquare className="w-4 h-4" /> Message
-                </Link>
-              </div>
+              <button
+                onClick={() => onFollow(profile.user_id)}
+                className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold transition-all ${
+                  isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
+                }`}
+              >
+                {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                {isFollowed ? 'Following' : 'Follow'}
+              </button>
             )}
           </div>
           <div className="grid grid-cols-3 gap-3 mb-4">
@@ -438,10 +426,7 @@ export default function Directory() {
                         <div className="flex items-center gap-3">
                           <Avatar profile={profile} />
                           <div>
-                            <div className="flex items-center gap-1">
-                              <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
-                              <VerificationBadge profile={profile} user={profile.user} />
-                            </div>
+                            <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
                             {profile.location && <p className="text-xs text-primary-foreground/70 mt-0.5">📍 {profile.location}</p>}
                           </div>
                         </div>
@@ -482,7 +467,6 @@ export default function Directory() {
                           <span key={c} className={`text-xs px-2 py-0.5 rounded-full font-medium ${CAUSE_COLORS[c] || 'bg-muted text-muted-foreground'}`}>{c}</span>
                         ))}
                       </div>
-                      <p className="text-xs text-center mt-3 font-medium" style={{ color: '#C9A84C' }}>View Profile →</p>
                     </div>
                   </div>
                 );

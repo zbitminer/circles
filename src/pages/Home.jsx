@@ -9,7 +9,6 @@ import UpcomingCirclesSection from '@/components/home/UpcomingCirclesSection';
 import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
-import SectionFrame from '@/components/home/SectionFrame';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -43,18 +42,13 @@ export default function Home() {
 
           {/* CTA */}
           {!user ?
-          <div className="flex flex-col items-center gap-3">
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-              style={{ background: '#D95D1A', color: '#fff' }}>
-                Join the Circle — Free <ArrowRight className="w-5 h-5" />
-            </Link>
-            <p className="text-sm" style={{ color: '#555' }}>
-              Already have an account?{' '}
-              <Link to="/login" className="font-bold hover:underline" style={{ color: '#247D7D' }}>Log In</Link>
-            </p>
-          </div> :
+          <Link
+            to="/register"
+            className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+            style={{ background: '#D95D1A', color: '#fff' }}>
+            
+              Join the Circle — Free <ArrowRight className="w-5 h-5" />
+            </Link> :
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
@@ -143,60 +137,30 @@ export default function Home() {
         <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
             🔒 <strong>Must register first</strong> to give, receive, or connect.{' '}
             <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Create your free account →</Link>
-            {' '}or{' '}
-            <Link to="/login" className="font-bold hover:underline" style={{ color: '#247D7D' }}>Log In</Link>
           </p>
         }
       </section>
 
       {/* Real Impact — visual hook right after hero */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <RealImpactSection />
-        </SectionFrame>
-      </div>
+      <RealImpactSection />
 
       {/* Building Community Thru Giving */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <BuildingCommunitySection />
-        </SectionFrame>
-      </div>
+      <BuildingCommunitySection />
 
       {/* How It Works — Three Steps. Infinite Impact. */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <HowItWorksSection />
-        </SectionFrame>
-      </div>
+      <HowItWorksSection />
 
       {/* Volunteer Spotlight — social proof */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <VolunteerSpotlightSection />
-        </SectionFrame>
-      </div>
+      <VolunteerSpotlightSection />
 
       {/* Upcoming Circles */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <UpcomingCirclesSection />
-        </SectionFrame>
-      </div>
+      <UpcomingCirclesSection />
 
       {/* Community Grid — Real People. Real Giving. */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <CommunityGridSection />
-        </SectionFrame>
-      </div>
+      <CommunityGridSection />
 
       {/* Live Community — Happening Right Now */}
-      <div className="px-6 py-4">
-        <SectionFrame variant="white" padding="py-0">
-          <LiveCommunitySection />
-        </SectionFrame>
-      </div>
+      <LiveCommunitySection />
 
       {/* Closing CTA */}
       <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
@@ -211,15 +175,9 @@ export default function Home() {
                 Create Your Profile <ArrowRight className="w-5 h-5" />
               </Link> :
 
-            <div className="flex flex-col items-center gap-3">
-              <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
+            <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg" style={{ background: '#E67E22', color: '#fff' }}>
                 Join Now <ArrowRight className="w-5 h-5" />
               </Link>
-              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                Already have an account?{' '}
-                <Link to="/login" className="font-bold hover:underline" style={{ color: '#fff' }}>Log In</Link>
-              </p>
-            </div>
             }
             <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg border-2" style={{ background: 'transparent', color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
               <Heart className="w-5 h-5" /> Donate

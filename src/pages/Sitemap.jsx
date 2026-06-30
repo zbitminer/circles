@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, FileText, Heart, GraduationCap, Info, Award, LayoutGrid, Map, HandHeart, Trophy, MessageCircle, BookOpen, GraduationCap as Mentor } from 'lucide-react';
+import { Home, Flame, AlertTriangle, Briefcase, Calendar, UtensilsCrossed, Users, MessageSquare, BarChart3, Building2, User, Shield, HelpCircle, FileText, Heart, GraduationCap, Info, Award, LayoutGrid, Map, HandHeart } from 'lucide-react';
 
 export default function Sitemap() {
   const sections = [
@@ -32,10 +32,6 @@ export default function Sitemap() {
         { icon: UtensilsCrossed, name: 'Shabbat Meals', path: '/shabbat', desc: 'Host & join community meals' },
         { icon: Users, name: 'Directory', path: '/directory', desc: 'Discover & follow volunteers' },
         { icon: MessageSquare, name: 'Messages', path: '/messages', desc: 'Direct messaging with members' },
-        { icon: Trophy, name: 'Leaderboard', path: '/leaderboard', desc: 'Top volunteers & impact rankings' },
-        { icon: MessageCircle, name: 'Feedback', path: '/feedback', desc: 'Share testimonials & suggestions' },
-        { icon: BookOpen, name: 'Resource Library', path: '/resources', desc: 'Guides, templates & tools' },
-        { icon: Mentor, name: 'Mentorship', path: '/mentorship', desc: 'Connect with mentors & mentees' },
       ],
     },
     {

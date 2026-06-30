@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import MessageComponent from '@/components/Messages';
 
 export default function MessagesPage() {
   const [user, setUser] = useState(null);
-  const [searchParams] = useSearchParams();
-  const toUser = searchParams.get('to');
-  const toName = searchParams.get('name');
-  const initialConversation = toUser ? { user_id: toUser, user_name: toName || 'New conversation', conversation_id: null } : null;
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -45,7 +40,7 @@ export default function MessagesPage() {
         ))}
       </div>
 
-      <MessageComponent currentUser={user} initialConversation={initialConversation} />
+      <MessageComponent currentUser={user} />
     </div>
   );
 }

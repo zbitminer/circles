@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, MessageSquare } from 'lucide-react';
-import CalendarExport from '@/components/CalendarExport';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map } from 'lucide-react';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
-import { Link } from 'react-router-dom';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Food', 'Skill Sharing', 'Transportation'];
+const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const DEFAULT_EVENT_IMAGE = 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png';
 const CAUSE_FALLBACK_IMAGES = {
@@ -133,7 +131,7 @@ export default function Events() {
               <Map className="w-4 h-4" />
             </button>
           </div>
-          {user && (
+          {isMod && (
             <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
               <Plus className="w-4 h-4" /> Create Event
             </button>
@@ -142,7 +140,7 @@ export default function Events() {
       </div>
 
       {/* Create Form */}
-      {showForm && user && (
+      {showForm && isMod && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl font-bold mb-4">New Event</h2>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -204,7 +202,7 @@ export default function Events() {
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <div className="sm:w-64">
-              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} exclude={['Companionship', 'Home', 'Technology']} />
+              <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
             </div>
             <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
               {CAUSES.map(c => (
@@ -289,7 +287,6 @@ export default function Events() {
                     {evt.capacity && <span>· {evt.capacity} max</span>}
                     {full && <span className="font-medium" style={{ color: '#C9A84C' }}>· Full</span>}
                   </div>
-                  <p className="text-xs pt-1.5 font-medium" style={{ color: '#C9A84C' }}>Tap to view & RSVP →</p>
                 </div>
                 {/* Bottom corner accents */}
                 <div className="relative h-0">
@@ -305,13 +302,8 @@ export default function Events() {
           {/* Right: sticky map */}
           {filtered.length > 0 && (
             <div className="hidden lg:block lg:col-span-5">
-              <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0' }}>
-                <div className="px-4 py-2.5 text-xs font-medium" style={{ background: '#FAF7EE', color: '#6b5c3e', borderBottom: '1px solid #e0e0e0' }}>
-                  📍 Map view — click a pin to view event details
-                </div>
-                <div style={{ height: 'calc(100vh - 8rem)' }}>
-                  <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
-                </div>
+              <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+                <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
               </div>
             </div>
           )}
@@ -423,23 +415,11 @@ export default function Events() {
                   {selected.capacity && ` · ${selected.capacity} max capacity`}
                 </div>
               </div>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}>{selected.description}</p>
-              <div className="mb-6">
-                <CalendarExport event={selected} />
-              </div>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b5c3e' }}>{selected.description}</p>
 
-              {selected.attendees?.length > 0 && user && (
+              {isMod && selected.attendees?.length > 0 && (
                 <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
-                  <p className="text-xs font-semibold mb-3 flex items-center gap-1.5" style={{ color: '#6b5c3e' }}>
-                    <Users className="w-3.5 h-3.5" /> {selected.attendees.length} attending
-                  </p>
-                  <Link
-                    to="/directory"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-opacity hover:opacity-80"
-                    style={{ background: '#1A2744', color: '#F5E6C0' }}
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" /> Find & Message Volunteers
-                  </Link>
+                  <p className="text-xs font-semibold mb-2" style={{ color: '#6b5c3e' }}>Attendee Count: {selected.attendees.length}</p>
                 </div>
               )}
 
@@ -459,18 +439,7 @@ export default function Events() {
                   {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : "RSVP — I'll Be There!"}
                 </button>
               ) : (
-                <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
-                  <p className="font-bold text-sm mb-1" style={{ color: '#1A2744' }}>🔒 Registration Required</p>
-                  <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register first to RSVP to events.</p>
-                  <div className="flex items-center justify-center gap-3">
-                    <Link to="/register" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
-                      Register Free →
-                    </Link>
-                    <Link to="/login" className="inline-flex items-center gap-1 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
-                      Log In
-                    </Link>
-                  </div>
-                </div>
+                <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to RSVP</p>
               )}
 
               <EventChat eventId={selected.id} currentUser={user} />

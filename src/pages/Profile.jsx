@@ -7,7 +7,6 @@ import BadgeDisplay from '@/components/BadgeDisplay';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
 import StarRating from '@/components/StarRating';
-import VerificationBadge from '@/components/VerificationBadge';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
@@ -29,7 +28,6 @@ export default function Profile() {
   const [editingBio, setEditingBio] = useState(false);
   const [bioText, setBioText] = useState('');
   const [locationText, setLocationText] = useState('');
-  const [phoneText, setPhoneText] = useState('');
   const [selectedCauses, setSelectedCauses] = useState([]);
   const [showLogForm, setShowLogForm] = useState(false);
   const [logForm, setLogForm] = useState({ activity_name: '', hours: '', date: '', cause_category: 'Food', notes: '' });
@@ -53,7 +51,6 @@ export default function Profile() {
     setProfile(p);
     setBioText(p.bio || '');
     setLocationText(p.location || '');
-    setPhoneText(p.phone || '');
     setSelectedCauses(p.causes || []);
     // Proactively check for matching opportunities and create missing notifications
     if (p.causes && p.causes.length > 0) {
@@ -69,8 +66,8 @@ export default function Profile() {
   };
 
   const saveBio = async () => {
-    await base44.entities.VolunteerProfile.update(profile.id, { bio: bioText, location: locationText, phone: phoneText, causes: selectedCauses });
-    setProfile(prev => ({ ...prev, bio: bioText, location: locationText, phone: phoneText, causes: selectedCauses }));
+    await base44.entities.VolunteerProfile.update(profile.id, { bio: bioText, location: locationText, causes: selectedCauses });
+    setProfile(prev => ({ ...prev, bio: bioText, location: locationText, causes: selectedCauses }));
     setEditingBio(false);
     // Check for matching opportunities with the updated causes
     if (selectedCauses.length > 0) {
@@ -146,10 +143,7 @@ export default function Profile() {
               <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </div>
             <div className="pb-1">
-              <div className="flex items-center gap-2">
-                <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
-                <VerificationBadge profile={profile} user={user} size="lg" />
-              </div>
+              <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
               {profile?.location && <p className="text-sm" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
             </div>
           </div>
@@ -158,7 +152,6 @@ export default function Profile() {
             <div className="space-y-3">
               <textarea value={bioText} onChange={e => setBioText(e.target.value)} placeholder="Tell the community about yourself and why you volunteer..." rows={3} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" />
               <input value={locationText} onChange={e => setLocationText(e.target.value)} placeholder="Your city or region" className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
-              <input value={phoneText} onChange={e => setPhoneText(e.target.value)} placeholder="Phone number (visible to those you match with)" className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
               <div>
                 <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Causes you care about:</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -218,6 +211,9 @@ export default function Profile() {
         ))}
       </div>
 
+      {/* Calendar */}
+      <ProfileCalendar userId={user.id} />
+
       {/* Community Control Panel */}
       <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
@@ -243,9 +239,6 @@ export default function Profile() {
           ))}
         </div>
       </div>
-
-      {/* Calendar */}
-      <ProfileCalendar userId={user.id} />
 
       {/* Badges */}
       {badges.length > 0 && (
