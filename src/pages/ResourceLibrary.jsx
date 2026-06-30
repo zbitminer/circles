@@ -15,13 +15,16 @@ const CATEGORY_META = {
 export default function ResourceLibrary() {
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
-    base44.entities.Resource.filter({ status: 'published' }, '-created_date', 100)
-      .then(setResources)
-      .catch(() => {})
+    base44.entities.Resource.list('-created_date', 100)
+      .then((data) => {
+        setResources((data || []).filter(r => r.status === 'published'));
+      })
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
 
