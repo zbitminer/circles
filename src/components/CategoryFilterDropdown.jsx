@@ -3,39 +3,44 @@ import { ChevronDown, X } from 'lucide-react';
 
 const CATEGORIES = [
   {
-    label: 'Transportation',
-    emoji: '🚗',
-    subcategories: ['Medical', 'Errands', 'Deliveries'],
+    label: 'Arts & Crafts',
+    emoji: '🎨',
+    subcategories: ['Drawing & Painting', 'Handcraft', 'Flower Arranging', 'Jewelry Making', 'Knitting'],
   },
   {
-    label: 'Companionship',
+    label: 'Music',
+    emoji: '🎵',
+    subcategories: ['Music Lesson', 'Playing Session', 'Performance', 'Reading Notes'],
+  },
+  {
+    label: 'Personal Development',
+    emoji: '💪',
+    subcategories: ['Meditation/Mindfulness', 'Motivation', 'Personal Empowerment', 'Goal Setting'],
+  },
+  {
+    label: 'Languages',
+    emoji: '🗣️',
+    subcategories: ['Hebrew', 'English', 'Spanish', 'Other'],
+  },
+  {
+    label: 'Health & Wellness',
+    emoji: '🌿',
+    subcategories: ['Nutrition', 'Yoga/Exercise', 'Holistic Health', 'Talking Therapies'],
+  },
+  {
+    label: 'Cooking',
+    emoji: '🍳',
+    subcategories: ['Holiday Foods', 'Baking', 'Healthy Cooking', 'World Cuisine', 'Vegetarian'],
+  },
+  {
+    label: 'Support Groups',
     emoji: '🤝',
-    subcategories: ['Visiting', 'Outing', 'Escort', 'Calls'],
+    subcategories: ['Grief Support', 'Parenting', 'Wellness Circles', 'Addiction Recovery'],
   },
   {
-    label: 'Food',
-    emoji: '🍲',
-    subcategories: ['Meal Preparation', 'Challah Baking', 'Recipes', 'Diet Delivery'],
-  },
-  {
-    label: 'Electronic Forms',
-    emoji: '📋',
-    subcategories: ['Drop Box', 'Digital Forms'],
-  },
-  {
-    label: 'Home',
-    emoji: '🏠',
-    subcategories: ['Daily Chores Task', 'Organization', 'Maintenance', 'Garden'],
-  },
-  {
-    label: 'Education & Learning',
-    emoji: '📚',
-    subcategories: ['In Person/Zoom', 'Health Teach', 'Language', 'Arts/Music', 'Cooking', 'Torah', 'Health Wellness'],
-  },
-  {
-    label: 'Technology',
-    emoji: '💻',
-    subcategories: ['Computer/Phone', 'Appointments', 'Digital Forms', 'Translation', 'Real Time Support'],
+    label: 'Other',
+    emoji: '✨',
+    subcategories: ['Books', 'Lectures', 'Torah Study', 'Gardening', 'Miscellaneous'],
   },
 ];
 

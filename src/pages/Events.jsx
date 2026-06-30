@@ -8,20 +8,18 @@ import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import { format, isPast } from 'date-fns';
 
-const CAUSES = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
+const CAUSES = ['All', 'Arts & Crafts', 'Personal Development', 'Languages', 'Health & Wellness', 'Music', 'Cooking', 'Support Groups', 'Other'];
 
 const DEFAULT_EVENT_IMAGE = 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png';
 const CAUSE_FALLBACK_IMAGES = {
-  'Transportation': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c924b4348_generated_image.png',
-  'Companionship': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
-  'Combating Loneliness': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
-  'Food': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0c7fa0f39_generated_image.png',
-  'Technology': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a88e4bbf4_generated_image.png',
-  'Home': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/925e6ae43_generated_image.png',
-  'Skill Sharing': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
-  'Learning & Skills Workshops': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/1521c1dd4_generated_image.png',
-  'Community Events': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png',
-  'Creative Workshops': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
+  'Arts & Crafts': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
+  'Music': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e8d10676b_generated_image.png',
+  'Personal Development': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/1521c1dd4_generated_image.png',
+  'Languages': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/1521c1dd4_generated_image.png',
+  'Health & Wellness': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
+  'Cooking': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0c7fa0f39_generated_image.png',
+  'Support Groups': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/20e665126_generated_image.png',
+  'Other': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/88b4512c1_generated_image.png',
 };
 
 export default function Events() {
@@ -31,7 +29,7 @@ export default function Events() {
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Food', capacity: '', image_url: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '' });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'
@@ -88,7 +86,7 @@ export default function Events() {
       created_by_name: user?.full_name,
       status: 'upcoming',
     });
-    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Food', capacity: '', image_url: '' });
+    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '' });
     setShowForm(false);
     setSubmitting(false);
     loadEvents();
@@ -323,7 +321,7 @@ export default function Events() {
                 title: 'Rosh Hashana Community Meal',
                 date: 'September 2024',
                 location: 'Safed Community Center',
-                category: 'Food',
+                category: 'Cooking',
                 description: 'Over 120 community members — including lone soldiers, new immigrants, and elderly neighbors — shared a festive holiday meal together.',
                 attendees: 120,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/dde20d403_generated_image.png',
@@ -333,7 +331,7 @@ export default function Events() {
                 title: 'Tech Support Day for Seniors',
                 date: 'August 2024',
                 location: 'Haifa, Northern District',
-                category: 'Technology',
+                category: 'Other',
                 description: 'Volunteers helped 45 elderly residents set up smartphones, WhatsApp, and video calls to stay connected with family.',
                 attendees: 45,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ea33792bf_generated_image.png',
@@ -342,7 +340,7 @@ export default function Events() {
                 title: 'Emergency Food Drive — Gaza Border Communities',
                 date: 'November 2023',
                 location: 'Northern Israel',
-                category: 'Food',
+                category: 'Cooking',
                 description: 'Circles of Giving mobilized 80+ volunteers to pack and deliver food parcels to families displaced from the Gaza border region.',
                 attendees: 83,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/42134c836_generated_image.png',
@@ -352,7 +350,7 @@ export default function Events() {
                 title: 'Loneliness Awareness Walk',
                 date: 'July 2024',
                 location: 'Tiberias Promenade',
-                category: 'Companionship',
+                category: 'Support Groups',
                 description: 'A community walk raising awareness about senior loneliness, followed by paired conversations between volunteers and elderly residents.',
                 attendees: 60,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/e71f86894_generated_image.png',
@@ -361,7 +359,7 @@ export default function Events() {
                 title: 'Home Repair Day for Bereaved Families',
                 date: 'May 2024',
                 location: 'Upper Galilee',
-                category: 'Home',
+                category: 'Other',
                 description: 'Skilled volunteers spent the day making repairs and improvements to the homes of families who lost loved ones in the war.',
                 attendees: 32,
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',

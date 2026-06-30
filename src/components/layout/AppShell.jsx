@@ -10,8 +10,9 @@ const topLinks = [
   { label: 'Home', path: '/' },
   { label: 'How It Works', path: '/about' },
   { label: 'Events', path: '/events' },
-  { label: 'Our Community', path: '/feed' },
-  { label: 'Volunteers', path: '/directory' },
+  { label: 'Urgent Board', path: '/sos' },
+  { label: 'Community', path: '/feed' },
+  { label: 'Trust', path: '/trust' },
 ];
 
 export default function AppShell() {
@@ -73,7 +74,6 @@ export default function AppShell() {
     {
       label: 'Receive',
       items: [
-        { label: 'Urgent', path: '/sos', desc: 'Urgent requests for help' },
         { label: 'Health Support', path: '/health', desc: 'Health & wellness requests' },
         { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
       ],

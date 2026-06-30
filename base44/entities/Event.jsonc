@@ -18,12 +18,14 @@
     "cause_category": {
       "type": "string",
       "enum": [
-        "Companionship",
-        "Food",
-        "Home",
-        "Skill Sharing",
-        "Technology",
-        "Transportation"
+        "Arts & Crafts",
+        "Personal Development",
+        "Languages",
+        "Health & Wellness",
+        "Music",
+        "Cooking",
+        "Support Groups",
+        "Other"
       ]
     },
     "capacity": {
