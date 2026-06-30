@@ -7,6 +7,7 @@ import BadgeDisplay from '@/components/BadgeDisplay';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
 import StarRating from '@/components/StarRating';
+import VerificationBadge from '@/components/VerificationBadge';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
@@ -145,7 +146,10 @@ export default function Profile() {
               <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </div>
             <div className="pb-1">
-              <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
+              <div className="flex items-center gap-2">
+                <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
+                <VerificationBadge profile={profile} user={user} size="lg" />
+              </div>
               {profile?.location && <p className="text-sm" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
             </div>
           </div>

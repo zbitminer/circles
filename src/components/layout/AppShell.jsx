@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown, Trophy, MessageSquare } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import RegisterBanner from '../RegisterBanner';
 import ThemeToggle from '../ThemeToggle';
+import AnnouncementBanner from '../AnnouncementBanner';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
@@ -16,6 +17,8 @@ const topLinks = [
   { label: 'Volunteers', path: '/directory' },
   { label: 'Leaderboard', path: '/leaderboard' },
   { label: 'Feedback', path: '/feedback' },
+  { label: 'Resources', path: '/resources' },
+  { label: 'Mentorship', path: '/mentorship' },
 ];
 
 export default function AppShell() {
@@ -237,6 +240,7 @@ export default function AppShell() {
       {!user && <RegisterBanner />}
 
       <main className="flex-1">
+        <AnnouncementBanner />
         <Outlet />
       </main>
 
@@ -269,6 +273,8 @@ export default function AppShell() {
               <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
               <li><Link to="/leaderboard" className="transition-colors hover:text-white">Leaderboard</Link></li>
               <li><Link to="/feedback" className="transition-colors hover:text-white">Feedback</Link></li>
+              <li><Link to="/resources" className="transition-colors hover:text-white">Resources</Link></li>
+              <li><Link to="/mentorship" className="transition-colors hover:text-white">Mentorship</Link></li>
               <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
             </ul>
           </div>

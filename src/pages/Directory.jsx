@@ -6,6 +6,7 @@ import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
+import VerificationBadge from '@/components/VerificationBadge';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -47,7 +48,10 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
         <div className="px-6 -mt-6 pb-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h2 className="font-display text-xl font-bold text-foreground">{profile.user?.full_name}</h2>
+              <div className="flex items-center gap-1.5">
+                <h2 className="font-display text-xl font-bold text-foreground">{profile.user?.full_name}</h2>
+                <VerificationBadge profile={profile} user={profile.user} />
+              </div>
               {profile.location && (
                 <p className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5">
                   <MapPin className="w-3 h-3" /> {profile.location}
@@ -434,7 +438,10 @@ export default function Directory() {
                         <div className="flex items-center gap-3">
                           <Avatar profile={profile} />
                           <div>
-                            <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
+                            <div className="flex items-center gap-1">
+                              <h3 className="font-semibold text-lg text-white leading-tight">{profile.user?.full_name}</h3>
+                              <VerificationBadge profile={profile} user={profile.user} />
+                            </div>
                             {profile.location && <p className="text-xs text-primary-foreground/70 mt-0.5">📍 {profile.location}</p>}
                           </div>
                         </div>

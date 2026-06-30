@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map } from 'lucide-react';
+import CalendarExport from '@/components/CalendarExport';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
@@ -422,7 +423,10 @@ export default function Events() {
                   {selected.capacity && ` · ${selected.capacity} max capacity`}
                 </div>
               </div>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+              <div className="mb-6">
+                <CalendarExport event={selected} />
+              </div>
 
               {isMod && selected.attendees?.length > 0 && (
                 <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>

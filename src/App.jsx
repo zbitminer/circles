@@ -39,6 +39,8 @@ import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
 import Leaderboard from './pages/Leaderboard';
 import Feedback from './pages/Feedback';
+import ResourceLibrary from './pages/ResourceLibrary';
+import Mentorship from './pages/Mentorship';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
@@ -88,6 +90,8 @@ const AuthenticatedApp = () => {
         <Route path="/platform" element={<PlatformOverview />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/feedback" element={<Feedback />} />
+        <Route path="/resources" element={<ResourceLibrary />} />
+        <Route path="/mentorship" element={<Mentorship />} />
       </Route>
 
       {/* Protected routes — require login */}
