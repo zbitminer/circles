@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 import OfferForm from '@/components/opportunities/OfferForm';
+import RemarksSection from '@/components/opportunities/RemarksSection';
 
 const CAUSE_OPTIONS = [
   { label: 'Companionship', emoji: '🤝' },
@@ -503,6 +504,8 @@ export default function Opportunities() {
                 </Link>
               </div>
             )}
+
+            <RemarksSection opportunity={selected} user={user} onUpdate={loadOpportunities} />
           </div>
         </div>
       )}

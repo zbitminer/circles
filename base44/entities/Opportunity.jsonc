@@ -61,6 +61,27 @@
     },
     "created_by_name": {
       "type": "string"
+    },
+    "remarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "author_id": {
+            "type": "string"
+          },
+          "author_name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
     }
   },
   "required": [
