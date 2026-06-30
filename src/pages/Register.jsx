@@ -4,23 +4,25 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Mail, Lock, Loader2, MapPin, User, ArrowRight, ArrowLeft, Check } from "lucide-react";
+import { UserPlus, Mail, Lock, Loader2, MapPin, User, ArrowRight, ArrowLeft, Check, Phone, ShieldCheck } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
 import { toast } from "@/components/ui/use-toast";
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
-const CAUSE_EMOJI = { Companionship: '🤝', Food: '🍲', Home: '🏠', 'Skills Sharing': '📚', Technology: '💻', Transportation: '🚗', Other: '💡' };
+const CAUSE_EMOJI = { 'Companionship': '\u{1F91D}', 'Food': '\u{1F372}', 'Home': '\u{1F3E0}', 'Skills Sharing': '\u{1F4DA}', 'Technology': '\u{1F4BB}', 'Transportation': '\u{1F697}', 'Other': '\u{1F4A1}' };
 
 export default function Register() {
-  const [step, setStep] = useState(1); // 1: account, 2: profile, 3: otp
+  const [step, setStep] = useState(1); // 1: account, 2: profile, 3: terms, 4: otp
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
+  const [phone, setPhone] = useState("");
   const [selectedCauses, setSelectedCauses] = useState([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpCode, setOtpCode] = useState("");
@@ -34,7 +36,7 @@ export default function Register() {
     setLoading(true);
     try {
       await base44.auth.register({ email, password });
-      setStep(3);
+      setStep(4);
     } catch (err) {
       setError(err.message || "Registration failed");
     } finally {
@@ -56,6 +58,7 @@ export default function Register() {
         await base44.entities.VolunteerProfile.create({
           user_id: me.id,
           location,
+          phone,
           causes: selectedCauses,
           total_hours: 0,
           events_attended: 0,
@@ -91,7 +94,7 @@ export default function Register() {
   // Step indicator
   const StepIndicator = () => (
     <div className="flex items-center justify-center gap-2 mb-6">
-      {[1, 2, 3].map((s) => (
+      {[1, 2, 3, 4].map((s) => (
         <div key={s} className="flex items-center gap-2">
           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
             step > s ? 'bg-primary text-primary-foreground' :
@@ -100,14 +103,14 @@ export default function Register() {
           }`}>
             {step > s ? <Check className="w-4 h-4" /> : s}
           </div>
-          {s < 3 && <div className={`w-8 h-0.5 ${step > s ? 'bg-primary' : 'bg-muted'}`} />}
+          {s < 4 && <div className={`w-6 h-0.5 ${step > s ? 'bg-primary' : 'bg-muted'}`} />}
         </div>
       ))}
     </div>
   );
 
-  // Step 3: OTP
-  if (step === 3) {
+  // Step 4: OTP
+  if (step === 4) {
     return (
       <AuthLayout icon={Mail} title="Verify your email" subtitle={`We sent a code to ${email}`}>
         <StepIndicator />
@@ -128,9 +131,76 @@ export default function Register() {
           {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Verifying...</> : "Verify & Join"}
         </Button>
         <p className="text-center text-sm text-muted-foreground mt-4">
-          Didn't receive the code?{" "}
+          Did not receive the code?{" "}
           <button onClick={handleResend} className="text-primary font-medium hover:underline">Resend</button>
         </p>
+      </AuthLayout>
+    );
+  }
+
+  // Step 3: Terms & Conditions
+  if (step === 3) {
+    return (
+      <AuthLayout
+        icon={ShieldCheck}
+        title="Terms & Conditions"
+        subtitle="Please review and accept to complete your registration"
+        footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+      >
+        <StepIndicator />
+        {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
+        <div className="space-y-5">
+          <div className="rounded-xl border border-border bg-muted/30 p-5 max-h-60 overflow-y-auto text-sm text-muted-foreground space-y-3">
+            <div>
+              <p className="font-semibold text-foreground mb-1">1. Community Guidelines</p>
+              <p>Circles of Giving is a community built on mutual respect. Members must treat each other with kindness and dignity. Harassment, discrimination, or abusive behavior will result in account termination.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">2. Privacy & Data</p>
+              <p>Your personal information (name, email, phone, location) is used to connect you with volunteering opportunities and community members. We do not sell your data to third parties. Your phone number may be used for WhatsApp group coordination.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">3. Volunteering & Liability</p>
+              <p>Volunteering activities are undertaken at your own risk. Circles of Giving facilitates connections but is not liable for interactions between members. Always exercise reasonable caution when meeting new people.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">4. Content & Conduct</p>
+              <p>You are responsible for all content you post. Prohibited content includes spam, illegal activities, commercial solicitation, and false information. Moderators may remove content that violates these terms.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground mb-1">5. Account Termination</p>
+              <p>We reserve the right to suspend or terminate accounts that violate these terms. You may delete your account at any time by contacting support.</p>
+            </div>
+          </div>
+
+          <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl border border-border hover:border-primary/40 transition-colors">
+            <input
+              type="checkbox"
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              className="mt-0.5 w-5 h-5 rounded border-border accent-primary"
+            />
+            <span className="text-sm text-muted-foreground">
+              I have read and agree to the{" "}
+              <Link to="/terms" className="text-primary font-medium hover:underline">Terms of Use</Link>{" "}
+              and{" "}
+              <Link to="/privacy" className="text-primary font-medium hover:underline">Privacy Policy</Link>.
+            </span>
+          </label>
+
+          <div className="flex gap-3 pt-2">
+            <Button variant="outline" className="h-12" onClick={() => { setError(""); setStep(2); }}>
+              <ArrowLeft className="w-4 h-4 mr-1" /> Back
+            </Button>
+            <Button
+              className="flex-1 h-12 font-medium"
+              onClick={handleRegister}
+              disabled={loading || !agreedToTerms}
+            >
+              {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Creating account...</> : <>Create account <ArrowRight className="w-4 h-4 ml-1" /></>}
+            </Button>
+          </div>
+        </div>
       </AuthLayout>
     );
   }
@@ -152,6 +222,14 @@ export default function Register() {
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input id="location" placeholder="City or region" value={location} onChange={(e) => setLocation(e.target.value)} className="pl-10 h-12" />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone Number <span className="text-xs text-muted-foreground">(for WhatsApp groups)</span></Label>
+            <div className="relative">
+              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input id="phone" type="tel" placeholder="+972-50-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-10 h-12" />
             </div>
           </div>
 
@@ -182,18 +260,17 @@ export default function Register() {
             <Button variant="outline" className="h-12" onClick={() => { setError(""); setStep(1); }}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button className="flex-1 h-12 font-medium" onClick={handleRegister} disabled={loading}>
-              {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Creating account...</> : <>Create account <ArrowRight className="w-4 h-4 ml-1" /></>}
+            <Button className="flex-1 h-12 font-medium" onClick={() => { setError(""); setStep(3); }}>
+              Continue <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
 
           <button
             type="button"
-            onClick={handleRegister}
-            disabled={loading}
+            onClick={() => { setError(""); setStep(3); }}
             className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors"
           >
-            Skip for now →
+            Skip for now
           </button>
         </div>
       </AuthLayout>
@@ -244,14 +321,14 @@ export default function Register() {
           <Label htmlFor="password">Password</Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input id="password" type="password" autoComplete="new-password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 h-12" required />
+            <Input id="password" type="password" autoComplete="new-password" placeholder="Create a password" value={password} onChange={(e) => setPassword(e.target.value)} className="pl-10 h-12" required />
           </div>
         </div>
         <div className="space-y-2">
           <Label htmlFor="confirm">Confirm Password</Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input id="confirm" type="password" autoComplete="new-password" placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="pl-10 h-12" required />
+            <Input id="confirm" type="password" autoComplete="new-password" placeholder="Confirm your password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="pl-10 h-12" required />
           </div>
         </div>
 

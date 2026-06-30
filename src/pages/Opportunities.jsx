@@ -124,8 +124,8 @@ export default function Opportunities() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Find Your Opportunity</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Browse what you need or share what you can offer</p>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Give & Receive</h1>
+          <p className="text-sm" style={{ color: '#6b5c3e' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
