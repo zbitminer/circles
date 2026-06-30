@@ -92,7 +92,7 @@ export default function ShabbatMeals() {
               <li>• Create a lasting bond with someone in your neighborhood</li>
               <li>• Help us fight the epidemic of loneliness in our city</li>
             </ul>
-            <button onClick={() => setShowForm(true)} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
+            <button onClick={() => { setShowForm(true); setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
               I Want to Host
             </button>
           </div>
@@ -178,7 +178,7 @@ export default function ShabbatMeals() {
 
       {/* Create Form — not signed in */}
       {showForm && !user && (
-        <div className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div id="host-form" className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-3xl mb-2">🔐</div>
           <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
           <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
@@ -186,7 +186,7 @@ export default function ShabbatMeals() {
         </div>
       )}
       {showForm && user && (
-        <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div id="host-form" className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat or Holiday Meal</h2>
             <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
