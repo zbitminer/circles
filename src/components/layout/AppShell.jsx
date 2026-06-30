@@ -57,9 +57,6 @@ export default function AppShell() {
     setMobileExpanded(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const isAdmin = user?.role === 'admin';
-  const isMod = isAdmin || user?.role === 'moderator';
-
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
     {
@@ -92,8 +89,6 @@ export default function AppShell() {
         { label: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
         { label: 'Messages', path: '/messages', desc: 'Private conversations' },
         { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
-        ...(isMod ? [{ label: 'Moderation', path: '/moderation', desc: 'Review reported content' }] : []),
-        ...(isAdmin ? [{ label: 'Admin Panel', path: '/admin', desc: 'Manage platform settings' }] : []),
       ],
     },
   ];
