@@ -10,7 +10,6 @@ const topLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Community', path: '/feed' },
-  { label: 'Events', path: '/events' },
   { label: 'How It Works', path: '/about' },
   { label: 'Urgent Board', path: '/sos' },
 ];
@@ -64,10 +63,16 @@ export default function AppShell() {
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
     {
+      label: 'Events',
+      items: [
+        { label: 'All Events', path: '/events', desc: 'Browse & RSVP to events' },
+        { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
+      ],
+    },
+    {
       label: 'Give',
       items: [
         { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
-        { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
         { label: 'Workshops', path: '/workshops', desc: 'Lead or join a learning workshop' },
         { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
         { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
