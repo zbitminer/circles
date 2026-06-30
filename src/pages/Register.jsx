@@ -226,10 +226,10 @@ export default function Register() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number <span className="text-xs text-muted-foreground">(for WhatsApp groups)</span></Label>
+            <Label htmlFor="phone">Phone Number <span className="text-xs text-muted-foreground">(required, for WhatsApp groups)</span></Label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input id="phone" type="tel" placeholder="+972-50-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-10 h-12" />
+              <Input id="phone" type="tel" placeholder="+972-50-123-4567" value={phone} onChange={(e) => setPhone(e.target.value)} className="pl-10 h-12" required />
             </div>
           </div>
 
@@ -260,14 +260,14 @@ export default function Register() {
             <Button variant="outline" className="h-12" onClick={() => { setError(""); setStep(1); }}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button className="flex-1 h-12 font-medium" onClick={() => { setError(""); setStep(3); }}>
+            <Button className="flex-1 h-12 font-medium" onClick={() => { if (!phone.trim()) { setError("Phone number is required"); return; } setError(""); setStep(3); }}>
               Continue <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
 
           <button
             type="button"
-            onClick={() => { setError(""); setStep(3); }}
+            onClick={() => { if (!phone.trim()) { setError("Phone number is required"); return; } setError(""); setStep(3); }}
             className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors"
           >
             Skip for now
