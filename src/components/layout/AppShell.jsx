@@ -10,6 +10,7 @@ const topLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Community', path: '/feed' },
+  { label: 'Events', path: '/events' },
   { label: 'How It Works', path: '/about' },
   { label: 'Urgent Board', path: '/sos' },
 ];
@@ -62,13 +63,6 @@ export default function AppShell() {
 
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
-    {
-      label: 'Events',
-      items: [
-        { label: 'Browse Events', path: '/events', desc: 'Discover & RSVP to local events' },
-        { label: 'Create Workshops', path: '/workshops', desc: 'Lead a workshop or sign up to learn' },
-      ],
-    },
     {
       label: 'Give',
       items: [
