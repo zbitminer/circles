@@ -7,10 +7,10 @@ import RegisterBanner from '../RegisterBanner';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
+  { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Community', path: '/feed' },
   { label: 'Events', path: '/events' },
-  { label: 'Home', path: '/' },
   { label: 'How It Works', path: '/about' },
   { label: 'Urgent Board', path: '/sos' },
 ];
