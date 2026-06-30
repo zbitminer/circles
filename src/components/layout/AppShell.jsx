@@ -20,6 +20,7 @@ export default function AppShell() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState({});
+  const [footerLinksOpen, setFooterLinksOpen] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -247,22 +248,31 @@ export default function AppShell() {
             </p>
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Quick Links</h4>
-            <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
-              <li><Link to="/feed" className="transition-colors hover:text-white">Belong</Link></li>
-              <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
-              <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
-              <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
-              <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
-              <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
-              <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
-              <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
-              <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
-              <li><Link to="/health" className="transition-colors hover:text-white">Health & Wellness</Link></li>
-              <li><Link to="/platform" className="transition-colors hover:text-white">Platform Overview</Link></li>
-              <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
-              <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
-            </ul>
+            <button
+              onClick={() => setFooterLinksOpen(!footerLinksOpen)}
+              className="flex items-center justify-between w-full font-bold text-sm mb-3"
+              style={{ color: '#D95D1A' }}
+            >
+              Quick Links
+              <ChevronDown className={`w-4 h-4 transition-transform ${footerLinksOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {footerLinksOpen && (
+              <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
+                <li><Link to="/feed" className="transition-colors hover:text-white">Belong</Link></li>
+                <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
+                <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
+                <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
+                <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
+                <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
+                <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
+                <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
+                <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
+                <li><Link to="/health" className="transition-colors hover:text-white">Health & Wellness</Link></li>
+                <li><Link to="/platform" className="transition-colors hover:text-white">Platform Overview</Link></li>
+                <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
+                <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
+              </ul>
+            )}
           </div>
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Contact</h4>
