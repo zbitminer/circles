@@ -12,7 +12,6 @@ const topLinks = [
   { label: 'Events', path: '/events' },
   { label: 'Urgent Board', path: '/sos' },
   { label: 'Community', path: '/feed' },
-  { label: 'Trust', path: '/trust' },
 ];
 
 export default function AppShell() {
