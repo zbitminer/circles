@@ -229,7 +229,6 @@ export default function Donate() {
               style={{ background: '#fff', border: '1.5px solid #C9A84C' }}
             >
               <Icon className="w-7 h-7" style={{ color: '#1A2744' }} />
-              <span className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</span>
               <span className="text-[10px] leading-tight" style={{ color: '#999' }}>{desc}</span>
             </a>
           ))}
