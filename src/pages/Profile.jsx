@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Send } from 'lucide-react';
+import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Send, Shield, Eye, EyeOff, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
@@ -36,6 +36,8 @@ export default function Profile() {
   const [reviews, setReviews] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewForm, setReviewForm] = useState({ rating: 0, content: '' });
+  const [privacy, setPrivacy] = useState({ phone_visibility: 'private', location_visibility: 'public', bio_visibility: 'public' });
+  const [showPrivacyPanel, setShowPrivacyPanel] = useState(false);
 
   useEffect(() => { loadAll(); }, []);
 
@@ -52,6 +54,11 @@ export default function Profile() {
     setBioText(p.bio || '');
     setLocationText(p.location || '');
     setSelectedCauses(p.causes || []);
+    setPrivacy({
+      phone_visibility: p.phone_visibility || 'private',
+      location_visibility: p.location_visibility || 'public',
+      bio_visibility: p.bio_visibility || 'public'
+    });
     // Proactively check for matching opportunities and create missing notifications
     if (p.causes && p.causes.length > 0) {
       base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: p.causes } }).catch(() => {});
@@ -77,6 +84,11 @@ export default function Profile() {
 
   const toggleCause = (cause) => {
     setSelectedCauses(prev => prev.includes(cause) ? prev.filter(c => c !== cause) : [...prev, cause]);
+  };
+
+  const savePrivacy = async () => {
+    await base44.entities.VolunteerProfile.update(profile.id, privacy);
+    setShowPrivacyPanel(false);
   };
 
   const submitLog = async (e) => {
@@ -213,6 +225,69 @@ export default function Profile() {
 
       {/* Calendar */}
       <ProfileCalendar userId={user.id} />
+
+      {/* Privacy Settings */}
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <button
+          onClick={() => setShowPrivacyPanel(!showPrivacyPanel)}
+          className="w-full flex items-center justify-between p-6"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(26,39,68,0.10)' }}>
+              <Shield className="w-5 h-5" style={{ color: '#1A2744' }} />
+            </div>
+            <div className="text-left">
+              <h2 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Privacy Settings</h2>
+              <p className="text-xs" style={{ color: '#6b5c3e' }}>Control who can see your personal information</p>
+            </div>
+          </div>
+          <span className="text-sm font-semibold" style={{ color: '#C9A84C' }}>{showPrivacyPanel ? 'Hide' : 'Manage'}</span>
+        </button>
+        {showPrivacyPanel && (
+          <div className="px-6 pb-6 space-y-3">
+            {[
+              { key: 'phone_visibility', label: 'Phone Number', icon: MessageSquarePlus },
+              { key: 'location_visibility', label: 'Location', icon: MapPin },
+              { key: 'bio_visibility', label: 'Bio', icon: Eye },
+            ].map(({ key, label, icon: Icon }) => (
+              <div key={key} className="flex items-center justify-between p-3 rounded-xl" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+                <div className="flex items-center gap-2">
+                  <Icon className="w-4 h-4" style={{ color: '#1A2744' }} />
+                  <span className="text-sm font-medium" style={{ color: '#1A2744' }}>{label}</span>
+                </div>
+                <div className="flex gap-1 p-1 rounded-lg" style={{ background: '#fff', border: '1px solid #d4b97a' }}>
+                  <button
+                    onClick={() => setPrivacy(prev => ({ ...prev, [key]: 'public' }))}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all"
+                    style={privacy[key] === 'public'
+                      ? { background: '#1A2744', color: '#F5E6C0' }
+                      : { color: '#6b5c3e' }
+                    }
+                  >
+                    <Eye className="w-3 h-3" /> Visible
+                  </button>
+                  <button
+                    onClick={() => setPrivacy(prev => ({ ...prev, [key]: 'private' }))}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all"
+                    style={privacy[key] === 'private'
+                      ? { background: '#1A2744', color: '#F5E6C0' }
+                      : { color: '#6b5c3e' }
+                    }
+                  >
+                    <EyeOff className="w-3 h-3" /> Hidden
+                  </button>
+                </div>
+              </div>
+            ))}
+            <div className="flex gap-2 justify-end pt-2">
+              <button onClick={() => setShowPrivacyPanel(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
+              <button onClick={savePrivacy} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#C9A84C', color: '#1A2744' }}>
+                <Check className="w-4 h-4" /> Save Settings
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Community Control Panel */}
       <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>

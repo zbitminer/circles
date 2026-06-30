@@ -27,6 +27,7 @@ import Corporate from './pages/Corporate';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 import MessagesPage from './pages/Messages';
+import CommunityChatPage from './pages/CommunityChat';
 import Analytics from './pages/Analytics';
 import Contact from './pages/Contact';
 import Sitemap from './pages/Sitemap';
@@ -89,6 +90,7 @@ const AuthenticatedApp = () => {
         <Route element={<AppShell />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/chat" element={<CommunityChatPage />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/moderation" element={<ProtectedRoute requiredRoles={['admin', 'moderator']} unauthenticatedElement={<Navigate to="/login" replace />} />} />
           <Route path="/admin" element={<ProtectedRoute requiredRoles={['admin']} unauthenticatedElement={<Navigate to="/login" replace />} />} />

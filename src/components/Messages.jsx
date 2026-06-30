@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Send, X } from 'lucide-react';
 
-export default function Messages({ currentUser }) {
+export default function Messages({ currentUser, initialContact }) {
   const [conversations, setConversations] = useState([]);
   const [selected, setSelected] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -12,6 +12,13 @@ export default function Messages({ currentUser }) {
   useEffect(() => {
     if (!currentUser) return;
     loadConversations();
+    if (initialContact) {
+      setSelected({
+        user_id: initialContact.user_id,
+        user_name: initialContact.user_name,
+        conversation_id: `${currentUser.id}-${initialContact.user_id}`
+      });
+    }
   }, [currentUser]);
 
   useEffect(() => {

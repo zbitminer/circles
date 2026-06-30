@@ -89,6 +89,7 @@ export default function AppShell() {
       items: [
         { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
         { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
+        { label: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
         { label: 'Messages', path: '/messages', desc: 'Private conversations' },
         { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
         ...(isMod ? [{ label: 'Moderation', path: '/moderation', desc: 'Review reported content' }] : []),

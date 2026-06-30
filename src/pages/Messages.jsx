@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import MessageComponent from '@/components/Messages';
 
 export default function MessagesPage() {
   const [user, setUser] = useState(null);
+  const [searchParams] = useSearchParams();
+  const initialContact = searchParams.get('to')
+    ? { user_id: searchParams.get('to'), user_name: searchParams.get('name') || 'Member' }
+    : null;
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -40,7 +45,7 @@ export default function MessagesPage() {
         ))}
       </div>
 
-      <MessageComponent currentUser={user} />
+      <MessageComponent currentUser={user} initialContact={initialContact} />
     </div>
   );
 }

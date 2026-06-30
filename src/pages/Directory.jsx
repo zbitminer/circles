@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight } from 'lucide-react';
+import { Search, Users, Clock, Calendar, UserPlus, UserCheck, MapPin, X, Heart, Activity, Map, ArrowRight, MessageCircle } from 'lucide-react';
 import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
@@ -34,6 +34,8 @@ function Avatar({ profile, size = 'md' }) {
 function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCauses }) {
   const sharedCauses = myCauses.filter(c => profile.causes?.includes(c));
   const isFollowed = following.includes(profile.user_id);
+  const showLocation = profile.location && profile.location_visibility !== 'private';
+  const showBio = profile.bio && profile.bio_visibility !== 'private';
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
@@ -48,22 +50,31 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
           <div className="flex items-start justify-between mb-4">
             <div>
               <h2 className="font-display text-xl font-bold text-foreground">{profile.user?.full_name}</h2>
-              {profile.location && (
+              {showLocation && (
                 <p className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5">
                   <MapPin className="w-3 h-3" /> {profile.location}
                 </p>
               )}
             </div>
             {currentUser && (
-              <button
-                onClick={() => onFollow(profile.user_id)}
-                className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-xl font-semibold transition-all ${
-                  isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
-                }`}
-              >
-                {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
-                {isFollowed ? 'Following' : 'Follow'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onFollow(profile.user_id)}
+                  className={`flex items-center gap-1.5 text-sm px-3 py-2 rounded-xl font-semibold transition-all ${
+                    isFollowed ? 'bg-primary/10 text-primary' : 'bg-accent text-white hover:opacity-90'
+                  }`}
+                >
+                  {isFollowed ? <UserCheck className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                  {isFollowed ? 'Following' : 'Follow'}
+                </button>
+                <Link
+                  to={`/messages?to=${profile.user_id}&name=${encodeURIComponent(profile.user?.full_name || 'Member')}`}
+                  className="flex items-center gap-1.5 text-sm px-3 py-2 rounded-xl font-semibold transition-all bg-foreground text-background hover:opacity-90"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Message
+                </Link>
+              </div>
             )}
           </div>
           <div className="grid grid-cols-3 gap-3 mb-4">
@@ -78,7 +89,7 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
               </div>
             ))}
           </div>
-          {profile.bio && <p className="text-sm text-muted-foreground leading-relaxed mb-4">{profile.bio}</p>}
+          {showBio && <p className="text-sm text-muted-foreground leading-relaxed mb-4">{profile.bio}</p>}
           {sharedCauses.length > 0 && (
             <div className="bg-accent/10 rounded-xl px-4 py-3 mb-4">
               <p className="text-xs font-semibold text-accent mb-2 flex items-center gap-1">
