@@ -88,6 +88,12 @@ export default function ResourceLibrary() {
         </div>
       )}
 
+      {error && (
+        <div className="mb-5 p-4 rounded-xl bg-destructive/10 text-destructive text-sm">
+          Failed to load resources: {error}
+        </div>
+      )}
+
       {/* Search */}
       <div className="relative mb-5">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
