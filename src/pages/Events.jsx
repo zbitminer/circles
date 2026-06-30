@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
@@ -34,6 +34,7 @@ export default function Events() {
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'
   const [dropdownFilter, setDropdownFilter] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -50,7 +51,11 @@ export default function Events() {
   const filtered = events.filter(e => {
     const catMatch = causeFilter === 'All' || e.cause_category === causeFilter;
     const dropdownCatMatch = !dropdownFilter || (e.cause_category === dropdownFilter.category);
-    return catMatch && dropdownCatMatch;
+    const searchMatch = !searchQuery ||
+      e.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      e.location?.toLowerCase().includes(searchQuery.toLowerCase());
+    return catMatch && dropdownCatMatch && searchMatch;
   });
 
   const handleDropdownSelect = (selection) => {
@@ -62,6 +67,14 @@ export default function Events() {
     setCauseFilter(cause);
     setDropdownFilter(null);
   };
+
+  const clearAllFilters = () => {
+    setCauseFilter('All');
+    setDropdownFilter(null);
+    setSearchQuery('');
+  };
+
+  const activeFilterCount = (causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (searchQuery ? 1 : 0);
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
@@ -196,8 +209,25 @@ export default function Events() {
       )}
 
       {/* Filters */}
-      <FilterBar activeCount={(causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0)} className="mb-6">
+      <FilterBar activeCount={activeFilterCount} className="mb-6">
         <div className="space-y-3">
+          {/* Search bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#C9A84C' }} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search events by title, description, or location..."
+              className="w-full pl-10 pr-4 py-3 rounded-xl text-sm outline-none transition-colors"
+              style={{ background: '#FAF7EE', border: '1px solid #C9A84C', color: '#1A2744' }}
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded hover:bg-black/5">
+                <X className="w-4 h-4" style={{ color: '#6b5c3e' }} />
+              </button>
+            )}
+          </div>
           <div className="flex flex-col sm:flex-row gap-3 items-start">
             <div className="sm:w-64">
               <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
@@ -215,6 +245,16 @@ export default function Events() {
               ))}
             </div>
           </div>
+          {activeFilterCount > 0 && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs" style={{ color: '#6b5c3e' }}>
+                {filtered.length} event{filtered.length !== 1 ? 's' : ''} found
+              </span>
+              <button onClick={clearAllFilters} className="text-xs font-medium hover:underline" style={{ color: '#C9A84C' }}>
+                Clear all filters
+              </button>
+            </div>
+          )}
         </div>
       </FilterBar>
 
