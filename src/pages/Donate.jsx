@@ -240,9 +240,6 @@ export default function Donate() {
         <Shield className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#C9A84C' }} />
         <div>
           <h3 className="font-semibold text-sm mb-1" style={{ color: '#F5E6C0' }}>Tax-Deductible</h3>
-          <p className="text-xs leading-relaxed" style={{ color: 'rgba(245,230,192,0.80)' }}>
-            All donations are tax-deductible under Section 46 of the Income Tax Ordinance. Circles of Giving is a registered non-profit operating under New Seed, registered in both Israel and the United States.
-          </p>
         </div>
       </div>
 
