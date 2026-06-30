@@ -25,7 +25,7 @@ export default function Messages({ currentUser, initialContact }) {
     if (selected) {
       loadMessages(selected.conversation_id);
       const unsubscribe = base44.entities.Message.subscribe((event) => {
-        if (event.data.conversation_id === selected.conversation_id) {
+        if (event.data?.conversation_id === selected.conversation_id) {
           loadMessages(selected.conversation_id);
         }
       });
@@ -51,9 +51,10 @@ export default function Messages({ currentUser, initialContact }) {
   const loadMessages = async (convId) => {
     const msgs = await base44.entities.Message.filter({ conversation_id: convId }, '-created_date', 50);
     setMessages(msgs.reverse());
-    await base44.entities.Message.bulkCreate(
-      msgs.filter(m => m.to_user_id === currentUser.id && !m.is_read).map(m => ({ ...m, is_read: true }))
-    );
+    const unreadUpdates = msgs.filter(m => m.to_user_id === currentUser.id && !m.is_read).map(m => ({ id: m.id, is_read: true }));
+    if (unreadUpdates.length > 0) {
+      await base44.entities.Message.bulkUpdate(unreadUpdates);
+    }
   };
 
   const handleSend = async () => {
