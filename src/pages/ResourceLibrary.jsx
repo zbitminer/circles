@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { ArrowLeft, Search, BookOpen, FileText, Video, Wrench, HelpCircle, FileCode, ExternalLink, Star, Download } from 'lucide-react';
+import { ArrowLeft, Search, BookOpen, FileText, Video, Wrench, HelpCircle, FileCode, ExternalLink, Star, Download, X } from 'lucide-react';
 
 const CATEGORY_META = {
   Guide: { icon: BookOpen, color: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
@@ -18,6 +18,7 @@ export default function ResourceLibrary() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     base44.entities.Resource.list('-created_date', 100)
@@ -67,7 +68,7 @@ export default function ResourceLibrary() {
               const meta = CATEGORY_META[r.category] || CATEGORY_META.Guide;
               const Icon = meta.icon;
               return (
-                <div key={r.id} className="flex gap-4 p-5 rounded-2xl bg-card border border-border hover:shadow-md transition-shadow">
+                <div key={r.id} onClick={() => setSelected(r)} className="flex gap-4 p-5 rounded-2xl bg-card border border-border hover:shadow-md transition-shadow cursor-pointer">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: meta.bg }}>
                     <Icon className="w-6 h-6" style={{ color: meta.color }} />
                   </div>
@@ -75,11 +76,9 @@ export default function ResourceLibrary() {
                     <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: meta.color }}>{r.category}</span>
                     <h3 className="font-bold text-sm text-foreground mb-1">{r.title}</h3>
                     <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{r.description}</p>
-                    {r.url || r.file_url ? (
-                      <a href={r.file_url || r.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
-                        {r.file_url ? <><Download className="w-3 h-3" /> Download</> : <><ExternalLink className="w-3 h-3" /> Open</>}
-                      </a>
-                    ) : null}
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-primary">
+                      Read more →
+                    </span>
                   </div>
                 </div>
               );
@@ -141,7 +140,7 @@ export default function ResourceLibrary() {
             const meta = CATEGORY_META[r.category] || CATEGORY_META.Guide;
             const Icon = meta.icon;
             return (
-              <div key={r.id} className="flex flex-col p-5 rounded-2xl bg-card border border-border hover:shadow-md transition-shadow">
+              <div key={r.id} onClick={() => setSelected(r)} className="flex flex-col p-5 rounded-2xl bg-card border border-border hover:shadow-md transition-shadow cursor-pointer">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: meta.bg }}>
                     <Icon className="w-5 h-5" style={{ color: meta.color }} />
@@ -157,14 +156,54 @@ export default function ResourceLibrary() {
                     ))}
                   </div>
                 )}
-                {(r.url || r.file_url) && (
-                  <a href={r.file_url || r.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline mt-auto">
-                    {r.file_url ? <><Download className="w-3 h-3" /> Download</> : <><ExternalLink className="w-3 h-3" /> Open Resource</>}
-                  </a>
-                )}
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-primary mt-auto">
+                  Read more →
+                </span>
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Resource detail modal */}
+      {selected && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
+          <div className="max-w-lg w-full bg-card rounded-2xl border border-border shadow-2xl overflow-hidden max-h-[85vh] flex flex-col" onClick={e => e.stopPropagation()}>
+            <div className="flex items-start justify-between p-6 border-b border-border">
+              <div className="flex items-center gap-3">
+                {(() => {
+                  const meta = CATEGORY_META[selected.category] || CATEGORY_META.Guide;
+                  const Icon = meta.icon;
+                  return (
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: meta.bg }}>
+                      <Icon className="w-5 h-5" style={{ color: meta.color }} />
+                    </div>
+                  );
+                })()}
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: (CATEGORY_META[selected.category] || CATEGORY_META.Guide).color }}>{selected.category}</span>
+              </div>
+              <button onClick={() => setSelected(null)} className="p-1 rounded-lg hover:bg-muted text-muted-foreground">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto">
+              <h2 className="font-bold text-lg text-foreground mb-2">{selected.title}</h2>
+              {selected.author_name && <p className="text-xs text-muted-foreground mb-4">By {selected.author_name}</p>}
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap mb-4">{selected.description}</p>
+              {selected.tags?.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {selected.tags.map(t => (
+                    <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{t}</span>
+                  ))}
+                </div>
+              )}
+              {(selected.url || selected.file_url) && (
+                <a href={selected.file_url || selected.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                  {selected.file_url ? <><Download className="w-4 h-4" /> Download Resource</> : <><ExternalLink className="w-4 h-4" /> Open Resource</>}
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
