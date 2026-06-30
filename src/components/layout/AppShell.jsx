@@ -66,7 +66,7 @@ export default function AppShell() {
       label: 'Events',
       items: [
         { label: 'All Events', path: '/events', desc: 'Browse & RSVP to events' },
-        { label: 'Creative Workshops', path: '/opportunities?category=Creative Workshops', desc: 'Share your art, music & craft skills' },
+        { label: 'Creative Workshops', path: '/workshops', desc: 'Share your art, music & craft skills' },
       ],
     },
     {
