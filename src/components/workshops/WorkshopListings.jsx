@@ -9,16 +9,16 @@ const CATEGORY_EMOJI = {
 };
 
 const CATEGORY_IMAGES = {
-  'Balanced Lifestyle': 'https://images.unsplash.com/photo-1545205597-3d9d02dff293?w=400&h=200&fit=crop',
-  'Home Life Management': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=200&fit=crop',
-  'Kitchen Academy': 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&h=200&fit=crop',
-  'Artistic Space': 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=200&fit=crop',
-  'Language Learning': 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400&h=200&fit=crop',
-  'Torah Study': 'https://images.unsplash.com/photo-1519677101722-5a1ad9233835?w=400&h=200&fit=crop',
-  'Books': 'https://images.unsplash.com/photo-1481627834876-b7833e8f557f?w=400&h=200&fit=crop',
-  'Music': 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=200&fit=crop',
-  'Personal Development': 'https://images.unsplash.com/photo-1506126613408-eca6ce7e1e9a?w=400&h=200&fit=crop',
-  'Miscellaneous': 'https://images.unsplash.com/photo-1466692476868-bef3165268af?w=400&h=200&fit=crop',
+  'Balanced Lifestyle': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/9723845c3_generated_image.png',
+  'Home Life Management': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ec369b7d2_generated_image.png',
+  'Kitchen Academy': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/814c0790b_generated_image.png',
+  'Artistic Space': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/91add2711_generated_image.png',
+  'Language Learning': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/bbe36e2f8_generated_image.png',
+  'Torah Study': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/33eb124a6_generated_image.png',
+  'Books': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ea5e69f58_generated_image.png',
+  'Music': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/763b81f67_generated_image.png',
+  'Personal Development': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/6c541ae1f_generated_image.png',
+  'Miscellaneous': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/21c3c20d1_generated_image.png',
 };
 
 export default function WorkshopListings() {
