@@ -6,7 +6,6 @@ const PAYMENT_METHODS = [
 { label: 'PayPal', icon: Wallet, desc: 'Pay securely with PayPal' },
 { label: 'Credit Card', icon: CreditCard, desc: 'Visa, Mastercard, and more' },
 { label: 'Bank Transfer', icon: Landmark, desc: 'Direct wire transfer details' },
-{ label: 'Check', icon: FileText, desc: 'Mail a check to our office' },
 { label: 'PayBox', icon: Wallet, desc: 'Quick payment via PayBox app' }];
 
 
