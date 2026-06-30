@@ -279,10 +279,10 @@ export default function Donate() {
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-3 p-6 rounded-2xl text-center transition-all bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-teal group">
             
-              <div className="p-3 rounded-full bg-brand-teal/10 text-brand-teal group-hover:scale-110 transition-transform hidden">
-                <Icon className="w-6 h-6" />
-              </div>
-              <span className="text-xs font-medium text-gray-500 leading-tight group-hover:text-gray-900 transition-colors hidden">{desc}</span>
+              
+
+            
+              
             </a>
           )}
         </div>
