@@ -124,20 +124,21 @@ export default function Opportunities() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Give & Receive</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#D95D1A' }}>GIVE & RECEIVE</span>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>Give & Receive</h1>
+          <p className="text-sm" style={{ color: '#555' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }} title="Grid view">
+          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#fff', border: '1px solid #C99738' }}>
+            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="Grid view">
               <LayoutGrid className="w-4 h-4" />
             </button>
-            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }} title="Map view">
+            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="Map view">
               <Map className="w-4 h-4" />
             </button>
           </div>
           {isMod && (
-            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A1A1A', color: '#fff', border: '1px solid #C99738' }}>
               <Plus className="w-4 h-4" /> Post Opportunity
             </button>
           )}
@@ -145,23 +146,23 @@ export default function Opportunities() {
       </div>
 
       {/* Give / Receive Tabs */}
-      <div className="flex gap-3 mb-6">
+      <div className="flex gap-3 mb-8">
         <button
           onClick={() => setActiveTab('receive')}
-          className="flex-1 py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2"
+          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg"
           style={activeTab === 'receive'
-            ? { background: '#247D7D', color: '#fff', border: '2px solid #247D7D' }
-            : { background: '#FAF7EE', color: '#247D7D', border: '2px solid #247D7D' }
+            ? { background: '#247D7D', color: '#fff', border: '2px solid #247D7D', boxShadow: '0 4px 12px rgba(36,125,125,0.25)' }
+            : { background: '#fff', color: '#247D7D', border: '2px solid #247D7D', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
           }
         >
           🙋 I Need Help (Receive)
         </button>
         <button
           onClick={() => setActiveTab('give')}
-          className="flex-1 py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2"
+          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg"
           style={activeTab === 'give'
-            ? { background: '#D35E35', color: '#fff', border: '2px solid #D35E35' }
-            : { background: '#FAF7EE', color: '#D35E35', border: '2px solid #D35E35' }
+            ? { background: '#D35E35', color: '#fff', border: '2px solid #D35E35', boxShadow: '0 4px 12px rgba(211,94,53,0.25)' }
+            : { background: '#fff', color: '#D35E35', border: '2px solid #D35E35', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
           }
         >
           🤲 I Can Help (Give)
@@ -173,8 +174,8 @@ export default function Opportunities() {
         <div className="mb-6 p-4 rounded-xl flex items-center gap-3" style={{ background: '#FFF3E0', border: '1.5px solid #E67E22' }}>
           <span className="text-2xl">🔒</span>
           <div className="flex-1">
-            <p className="font-bold text-sm" style={{ color: '#1A2744' }}>Registration Required</p>
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>You must register first to give, receive, or connect with others.</p>
+            <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>Registration Required</p>
+            <p className="text-xs" style={{ color: '#555' }}>You must register first to give, receive, or connect with others.</p>
           </div>
           <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
             Register Free →
@@ -186,32 +187,32 @@ export default function Opportunities() {
       {activeTab === 'receive' && (
         <>
           {/* Explanation */}
-          <div className="mb-6 p-4 rounded-xl" style={{ background: '#E8F5F3', border: '1px solid #247D7D' }}>
-            <p className="text-sm" style={{ color: '#1A2744' }}>
+          <div className="mb-6 p-5 rounded-xl" style={{ background: '#E8F5F3', border: '1px solid #247D7D', borderLeft: '4px solid #247D7D', boxShadow: '0 2px 8px rgba(36,125,125,0.08)' }}>
+            <p className="text-sm" style={{ color: '#1A1A1A' }}>
               <strong>How it works:</strong> Select the categories you need help with below, then submit your request. You will be matched with givers who will contact you to arrange support.
             </p>
           </div>
 
           {/* Category multi-select */}
           <div className="mb-6">
-            <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-              <p className="text-sm font-bold mb-1" style={{ color: '#1A2744' }}>What do you need help with?</p>
-              <p className="text-xs mb-4" style={{ color: '#6b5c3e' }}>Select one or more topics — you can choose across categories.</p>
+            <div className="rounded-2xl p-5" style={{ background: '#fff', border: '1.5px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+              <p className="text-sm font-bold mb-1" style={{ color: '#1A1A1A' }}>What do you need help with?</p>
+              <p className="text-xs mb-4" style={{ color: '#555' }}>Select one or more topics — you can choose across categories.</p>
               <CategorySearchFilters
                 multiSelect
                 selectedFilters={selectedFilters}
                 onSelectFilters={setSelectedFilters}
                 className="mb-4"
               />
-              <div className="pt-4 border-t" style={{ borderColor: '#C9A84C' }}>
-                <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Type</p>
+              <div className="pt-4 border-t" style={{ borderColor: '#C99738' }}>
+                <p className="text-xs font-medium mb-2" style={{ color: '#555' }}>Type</p>
                 <div className="flex gap-2 flex-wrap">
                   {TYPES.map(t => (
                     <button key={t} onClick={() => setTypeFilter(t)}
                       className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
                       style={typeFilter === t
-                        ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
-                        : { background: '#fff', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                        ? { background: '#C99738', color: '#1A1A1A', border: '1px solid #C99738' }
+                        : { background: '#fff', color: '#555', border: '1px solid #C99738' }
                       }>
                       {t}
                     </button>
@@ -228,55 +229,55 @@ export default function Opportunities() {
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="🔍 Search opportunities by title, organization, or keywords..."
-              className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30"
-              style={{ borderColor: '#C9A84C', background: '#FAF7EE' }}
+              className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30 transition-shadow"
+              style={{ borderColor: '#C99738', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
             />
           </div>
 
           {/* Create Form (admin/mod) */}
           {showForm && isMod && (
-            <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-              <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A2744' }}>New Opportunity</h2>
+            <div className="rounded-2xl p-6 mb-6" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
+              <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A1A1A' }}>New Opportunity</h2>
               <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Title *</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Title *</label>
                   <input required value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Beach Cleanup Volunteer" />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Description *</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Description *</label>
                   <textarea required value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Describe the opportunity..." />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Organization *</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Organization *</label>
                   <input required value={form.organization} onChange={e => setForm({...form, organization: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Organization name" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Location</label>
                   <input value={form.location} onChange={e => setForm({...form, location: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City, State or Remote" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Cause Category</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Cause Category</label>
                   <select value={form.cause_category} onChange={e => setForm({...form, cause_category: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
                     {CAUSE_OPTIONS.map(c => <option key={c.label} value={c.label}>{c.emoji} {c.label}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Type</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Type</label>
                   <select value={form.type} onChange={e => setForm({...form, type: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
                     {TYPES.filter(t => t !== 'All').map(t => <option key={t}>{t}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Application Deadline</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Application Deadline</label>
                   <input type="date" value={form.deadline} onChange={e => setForm({...form, deadline: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Capacity (max spots)</label>
+                  <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Capacity (max spots)</label>
                   <input type="number" min="1" value={form.capacity} onChange={e => setForm({...form, capacity: e.target.value ? Number(e.target.value) : ''})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Leave empty for unlimited" />
                 </div>
                 <div className="md:col-span-2 flex gap-3 justify-end">
-                  <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-                  <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+                  <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#555' }}>Cancel</button>
+                  <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C99738', color: '#1A1A1A' }}>
                     {submitting ? 'Publishing...' : 'Publish'}
                   </button>
                 </div>
@@ -289,10 +290,10 @@ export default function Opportunities() {
             const workshops = opportunities.filter(o => o.cause_category === 'Creative Workshops');
             if (workshops.length === 0) return null;
             return (
-              <div className="mb-8 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
+              <div className="mb-8 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A1A1A, #333)', border: '2px solid #C99738', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
                 <div className="px-6 pt-6 pb-2 flex items-center justify-between">
                   <div>
-                    <h2 className="font-display text-2xl font-bold flex items-center gap-2" style={{ color: '#F5E6C0' }}>
+                    <h2 className="font-display text-2xl font-bold flex items-center gap-2" style={{ color: '#fff' }}>
                       🎨 Creative Workshops
                     </h2>
                     <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Share your art, music, writing & craft skills with the community</p>
@@ -300,7 +301,7 @@ export default function Opportunities() {
                   <button
                     onClick={() => setSelectedFilters([{ category: 'Creative Workshops', subcategory: null, emoji: '🎨' }])}
                     className="hidden sm:flex items-center gap-1 text-xs font-semibold px-4 py-2 rounded-full hover:opacity-90 transition-opacity"
-                    style={{ background: '#C9A84C', color: '#1A2744' }}
+                    style={{ background: '#C99738', color: '#1A1A1A' }}
                   >
                     View All →
                   </button>
@@ -309,11 +310,11 @@ export default function Opportunities() {
                   {workshops.slice(0, 3).map(opp => (
                     <div key={opp.id} onClick={() => setSelected(opp)}
                       className="p-4 cursor-pointer hover:scale-[1.02] transition-transform rounded-xl"
-                      style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-                      <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>🎨 {opp.type}</span>
-                      <h3 className="font-semibold text-sm mt-2 mb-1" style={{ color: '#1A2744' }}>{opp.title}</h3>
-                      <p className="text-xs mb-2" style={{ color: '#C9A84C' }}>{opp.organization}</p>
-                      <p className="text-xs line-clamp-2" style={{ color: '#6b5c3e' }}>{opp.description}</p>
+                      style={{ background: '#fff', border: '1px solid #C99738' }}>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>🎨 {opp.type}</span>
+                      <h3 className="font-semibold text-sm mt-2 mb-1" style={{ color: '#1A1A1A' }}>{opp.title}</h3>
+                      <p className="text-xs mb-2" style={{ color: '#C99738' }}>{opp.organization}</p>
+                      <p className="text-xs line-clamp-2" style={{ color: '#555' }}>{opp.description}</p>
                     </div>
                   ))}
                 </div>
@@ -326,46 +327,46 @@ export default function Opportunities() {
             <div className="lg:col-span-7">
               {loading ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#FAF7EE' }} />)}
+                  {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#fff' }} />)}
                 </div>
               ) : viewMode === 'map' ? (
                 <div className="lg:hidden"><LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" /></div>
               ) : filtered.length === 0 ? (
-                <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+                <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
                   <div className="text-5xl mb-4">🔍</div>
-                  <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No opportunities found</h3>
-                  <p className="text-sm" style={{ color: '#6b5c3e' }}>Try adjusting your filters or check back soon.</p>
+                  <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>No opportunities found</h3>
+                  <p className="text-sm" style={{ color: '#555' }}>Try adjusting your filters or check back soon.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {filtered.map(opp => (
                     <div key={opp.id} onClick={() => { setSelected(opp); setEnrollSuccess(null); }}
-                      className="p-5 cursor-pointer hover:shadow-xl transition-all group"
-                      style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+                      className="p-5 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
+                      style={{ background: '#fff', border: '1.5px solid #C99738', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
                       <div className="flex items-start justify-between mb-3">
                         <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[opp.type] || 'bg-muted text-muted-foreground'}`}>
                           {opp.type}
                         </span>
-                        <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{categoryEmoji[opp.cause_category] || '💡'} {opp.cause_category}</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{categoryEmoji[opp.cause_category] || '💡'} {opp.cause_category}</span>
                       </div>
-                      <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A2744' }}>{opp.title}</h3>
-                      <p className="text-sm mb-2" style={{ color: '#C9A84C' }}>{opp.organization}</p>
-                      <p className="text-xs line-clamp-2 mb-4" style={{ color: '#6b5c3e' }}>{opp.description}</p>
+                      <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A1A1A' }}>{opp.title}</h3>
+                      <p className="text-sm mb-2" style={{ color: '#C99738' }}>{opp.organization}</p>
+                      <p className="text-xs line-clamp-2 mb-4" style={{ color: '#555' }}>{opp.description}</p>
                       <div className="flex items-center justify-between text-xs" style={{ color: '#888' }}>
                         {opp.location && (
-                          <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} />{opp.location}</div>
+                          <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C99738' }} />{opp.location}</div>
                         )}
                         {opp.capacity ? (
-                          <div className="flex items-center gap-1 font-medium" style={{ color: (opp.applicants?.length || 0) >= opp.capacity ? '#c0392b' : '#C9A84C' }}>
+                          <div className="flex items-center gap-1 font-medium" style={{ color: (opp.applicants?.length || 0) >= opp.capacity ? '#c0392b' : '#C99738' }}>
                             <Users className="w-3 h-3" />
                             {Math.max(0, opp.capacity - (opp.applicants?.length || 0))} spots left
                           </div>
                         ) : (
-                          <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C9A84C' }} />{opp.applicants?.length || 0} interested</div>
+                          <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C99738' }} />{opp.applicants?.length || 0} interested</div>
                         )}
                       </div>
                       {opp.deadline && (
-                        <div className="mt-2 flex items-center gap-1 text-xs font-medium" style={{ color: '#C9A84C' }}>
+                        <div className="mt-2 flex items-center gap-1 text-xs font-medium" style={{ color: '#C99738' }}>
                           <Calendar className="w-3 h-3" />Deadline: {format(new Date(opp.deadline), 'MMM d, yyyy')}
                         </div>
                       )}
@@ -386,9 +387,9 @@ export default function Opportunities() {
           </div>
 
           {/* "Other" — post what you need */}
-          <div className="mt-8 p-5 rounded-2xl text-center" style={{ background: '#FAF7EE', border: '1.5px dashed #C9A84C' }}>
-            <p className="text-sm font-bold mb-1" style={{ color: '#1A2744' }}>Don't see what you need?</p>
-            <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>Post your request and let the community know how they can help you.</p>
+          <div className="mt-8 p-6 rounded-2xl text-center" style={{ background: '#fff', border: '1.5px dashed #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+            <p className="text-sm font-bold mb-1" style={{ color: '#1A1A1A' }}>Don't see what you need?</p>
+            <p className="text-xs mb-3" style={{ color: '#555' }}>Post your request and let the community know how they can help you.</p>
             {user ? (
               <Link to="/feed" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#247D7D', color: '#fff' }}>
                 <Megaphone className="w-4 h-4" /> Post a Request
@@ -406,8 +407,8 @@ export default function Opportunities() {
       {activeTab === 'give' && (
         <>
           {/* Explanation */}
-          <div className="mb-6 p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #D35E35' }}>
-            <p className="text-sm" style={{ color: '#1A2744' }}>
+          <div className="mb-6 p-5 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #D35E35', borderLeft: '4px solid #D35E35', boxShadow: '0 2px 8px rgba(211,94,53,0.08)' }}>
+            <p className="text-sm" style={{ color: '#1A1A1A' }}>
               <strong>Want to give?</strong> Share what you'd like to offer — your time, skills, or talents. Post your offering below and community members who need your help will be connected with you.
             </p>
           </div>
@@ -415,10 +416,10 @@ export default function Opportunities() {
           {user ? (
             <OfferForm user={user} onPosted={() => { loadOpportunities(null); setActiveTab('receive'); }} />
           ) : (
-            <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+            <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
               <div className="text-5xl mb-4">🔒</div>
-              <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Register to Give</h3>
-              <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You must create an account before you can offer your skills and talents.</p>
+              <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>Register to Give</h3>
+              <p className="text-sm mb-4" style={{ color: '#555' }}>You must create an account before you can offer your skills and talents.</p>
               <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
                 Create Your Free Account →
               </Link>
@@ -430,20 +431,20 @@ export default function Opportunities() {
       {/* Detail Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => { setSelected(null); setEnrollSuccess(null); }}>
-          <div className="max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto" style={{ background: '#fff', border: '1.5px solid #C99738', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-4">
               <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[selected.type] || 'bg-muted text-muted-foreground'}`}>{selected.type}</span>
-              <button onClick={() => { setSelected(null); setEnrollSuccess(null); }} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: '#6b5c3e' }} /></button>
+              <button onClick={() => { setSelected(null); setEnrollSuccess(null); }} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: '#555' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A2744' }}>{selected.title}</h2>
-            <p className="font-medium mb-4" style={{ color: '#C9A84C' }}>{selected.organization}</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A1A1A' }}>{selected.title}</h2>
+            <p className="font-medium mb-4" style={{ color: '#C99738' }}>{selected.organization}</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: '#555' }}>{selected.description}</p>
             <div className="space-y-2 mb-6 text-sm">
-              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} /> {selected.location}</div>}
-              <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{selected.cause_category}</span></div>
-              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: '#C9A84C' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
+              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C99738' }} /> {selected.location}</div>}
+              <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{selected.cause_category}</span></div>
+              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: '#C99738' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
               <div className="flex items-center gap-2" style={{ color: '#555' }}>
-                <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
+                <Users className="w-4 h-4" style={{ color: '#C99738' }} />
                 {selected.capacity
                   ? `${selected.applicants?.length || 0} / ${selected.capacity} enrolled · ${Math.max(0, selected.capacity - (selected.applicants?.length || 0))} spots left`
                   : `${selected.applicants?.length || 0} people interested`}
@@ -463,7 +464,7 @@ export default function Opportunities() {
                       <div className="p-4 rounded-xl mb-3" style={{ background: '#E8F5F3', border: '1px solid #247D7D' }}>
                         <div className="flex items-center gap-2 mb-2">
                           <CheckCircle className="w-5 h-5" style={{ color: '#247D7D' }} />
-                          <p className="font-bold text-sm" style={{ color: '#1A2744' }}>
+                          <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>
                             {justEnrolled ? "You've expressed interest!" : "You expressed interest"}
                           </p>
                         </div>
@@ -471,7 +472,7 @@ export default function Opportunities() {
                           <strong>What happens next?</strong> You've been matched with the organizer. They will review your request and contact you directly to arrange the details. Keep an eye on your messages and email for updates.
                         </p>
                       </div>
-                      <button disabled className="w-full py-3 font-semibold rounded-xl" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
+                      <button disabled className="w-full py-3 font-semibold rounded-xl" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>
                         ✓ Interest Submitted
                       </button>
                     </div>
@@ -487,8 +488,8 @@ export default function Opportunities() {
                     <button onClick={() => handleApply(selected)} disabled={isFull || isLoading}
                       className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
                       style={isFull
-                        ? { background: '#f0e8d0', color: '#c0392b' }
-                        : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
+                        ? { background: 'rgba(201,151,56,0.12)', color: '#c0392b' }
+                        : { background: '#1A1A1A', color: '#fff', border: '1px solid #C99738' }
                       }>
                       {isLoading ? 'Processing...' : isFull ? 'Workshop Full' : "I'm Interested — Match Me"}
                     </button>
@@ -497,8 +498,8 @@ export default function Opportunities() {
               })()
             ) : (
               <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
-                <p className="text-sm font-bold mb-2" style={{ color: '#1A2744' }}>Registration Required</p>
-                <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>You must register to express interest and get matched.</p>
+                <p className="text-sm font-bold mb-2" style={{ color: '#1A1A1A' }}>Registration Required</p>
+                <p className="text-xs mb-3" style={{ color: '#555' }}>You must register to express interest and get matched.</p>
                 <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
                   Register Free →
                 </Link>
