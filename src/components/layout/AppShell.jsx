@@ -7,11 +7,12 @@ import RegisterBanner from '../RegisterBanner';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
+  { label: 'About', path: '/about' },
+  { label: 'Community', path: '/feed' },
+  { label: 'Events', path: '/events' },
   { label: 'Home', path: '/' },
   { label: 'How It Works', path: '/about' },
-  { label: 'Events', path: '/events' },
   { label: 'Urgent Board', path: '/sos' },
-  { label: 'Community', path: '/feed' },
 ];
 
 export default function AppShell() {
