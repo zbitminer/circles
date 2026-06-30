@@ -64,7 +64,7 @@ export default function ShabbatMeals() {
               <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#F5E6C0' }}>Shabbat & Holiday Meals</h1>
               <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Open your home — share a meal, build community</p>
             </div>
-            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#C9A84C', color: '#1A2744' }}>
+            <button onClick={() => { setShowForm(!showForm); if (!showForm) setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#C9A84C', color: '#1A2744' }}>
               <Plus className="w-4 h-4" /> Host a Meal
             </button>
           </div>
