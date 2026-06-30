@@ -18,7 +18,7 @@ export default function About() {
         <h2 className="font-display text-2xl font-bold mb-3" style={{ color: '#1A2744' }}>Our Mission</h2>
         <p className="text-base leading-relaxed" style={{ color: '#6b5c3e' }}>
           To foster a cohesive, supportive society by creating accessible, community-based "circles" of aid.
-          We believe that by alleviating loneliness, addressing trauma, and providing practical, real-time support,
+          We believe that by alleviating loneliness, addressing crisis, and providing practical, real-time support,
           we can ensure that no individual—whether a retiree, a single parent, or a soldier—is left to navigate hardship alone.
         </p>
       </section>
@@ -46,8 +46,8 @@ export default function About() {
             },
             {
               emoji: '🧠',
-              title: 'Trauma & Emotional Support',
-              desc: 'Connecting those impacted by ongoing conflict with certified therapists and trauma-informed counseling through our "A Nation in Trauma" bridge.',
+              title: 'Crisis & Emotional Support',
+              desc: 'Connecting those impacted by ongoing conflict with certified therapists and crisis-informed counseling through our "A Nation in Crisis" bridge.',
             },
             {
               emoji: '🤝',
@@ -69,7 +69,7 @@ export default function About() {
         <h2 className="font-display text-2xl font-bold mb-3" style={{ color: '#1A2744' }}>Why We Exist</h2>
         <p className="text-base leading-relaxed" style={{ color: '#6b5c3e' }}>
           We exist because we know that systemic change begins at the kitchen table. When neighbors reach out to neighbors,
-          we break down the walls of loneliness and trauma that threaten to divide us. We are dedicated to the principle
+          we break down the walls of loneliness and crisis that threaten to divide us. We are dedicated to the principle
           that <strong style={{ color: '#1A2744' }}>compassion knows no borders</strong>—and that the most powerful impact
           happens when individuals from all walks of life choose to take action together.
         </p>
@@ -83,7 +83,7 @@ export default function About() {
             {
               emoji: '📊',
               title: 'Impact-Driven',
-              desc: 'We focus on measurable outcomes—from thousands of meals delivered to hundreds of trauma-support hours—ensuring your support translates into direct aid.',
+              desc: 'We focus on measurable outcomes—from thousands of meals delivered to hundreds of crisis-support hours—ensuring your support translates into direct aid.',
             },
             {
               emoji: '🏘️',

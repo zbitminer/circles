@@ -89,7 +89,7 @@ export default function Health() {
       <div className="rounded-2xl p-8 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
         <div className="text-4xl mb-3">🕊️</div>
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-3" style={{ color: '#F5E6C0' }}>
-          A Nation in Trauma — Together We Heal
+          A Nation in Crisis — Together We Heal
         </h1>
         <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(245,230,192,0.85)' }}>
           Circles of Giving acts as a virtual bridge connecting mental health professionals, wellness volunteers,
@@ -109,8 +109,8 @@ export default function Health() {
           },
           {
             emoji: '🧠',
-            title: 'Trauma & Mental Health',
-            desc: 'Our network connects trauma survivors with certified counselors, therapists, and peer-support volunteers — especially critical for families displaced by conflict.',
+            title: 'Crisis & Mental Health',
+            desc: 'Our network connects crisis survivors with certified counselors, therapists, and peer-support volunteers — especially critical for families displaced by conflict.',
             color: '#6c5ce7',
             bg: 'rgba(100,80,180,0.07)',
           },
