@@ -295,20 +295,29 @@ export default function Donate() {
         <h2 className="font-display text-2xl font-bold mb-2 text-center text-gray-900">Choose a Payment Method</h2>
         <p className="text-sm text-center mb-8 text-gray-500">Click one of the options below to complete your donation</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {PAYMENT_METHODS.map(({ label, icon: Icon, desc }) =>
-          <a
-            key={label}
-            href="https://circlesofgiving.org/donations/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-3 p-6 rounded-2xl text-center transition-all bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-teal group">
-            
-              
-
-            
-              
+          {PAYMENT_METHODS.map(({ label, icon: Icon, desc }) => (
+            <a
+              key={label}
+              href="https://circlesofgiving.org/donations/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 rounded-2xl text-center transition-all bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-teal group"
+            >
+              <div className="p-3 rounded-full bg-brand-teal/10 text-brand-teal group-hover:scale-110 transition-transform">
+                <Icon className="w-6 h-6" />
+              </div>
+              <span className="text-sm font-bold text-gray-800">{label}</span>
+              <span className="text-xs font-medium text-gray-500 leading-tight group-hover:text-gray-900 transition-colors">{desc}</span>
             </a>
-          )}
+          ))}
+        </div>
+        
+        {/* Payment Icons under options */}
+        <div className="flex justify-center items-center gap-6 mt-8 opacity-60">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6 object-contain grayscale hover:grayscale-0 transition-all" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-5 object-contain grayscale hover:grayscale-0 transition-all" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-7 object-contain grayscale hover:grayscale-0 transition-all" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="American Express" className="h-6 object-contain grayscale hover:grayscale-0 transition-all" />
         </div>
       </div>
 
