@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, MessageSquare } from 'lucide-react';
 import CalendarExport from '@/components/CalendarExport';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
@@ -428,9 +428,18 @@ export default function Events() {
                 <CalendarExport event={selected} />
               </div>
 
-              {isMod && selected.attendees?.length > 0 && (
+              {selected.attendees?.length > 0 && user && (
                 <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
-                  <p className="text-xs font-semibold mb-2" style={{ color: '#6b5c3e' }}>Attendee Count: {selected.attendees.length}</p>
+                  <p className="text-xs font-semibold mb-3 flex items-center gap-1.5" style={{ color: '#6b5c3e' }}>
+                    <Users className="w-3.5 h-3.5" /> {selected.attendees.length} attending
+                  </p>
+                  <Link
+                    to="/directory"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-opacity hover:opacity-80"
+                    style={{ background: '#1A2744', color: '#F5E6C0' }}
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" /> Find & Message Volunteers
+                  </Link>
                 </div>
               )}
 
