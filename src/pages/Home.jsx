@@ -9,6 +9,7 @@ import UpcomingCirclesSection from '@/components/home/UpcomingCirclesSection';
 import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
+import SectionFrame from '@/components/home/SectionFrame';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -149,25 +150,53 @@ export default function Home() {
       </section>
 
       {/* Real Impact — visual hook right after hero */}
-      <RealImpactSection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <RealImpactSection />
+        </SectionFrame>
+      </div>
 
       {/* Building Community Thru Giving */}
-      <BuildingCommunitySection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <BuildingCommunitySection />
+        </SectionFrame>
+      </div>
 
       {/* How It Works — Three Steps. Infinite Impact. */}
-      <HowItWorksSection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <HowItWorksSection />
+        </SectionFrame>
+      </div>
 
       {/* Volunteer Spotlight — social proof */}
-      <VolunteerSpotlightSection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <VolunteerSpotlightSection />
+        </SectionFrame>
+      </div>
 
       {/* Upcoming Circles */}
-      <UpcomingCirclesSection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <UpcomingCirclesSection />
+        </SectionFrame>
+      </div>
 
       {/* Community Grid — Real People. Real Giving. */}
-      <CommunityGridSection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <CommunityGridSection />
+        </SectionFrame>
+      </div>
 
       {/* Live Community — Happening Right Now */}
-      <LiveCommunitySection />
+      <div className="px-6 py-4">
+        <SectionFrame variant="white" padding="py-0">
+          <LiveCommunitySection />
+        </SectionFrame>
+      </div>
 
       {/* Closing CTA */}
       <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
