@@ -95,7 +95,7 @@ export default function UpcomingCirclesSection() {
 
   return (
     <section style={{ background: '#F9F9F9' }}>
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           THIS WEEK
         </span>
@@ -103,7 +103,7 @@ export default function UpcomingCirclesSection() {
           Upcoming Circles
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {events.map((event) => (
             <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {/* Image */}

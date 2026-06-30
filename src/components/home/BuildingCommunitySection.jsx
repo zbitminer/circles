@@ -1,8 +1,8 @@
 export default function BuildingCommunitySection() {
   return (
     <section className="bg-white" style={{ borderBottom: '1px solid #e0e0e0' }}>
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {/* Left Block — Philosophy with image */}
           <div className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl" style={{ border: '2px solid #1A1A1A', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
             <img
@@ -10,7 +10,7 @@ export default function BuildingCommunitySection() {
               alt="Jewish Israeli women mentoring and sharing over tea"
               className="w-full h-48 object-cover"
             />
-            <div className="p-8 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
+            <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
                 <span className="line-through" style={{ color: '#ccc' }}>THE FUTURE</span> · CONNECTION
               </span>
@@ -38,7 +38,7 @@ export default function BuildingCommunitySection() {
               alt="Israeli volunteers preparing food packages at community kitchen"
               className="w-full h-48 object-cover"
             />
-            <div className="p-8 md:p-10 flex-1 flex flex-col justify-center" style={{ borderTop: '2px solid #C99738' }}>
+            <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ borderTop: '2px solid #C99738' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#C99738' }}>
                 OUR MISSION
               </span>

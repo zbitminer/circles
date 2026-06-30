@@ -40,7 +40,7 @@ export default function CommunityGridSection() {
 
   return (
     <section style={{ background: '#F9F9F9' }}>
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         {/* Header */}
         <div className="mb-10 max-w-xl">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
@@ -55,9 +55,9 @@ export default function CommunityGridSection() {
         </div>
 
         {/* Photo Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
           {/* Large photo */}
-          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-64 md:h-full min-h-[300px]" style={{ border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.10)' }}>
+          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px]" style={{ border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.10)' }}>
             <img src={large.img} alt={large.caption} className="w-full h-full object-cover" />
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
               {large.tag && (
@@ -71,7 +71,7 @@ export default function CommunityGridSection() {
 
           {/* Small photos */}
           {smalls.map((m) => (
-            <div key={m.caption} className="relative rounded-2xl overflow-hidden h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
+            <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
                 <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{m.caption}</span>

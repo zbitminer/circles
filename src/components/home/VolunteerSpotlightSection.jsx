@@ -18,8 +18,8 @@ const SPOTLIGHTS = [
 export default function VolunteerSpotlightSection() {
   return (
     <section className="bg-white">
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-10 items-start">
           {/* Left — Text */}
           <div className="lg:col-span-2">
             <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
@@ -33,7 +33,7 @@ export default function VolunteerSpotlightSection() {
           </div>
 
           {/* Right — Cards */}
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
             {SPOTLIGHTS.map((s) => (
               <div key={s.name} className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: s.bg, boxShadow: '0 4px 16px rgba(0,0,0,0.12)' }}>
                 <img

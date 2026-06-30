@@ -22,7 +22,7 @@ const STEPS = [
 export default function HowItWorksSection() {
   return (
     <section id="how-it-works" style={{ background: '#F5F3EF', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         {/* Header */}
         <div className="mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>
@@ -34,9 +34,9 @@ export default function HowItWorksSection() {
         </div>
 
         {/* Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {STEPS.map((step, i) =>
-          <div key={step.num} className="relative flex flex-col p-6 rounded-2xl transition-all hover:shadow-lg" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
+          <div key={step.num} className="relative flex flex-col p-5 md:p-6 rounded-2xl transition-all hover:shadow-lg" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
               <div className="flex items-baseline gap-3 mb-3">
                 <span className="text-sm font-bold" style={{ color: '#C99738' }}>{step.num}</span>
                 <h3 className="font-bold text-2xl [font-family:'Bebas_Neue',_system-ui]" style={{ color: '#1A1A1A' }}>{step.title}</h3>

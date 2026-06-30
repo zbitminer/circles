@@ -49,7 +49,7 @@ export default function LiveCommunitySection() {
 
   return (
     <section className="bg-white">
-      <div className="max-w-3xl mx-auto px-6 py-16 text-center">
+      <div className="max-w-3xl mx-auto px-4 py-10 md:py-16 text-center">
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           LIVE COMMUNITY
         </span>
@@ -69,7 +69,7 @@ export default function LiveCommunitySection() {
             {activities.map((act, i) => {
               const typeConfig = ACTIVITY_TYPES.find((t) => t.key === act.type) || ACTIVITY_TYPES[0];
               return (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl transition-all hover:shadow-md" style={{ background: '#fff', border: '1px solid #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                <div key={i} className="flex items-center gap-3 p-3 md:p-4 md:gap-4 rounded-xl transition-all hover:shadow-md" style={{ background: '#fff', border: '1px solid #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                   {/* Avatar */}
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm"
@@ -93,7 +93,7 @@ export default function LiveCommunitySection() {
                   {/* Action Button */}
                   <Link
                     to={act.link}
-                    className="flex-shrink-0 text-xs font-bold px-5 py-2 rounded-full hover:opacity-90 transition-opacity text-white"
+                    className="flex-shrink-0 text-xs font-bold px-4 py-2 md:px-5 rounded-full hover:opacity-90 transition-opacity text-white"
                     style={{ background: typeConfig.btnColor }}
                   >
                     {typeConfig.btnLabel}

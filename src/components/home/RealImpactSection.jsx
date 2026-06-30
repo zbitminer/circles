@@ -4,10 +4,10 @@ import { ArrowRight, Users } from 'lucide-react';
 export default function RealImpactSection() {
   return (
     <section className="bg-white">
-      <div className="max-w-5xl mx-auto px-6 py-16">
+      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden shadow-lg">
           {/* Left — Photo */}
-          <div className="md:w-1/2 h-64 md:h-auto">
+          <div className="md:w-1/2 h-48 md:h-auto">
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f3f10b37d_generated_image.png"
               alt="Israeli community gathering sharing food outdoors in Jerusalem"
@@ -16,7 +16,7 @@ export default function RealImpactSection() {
           </div>
 
           {/* Right — Dark content */}
-          <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center" style={{ background: '#1A1A1A' }}>
+          <div className="md:w-1/2 p-6 md:p-10 flex flex-col justify-center" style={{ background: '#1A1A1A' }}>
             {/* Badge */}
             <div className="flex items-center gap-2 mb-4">
               <Users className="w-4 h-4" style={{ color: '#C99738' }} />

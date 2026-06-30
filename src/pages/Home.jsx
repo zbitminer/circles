@@ -23,7 +23,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative bg-white overflow-hidden" style={{ borderBottom: '1px solid #e0e0e0' }}>
-        <div className="max-w-4xl mx-auto px-6 py-16 md:py-24 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-4 py-10 md:py-24 text-center relative z-10">
           {/* Badge */}
           
 
@@ -68,7 +68,7 @@ export default function Home() {
 
           {/* Hero Illustration */}
           <div className="mt-12 flex justify-center">
-            <div className="w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
+            <div className="w-64 h-64 md:w-[28rem] md:h-[28rem] rounded-full flex items-center justify-center relative" style={{ background: 'linear-gradient(135deg, rgba(217,93,26,0.06), rgba(0,125,125,0.06), rgba(218,165,32,0.06))' }}>
               {!heroImgError &&
               <img
                 src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
@@ -83,15 +83,15 @@ export default function Home() {
       </section>
 
       {/* Ways to Engage — Give / Receive / Belong */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
+      <section className="max-w-4xl mx-auto px-4 py-10 md:py-16">
         <div className="text-center mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>WAYS TO ENGAGE</span>
           <h2 className="text-2xl md:text-3xl font-extrabold [font-family:'Bebas_Neue',_system-ui]" style={{ color: '#1A1A1A' }}>Give, Receive, or Belong</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {/* Give Card */}
-          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(211,94,53,0.08)' }}>
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-20 h-20 object-contain" />
             </div>
@@ -105,7 +105,7 @@ export default function Home() {
           </div>
 
           {/* Receive Card */}
-          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(36,125,125,0.08)' }}>
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png" alt="Receive" className="w-20 h-20 object-contain" />
             </div>
@@ -119,7 +119,7 @@ export default function Home() {
           </div>
 
           {/* Belong Card */}
-          <div className="group flex flex-col items-center gap-4 p-8 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
             <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(201,151,56,0.08)' }}>
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a6d867f57_Black_and_White_Corporate_Pitch_Presentation.png" alt="Belong" className="w-20 h-20 object-contain" />
             </div>
@@ -164,7 +164,7 @@ export default function Home() {
 
       {/* Closing CTA */}
       <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
-        <div className="max-w-2xl mx-auto px-6 py-16 text-center">
+        <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Your Time is Valuable</h2>
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
             In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
