@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Heart, Shield, Check, CreditCard, Landmark, FileText, Wallet } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Heart, Shield, Check, CreditCard, Landmark, FileText, Wallet, Loader2 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 const PAYMENT_METHODS = [
 { label: 'PayPal', icon: Wallet, desc: 'Pay securely with PayPal' },
@@ -29,12 +30,33 @@ export default function Donate() {
     consent_terms: false
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success')) {
+      setSubmitted(true);
+    }
+  }, []);
 
   const set = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await base44.functions.invoke('create-checkout', { form });
+      if (response.data.redirectUrl) {
+        window.location.href = response.data.redirectUrl;
+      } else {
+        throw new Error(response.data.error || 'Failed to initialize payment');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || err.message);
+      setLoading(false);
+    }
   };
 
   const inputClass = "w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 transition-all";
@@ -260,8 +282,10 @@ export default function Donate() {
             className="w-full flex items-center justify-center gap-2 font-bold text-base px-6 py-4 rounded-xl text-white shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] mt-4"
             style={{ background: 'linear-gradient(to right, #D95D1A, #E87130)' }}>
             
-              <Heart className="w-5 h-5" /> Submit Donation Details
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Heart className="w-5 h-5" />} 
+              {loading ? 'Processing...' : 'Submit Donation Details'}
             </button>
+            {error && <p className="text-red-500 text-sm mt-3 text-center">{error}</p>}
           </form>
         }
       </div>
