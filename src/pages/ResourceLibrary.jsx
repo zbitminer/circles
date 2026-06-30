@@ -88,12 +88,6 @@ export default function ResourceLibrary() {
         </div>
       )}
 
-      {error && (
-        <div className="mb-5 p-4 rounded-xl bg-destructive/10 text-destructive text-sm">
-          Failed to load resources: {error}
-        </div>
-      )}
-
       {/* Search */}
       <div className="relative mb-5">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -122,12 +116,20 @@ export default function ResourceLibrary() {
         ))}
       </div>
 
+      {/* Error state */}
+      {error && (
+        <div className="mb-6 p-4 rounded-2xl bg-destructive/10 border border-destructive/20">
+          <p className="text-sm font-medium text-destructive mb-1">Failed to load resources</p>
+          <p className="text-xs text-muted-foreground">{error}</p>
+        </div>
+      )}
+
       {/* Resources grid */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1,2,3,4,5,6].map(i => <div key={i} className="bg-card rounded-2xl border border-border p-5 h-40 animate-pulse" />)}
         </div>
-      ) : filtered.length === 0 ? (
+      ) : error ? null : filtered.length === 0 ? (
         <div className="text-center py-16 bg-card rounded-2xl border border-border">
           <BookOpen className="w-12 h-12 mx-auto mb-3 text-muted-foreground/30" />
           <h3 className="font-bold text-foreground mb-1">No resources found</h3>
