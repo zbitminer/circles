@@ -26,6 +26,11 @@ export default function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [ackOver18, setAckOver18] = useState(false);
+  const [ackPrivacy, setAckPrivacy] = useState(false);
+  const [ackTerms, setAckTerms] = useState(false);
+  const [ackNoResponsibility, setAckNoResponsibility] = useState(false);
+  const allAcknowledged = ackOver18 && ackPrivacy && ackTerms && ackNoResponsibility;
 
   const handleRegister = async () => {
     setError("");
@@ -188,23 +193,37 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="space-y-3 pt-2">
+            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackOver18 ? 'border-primary bg-primary/5' : 'border-border'}`}>
+              <input type="checkbox" checked={ackOver18} onChange={(e) => setAckOver18(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">I confirm that I am <strong>18 years of age or older</strong></span>
+            </label>
+            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackPrivacy ? 'border-primary bg-primary/5' : 'border-border'}`}>
+              <input type="checkbox" checked={ackPrivacy} onChange={(e) => setAckPrivacy(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">I have read and accept the <Link to="/privacy" className="text-primary font-medium hover:underline" target="_blank">Privacy Policy</Link></span>
+            </label>
+            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackTerms ? 'border-primary bg-primary/5' : 'border-border'}`}>
+              <input type="checkbox" checked={ackTerms} onChange={(e) => setAckTerms(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">I have read and accept the <Link to="/terms" className="text-primary font-medium hover:underline" target="_blank">Terms of Service</Link></span>
+            </label>
+            <label className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${ackNoResponsibility ? 'border-primary bg-primary/5' : 'border-border'}`}>
+              <input type="checkbox" checked={ackNoResponsibility} onChange={(e) => setAckNoResponsibility(e.target.checked)} className="mt-0.5 w-4 h-4 rounded accent-primary flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">I acknowledge that Circles of Giving <strong>bears no responsibility</strong> for interactions between members and that I participate at my own risk</span>
+            </label>
+          </div>
+
+          {!allAcknowledged && (
+            <p className="text-xs text-muted-foreground text-center">Please check all boxes above to continue</p>
+          )}
+
+          <div className="flex gap-3">
             <Button variant="outline" className="h-12" onClick={() => { setError(""); setStep(1); }}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button className="flex-1 h-12 font-medium" onClick={handleRegister} disabled={loading}>
+            <Button className="flex-1 h-12 font-medium" onClick={handleRegister} disabled={loading || !allAcknowledged}>
               {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Creating account...</> : <>Create account <ArrowRight className="w-4 h-4 ml-1" /></>}
             </Button>
           </div>
-
-          <button
-            type="button"
-            onClick={handleRegister}
-            disabled={loading}
-            className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors"
-          >
-            Skip for now →
-          </button>
         </div>
       </AuthLayout>
     );
