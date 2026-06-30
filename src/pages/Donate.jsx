@@ -19,6 +19,8 @@ export default function Donate() {
     email: '',
     amount: '',
     currency: 'ILS',
+    donation_type: 'one_time',
+    recurring_frequency: 'monthly',
     is_memorial: false,
     memorial_name: '',
     memorial_deceased: '',
@@ -109,6 +111,54 @@ export default function Donate() {
             <div>
               <label className={labelClass} style={labelStyle}>Address</label>
               <input value={form.address} onChange={e => set('address', e.target.value)} className={inputClass} style={borderStyle} placeholder="Street, city" />
+            </div>
+
+            {/* Donation Type */}
+            <div>
+              <label className={labelClass} style={labelStyle}>Donation Type <span style={{ color: '#D95D1A' }}>*</span></label>
+              <div className="flex gap-2">
+                {[
+                  { val: 'one_time', label: 'One-Time' },
+                  { val: 'recurring', label: 'Recurring' },
+                ].map(({ val, label }) => (
+                  <button
+                    key={val}
+                    type="button"
+                    onClick={() => set('donation_type', val)}
+                    className="flex-1 px-3 py-3 rounded-xl text-sm font-semibold transition-all"
+                    style={form.donation_type === val
+                      ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                      : { background: '#fff', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                    }
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {form.donation_type === 'recurring' && (
+                <div className="mt-3">
+                  <label className={labelClass} style={labelStyle}>Frequency <span style={{ color: '#D95D1A' }}>*</span></label>
+                  <div className="flex gap-2">
+                    {[
+                      { val: 'monthly', label: 'Monthly' },
+                      { val: 'yearly', label: 'Yearly' },
+                    ].map(({ val, label }) => (
+                      <button
+                        key={val}
+                        type="button"
+                        onClick={() => set('recurring_frequency', val)}
+                        className="flex-1 px-3 py-3 rounded-xl text-sm font-semibold transition-all"
+                        style={form.recurring_frequency === val
+                          ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
+                          : { background: '#fff', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                        }
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Amount & Currency */}
