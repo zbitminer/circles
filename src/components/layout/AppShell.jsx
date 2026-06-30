@@ -11,7 +11,7 @@ const topLinks = [
   { label: 'About', path: '/about' },
   { label: 'Community', path: '/feed' },
   { label: 'How It Works', path: '/about' },
-  { label: 'Urgent Board', path: '/sos' },
+  { label: 'Urgent Care', path: '/sos' },
 ];
 
 export default function AppShell() {
@@ -114,7 +114,7 @@ export default function AppShell() {
                 key={label}
                 to={path}
                 className="px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white"
-                style={{ color: isActive(path) ? '#D95D1A' : '#aaa' }}
+                style={{ color: label === 'Urgent Care' ? '#E63946' : (isActive(path) ? '#D95D1A' : '#aaa') }}
               >
                 {label}
               </Link>
@@ -181,7 +181,7 @@ export default function AppShell() {
                   to={path}
                   onClick={() => setMobileOpen(false)}
                   className="px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-white/10"
-                  style={{ color: isActive(path) ? '#D95D1A' : '#aaa' }}
+                  style={{ color: label === 'Urgent Care' ? '#E63946' : (isActive(path) ? '#D95D1A' : '#aaa') }}
                 >
                   {label}
                 </Link>
