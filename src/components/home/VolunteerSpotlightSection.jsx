@@ -22,11 +22,11 @@ export default function VolunteerSpotlightSection() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
           {/* Left — Text */}
           <div className="lg:col-span-2">
-            <h2 className="text-xl font-bold mb-2" style={{ color: '#000' }}>REAL PEOPLE. REAL IMPACT</h2>
-            <h4 className="text-2xl font-bold mb-3" style={{ color: '#333', fontFamily: 'Georgia, serif' }}>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
+            <h4 className="text-2xl font-bold mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
               In their own words.
             </h4>
-            <p className="text-sm leading-relaxed" style={{ color: '#333' }}>
+            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
               From first-time givers to the most devoted volunteers in our community — here's what they're building
               on Circles of Giving.
             </p>
@@ -35,13 +35,13 @@ export default function VolunteerSpotlightSection() {
           {/* Right — Cards */}
           <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {SPOTLIGHTS.map((s) => (
-              <div key={s.name} className="rounded-2xl overflow-hidden flex flex-col" style={{ background: s.bg }}>
+              <div key={s.name} className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: s.bg, boxShadow: '0 4px 16px rgba(0,0,0,0.12)' }}>
                 <img
                   src={s.img}
                   alt={s.name}
                   className="w-full h-40 object-cover"
                 />
-                <div className="p-6 text-center flex-1 flex flex-col justify-center">
+                <div className="p-6 text-center flex-1 flex flex-col justify-center" style={{ borderTop: '2px solid #C99738' }}>
                   <p className="text-white text-sm leading-relaxed mb-4">"{s.quote}"</p>
                   <p className="text-white font-bold text-sm">{s.name}</p>
                   <p className="text-white/70 text-xs">{s.role}</p>

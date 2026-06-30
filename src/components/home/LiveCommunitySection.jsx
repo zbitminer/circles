@@ -50,18 +50,18 @@ export default function LiveCommunitySection() {
   return (
     <section className="bg-white">
       <div className="max-w-3xl mx-auto px-6 py-16 text-center">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#5A5A5A' }}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           LIVE COMMUNITY
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold italic mb-3" style={{ color: '#222222', fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-bold italic mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
           Happening right now
         </h2>
-        <p className="text-base mb-10" style={{ color: '#4A4A4A' }}>
+        <p className="text-base mb-10" style={{ color: '#555' }}>
           Your neighbours are giving and receiving in real time. Join the circle.
         </p>
 
         <div className="text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: '#5A5A5A' }}>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: '#C99738' }}>
             HAPPENING NOW
           </span>
 
@@ -69,7 +69,7 @@ export default function LiveCommunitySection() {
             {activities.map((act, i) => {
               const typeConfig = ACTIVITY_TYPES.find((t) => t.key === act.type) || ACTIVITY_TYPES[0];
               return (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl border" style={{ background: '#FAFAFA', borderColor: '#eee' }}>
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl transition-all hover:shadow-md" style={{ background: '#fff', border: '1px solid #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                   {/* Avatar */}
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm"
@@ -81,13 +81,13 @@ export default function LiveCommunitySection() {
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="font-bold text-sm" style={{ color: '#222' }}>{act.name}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full" style={{ background: '#eee', color: '#888' }}>
+                      <span className="font-bold text-sm" style={{ color: '#1A1A1A' }}>{act.name}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#C99738' }}>
                         {typeConfig.label}
                       </span>
                     </div>
-                    <p className="text-sm truncate" style={{ color: '#333' }}>{act.desc}</p>
-                    <p className="text-xs mt-0.5" style={{ color: '#999' }}>{act.time} · {act.location}</p>
+                    <p className="text-sm truncate" style={{ color: '#555' }}>{act.desc}</p>
+                    <p className="text-xs mt-0.5" style={{ color: '#888' }}>{act.time} · {act.location}</p>
                   </div>
 
                   {/* Action Button */}

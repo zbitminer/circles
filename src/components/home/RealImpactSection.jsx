@@ -16,22 +16,22 @@ export default function RealImpactSection() {
           </div>
 
           {/* Right — Dark content */}
-          <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center" style={{ background: '#26292B' }}>
+          <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center" style={{ background: '#1A1A1A' }}>
             {/* Badge */}
             <div className="flex items-center gap-2 mb-4">
-              <Users className="w-4 h-4" style={{ color: '#D9D9D9' }} />
-              <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: '#D9D9D9' }}>
+              <Users className="w-4 h-4" style={{ color: '#C99738' }} />
+              <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: '#C99738' }}>
                 REAL IMPACT
               </span>
             </div>
 
             {/* Headline */}
             <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight" style={{ color: '#fff', fontFamily: 'Georgia, serif' }}>
-              A hot meal is also a <span style={{ color: '#F7E468' }}>hello.</span>
+              A hot meal is also a <span style={{ color: '#C99738' }}>hello.</span>
             </h2>
 
             {/* Body */}
-            <p className="text-sm leading-relaxed mb-6" style={{ color: '#E0E0E0' }}>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.75)' }}>
               Every week, members of Circles bring food, warmth, and presence to neighbours who need it most.
               This is what giving looks like — not a donation button, but a knock on the door.
             </p>
@@ -40,8 +40,8 @@ export default function RealImpactSection() {
             <div>
               <Link
                 to="/opportunities"
-                className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-white"
-                style={{ background: '#D66D75' }}
+                className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity text-white shadow-lg"
+                style={{ background: '#D95D1A' }}
               >
                 Start giving in your city <ArrowRight className="w-4 h-4" />
               </Link>

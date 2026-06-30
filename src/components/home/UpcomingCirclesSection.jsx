@@ -96,32 +96,32 @@ export default function UpcomingCirclesSection() {
   return (
     <section style={{ background: '#F9F9F9' }}>
       <div className="max-w-5xl mx-auto px-6 py-16">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#5A5A5A' }}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           THIS WEEK
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#111827', fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
           Upcoming Circles
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {events.map((event) => (
-            <div key={event.id} className="rounded-2xl overflow-hidden bg-white shadow-sm border" style={{ borderColor: '#eee' }}>
+            <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {/* Image */}
               <div className="relative h-40 overflow-hidden">
                 <img src={event.image_url} alt={event.title} className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = PLACEHOLDER_IMG; }} />
-                <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#111827' }}>
+                <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#1A1A1A' }}>
                   {event.date_label}
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-5">
-                <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block" style={{ color: event.btnColor }}>
+                <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block" style={{ color: '#C99738' }}>
                   {event.tag}
                 </span>
-                <h3 className="font-bold text-base mb-2" style={{ color: '#111827' }}>{event.title}</h3>
-                <div className="flex items-center gap-1 text-xs mb-3" style={{ color: '#6b7280' }}>
-                  <MapPin className="w-3 h-3" />
+                <h3 className="font-bold text-base mb-2" style={{ color: '#1A1A1A' }}>{event.title}</h3>
+                <div className="flex items-center gap-1 text-xs mb-3" style={{ color: '#555' }}>
+                  <MapPin className="w-3 h-3" style={{ color: '#C99738' }} />
                   <span>{event.location} · {event.time}</span>
                 </div>
 
@@ -132,14 +132,14 @@ export default function UpcomingCirclesSection() {
                       <div key={i} className="w-6 h-6 rounded-full border-2 border-white" style={{ background: c }} />
                     ))}
                   </div>
-                  <span className="text-xs" style={{ color: '#6b7280' }}>+{event.joining} joining</span>
+                  <span className="text-xs" style={{ color: '#555' }}>+{event.joining} joining</span>
                 </div>
 
                 {/* RSVP Button */}
                 <Link
                   to="/events"
-                  className="block text-center text-sm font-bold py-2.5 rounded-lg hover:opacity-90 transition-opacity text-white"
-                  style={{ background: event.btnColor }}
+                  className="block text-center text-sm font-bold py-2.5 rounded-lg hover:opacity-90 transition-opacity text-white shadow-sm"
+                  style={{ background: '#D95D1A' }}
                 >
                   RSVP
                 </Link>

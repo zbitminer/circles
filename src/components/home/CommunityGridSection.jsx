@@ -43,13 +43,13 @@ export default function CommunityGridSection() {
       <div className="max-w-5xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="mb-10 max-w-xl">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#5A5A5A' }}>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
             COMMUNITY
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
             Real people. Real giving.
           </h2>
-          <p className="text-base" style={{ color: '#404040' }}>
+          <p className="text-base" style={{ color: '#555' }}>
             Every face you see is a verified member — a neighbour, a mentor, a friend you haven't met yet.
           </p>
         </div>
@@ -57,11 +57,11 @@ export default function CommunityGridSection() {
         {/* Photo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Large photo */}
-          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-64 md:h-full min-h-[300px]">
+          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-64 md:h-full min-h-[300px]" style={{ border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.10)' }}>
             <img src={large.img} alt={large.caption} className="w-full h-full object-cover" />
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
               {large.tag && (
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ background: large.tagBg, color: large.tagColor }}>
+                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ background: '#C99738', color: '#fff' }}>
                   {large.tag}
                 </span>
               )}
@@ -71,7 +71,7 @@ export default function CommunityGridSection() {
 
           {/* Small photos */}
           {smalls.map((m) => (
-            <div key={m.caption} className="relative rounded-2xl overflow-hidden h-40">
+            <div key={m.caption} className="relative rounded-2xl overflow-hidden h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
                 <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{m.caption}</span>
@@ -93,7 +93,7 @@ export default function CommunityGridSection() {
               </div>
             ))}
           </div>
-          <span className="text-sm" style={{ color: '#6b5c3e' }}>
+          <span className="text-sm" style={{ color: '#555' }}>
             Joined this week: <strong>Rivka, Eitan, Shira</strong> + 12 more
           </span>
           <Link to="/directory" className="ml-auto text-sm font-bold hover:underline" style={{ color: '#D95D1A' }}>
