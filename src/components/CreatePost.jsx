@@ -70,7 +70,6 @@ export default function CreatePost({ currentUser, onCreated }) {
             className="w-full text-sm bg-muted rounded-xl px-4 py-3 outline-none resize-none border border-transparent focus:border-primary/30 transition-all placeholder:text-muted-foreground"
           />
 
-          {expanded && (
             <div className="mt-3 space-y-3">
               {/* Cause tags */}
               <div>
@@ -114,13 +113,15 @@ export default function CreatePost({ currentUser, onCreated }) {
                   <input type="file" accept="image/*" className="hidden" onChange={handleImage} />
                 </label>
                 <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => { setExpanded(false); setContent(''); setImageFile(null); setImagePreview(null); setSelectedCauses([]); }}
-                    className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Cancel
-                  </button>
+                  {expanded && (
+                    <button
+                      type="button"
+                      onClick={() => { setExpanded(false); setContent(''); setImageFile(null); setImagePreview(null); setSelectedCauses([]); }}
+                      className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
+                    >
+                      Cancel
+                    </button>
+                  )}
                   <button
                     onClick={handleSubmit}
                     disabled={!content.trim() || loading}
@@ -131,7 +132,6 @@ export default function CreatePost({ currentUser, onCreated }) {
                 </div>
               </div>
             </div>
-          )}
         </div>
       </div>
     </div>
