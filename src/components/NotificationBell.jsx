@@ -11,8 +11,6 @@ export default function NotificationBell({ currentUser }) {
   useEffect(() => {
     if (!currentUser) return;
     loadNotifications();
-    // Proactively check for matching opportunities based on profile causes
-    checkMatchingOpportunities();
     const unsubscribe = base44.entities.Notification.subscribe((event) => {
       if (event.data.user_id === currentUser.id) {
         loadNotifications();
@@ -22,24 +20,16 @@ export default function NotificationBell({ currentUser }) {
   }, [currentUser]);
 
   const loadNotifications = async () => {
-    const notifs = await base44.entities.Notification.filter(
-      { user_id: currentUser.id },
-      '-created_date',
-      20
-    );
-    setNotifications(notifs);
-  };
-
-  const checkMatchingOpportunities = async () => {
     try {
-      const profiles = await base44.entities.VolunteerProfile.filter({ user_id: currentUser.id });
-      const profile = profiles[0];
-      if (profile && profile.causes && profile.causes.length > 0) {
-        await base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: profile.causes } });
-      }
-    } catch {}
-    // Always reload notifications, whether or not new ones were created
-    loadNotifications();
+      const notifs = await base44.entities.Notification.filter(
+        { user_id: currentUser.id },
+        '-created_date',
+        20
+      );
+      setNotifications(notifs);
+    } catch {
+      setNotifications([]);
+    }
   };
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;

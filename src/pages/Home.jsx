@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { base44 } from '@/api/base44Client';
+import { useState } from 'react';
 import { ArrowRight, Heart } from 'lucide-react';
+import { useAuth } from '@/lib/AuthContext';
 import BuildingCommunitySection from '@/components/home/BuildingCommunitySection';
 import HowItWorksSection from '@/components/home/HowItWorksSection';
 import LiveCommunitySection from '@/components/home/LiveCommunitySection';
@@ -11,12 +11,8 @@ import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSecti
 import RealImpactSection from '@/components/home/RealImpactSection';
 
 export default function Home() {
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [heroImgError, setHeroImgError] = useState(false);
-
-  useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
 
   return (
     <div className="pb-24 md:pb-0">

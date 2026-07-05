@@ -1,9 +1,9 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import RegisterBanner from '../RegisterBanner';
+import { useAuth } from '@/lib/AuthContext';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
@@ -17,7 +17,7 @@ const topLinks = [
 
 export default function AppShell() {
   const location = useLocation();
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState({});
@@ -25,7 +25,6 @@ export default function AppShell() {
   const navRef = useRef(null);
 
   useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
     // Prevent img load errors from reaching the vite preview error handler
     // (DOM nodes in the error event cause DataCloneError on postMessage)
     const imgErrorHandler = (e) => {
