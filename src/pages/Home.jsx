@@ -141,14 +141,14 @@ export default function Home() {
         }
       </section>
 
-      {/* Live Community — Happening Right Now */}
-      <LiveCommunitySection />
-
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
 
       {/* How It Works — Three Steps. Infinite Impact. */}
       <HowItWorksSection />
+
+      {/* Live Community — Happening Right Now */}
+      <LiveCommunitySection />
 
       {/* Upcoming Circles */}
       <UpcomingCirclesSection />
