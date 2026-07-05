@@ -24,12 +24,12 @@ export default function RealImpactSection() {
           </div>
 
           <div className="lg:col-span-7 p-6 md:p-10 lg:p-12">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/60 bg-brand-gold/10 px-4 py-2 hidden">
-              <Users className="h-4 w-4 text-brand-orange" />
-              <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-brand-orange">
-                Real People · Real Impact
-              </span>
-            </div>
+            
+
+
+
+
+            
 
             <h2 className="max-w-xl text-3xl md:text-5xl font-extrabold leading-tight text-foreground text-balance">
               A Hot Meal Is Also A <span className="text-brand-gold">Hello.</span>
