@@ -30,6 +30,7 @@ const SPOTLIGHTS = [
 
 
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HANDLES = {
   Joy: '@joy_iran',
@@ -86,11 +87,17 @@ export default function VolunteerSpotlightSection() {
                 </p>
               </div>
 
-              {/* Orange arrow block */}
+              {/* Orange arrow block — links to member directory */}
               <div className="mt-4 flex justify-end">
-                <div className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 group-hover:opacity-90" style={{ background: '#D95D1A' }}>
+                <Link
+                  to="/directory"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 hover:opacity-90"
+                  style={{ background: '#D95D1A' }}
+                  aria-label="View member directory"
+                >
                   <ArrowRight className="h-6 w-6 text-black" strokeWidth={3} />
-                </div>
+                </Link>
               </div>
             </a>
           ))}
