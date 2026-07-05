@@ -52,7 +52,7 @@ export default function VolunteerOfTheWeekSection() {
               rel="noopener noreferrer"
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative aspect-square overflow-hidden">
                 <img 
                   src={volunteer.img} 
                   alt={volunteer.name}
