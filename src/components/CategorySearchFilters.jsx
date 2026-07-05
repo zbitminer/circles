@@ -19,7 +19,7 @@ const CATEGORIES = [
   {
     label: 'Consultants',
     emoji: '💼',
-    subcategories: ['Legal', 'Financial', 'Business', 'Career'],
+    subcategories: ['Business & Professionals'],
   },
   {
     label: 'Technology',
