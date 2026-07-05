@@ -17,6 +17,11 @@ const CATEGORIES = [
     subcategories: ['Daily Tasks', 'Garden', 'Organizing', 'Repairs'],
   },
   {
+    label: 'Consultants',
+    emoji: '💼',
+    subcategories: ['Legal', 'Financial', 'Business', 'Career'],
+  },
+  {
     label: 'Technology',
     emoji: '💻',
     subcategories: ['Appointments', 'Computer Phone', 'Digital Forms', 'Real Time Support', 'Translation'],
