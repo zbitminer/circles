@@ -31,6 +31,7 @@ export default function Sitemap() {
         { icon: Flame, name: 'Feed', path: '/feed', desc: 'Community stories & updates' },
         { icon: UtensilsCrossed, name: 'Shabbat Meals', path: '/shabbat', desc: 'Host & join community meals' },
         { icon: Users, name: 'Directory', path: '/directory', desc: 'Discover & follow volunteers' },
+        { icon: MessageSquare, name: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
         { icon: MessageSquare, name: 'Messages', path: '/messages', desc: 'Direct messaging with members' },
       ],
     },
