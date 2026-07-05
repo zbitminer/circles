@@ -141,9 +141,6 @@ export default function Home() {
         }
       </section>
 
-      {/* Real Impact — visual hook right after hero */}
-      <RealImpactSection />
-
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
 
@@ -161,6 +158,9 @@ export default function Home() {
 
       {/* Live Community — Happening Right Now */}
       <LiveCommunitySection />
+
+      {/* Real Impact */}
+      <RealImpactSection />
 
       {/* Closing CTA */}
       <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
