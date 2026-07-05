@@ -29,6 +29,8 @@ const SPOTLIGHTS = [
   }
 ];
 
+import { ArrowRight } from 'lucide-react';
+
 export default function VolunteerSpotlightSection() {
   return (
     <section className="bg-white">
@@ -53,19 +55,27 @@ export default function VolunteerSpotlightSection() {
                 href={s.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl hover:-translate-y-1 group" 
-                style={{ background: s.bg, boxShadow: '0 4px 16px rgba(0,0,0,0.12)' }}
+                className="relative bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-transform hover:-translate-y-1 group block overflow-hidden border border-gray-100" 
               >
-                <div className="relative aspect-square overflow-hidden p-6 flex items-center justify-center">
+                <div className="relative aspect-square w-full bg-gray-100">
                   <img
                     src={s.img}
                     alt={s.name}
-                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-6 text-center flex-1 flex flex-col justify-center" style={{ borderTop: '2px solid #C99738' }}>
-                  <p className="text-white text-sm leading-relaxed mb-4">{s.quote}</p>
-                  <p className="text-white font-bold text-sm">{s.name}</p>
+                {/* Bottom Left White Box */}
+                <div className="absolute bottom-0 left-0 right-14 bg-white pt-3 px-4 pb-2 border-b-[6px] border-black rounded-tr-xl z-10">
+                  <h3 className="text-[#FF0000] font-black text-xl leading-tight truncate tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {s.name}
+                  </h3>
+                  <p className="text-black font-bold text-sm truncate tracking-tight mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    @{s.name.toLowerCase()}
+                  </p>
+                </div>
+                {/* Bottom Right Red Button */}
+                <div className="absolute bottom-0 right-0 w-14 h-14 bg-[#FF0000] flex items-center justify-center z-10">
+                  <ArrowRight className="w-6 h-6 text-white" />
                 </div>
               </a>
             ))}
