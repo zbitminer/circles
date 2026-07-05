@@ -33,16 +33,16 @@ import { ArrowRight } from 'lucide-react';
 
 export default function VolunteerSpotlightSection() {
   return (
-    <section className="bg-white">
+    <section style={{ background: '#F9F9F9', borderTop: '1px solid #E0E0E0', borderBottom: '1px solid #E0E0E0' }}>
       <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-10 items-center">
           {/* Left — Text */}
-          <div className="lg:col-span-2">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
-            <h4 className="text-2xl font-bold mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+          <div className="lg:col-span-2 rounded-2xl bg-white p-6 md:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)]" style={{ border: '1px solid #C99738' }}>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
+            <h4 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
               Moments we are excited to share 💛
             </h4>
-            <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+            <p className="text-sm md:text-base leading-relaxed" style={{ color: '#555' }}>
               Were you part of a special connection? Did you participate in volunteering that touched your heart? We invite you to share with us the small and big moments that filled you with meaning.
             </p>
           </div>
@@ -55,7 +55,8 @@ export default function VolunteerSpotlightSection() {
                 href={s.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-transform hover:-translate-y-1 group block overflow-hidden border border-gray-100" 
+                className="relative bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.08)] transition-all hover:shadow-xl hover:-translate-y-1 group block overflow-hidden border" 
+                style={{ borderColor: '#C99738' }}
               >
                 <div className="relative aspect-square w-full bg-gray-100">
                   <img
@@ -65,16 +66,16 @@ export default function VolunteerSpotlightSection() {
                   />
                 </div>
                 {/* Bottom Left White Box */}
-                <div className="absolute bottom-0 left-0 right-14 bg-white pt-3 px-4 pb-2 border-b-[6px] border-black rounded-tr-xl z-10">
-                  <h3 className="text-[#FF0000] font-black text-xl leading-tight truncate tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="absolute bottom-0 left-0 right-14 bg-white pt-3 px-4 pb-2 border-b-[6px] rounded-tr-xl z-10" style={{ borderColor: '#1A1A1A' }}>
+                  <h3 className="font-black text-xl leading-tight truncate tracking-tight" style={{ color: '#D95D1A', fontFamily: 'Inter, sans-serif' }}>
                     {s.name}
                   </h3>
-                  <p className="text-black font-bold text-sm truncate tracking-tight mt-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <p className="font-bold text-sm truncate tracking-tight mt-0.5" style={{ color: '#1A1A1A', fontFamily: 'Inter, sans-serif' }}>
                     @{s.name.toLowerCase()}
                   </p>
                 </div>
-                {/* Bottom Right Red Button */}
-                <div className="absolute bottom-0 right-0 w-14 h-14 bg-[#FF0000] flex items-center justify-center z-10">
+                {/* Bottom Right Button */}
+                <div className="absolute bottom-0 right-0 w-14 h-14 flex items-center justify-center z-10" style={{ background: '#D95D1A' }}>
                   <ArrowRight className="w-6 h-6 text-white" />
                 </div>
               </a>
