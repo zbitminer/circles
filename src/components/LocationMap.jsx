@@ -33,19 +33,8 @@ async function geocode(location) {
   return null;
 }
 
-function FitBounds({ markers }) {
-  const map = useMap();
-  useEffect(() => {
-    if (markers.length === 0) return;
-    if (markers.length === 1) {
-      map.setView([markers[0].coords.lat, markers[0].coords.lng], 13);
-    } else {
-      const bounds = L.latLngBounds(markers.map(m => [m.coords.lat, m.coords.lng]));
-      map.fitBounds(bounds, { padding: [40, 40] });
-    }
-  }, [markers, map]);
-  return null;
-}
+// Tsfat (Safed), Israel
+const TSFAT_COORDS = [32.9646, 35.4960];
 
 export default function LocationMap({ items = [], onSelectItem, labelKey = 'title', locationKey = 'location' }) {
   const [markers, setMarkers] = useState([]);
@@ -101,8 +90,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
 
   return (
     <div className="w-full h-[280px] rounded-2xl border border-border overflow-hidden">
-      <MapContainer center={[31.5, 35.0]} zoom={7} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
-        <FitBounds markers={markers} />
+      <MapContainer center={TSFAT_COORDS} zoom={13} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
