@@ -125,7 +125,7 @@ export default function Opportunities() {
       <div className="flex items-start justify-between mb-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#D95D1A' }}>GIVE & RECEIVE</span>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>Give & Receive</h1>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>Community Hub</h1>
           <p className="text-sm" style={{ color: '#555' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
         </div>
         <div className="flex items-center gap-2">
@@ -147,26 +147,26 @@ export default function Opportunities() {
 
       {/* Give / Receive Tabs */}
       <div className="flex gap-3 mb-8">
-        
-
-
-
-
-
-
-
-
-        
-        
-
-
-
-
-
-
-
-
-        
+        <button
+          onClick={() => setActiveTab('receive')}
+          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg hidden"
+          style={activeTab === 'receive' ?
+          { background: '#247D7D', color: '#fff', border: '2px solid #247D7D', boxShadow: '0 4px 12px rgba(36,125,125,0.25)' } :
+          { background: '#fff', color: '#247D7D', border: '2px solid #247D7D', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
+          }>
+          
+          🙋 I Need Help (Receive)
+        </button>
+        <button
+          onClick={() => setActiveTab('give')}
+          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg hidden"
+          style={activeTab === 'give' ?
+          { background: '#D35E35', color: '#fff', border: '2px solid #D35E35', boxShadow: '0 4px 12px rgba(211,94,53,0.25)' } :
+          { background: '#fff', color: '#D35E35', border: '2px solid #D35E35', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
+          }>
+          
+          🤲 I Can Help (Give)
+        </button>
       </div>
 
       {/* Registration notice for non-logged-in users */}
