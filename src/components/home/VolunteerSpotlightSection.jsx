@@ -39,12 +39,12 @@ export default function VolunteerSpotlightSection() {
           {/* Left — Text */}
           <div className="lg:col-span-2 rounded-2xl bg-white p-6 md:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)]" style={{ border: '1px solid #C99738' }}>
             <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
-            <h4 className="text-2xl md:text-3xl font-bold mb-4 hidden" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
-              Moments we are excited to share 💛
-            </h4>
-            <p className="text-sm md:text-base leading-relaxed hidden" style={{ color: '#555' }}>
-              Were you part of a special connection? Did you participate in volunteering that touched your heart? We invite you to share with us the small and big moments that filled you with meaning.
-            </p>
+            
+
+            
+            
+
+            
           </div>
 
           {/* Right — Cards */}
