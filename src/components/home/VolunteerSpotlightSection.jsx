@@ -56,7 +56,7 @@ export default function VolunteerSpotlightSection() {
                 className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl hover:-translate-y-1 group" 
                 style={{ background: s.bg, boxShadow: '0 4px 16px rgba(0,0,0,0.12)' }}
               >
-                <div className="relative aspect-square overflow-hidden">
+                <div className="relative aspect-square overflow-hidden p-6 flex items-center justify-center">
                   <img
                     src={s.img}
                     alt={s.name}
