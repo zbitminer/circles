@@ -6,7 +6,6 @@ import BuildingCommunitySection from '@/components/home/BuildingCommunitySection
 import HowItWorksSection from '@/components/home/HowItWorksSection';
 import LiveCommunitySection from '@/components/home/LiveCommunitySection';
 import UpcomingCirclesSection from '@/components/home/UpcomingCirclesSection';
-import VolunteerOfTheWeekSection from '@/components/home/VolunteerOfTheWeekSection';
 import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
@@ -153,9 +152,6 @@ export default function Home() {
 
       {/* Upcoming Circles */}
       <UpcomingCirclesSection />
-
-      {/* Volunteer of the Week */}
-      <VolunteerOfTheWeekSection />
 
       {/* Volunteer Spotlight — social proof */}
       <VolunteerSpotlightSection />
