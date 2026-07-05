@@ -68,7 +68,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
 
   if (loading) {
     return (
-      <div className="w-full h-[420px] bg-muted rounded-2xl border border-border flex items-center justify-center">
+      <div className="w-full h-full min-h-[280px] bg-muted rounded-2xl border border-border flex items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <div className="w-8 h-8 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
           <p className="text-sm">Loading map…</p>
@@ -79,7 +79,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
 
   if (markers.length === 0) {
     return (
-      <div className="w-full h-[420px] bg-muted rounded-2xl border border-border flex items-center justify-center">
+      <div className="w-full h-full min-h-[280px] bg-muted rounded-2xl border border-border flex items-center justify-center">
         <div className="text-center text-muted-foreground">
           <div className="text-4xl mb-2">🗺️</div>
           <p className="text-sm">No mappable locations found.<br />Locations like "Remote" won't appear on the map.</p>
@@ -89,7 +89,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
   }
 
   return (
-    <div className="w-full h-[280px] rounded-2xl border border-border overflow-hidden">
+    <div className="w-full h-full min-h-[280px] rounded-2xl border border-border overflow-hidden">
       <MapContainer center={TSFAT_COORDS} zoom={13} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
