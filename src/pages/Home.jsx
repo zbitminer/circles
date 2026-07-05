@@ -147,6 +147,9 @@ export default function Home() {
       {/* How It Works — Three Steps. Infinite Impact. */}
       <HowItWorksSection />
 
+      {/* Live Community — Happening Right Now */}
+      <LiveCommunitySection />
+
       {/* Volunteer Spotlight — social proof */}
       <VolunteerSpotlightSection />
 
@@ -155,9 +158,6 @@ export default function Home() {
 
       {/* Community Grid — Real People. Real Giving. */}
       <CommunityGridSection />
-
-      {/* Live Community — Happening Right Now */}
-      <LiveCommunitySection />
 
       {/* Real Impact */}
       <RealImpactSection />
