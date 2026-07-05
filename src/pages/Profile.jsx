@@ -6,18 +6,16 @@ import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
-import StarRating from '@/components/StarRating';
 
-const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
+const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
 const CAUSE_COLORS = {
   'Companionship': 'bg-orange-100 text-orange-800',
   'Food': 'bg-yellow-100 text-yellow-800',
   'Home': 'bg-gray-100 text-gray-800',
-  'Skills Sharing': 'bg-pink-100 text-pink-800',
+  'Skill Sharing': 'bg-pink-100 text-pink-800',
   'Technology': 'bg-indigo-100 text-indigo-800',
   'Transportation': 'bg-blue-100 text-blue-800',
-  'Other': 'bg-muted text-muted-foreground',
 };
 
 export default function Profile() {
@@ -34,8 +32,6 @@ export default function Profile() {
   const [submittingLog, setSubmittingLog] = useState(false);
   const [badges, setBadges] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [reviewForm, setReviewForm] = useState({ rating: 0, content: '' });
   const [privacy, setPrivacy] = useState({ phone_visibility: 'private', location_visibility: 'public', bio_visibility: 'public' });
   const [showPrivacyPanel, setShowPrivacyPanel] = useState(false);
 
@@ -326,39 +322,7 @@ export default function Profile() {
       <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Community Reviews</h2>
-          <button onClick={() => setShowReviewForm(!showReviewForm)} className="text-sm px-3 py-1.5 rounded-lg transition-colors" style={{ background: '#f0e8d0', color: '#1A2744' }}>
-            + Write Review
-          </button>
         </div>
-
-        {showReviewForm && (
-          <form onSubmit={async (e) => {
-            e.preventDefault();
-            await base44.entities.Review.create({
-              reviewer_id: user.id,
-              reviewer_name: user.full_name,
-              reviewee_id: profile.user_id,
-              rating: reviewForm.rating,
-              content: reviewForm.content,
-              review_type: 'volunteer'
-            });
-            setReviewForm({ rating: 0, content: '' });
-            setShowReviewForm(false);
-            loadAll();
-          }} className="mb-5 p-4 rounded-xl space-y-3" style={{ background: '#f0e8d0' }}>
-            <div>
-              <label className="text-xs font-medium" style={{ color: '#6b5c3e' }}>Rating</label>
-              <StarRating rating={reviewForm.rating} onRate={(r) => setReviewForm({...reviewForm, rating: r})} />
-            </div>
-            <div>
-              <textarea value={reviewForm.content} onChange={e => setReviewForm({...reviewForm, content: e.target.value})} placeholder="Share your experience..." rows={2} className="w-full bg-white rounded-lg px-3 py-2 text-sm outline-none border" required />
-            </div>
-            <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setShowReviewForm(false)} className="text-xs px-3 py-1" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" className="text-xs px-4 py-1.5 rounded-lg font-semibold" style={{ background: '#1A2744', color: '#F5E6C0' }}>Post Review</button>
-            </div>
-          </form>
-        )}
 
         {reviews.length === 0 ? (
           <p className="text-sm text-center py-6" style={{ color: '#6b5c3e' }}>No reviews yet</p>
