@@ -61,14 +61,14 @@ export default function VolunteerSpotlightSection() {
 
               {/* Portrait */}
               <div className="p-3 pb-0">
-                <div className="relative aspect-square w-full overflow-hidden bg-black">
+                <div className="relative aspect-square w-3/4 mx-auto overflow-hidden bg-black">
                   <img
                     src={s.img}
                     alt={s.name}
                     width="400"
                     height="400"
                     loading="lazy"
-                    className="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               </div>
