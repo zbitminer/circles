@@ -93,9 +93,9 @@ export default function CommunityGridSection() {
               </div>
             )}
           </div>
-          <span className="text-sm hidden" style={{ color: '#555' }}>
-            Joined this week: <strong className="hidden">Rivka, Eitan, Shira</strong> + 12 more
-          </span>
+          
+
+          
           <Link to="/directory" className="ml-auto text-sm font-bold hover:underline" style={{ color: '#D95D1A' }}>
             Browse all members →
           </Link>
