@@ -147,14 +147,14 @@ export default function Home() {
       {/* How It Works — Three Steps. Infinite Impact. */}
       <HowItWorksSection />
 
+      {/* Upcoming Circles */}
+      <UpcomingCirclesSection />
+
       {/* Live Community — Happening Right Now */}
       <LiveCommunitySection />
 
       {/* Volunteer Spotlight — social proof */}
       <VolunteerSpotlightSection />
-
-      {/* Upcoming Circles */}
-      <UpcomingCirclesSection />
 
       {/* Community Grid — Real People. Real Giving. */}
       <CommunityGridSection />
