@@ -17,11 +17,6 @@ const CATEGORIES = [
     subcategories: ['Daily Tasks', 'Garden', 'Organizing', 'Repairs'],
   },
   {
-    label: 'Skill Sharing',
-    emoji: '📚',
-    subcategories: ['Arts/Music', 'Cooking', 'Language', 'Torah'],
-  },
-  {
     label: 'Technology',
     emoji: '💻',
     subcategories: ['Appointments', 'Computer Phone', 'Digital Forms', 'Real Time Support', 'Translation'],
@@ -30,11 +25,6 @@ const CATEGORIES = [
     label: 'Transportation',
     emoji: '🚗',
     subcategories: ['Deliveries', 'Errands', 'Medical'],
-  },
-  {
-    label: 'Creative Workshops',
-    emoji: '🎨',
-    subcategories: ['Painting', 'Music', 'Writing', 'Crafts', 'Photography'],
   },
   {
     label: 'Wellness',
