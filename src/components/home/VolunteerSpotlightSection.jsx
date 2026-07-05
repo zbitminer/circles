@@ -31,56 +31,69 @@ const SPOTLIGHTS = [
 
 import { ArrowRight } from 'lucide-react';
 
+const HANDLES = {
+  Joy: '@joy_iran',
+  Eitan: '@eitan_border',
+  Yosef: '@yosef_war',
+  Avraham: '@avraham_vol',
+};
+
 export default function VolunteerSpotlightSection() {
   return (
-    <section style={{ background: '#F9F9F9', borderTop: '1px solid #E0E0E0', borderBottom: '1px solid #E0E0E0' }}>
-      <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-10 items-center">
-          {/* Left — Text */}
-          <div className="lg:col-span-2 rounded-2xl bg-white p-6 md:p-8 shadow-[0_2px_16px_rgba(0,0,0,0.06)]" style={{ border: '1px solid #C99738' }}>
-            <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>REAL PEOPLE. REAL IMPACT</span>
-            
+    <section className="bg-white">
+      <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
+        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight text-4xl md:text-6xl mb-10 md:mb-14" style={{ color: '#C99738', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+          Real People. Real Impact.
+        </h2>
 
-            
-            
-
-            
-          </div>
-
-          {/* Right — Cards */}
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-            {SPOTLIGHTS.map((s) =>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {SPOTLIGHTS.map((s) => (
             <a
               key={s.name}
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.08)] transition-all hover:shadow-xl hover:-translate-y-1 group block overflow-hidden border"
-              style={{ borderColor: '#C99738' }}>
-              
-                <div className="relative aspect-square w-full bg-gray-100">
+              className="group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
+              style={{ background: '#1A1A1A' }}
+            >
+              {/* Gold top bar */}
+              <div className="h-2 w-full" style={{ background: '#C99738' }} />
+
+              {/* Portrait */}
+              <div className="p-3 pb-0">
+                <div className="relative aspect-square w-full overflow-hidden bg-black">
                   <img
-                  src={s.img}
-                  alt={s.name}
-                  className="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" />
-                
+                    src={s.img}
+                    alt={s.name}
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                    className="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                  />
                 </div>
-                {/* Bottom Left White Box */}
-                <div className="absolute bottom-0 left-0 right-14 bg-white pt-3 px-4 pb-2 border-b-[6px] rounded-tr-xl z-10" style={{ borderColor: '#1A1A1A' }}>
-                  <h3 className="font-black text-xl leading-tight truncate tracking-tight" style={{ color: '#D95D1A', fontFamily: 'Inter, sans-serif' }}>
-                    {s.name}
-                  </h3>
-                  <p className="font-bold text-sm truncate tracking-tight mt-0.5" style={{ color: '#1A1A1A', fontFamily: 'Inter, sans-serif' }}>
-                    @{s.name.toLowerCase()}
-                  </p>
+              </div>
+
+              {/* Text */}
+              <div className="flex flex-1 flex-col px-4 pt-4 pb-0">
+                <h3 className="font-extrabold uppercase leading-none text-3xl tracking-tight" style={{ color: '#D95D1A', fontFamily: "'Bebas Neue', system-ui, sans-serif" }}>
+                  {s.name}
+                </h3>
+                <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">
+                  {HANDLES[s.name] || `@${s.name.toLowerCase()}`}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-white/70 line-clamp-3">
+                  {s.quote.replace(/^"|"$/g, '')}
+                </p>
+              </div>
+
+              {/* Orange arrow block */}
+              <div className="mt-4 flex justify-end">
+                <div className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 group-hover:opacity-90" style={{ background: '#D95D1A' }}>
+                  <ArrowRight className="h-6 w-6 text-black" strokeWidth={3} />
                 </div>
-                {/* Bottom Right Button */}
-                <div className="absolute bottom-0 right-0 w-14 h-14 flex items-center justify-center z-10" style={{ background: '#D95D1A' }}>
-                  <ArrowRight className="w-6 h-6 text-white" />
-                </div>
-              </a>
-            )}
-          </div>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>);
