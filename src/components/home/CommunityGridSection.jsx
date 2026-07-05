@@ -1,35 +1,35 @@
 import { Link } from 'react-router-dom';
 
 const MEMBERS = [
-  {
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/afe5518a3_generated_image.png',
-    caption: 'Rivka · Jerusalem',
-    tag: 'MENTOR',
-    tagBg: '#FBBF24',
-    tagColor: '#1A1A1A',
-    large: true,
-  },
-  {
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/7b12843e1_generated_image.png',
-    caption: 'Devorah · Tel Aviv',
-    large: false,
-  },
-  {
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/af83a5bc6_generated_image.png',
-    caption: 'Evening Circle · Haifa',
-    large: false,
-  },
-  {
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5b2d8c9dc_generated_image.png',
-    caption: 'Shira · Jerusalem',
-    large: false,
-  },
-  {
-    img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fae5a9a9d_generated_image.png',
-    caption: 'Nava & Sara · Beersheva',
-    large: false,
-  },
-];
+{
+  img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/afe5518a3_generated_image.png',
+  caption: 'Rivka · Jerusalem',
+  tag: 'MENTOR',
+  tagBg: '#FBBF24',
+  tagColor: '#1A1A1A',
+  large: true
+},
+{
+  img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/7b12843e1_generated_image.png',
+  caption: 'Devorah · Tel Aviv',
+  large: false
+},
+{
+  img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/af83a5bc6_generated_image.png',
+  caption: 'Evening Circle · Haifa',
+  large: false
+},
+{
+  img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5b2d8c9dc_generated_image.png',
+  caption: 'Shira · Jerusalem',
+  large: false
+},
+{
+  img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fae5a9a9d_generated_image.png',
+  caption: 'Nava & Sara · Beersheva',
+  large: false
+}];
+
 
 const JOINED_AVATARS = ['R', 'E', 'S', 'M', 'Y'];
 const JOINED_COLORS = ['#3498DB', '#E74C3C', '#2ECC71', '#9B59B6', '#E67E22'];
@@ -60,47 +60,47 @@ export default function CommunityGridSection() {
           <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px]" style={{ border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.10)' }}>
             <img src={large.img} alt={large.caption} className="w-full h-full object-cover" />
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
-              {large.tag && (
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ background: '#C99738', color: '#fff' }}>
+              {large.tag &&
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ background: '#C99738', color: '#fff' }}>
                   {large.tag}
                 </span>
-              )}
+              }
               <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{large.caption}</span>
             </div>
           </div>
 
           {/* Small photos */}
-          {smalls.map((m) => (
-            <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
+          {smalls.map((m) =>
+          <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
                 <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{m.caption}</span>
               </div>
             </div>
-          ))}
+          )}
         </div>
 
         {/* Joined this week bar */}
         <div className="flex items-center gap-3 mt-8 flex-wrap">
           <div className="flex -space-x-2">
-            {JOINED_AVATARS.map((letter, i) => (
-              <div
-                key={i}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                style={{ background: JOINED_COLORS[i], border: '2px solid #fff' }}
-              >
+            {JOINED_AVATARS.map((letter, i) =>
+            <div
+              key={i}
+              className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white hidden"
+              style={{ background: JOINED_COLORS[i], border: '2px solid #fff' }}>
+              
                 {letter}
               </div>
-            ))}
+            )}
           </div>
-          <span className="text-sm" style={{ color: '#555' }}>
-            Joined this week: <strong>Rivka, Eitan, Shira</strong> + 12 more
+          <span className="text-sm hidden" style={{ color: '#555' }}>
+            Joined this week: <strong className="hidden">Rivka, Eitan, Shira</strong> + 12 more
           </span>
           <Link to="/directory" className="ml-auto text-sm font-bold hover:underline" style={{ color: '#D95D1A' }}>
             Browse all members →
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
