@@ -147,26 +147,26 @@ export default function Opportunities() {
 
       {/* Give / Receive Tabs */}
       <div className="flex gap-3 mb-8">
-        <button
-          onClick={() => setActiveTab('receive')}
-          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg hidden"
-          style={activeTab === 'receive' ?
-          { background: '#247D7D', color: '#fff', border: '2px solid #247D7D', boxShadow: '0 4px 12px rgba(36,125,125,0.25)' } :
-          { background: '#fff', color: '#247D7D', border: '2px solid #247D7D', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
-          }>
-          
-          🙋 I Need Help (Receive)
-        </button>
-        <button
-          onClick={() => setActiveTab('give')}
-          className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg hidden"
-          style={activeTab === 'give' ?
-          { background: '#D35E35', color: '#fff', border: '2px solid #D35E35', boxShadow: '0 4px 12px rgba(211,94,53,0.25)' } :
-          { background: '#fff', color: '#D35E35', border: '2px solid #D35E35', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
-          }>
-          
-          🤲 I Can Help (Give)
-        </button>
+        
+
+
+
+
+
+
+
+
+        
+        
+
+
+
+
+
+
+
+
+        
       </div>
 
       {/* Registration notice for non-logged-in users */}
