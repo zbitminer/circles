@@ -13,8 +13,8 @@ export default function RealImpactSection() {
               width="720"
               height="720"
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+              className="absolute inset-0 h-full w-full object-cover" />
+            
             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-brand-gold/60 bg-black/75 p-4 backdrop-blur-sm">
               <p className="text-sm font-semibold leading-relaxed text-white">
@@ -24,7 +24,7 @@ export default function RealImpactSection() {
           </div>
 
           <div className="lg:col-span-7 p-6 md:p-10 lg:p-12">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/60 bg-brand-gold/10 px-4 py-2">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/60 bg-brand-gold/10 px-4 py-2 hidden">
               <Users className="h-4 w-4 text-brand-orange" />
               <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-brand-orange">
                 Real People · Real Impact
@@ -57,20 +57,20 @@ export default function RealImpactSection() {
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/opportunities"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-orange px-6 py-3 text-sm font-extrabold text-white shadow-lg transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
-              >
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-orange px-6 py-3 text-sm font-extrabold text-white shadow-lg transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2">
+                
                 Start Giving In Your City <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/about"
-                className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand-gold/70 px-6 py-3 text-sm font-extrabold text-foreground transition-colors duration-200 hover:bg-brand-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2"
-              >
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-brand-gold/70 px-6 py-3 text-sm font-extrabold text-foreground transition-colors duration-200 hover:bg-brand-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2">
+                
                 Learn Our Mission
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
