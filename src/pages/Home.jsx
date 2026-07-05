@@ -141,6 +141,9 @@ export default function Home() {
         }
       </section>
 
+      {/* Live Community — Happening Right Now */}
+      <LiveCommunitySection />
+
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
 
@@ -149,9 +152,6 @@ export default function Home() {
 
       {/* Upcoming Circles */}
       <UpcomingCirclesSection />
-
-      {/* Live Community — Happening Right Now */}
-      <LiveCommunitySection />
 
       {/* Volunteer Spotlight — social proof */}
       <VolunteerSpotlightSection />
