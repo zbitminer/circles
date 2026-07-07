@@ -95,7 +95,7 @@ export default function AppShell() {
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white p-0.5" />
             <div className="flex flex-col leading-none">
-              <span className="font-extrabold text-lg tracking-tight text-white hidden">Circles of Giving</span>
+              
               <span className="text-[10px] hidden sm:block" style={{ color: '#D95D1A' }}>I Give. I Receive. I Belong. I Grow.</span>
             </div>
           </Link>
