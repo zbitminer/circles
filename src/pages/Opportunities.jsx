@@ -291,7 +291,7 @@ export default function Opportunities() {
           if (workshops.length === 0) return null;
           return (
             <div className="mb-8 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A1A1A, #333)', border: '2px solid #C99738', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
-                <div className="px-6 pt-6 pb-2 flex items-center justify-between">
+                <div className="px-6 pt-6 pb-2 flex items-center justify-between hidden">
                   <div>
                     <h2 className="font-display text-2xl font-bold flex items-center gap-2" style={{ color: '#fff' }}>
                       🎨 Creative Workshops
