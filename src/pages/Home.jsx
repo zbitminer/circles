@@ -82,8 +82,8 @@ export default function Home() {
       {/* Ways to Engage — Give / Receive / Belong */}
       <section className="max-w-4xl mx-auto px-4 py-10 md:py-16">
         <div className="text-center mb-12">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>WAYS TO ENGAGE</span>
-          <h2 className="text-2xl md:text-3xl font-extrabold [font-family:'Bebas_Neue',_system-ui]" style={{ color: '#1A1A1A' }}>Give, Receive, or Belong</h2>
+          <span className="font-bold uppercase tracking-[0.2em] mb-3 block text-3xl" style={{ color: '#D95D1A' }}>WAYS TO ENGAGE</span>
+          <h2 className="text-2xl md:text-3xl font-extrabold [font-family:'Bebas_Neue',_system-ui] hidden" style={{ color: '#1A1A1A' }}>Give, Receive, or Belong</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
