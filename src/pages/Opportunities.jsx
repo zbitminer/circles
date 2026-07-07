@@ -14,8 +14,7 @@ const CAUSE_OPTIONS = [
 { label: 'Home', emoji: '🏠' },
 { label: 'Skill Sharing', emoji: '📚' },
 { label: 'Technology', emoji: '💻' },
-{ label: 'Transportation', emoji: '🚗' },
-{ label: 'Creative Workshops', emoji: '🎨' }];
+{ label: 'Transportation', emoji: '🚗' }];
 
 
 const TYPES = ['All', 'In-person', 'Remote', 'Hybrid'];
@@ -284,43 +283,6 @@ export default function Opportunities() {
               </form>
             </div>
         }
-
-          {/* Creative Workshops Featured Section */}
-          {!loading && (() => {
-          const workshops = opportunities.filter((o) => o.cause_category === 'Creative Workshops');
-          if (workshops.length === 0) return null;
-          return (
-            <div className="mb-8 rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1A1A1A, #333)', border: '2px solid #C99738', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
-                <div className="px-6 pt-6 pb-2 flex items-center justify-between hidden">
-                  <div>
-                    <h2 className="font-display text-2xl font-bold flex items-center gap-2" style={{ color: '#fff' }}>
-                      🎨 Creative Workshops
-                    </h2>
-                    <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Share your art, music, writing & craft skills with the community</p>
-                  </div>
-                  <button
-                  onClick={() => setSelectedFilters([{ category: 'Creative Workshops', subcategory: null, emoji: '🎨' }])}
-                  className="hidden sm:flex items-center gap-1 text-xs font-semibold px-4 py-2 rounded-full hover:opacity-90 transition-opacity"
-                  style={{ background: '#C99738', color: '#1A1A1A' }}>
-                  
-                    View All →
-                  </button>
-                </div>
-                <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {workshops.slice(0, 3).map((opp) =>
-                <div key={opp.id} onClick={() => setSelected(opp)}
-                className="p-4 cursor-pointer hover:scale-[1.02] transition-transform rounded-xl"
-                style={{ background: '#fff', border: '1px solid #C99738' }}>
-                      <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>🎨 {opp.type}</span>
-                      <h3 className="font-semibold text-sm mt-2 mb-1" style={{ color: '#1A1A1A' }}>{opp.title}</h3>
-                      <p className="text-xs mb-2" style={{ color: '#C99738' }}>{opp.organization}</p>
-                      <p className="text-xs line-clamp-2" style={{ color: '#555' }}>{opp.description}</p>
-                    </div>
-                )}
-                </div>
-              </div>);
-
-        })()}
 
           {/* Content + Map two-column */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
