@@ -7,13 +7,13 @@ import { useAuth } from '@/lib/AuthContext';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Community', path: '/feed' },
-  { label: 'Events', path: '/events' },
-  { label: 'How It Works', path: '/about' },
-  { label: 'Urgent Care', path: '/sos' },
-];
+{ label: 'Home', path: '/' },
+{ label: 'About', path: '/about' },
+{ label: 'Community', path: '/feed' },
+{ label: 'Events', path: '/events' },
+{ label: 'How It Works', path: '/about' },
+{ label: 'Urgent Care', path: '/sos' }];
+
 
 export default function AppShell() {
   const location = useLocation();
@@ -50,41 +50,41 @@ export default function AppShell() {
 
   const isActive = (path) => {
     if (path.startsWith('/#')) return false;
-    return location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
+    return location.pathname === path || path !== '/' && location.pathname.startsWith(path);
   };
 
   const toggleMobileSection = (key) => {
-    setMobileExpanded(prev => ({ ...prev, [key]: !prev[key] }));
+    setMobileExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
-    {
-      label: 'Give',
-      items: [
-        { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
-        { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
-        { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' },
-      ],
-    },
-    {
-      label: 'Receive',
-      items: [
-        { label: 'Health Support', path: '/health', desc: 'Health & wellness requests' },
-        { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' },
-      ],
-    },
-    {
-      label: 'Belong',
-      items: [
-        { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
-        { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
-        { label: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
-        { label: 'Messages', path: '/messages', desc: 'Private conversations' },
-        { label: 'Impact', path: '/analytics', desc: 'Track your contribution' },
-      ],
-    },
-  ];
+  {
+    label: 'Give',
+    items: [
+    { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
+    { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
+    { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' }]
+
+  },
+  {
+    label: 'Receive',
+    items: [
+    { label: 'Health Support', path: '/health', desc: 'Health & wellness requests' },
+    { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' }]
+
+  },
+  {
+    label: 'Belong',
+    items: [
+    { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
+    { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
+    { label: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
+    { label: 'Messages', path: '/messages', desc: 'Private conversations' },
+    { label: 'Impact', path: '/analytics', desc: 'Track your contribution' }]
+
+  }];
+
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -95,133 +95,133 @@ export default function AppShell() {
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-white p-0.5" />
             <div className="flex flex-col leading-none">
-              <span className="font-extrabold text-lg tracking-tight text-white">Circles of Giving</span>
+              <span className="font-extrabold text-lg tracking-tight text-white hidden">Circles of Giving</span>
               <span className="text-[10px] hidden sm:block" style={{ color: '#D95D1A' }}>I Give. I Receive. I Belong. I Grow.</span>
             </div>
           </Link>
 
           {/* Desktop: top-level links + dropdowns */}
           <nav className="hidden lg:flex items-center gap-0.5">
-            {topLinks.map(({ label, path }) => (
-              <Link
-                key={label}
-                to={path}
-                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white"
-                style={{ color: label === 'Urgent Care' ? '#E63946' : (isActive(path) ? '#D95D1A' : '#aaa') }}
-              >
+            {topLinks.map(({ label, path }) =>
+            <Link
+              key={label}
+              to={path}
+              className="px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white"
+              style={{ color: label === 'Urgent Care' ? '#E63946' : isActive(path) ? '#D95D1A' : '#aaa' }}>
+              
                 {label}
               </Link>
-            ))}
+            )}
             <div className="w-px h-5 mx-1" style={{ background: '#333' }} />
-            {dropdowns.map(({ label, items }) => (
-              <div key={label} className="relative">
+            {dropdowns.map(({ label, items }) =>
+            <div key={label} className="relative">
                 <button
-                  onClick={(e) => { e.stopPropagation(); setOpenDropdown(openDropdown === label ? null : label); }}
-                  className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
-                  style={{ color: openDropdown === label ? '#D95D1A' : '#aaa' }}
-                >
+                onClick={(e) => {e.stopPropagation();setOpenDropdown(openDropdown === label ? null : label);}}
+                className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-white"
+                style={{ color: openDropdown === label ? '#D95D1A' : '#aaa' }}>
+                
                   {label}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === label ? 'rotate-180' : ''}`} />
                 </button>
-                {openDropdown === label && (
-                  <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-2xl overflow-hidden z-50" style={{ background: '#1A1A1A', border: '1px solid #333' }}>
-                    {items.map(({ label: itemLabel, path, desc }) => (
-                      <Link
-                        key={itemLabel}
-                        to={path}
-                        onClick={() => setOpenDropdown(null)}
-                        className="block px-4 py-3 hover:bg-white/5 transition-colors"
-                      >
+                {openDropdown === label &&
+              <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-2xl overflow-hidden z-50" style={{ background: '#1A1A1A', border: '1px solid #333' }}>
+                    {items.map(({ label: itemLabel, path, desc }) =>
+                <Link
+                  key={itemLabel}
+                  to={path}
+                  onClick={() => setOpenDropdown(null)}
+                  className="block px-4 py-3 hover:bg-white/5 transition-colors">
+                  
                         <p className="text-sm font-semibold" style={{ color: isActive(path) ? '#D95D1A' : '#ddd' }}>{itemLabel}</p>
                         <p className="text-xs mt-0.5" style={{ color: '#777' }}>{desc}</p>
                       </Link>
-                    ))}
-                  </div>
                 )}
+                  </div>
+              }
               </div>
-            ))}
+            )}
           </nav>
 
           {/* Right side */}
           <div className="flex items-center gap-3">
             {user && <NotificationBell currentUser={user} />}
-            {!user ? (
-              <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+            {!user ?
+            <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
                 Register Now →
-              </Link>
-            ) : (
-              <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
+              </Link> :
+
+            <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
                 <span>Profile</span>
               </Link>
-            )}
+            }
             <button
               className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
+              onClick={() => setMobileOpen(!mobileOpen)}>
+              
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {/* ═══ Mobile dropdown ═══ */}
-        {mobileOpen && (
-          <div className="border-t lg:hidden" style={{ background: '#1A1A1A', borderColor: '#333' }}>
+        {mobileOpen &&
+        <div className="border-t lg:hidden" style={{ background: '#1A1A1A', borderColor: '#333' }}>
             {/* Top links */}
             <div className="px-4 py-2 flex flex-wrap gap-1">
-              {topLinks.map(({ label, path }) => (
-                <Link
-                  key={label}
-                  to={path}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-white/10"
-                  style={{ color: label === 'Urgent Care' ? '#E63946' : (isActive(path) ? '#D95D1A' : '#aaa') }}
-                >
+              {topLinks.map(({ label, path }) =>
+            <Link
+              key={label}
+              to={path}
+              onClick={() => setMobileOpen(false)}
+              className="px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-white/10"
+              style={{ color: label === 'Urgent Care' ? '#E63946' : isActive(path) ? '#D95D1A' : '#aaa' }}>
+              
                   {label}
                 </Link>
-              ))}
+            )}
             </div>
 
             {/* Dropdown sections */}
             <div className="divide-y" style={{ borderColor: '#333' }}>
-              {dropdowns.map(({ label, items }) => (
-                <div key={label}>
+              {dropdowns.map(({ label, items }) =>
+            <div key={label}>
                   <button
-                    onClick={() => toggleMobileSection(label)}
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold"
-                    style={{ color: '#D95D1A' }}
-                  >
+                onClick={() => toggleMobileSection(label)}
+                className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold"
+                style={{ color: '#D95D1A' }}>
+                
                     {label}
                     <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded[label] ? 'rotate-180' : ''}`} />
                   </button>
-                  {mobileExpanded[label] && (
-                    <div className="pb-2">
-                      {items.map(({ label: itemLabel, path }) => (
-                        <Link
-                          key={itemLabel}
-                          to={path}
-                          onClick={() => setMobileOpen(false)}
-                          className="block px-6 py-2.5 text-sm transition-colors hover:bg-white/5"
-                          style={{ color: isActive(path) ? '#D95D1A' : '#bbb' }}
-                        >
+                  {mobileExpanded[label] &&
+              <div className="pb-2">
+                      {items.map(({ label: itemLabel, path }) =>
+                <Link
+                  key={itemLabel}
+                  to={path}
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-6 py-2.5 text-sm transition-colors hover:bg-white/5"
+                  style={{ color: isActive(path) ? '#D95D1A' : '#bbb' }}>
+                  
                           {itemLabel}
                         </Link>
-                      ))}
+                )}
                     </div>
-                  )}
+              }
                 </div>
-              ))}
+            )}
             </div>
 
             {/* Register CTA */}
-            {!user && (
-              <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
+            {!user &&
+          <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl font-bold text-sm" style={{ background: '#D95D1A', color: '#fff' }}>
                   Register Now →
                 </Link>
               </div>
-            )}
+          }
           </div>
-        )}
+        }
       </header>
 
       {!user && <RegisterBanner />}
@@ -246,13 +246,13 @@ export default function AppShell() {
             <button
               onClick={() => setFooterLinksOpen(!footerLinksOpen)}
               className="flex items-center justify-between w-full font-bold text-sm mb-3"
-              style={{ color: '#D95D1A' }}
-            >
+              style={{ color: '#D95D1A' }}>
+              
               Quick Links
               <ChevronDown className={`w-4 h-4 transition-transform ${footerLinksOpen ? 'rotate-180' : ''}`} />
             </button>
-            {footerLinksOpen && (
-              <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
+            {footerLinksOpen &&
+            <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
                 <li><Link to="/feed" className="transition-colors hover:text-white">Belong</Link></li>
                 <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
                 <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
@@ -267,7 +267,7 @@ export default function AppShell() {
                 <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
                 <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
               </ul>
-            )}
+            }
           </div>
           <div>
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Contact</h4>
@@ -290,6 +290,6 @@ export default function AppShell() {
           </p>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 }
