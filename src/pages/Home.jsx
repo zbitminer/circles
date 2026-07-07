@@ -122,7 +122,7 @@ export default function Home() {
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#C99738', fontFamily: 'Georgia, serif' }}>Belong.</h2>
             <p className="leading-relaxed text-xl [font-family:'Passion_One',_system-ui]" style={{ color: '#555' }}>
-              Connect with others through our community programs and grow together.
+              Connect with others through our community programs & grow together.
             </p>
             <Link to="/directory" className="inline-flex items-center gap-2 font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2 text-xs" style={{ background: '#C99738', color: '#fff' }}>
               Join the Community →
@@ -167,7 +167,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Your Time is Valuable</h2>
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
-            In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one h at a time.
+            In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {user ?
