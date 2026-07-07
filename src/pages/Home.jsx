@@ -93,7 +93,7 @@ export default function Home() {
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-20 h-20 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
-            <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
+            <p className="leading-relaxed text-2xl [font-family:'Passion_One',_system-ui]" style={{ color: '#555' }}>
               Share your time, skills, talents, or resources.
             </p>
             <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D35E35', color: '#fff' }}>
