@@ -13,6 +13,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import AppShell from './components/layout/AppShell';
 import Feed from './pages/Feed';
+import Groups from './pages/Groups';
 import Home from './pages/Home';
 import Opportunities from './pages/Opportunities';
 import Workshops from './pages/Workshops';
@@ -67,6 +68,7 @@ const AuthenticatedApp = () => {
       <Route element={<AppShell />}>
         <Route path="/" element={<Home />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/groups" element={<Groups />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/workshops" element={<Workshops />} />
         <Route path="/events" element={<Events />} />

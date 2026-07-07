@@ -1,0 +1,62 @@
+{
+  "name": "Group",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cover_image": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Companionship",
+        "Food",
+        "Home",
+        "Skill Sharing",
+        "Technology",
+        "Transportation",
+        "Wellness",
+        "Other"
+      ]
+    },
+    "privacy": {
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ],
+      "default": "public"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "owner_name": {
+      "type": "string"
+    },
+    "member_count": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "required": [
+    "name",
+    "owner_id"
+  ],
+  "rls": {
+    "create": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "read": {},
+    "update": {
+      "data.owner_id": "{{user.id}}"
+    },
+    "delete": {
+      "data.owner_id": "{{user.id}}"
+    }
+  }
+}
