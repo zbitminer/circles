@@ -36,6 +36,11 @@ const CATEGORIES = [
     emoji: '🌿',
     subcategories: ['Body', 'Mind', 'Connection', 'Spirit'],
   },
+  {
+    label: 'Other',
+    emoji: '✨',
+    subcategories: ['General', 'Something Else'],
+  },
 ];
 
 export default function CategorySearchFilters({ selectedFilters = [], onSelectFilters, selectedFilter, onSelectFilter, multiSelect = false, className = '' }) {
