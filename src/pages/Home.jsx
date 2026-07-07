@@ -107,7 +107,7 @@ export default function Home() {
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png" alt="Receive" className="w-20 h-20 object-contain" />
             </div>
             <h2 className="text-2xl font-extrabold" style={{ color: '#247D7D', fontFamily: 'Georgia, serif' }}>Receive.</h2>
-            <p className="leading-relaxed [font-family:'Bebas_Neue',_system-ui] text-2xl" style={{ color: '#555' }}>
+            <p className="leading-relaxed [font-family:'Passion_One',_system-ui] text-xl" style={{ color: '#555' }}>
               Find support from trusted community members.
             </p>
             <Link to="/sos" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#247D7D', color: '#fff' }}>
