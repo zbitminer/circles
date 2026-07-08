@@ -261,18 +261,24 @@ export default function Directory() {
   const handleFollow = async (profileUserId) => {
     if (!currentUser || !currentProfile) return;
     const isFollowing = following.includes(profileUserId);
+    // Optimistic update
     const newFollowing = isFollowing ? following.filter(id => id !== profileUserId) : [...following, profileUserId];
     setFollowing(newFollowing);
-    await base44.entities.VolunteerProfile.update(currentProfile.id, { following: newFollowing });
-    const targetProfile = profiles.find(p => p.user_id === profileUserId);
-    if (targetProfile) {
-      const newFollowers = isFollowing
-        ? (targetProfile.followers || []).filter(id => id !== currentUser.id)
-        : [...(targetProfile.followers || []), currentUser.id];
-      await base44.entities.VolunteerProfile.update(targetProfile.id, { followers: newFollowers });
-      setProfiles(prev => prev.map(p => p.user_id === profileUserId ? { ...p, followers: newFollowers } : p));
+    try {
+      const response = await base44.functions.invoke('toggleFollow', { target_user_id: profileUserId });
+      const result = response.data || response;
+      if (result.error) {
+        setFollowing(isFollowing ? [...newFollowing, profileUserId] : newFollowing.filter(id => id !== profileUserId));
+        alert(result.error);
+        return;
+      }
+      setFollowing(result.following || newFollowing);
+      setCurrentProfile(prev => ({ ...prev, following: result.following || newFollowing }));
+      setProfiles(prev => prev.map(p => p.user_id === profileUserId ? { ...p, followers: result.followers || p.followers } : p));
+    } catch (err) {
+      setFollowing(isFollowing ? [...newFollowing, profileUserId] : newFollowing.filter(id => id !== profileUserId));
+      alert(err?.response?.data?.error || err?.message || 'Could not update follow status.');
     }
-    setCurrentProfile(prev => ({ ...prev, following: newFollowing }));
   };
 
   const tabs = [
