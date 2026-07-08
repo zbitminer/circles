@@ -10,6 +10,7 @@ import VolunteerOfTheMonthSection from '@/components/home/VolunteerOfTheMonthSec
 import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
+import WaysToEngageSection from '@/components/home/WaysToEngageSection';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 import TrustBadge from '@/components/TrustBadge';
 
@@ -83,58 +84,9 @@ export default function Home() {
       </section>
 
       {/* Ways to Engage — Give / Receive / Belong */}
-      <section className="max-w-4xl mx-auto px-4 py-10 md:py-16">
-        <div className="text-center mb-12">
-          <span className="font-bold uppercase tracking-[0.2em] mb-3 block text-3xl" style={{ color: '#D95D1A' }}>WAYS TO ENGAGE</span>
-          <h2 className="text-2xl md:text-3xl font-extrabold [font-family:'Bebas_Neue',_system-ui] hidden" style={{ color: '#1A1A1A' }}>Give, Receive, or Belong</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          {/* Give Card */}
-          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(211,94,53,0.08)' }}>
-              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png" alt="Give" className="w-20 h-20 object-contain" />
-            </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#D35E35', fontFamily: 'Georgia, serif' }}>Give.</h2>
-            <p className="leading-relaxed [font-family:'Passion_One',_system-ui] text-xl" style={{ color: '#555' }}>
-              Share your time, skills, talents, or resources.
-            </p>
-            <Link to="/opportunities" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#D35E35', color: '#fff' }}>
-              Give Now →
-            </Link>
-          </div>
-
-          {/* Receive Card */}
-          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(36,125,125,0.08)' }}>
-              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png" alt="Receive" className="w-20 h-20 object-contain" />
-            </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#247D7D', fontFamily: 'Georgia, serif' }}>Receive.</h2>
-            <p className="leading-relaxed [font-family:'Passion_One',_system-ui] text-xl" style={{ color: '#555' }}>
-              Find support from trusted community members.
-            </p>
-            <Link to="/sos" className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2" style={{ background: '#247D7D', color: '#fff' }}>
-              Get Support →
-            </Link>
-          </div>
-
-          {/* Belong Card */}
-          <div className="group flex flex-col items-center gap-3 p-6 md:p-8 md:gap-4 text-center rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1" style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
-            <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'rgba(201,151,56,0.08)' }}>
-              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a6d867f57_Black_and_White_Corporate_Pitch_Presentation.png" alt="Belong" className="w-20 h-20 object-contain" />
-            </div>
-            <h2 className="text-2xl font-extrabold" style={{ color: '#C99738', fontFamily: 'Georgia, serif' }}>Belong.</h2>
-            <p className="leading-relaxed text-xl [font-family:'Passion_One',_system-ui]" style={{ color: '#555' }}>
-              Connect with others through our community programs & grow together.
-            </p>
-            <Link to="/directory" className="inline-flex items-center gap-2 font-bold px-6 py-3 rounded-full hover:opacity-90 transition-opacity mt-2 text-xs" style={{ background: '#C99738', color: '#fff' }}>
-              Join the Community →
-            </Link>
-          </div>
-        </div>
-
+      <WaysToEngageSection>
         {!user && <SafeExplorationBanner location="your neighborhood" className="mt-8" />}
-      </section>
+      </WaysToEngageSection>
 
       {/* Building Community Thru Giving */}
       <BuildingCommunitySection />
