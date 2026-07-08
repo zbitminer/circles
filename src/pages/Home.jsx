@@ -132,8 +132,8 @@ export default function Home() {
 
         {!user &&
         <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
-            🔒 <strong>Must register first</strong> to give, receive, or connect.{' '}
-            <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Create your free account →</Link>
+            🔒 See who's offering help near you right now. Browse opportunities and members freely.{' '}
+            <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Join with a free account when you're ready →</Link>
           </p>
         }
       </section>
