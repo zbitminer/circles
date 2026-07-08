@@ -7,6 +7,7 @@ import LocationMap from '@/components/LocationMap';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 import OfferForm from '@/components/opportunities/OfferForm';
 import RemarksSection from '@/components/opportunities/RemarksSection';
+import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 
 const CAUSE_OPTIONS = [
 { label: 'Companionship', emoji: '🤝' },
@@ -169,18 +170,7 @@ export default function Opportunities() {
       </div>
 
       {/* Registration notice for non-logged-in users */}
-      {!user &&
-      <div className="mb-6 p-4 rounded-xl flex items-center gap-3" style={{ background: '#FFF3E0', border: '1.5px solid #E67E22' }}>
-          <span className="text-2xl">🔒</span>
-          <div className="flex-1">
-            <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>Registration Required</p>
-            <p className="text-xs" style={{ color: '#555' }}>You must register first to give, receive, or connect with others.</p>
-          </div>
-          <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
-            Register Free →
-          </Link>
-        </div>
-      }
+      {!user && <SafeExplorationBanner location="Safed and beyond" className="mb-6" />}
 
       {/* RECEIVE TAB */}
       {activeTab === 'receive' &&

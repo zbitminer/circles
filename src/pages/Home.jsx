@@ -10,6 +10,8 @@ import VolunteerOfTheMonthSection from '@/components/home/VolunteerOfTheMonthSec
 import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
+import SafeExplorationBanner from '@/components/SafeExplorationBanner';
+import TrustBadge from '@/components/TrustBadge';
 
 export default function Home() {
   const { user } = useAuth();
@@ -39,14 +41,15 @@ export default function Home() {
 
           {/* CTA */}
           {!user ?
-          <Link
-            to="/register"
-            className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-            style={{ background: '#D95D1A', color: '#fff' }}>
-            
-              Join the Circle — Free <ArrowRight className="w-5 h-5" />
-            </Link> :
-
+          <div className="flex flex-col items-center gap-3">
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              style={{ background: '#D95D1A', color: '#fff' }}>
+                Join the Circle — Free <ArrowRight className="w-5 h-5" />
+              </Link>
+            <TrustBadge text="Every member is verified" />
+          </div> :
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             
 
@@ -130,12 +133,7 @@ export default function Home() {
           </div>
         </div>
 
-        {!user &&
-        <p className="text-center text-sm mt-8 py-3 px-6 rounded-xl border" style={{ background: '#fff', borderColor: '#e0e0e0', color: '#555' }}>
-            🔒 See who's offering help near you right now. Browse opportunities and members freely.{' '}
-            <Link to="/register" className="font-bold hover:underline" style={{ color: '#D95D1A' }}>Join with a free account when you're ready →</Link>
-          </p>
-        }
+        {!user && <SafeExplorationBanner location="your neighborhood" className="mt-8" />}
       </section>
 
       {/* Building Community Thru Giving */}

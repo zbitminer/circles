@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { Plus, Users } from 'lucide-react';
 import GroupCard from '@/components/groups/GroupCard';
 import CreateGroupModal from '@/components/groups/CreateGroupModal';
+import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 
 const CATEGORY_FILTERS = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Wellness', 'Other'];
 
@@ -91,18 +92,7 @@ export default function Groups() {
         )}
       </div>
 
-      {!user && (
-        <div className="mb-6 p-4 rounded-xl flex items-center gap-3" style={{ background: '#FFF3E0', border: '1.5px solid #E67E22' }}>
-          <span className="text-2xl">🔒</span>
-          <div className="flex-1">
-            <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>Registration Required</p>
-            <p className="text-xs" style={{ color: '#555' }}>Register to create groups and join the conversation.</p>
-          </div>
-          <Link to="/register" className="px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap" style={{ background: '#D95D1A', color: '#fff' }}>
-            Register Free →
-          </Link>
-        </div>
-      )}
+      {!user && <SafeExplorationBanner location="your area" className="mb-6" />}
 
       <div className="mb-4">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 Search groups…" className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30" style={{ borderColor: '#C99738', background: '#fff' }} />
