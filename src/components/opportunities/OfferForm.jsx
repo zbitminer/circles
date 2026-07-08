@@ -21,20 +21,24 @@ export default function OfferForm({ user, onPosted }) {
     const categoryLabel = selectedCategories.map(c => `${c.emoji} ${c.subcategory || c.category}`).join(', ');
     const mainCategory = selectedCategories[0].category;
 
-    await base44.entities.Opportunity.create({
-      title: `${user.full_name} — Offering: ${categoryLabel}`,
-      description: description || `I'd like to offer my help in: ${categoryLabel}`,
-      organization: 'Community Volunteer',
-      location: location || '',
-      cause_category: mainCategory,
-      type,
-      applicants: [],
-      created_by_name: user.full_name,
-      status: 'active',
-    });
-
-    setSubmitted(true);
-    setSubmitting(false);
+    try {
+      await base44.entities.Opportunity.create({
+        title: `${user.full_name} — Offering: ${categoryLabel}`,
+        description: description || `I'd like to offer my help in: ${categoryLabel}`,
+        organization: 'Community Volunteer',
+        location: location || '',
+        cause_category: mainCategory,
+        type,
+        applicants: [],
+        created_by_name: user.full_name,
+        status: 'active',
+      });
+      setSubmitted(true);
+    } catch (err) {
+      alert(err?.response?.data?.error || err?.message || 'Could not post your offer. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {

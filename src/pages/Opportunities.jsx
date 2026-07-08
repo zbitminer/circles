@@ -80,7 +80,7 @@ export default function Opportunities() {
     o.cause_category === f.category
     );
     const typeMatch = typeFilter === 'All' || o.type === typeFilter;
-    const searchMatch = searchQuery === '' || o.title.toLowerCase().includes(searchQuery.toLowerCase()) || o.description.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization.toLowerCase().includes(searchQuery.toLowerCase());
+    const searchMatch = searchQuery === '' || o.title?.toLowerCase().includes(searchQuery.toLowerCase()) || o.description?.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization?.toLowerCase().includes(searchQuery.toLowerCase());
     return catMatch && typeMatch && searchMatch;
   });
 
@@ -112,11 +112,16 @@ export default function Opportunities() {
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
-    setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
-    setShowForm(false);
-    setSubmitting(false);
-    loadOpportunities(null);
+    try {
+      await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
+      setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
+      setShowForm(false);
+      loadOpportunities(null);
+    } catch (err) {
+      alert(err?.response?.data?.error || err?.message || 'Could not create opportunity. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -282,7 +287,9 @@ export default function Opportunities() {
                   {[1, 2, 3, 4].map((i) => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#fff' }} />)}
                 </div> :
             viewMode === 'map' ?
-            <div className="lg:hidden"><LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" /></div> :
+            <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
+                  <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+                </div> :
             filtered.length === 0 ?
             <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
                   <div className="text-5xl mb-4">🔍</div>
@@ -328,8 +335,8 @@ export default function Opportunities() {
             }
             </div>
 
-            {/* Right: sticky map */}
-            {!loading && filtered.length > 0 && viewMode !== 'map' &&
+            {/* Right: sticky map (grid view only) */}
+            {!loading && filtered.length > 0 && viewMode === 'grid' &&
           <div className="hidden lg:block lg:col-span-5">
                 <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
                   <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
