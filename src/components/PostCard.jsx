@@ -64,13 +64,20 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
 
   const handleLike = async () => {
     if (!currentUser) return;
-    const newLikes = liked
+    // Optimistic update
+    const optimisticLikes = liked
       ? (post.likes || []).filter(id => id !== currentUser.id)
       : [...(post.likes || []), currentUser.id];
     setLiked(!liked);
-    setLikeCount(newLikes.length);
-    await base44.entities.Post.update(post.id, { likes: newLikes });
-    onUpdate?.();
+    setLikeCount(optimisticLikes.length);
+    try {
+      await base44.functions.invoke('togglePostLike', { post_id: post.id });
+      onUpdate?.();
+    } catch {
+      // Revert on failure
+      setLiked(liked);
+      setLikeCount(post.likes?.length || 0);
+    }
   };
 
   const handleReport = async () => {
