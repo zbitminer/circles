@@ -48,22 +48,22 @@ export default function Home() {
               className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
               style={{ background: '#D95D1A', color: '#fff' }}>
                 Join the Circle — Free <ArrowRight className="w-5 h-5" />
-            </Link>
+              </Link>
             <TrustBadge text="Every member is verified" />
           </div> :
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              to="/opportunities"
-              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-              style={{ background: '#D95D1A', color: '#fff' }}>
-                Find Opportunities <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              to="/feed"
-              className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
-              style={{ background: '#247D7D', color: '#fff' }}>
-                Go to Community <ArrowRight className="w-5 h-5" />
-            </Link>
+            
+
+
+
+
+            
+            
+
+
+
+
+            
           </div>
           }
 

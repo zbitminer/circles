@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { LANGUAGES, FORMATS } from '@/lib/workshop-categories';
 import WorkshopCategoryGrid from './WorkshopCategoryGrid';
-import { useToast } from '@/components/ui/use-toast';
 
 export default function ParticipateForm() {
-  const { toast } = useToast();
   const [form, setForm] = useState({
     first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
   });
@@ -26,7 +24,7 @@ export default function ParticipateForm() {
       });
       setDone(true);
     } catch (err) {
-      toast({ title: 'Error', description: err?.response?.data?.error || 'Could not submit. Please try again.', variant: 'destructive' });
+      alert(err?.response?.data?.error || 'Could not submit. Please try again.');
     } finally {
       setSubmitting(false);
     }

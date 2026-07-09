@@ -8,7 +8,6 @@ import CategorySearchFilters from '@/components/CategorySearchFilters';
 import OfferForm from '@/components/opportunities/OfferForm';
 import RemarksSection from '@/components/opportunities/RemarksSection';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
-import { useToast } from '@/components/ui/use-toast';
 
 const CAUSE_OPTIONS = [
 { label: 'Companionship', emoji: '🤝' },
@@ -33,7 +32,6 @@ const categoryEmoji = {
 };
 
 export default function Opportunities() {
-  const { toast } = useToast();
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -95,7 +93,7 @@ export default function Opportunities() {
       const response = await base44.functions.invoke('enrollWorkshop', { opportunity_id: opp.id });
       const result = response.data || response;
       if (result.error) {
-        toast({ title: 'Error', description: result.error, variant: 'destructive' });
+        alert(result.error);
         return;
       }
       const updatedApplicants = result.applicants || [...(opp.applicants || []), user.id];
@@ -105,7 +103,7 @@ export default function Opportunities() {
       setEnrollSuccess(opp.id);
     } catch (err) {
       const errorMsg = err?.response?.data?.error || err?.message || 'Could not enroll — the workshop may be full.';
-      toast({ title: 'Error', description: errorMsg, variant: 'destructive' });
+      alert(errorMsg);
     } finally {
       setEnrollingId(null);
     }
@@ -120,7 +118,7 @@ export default function Opportunities() {
       setShowForm(false);
       loadOpportunities(null);
     } catch (err) {
-      toast({ title: 'Error', description: err?.response?.data?.error || err?.message || 'Could not create opportunity. Please try again.', variant: 'destructive' });
+      alert(err?.response?.data?.error || err?.message || 'Could not create opportunity. Please try again.');
     } finally {
       setSubmitting(false);
     }

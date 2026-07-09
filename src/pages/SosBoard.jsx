@@ -39,7 +39,6 @@ export default function SosBoard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selected, setSelected] = useState(null);
   const [viewMode, setViewMode] = useState('grid');
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -48,14 +47,9 @@ export default function SosBoard() {
 
   const loadRequests = async () => {
     setLoading(true);
-    try {
-      const data = await base44.entities.SosRequest.list('-created_date', 100);
-      setRequests(data);
-    } catch (err) {
-      setError(err?.message || 'Failed to load requests');
-    } finally {
-      setLoading(false);
-    }
+    const data = await base44.entities.SosRequest.list('-created_date', 100);
+    setRequests(data);
+    setLoading(false);
   };
 
   const filtered = requests.filter(r => {
@@ -68,37 +62,24 @@ export default function SosBoard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    try {
-      await base44.entities.SosRequest.create({ ...form, urgency_hours: Number(form.urgency_hours) });
-      setForm({ title: '', description: '', contact_name: '', location: '', cause_category: 'Other', urgency_hours: 24 });
-      setShowForm(false);
-      loadRequests();
-    } catch (err) {
-      setError(err?.message || 'Could not post request');
-    } finally {
-      setSubmitting(false);
-    }
+    await base44.entities.SosRequest.create({ ...form, urgency_hours: Number(form.urgency_hours) });
+    setForm({ title: '', description: '', contact_name: '', location: '', cause_category: 'Other', urgency_hours: 24 });
+    setShowForm(false);
+    setSubmitting(false);
+    loadRequests();
   };
 
   const handleClaim = async (req) => {
     if (!user) return;
-    try {
-      await base44.entities.SosRequest.update(req.id, { status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name });
-      loadRequests();
-      setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name } : prev);
-    } catch (err) {
-      setError(err?.message || 'Could not claim request');
-    }
+    await base44.entities.SosRequest.update(req.id, { status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name });
+    loadRequests();
+    setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name } : prev);
   };
 
   const handleResolve = async (req) => {
-    try {
-      await base44.entities.SosRequest.update(req.id, { status: 'resolved' });
-      loadRequests();
-      setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'resolved' } : prev);
-    } catch (err) {
-      setError(err?.message || 'Could not resolve request');
-    }
+    await base44.entities.SosRequest.update(req.id, { status: 'resolved' });
+    loadRequests();
+    setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'resolved' } : prev);
   };
 
   return (
@@ -203,20 +184,13 @@ export default function SosBoard() {
 
       {/* Content + Map two-column */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className={viewMode === 'map' ? 'lg:col-span-12' : 'lg:col-span-7'}>
+        <div className="lg:col-span-7">
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#FAF7EE' }} />)}
         </div>
-      ) : error ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <div className="text-5xl mb-4">⚠️</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Something went wrong</h3>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>{error}</p>
-          <button onClick={() => { setError(null); loadRequests(); }} className="px-5 py-2 rounded-xl text-sm font-semibold" style={{ background: '#C9A84C', color: '#1A2744' }}>Try again</button>
-        </div>
       ) : viewMode === 'map' ? (
-        <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
+        <div className="lg:hidden"><LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" /></div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-5xl mb-4">✅</div>
@@ -256,7 +230,7 @@ export default function SosBoard() {
         </div>
 
         {/* Right: sticky map */}
-        {!loading && !error && filtered.length > 0 && viewMode !== 'map' && (
+        {!loading && filtered.length > 0 && viewMode !== 'map' && (
           <div className="hidden lg:block lg:col-span-5">
             <div className="sticky top-20 rounded-2xl overflow-hidden" style={{ border: '1px solid #e0e0e0', height: 'calc(100vh - 6rem)' }}>
               <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />

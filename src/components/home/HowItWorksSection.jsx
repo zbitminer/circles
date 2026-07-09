@@ -28,8 +28,8 @@ export default function HowItWorksSection() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block" style={{ color: '#D95D1A' }}>
             HOW IT WORKS
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold leading-tight font-heading" style={{ color: '#1A1A1A' }}>
-            Three steps. <span style={{ color: '#247D7D' }}>Infinite impact.</span>
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+            Three steps. <span className="italic" style={{ color: '#247D7D' }}>Infinite impact.</span>
           </h2>
         </div>
 
@@ -41,7 +41,7 @@ export default function HowItWorksSection() {
                 <span className="text-sm font-bold" style={{ color: '#C99738' }}>{step.num}</span>
                 <h3 className="font-bold text-2xl font-heading" style={{ color: '#1A1A1A' }}>{step.title}</h3>
               </div>
-              <p className="leading-relaxed text-sm font-body" style={{ color: '#555' }}>
+              <p className="leading-relaxed text-2xl font-body" style={{ color: '#555' }}>
                 {step.desc}
               </p>
               {i < STEPS.length - 1 &&
