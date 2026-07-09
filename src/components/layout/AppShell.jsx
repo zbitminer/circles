@@ -1,9 +1,10 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, LogIn, LogOut } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import RegisterBanner from '../RegisterBanner';
 import { useAuth } from '@/lib/AuthContext';
+import { base44 } from '@/api/base44Client';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
@@ -146,13 +147,25 @@ export default function AppShell() {
           <div className="flex items-center gap-3">
             {user && <NotificationBell currentUser={user} />}
             {!user ?
-            <Link to="/register" className="hidden sm:inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+            <div className="hidden sm:flex items-center gap-2">
+              <Link to="/login" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-2.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
+                <LogIn className="w-4 h-4" /> Login
+              </Link>
+              <Link to="/register" className="inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
                 Register Now →
-              </Link> :
-
-            <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
+              </Link>
+            </div> :
+            <div className="hidden lg:flex items-center gap-1">
+              <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white" style={{ color: '#aaa' }}>
                 <span>Profile</span>
               </Link>
+              <button
+                onClick={() => base44.auth.logout()}
+                className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg transition-colors hover:text-white"
+                style={{ color: '#aaa' }}>
+                <LogOut className="w-4 h-4" /> Logout
+              </button>
+            </div>
             }
             <button
               className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
@@ -212,12 +225,25 @@ export default function AppShell() {
             )}
             </div>
 
-            {/* Register CTA */}
+            {/* Auth CTA */}
             {!user &&
-          <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
+          <div className="px-4 py-3 border-t space-y-2" style={{ borderColor: '#333' }}>
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm border" style={{ color: '#aaa', borderColor: '#444' }}>
+                  <LogIn className="w-4 h-4" /> Login
+                </Link>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl font-bold text-sm" style={{ background: '#D95D1A', color: '#fff' }}>
                   Register Now →
                 </Link>
+              </div>
+          }
+            {user &&
+          <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
+                <button
+                  onClick={() => { setMobileOpen(false); base44.auth.logout(); }}
+                  className="w-full flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm border"
+                  style={{ color: '#aaa', borderColor: '#444' }}>
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
               </div>
           }
           </div>
