@@ -12,7 +12,7 @@ export default function BuildingCommunitySection() {
             
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
-                 · CONNECTION
+                <span className="line-through hidden" style={{ color: '#ccc' }}>THE FUTURE</span> · CONNECTION
               </span>
               <h2 className="font-bold text-2xl md:text-3xl mb-6 leading-tight" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
                 BUILDING COMMUNITY THRU GIVING
@@ -47,7 +47,7 @@ export default function BuildingCommunitySection() {
               </h3>
               <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
                 Is a vibrant, expanding community of members who want to make meaningful changes in their lives
-                individually &amp; collectively — by giving and sharing their unique talents, skills + passion.
+                individually &amp; collectively — by giving and sharing their unique talents, skills &amp; passion.
               </p>
             </div>
           </div>
