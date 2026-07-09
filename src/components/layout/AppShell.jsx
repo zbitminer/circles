@@ -12,6 +12,7 @@ const topLinks = [
 { label: 'About', path: '/about' },
 { label: 'Community', path: '/feed' },
 { label: 'Events', path: '/events' },
+{ label: 'Workshops', path: '/workshops' },
 { label: 'S.O.S.', path: '/sos' }];
 
 
