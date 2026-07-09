@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 
 const ACTIVITY_TYPES = [
-  { key: 'giving', label: 'GIVING', color: '#3D9E9E', btnLabel: 'Offer', btnColor: '#3D9E9E' },
-  { key: 'receiving', label: 'RECEIVING', color: '#A34A59', btnLabel: 'Ask', btnColor: '#A34A59' },
-  { key: 'joining', label: 'JOINING', color: '#4A76B8', btnLabel: 'Join', btnColor: '#4A76B8' },
+  { key: 'giving', label: 'GIVING', color: '#D95D1A', btnLabel: 'Offer', btnColor: '#D95D1A' },
+  { key: 'receiving', label: 'RECEIVING', color: '#D95D1A', btnLabel: 'Ask', btnColor: '#D95D1A' },
+  { key: 'joining', label: 'JOINING', color: '#D95D1A', btnLabel: 'Join', btnColor: '#D95D1A' },
 ];
 
 const FALLBACK_ACTIVITIES = [
