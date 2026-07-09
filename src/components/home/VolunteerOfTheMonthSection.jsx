@@ -13,7 +13,7 @@ export default function VolunteerOfTheMonthSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-xl" style={{ background: '#1A1A1A' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-xl max-w-3xl mx-auto" style={{ background: '#1A1A1A' }}>
           {/* Photo */}
           <div className="relative aspect-[4/5] md:aspect-auto">
             <img
@@ -29,7 +29,7 @@ export default function VolunteerOfTheMonthSection() {
           </div>
 
           {/* Text */}
-          <div className="flex flex-col justify-center p-8 md:p-12">
+          <div className="flex flex-col justify-center p-6 md:p-8">
             <div className="h-1.5 w-16 mb-6" style={{ background: '#C99738' }} />
             <h3 className="text-4xl md:text-5xl font-extrabold uppercase leading-none tracking-tight mb-4" style={{ color: '#D95D1A', fontFamily: "'Bebas Neue', system-ui, sans-serif" }}>
               Rachel
