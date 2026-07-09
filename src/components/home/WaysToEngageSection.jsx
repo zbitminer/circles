@@ -56,11 +56,8 @@ export default function WaysToEngageSection({ children }) {
           style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
           
             {/* Icon — consistent size across all cards */}
-            <div
-            className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden mb-5"
-            style={{ background: card.bgTint }}>
-            
-              <img src={card.icon} alt={card.title} className="w-20 h-20 object-contain" />
+            <div className="flex items-center justify-center mb-5">
+              <img src={card.icon} alt={card.title} className="w-36 h-36 object-contain" />
             </div>
 
             {/* Title */}
