@@ -54,11 +54,17 @@ export default function VolunteerSpotlightSection() {
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
+              className="group relative flex flex-col overflow-visible rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
               style={{ background: '#1A1A1A' }}
             >
-              {/* Gold top bar */}
-              <div className="h-2 w-full" style={{ background: '#C99738' }} />
+              {/* Gold bookmark corner tab */}
+              <div
+                className="absolute -top-1 left-6 h-14 w-8"
+                style={{
+                  background: '#C99738',
+                  clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)',
+                }}
+              />
 
               {/* Portrait */}
               <div className="p-3 pb-0">
