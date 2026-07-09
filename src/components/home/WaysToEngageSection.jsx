@@ -40,12 +40,12 @@ export default function WaysToEngageSection({ children }) {
   return (
     <section className="max-w-5xl mx-auto px-4 py-12 md:py-20">
       <div className="text-center mb-10 md:mb-14">
-        <span className="font-bold uppercase tracking-[0.2em] block text-2xl md:text-3xl mb-2" style={{ color: '#D95D1A' }}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#D95D1A' }}>
           WAYS TO ENGAGE
         </span>
-        <p className="text-sm md:text-base" style={{ color: '#888' }}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-2 font-heading" style={{ color: '#1A1A1A' }}>
           Three paths. One community.
-        </p>
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
@@ -64,7 +64,7 @@ export default function WaysToEngageSection({ children }) {
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: card.color, fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-2xl font-extrabold mb-2 font-heading" style={{ color: card.color }}>
               {card.title}
             </h2>
 

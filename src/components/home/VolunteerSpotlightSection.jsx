@@ -43,7 +43,7 @@ export default function VolunteerSpotlightSection() {
   return (
     <section className="bg-white">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
-        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight text-4xl md:text-6xl mb-10 md:mb-14" style={{ color: '#C99738', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight text-4xl md:text-6xl mb-10 md:mb-14 font-heading" style={{ color: '#C99738', letterSpacing: '0.02em' }}>
           Real People. Real Impact.
         </h2>
 
@@ -76,7 +76,7 @@ export default function VolunteerSpotlightSection() {
 
               {/* Text */}
               <div className="flex flex-1 flex-col px-4 pt-4 pb-0">
-                <h3 className="font-extrabold uppercase leading-none text-3xl tracking-tight" style={{ color: '#D95D1A', fontFamily: "'Bebas Neue', system-ui, sans-serif" }}>
+                <h3 className="font-extrabold uppercase leading-none text-3xl tracking-tight font-heading" style={{ color: '#D95D1A' }}>
                   {s.name}
                 </h3>
                 <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">

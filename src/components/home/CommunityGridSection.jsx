@@ -46,7 +46,7 @@ export default function CommunityGridSection() {
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
             COMMUNITY
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 font-heading" style={{ color: '#1A1A1A' }}>
             Real people. Real giving.
           </h2>
           <p className="text-base" style={{ color: '#555' }}>

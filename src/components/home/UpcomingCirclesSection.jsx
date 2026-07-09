@@ -99,7 +99,7 @@ export default function UpcomingCirclesSection() {
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           THIS WEEK
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 font-heading" style={{ color: '#1A1A1A' }}>
           Upcoming Circles
         </h2>
 

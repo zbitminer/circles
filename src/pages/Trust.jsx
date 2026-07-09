@@ -53,7 +53,7 @@ export default function Trust() {
 
       {/* A space you can trust */}
       <div className="mb-14">
-        <h1 className="font-display text-3xl md:text-4xl font-bold text-center mb-8" style={{ color: '#2C3E50', fontFamily: 'Georgia, serif' }}>
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-center mb-8" style={{ color: '#2C3E50' }}>
           A space you can trust
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
@@ -73,7 +73,7 @@ export default function Trust() {
 
         {/* CTA Banner */}
         <div className="rounded-2xl py-10 px-6 text-center" style={{ background: '#E67E22' }}>
-          <h2 className="font-display text-2xl md:text-3xl font-bold mb-2" style={{ color: '#fff', fontFamily: 'Georgia, serif' }}>
+          <h2 className="font-display text-2xl md:text-3xl font-bold mb-2" style={{ color: '#fff' }}>
             Your circle is waiting.
           </h2>
           <p className="text-sm md:text-base mb-6" style={{ color: 'rgba(255,255,255,0.9)' }}>

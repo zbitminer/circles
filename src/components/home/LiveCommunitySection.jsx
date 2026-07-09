@@ -53,7 +53,7 @@ export default function LiveCommunitySection() {
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
           LIVE COMMUNITY
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold italic mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-3 font-heading" style={{ color: '#1A1A1A' }}>
           Happening right now
         </h2>
         <p className="text-base mb-10" style={{ color: '#555' }}>
@@ -61,10 +61,6 @@ export default function LiveCommunitySection() {
         </p>
 
         <div className="text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: '#C99738' }}>
-            HAPPENING NOW
-          </span>
-
           <div className="space-y-4">
             {activities.map((act, i) => {
               const typeConfig = ACTIVITY_TYPES.find((t) => t.key === act.type) || ACTIVITY_TYPES[0];

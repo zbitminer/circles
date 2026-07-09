@@ -8,7 +8,7 @@ export default function VolunteerOfTheMonthSection() {
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C99738' }}>
             <Award className="w-4 h-4" /> Volunteer of the Month
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold uppercase leading-none tracking-tight" style={{ color: '#1A1A1A', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+          <h2 className="text-3xl md:text-5xl font-extrabold uppercase leading-none tracking-tight font-heading" style={{ color: '#1A1A1A', letterSpacing: '0.02em' }}>
             Meet Rachel
           </h2>
         </div>
@@ -31,7 +31,7 @@ export default function VolunteerOfTheMonthSection() {
           {/* Text */}
           <div className="flex flex-col justify-center p-8 md:p-12">
             <div className="h-1.5 w-16 mb-6" style={{ background: '#C99738' }} />
-            <h3 className="text-4xl md:text-5xl font-extrabold uppercase leading-none tracking-tight mb-4" style={{ color: '#D95D1A', fontFamily: "'Bebas Neue', system-ui, sans-serif" }}>
+            <h3 className="text-4xl md:text-5xl font-extrabold uppercase leading-none tracking-tight mb-4 font-heading" style={{ color: '#D95D1A' }}>
               Rachel
             </h3>
             <p className="text-base leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.85)' }}>

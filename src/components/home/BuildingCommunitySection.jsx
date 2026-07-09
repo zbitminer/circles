@@ -14,7 +14,7 @@ export default function BuildingCommunitySection() {
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
                 <span className="line-through" style={{ color: '#ccc' }}>THE FUTURE</span> · CONNECTION
               </span>
-              <h2 className="font-bold text-2xl md:text-3xl mb-6 leading-tight" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+              <h2 className="font-bold text-2xl md:text-3xl mb-6 leading-tight font-heading" style={{ color: '#1A1A1A' }}>
                 BUILDING COMMUNITY THRU GIVING
               </h2>
               <div className="space-y-3">
@@ -42,7 +42,7 @@ export default function BuildingCommunitySection() {
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#C99738' }}>
                 OUR MISSION
               </span>
-              <h3 className="font-bold text-2xl md:text-3xl mb-5 leading-tight" style={{ color: '#fff', fontFamily: 'Georgia, serif' }}>
+              <h3 className="font-bold text-2xl md:text-3xl mb-5 leading-tight font-heading" style={{ color: '#fff' }}>
                 CIRCLES OF GIVING
               </h3>
               <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
