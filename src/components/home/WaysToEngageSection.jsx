@@ -31,7 +31,7 @@ const CARDS = [
   icon: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a6d867f57_Black_and_White_Corporate_Pitch_Presentation.png',
   description: 'Connect with others & grow together.',
   benefit: 'Find your people in the community',
-  cta: 'Join the Community →',
+  cta: 'Join Community →',
   to: '/directory'
 }];
 
