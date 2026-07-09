@@ -41,7 +41,7 @@ export default function HowItWorksSection() {
                 <span className="text-sm font-bold" style={{ color: '#C99738' }}>{step.num}</span>
                 <h3 className="font-bold text-2xl font-heading" style={{ color: '#1A1A1A' }}>{step.title}</h3>
               </div>
-              <p className="leading-relaxed text-2xl font-body" style={{ color: '#555' }}>
+              <p className="leading-relaxed font-body text-xl" style={{ color: '#555' }}>
                 {step.desc}
               </p>
               {i < STEPS.length - 1 &&
