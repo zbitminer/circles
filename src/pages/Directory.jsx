@@ -7,6 +7,7 @@ import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import { TrustBadgeStrip } from '@/components/TrustBadges';
+import { useToast } from '@/components/ui/use-toast';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -184,6 +185,7 @@ function ActivityFeed({ hourLogs, userMap, profiles }) {
 }
 
 export default function Directory() {
+  const { toast } = useToast();
   const [currentUser, setCurrentUser] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
   const [profiles, setProfiles] = useState([]);
@@ -273,7 +275,7 @@ export default function Directory() {
       const result = response.data || response;
       if (result.error) {
         setFollowing(isFollowing ? [...newFollowing, profileUserId] : newFollowing.filter(id => id !== profileUserId));
-        alert(result.error);
+        toast({ title: 'Error', description: result.error, variant: 'destructive' });
         return;
       }
       setFollowing(result.following || newFollowing);
@@ -281,7 +283,7 @@ export default function Directory() {
       setProfiles(prev => prev.map(p => p.user_id === profileUserId ? { ...p, followers: result.followers || p.followers } : p));
     } catch (err) {
       setFollowing(isFollowing ? [...newFollowing, profileUserId] : newFollowing.filter(id => id !== profileUserId));
-      alert(err?.response?.data?.error || err?.message || 'Could not update follow status.');
+      toast({ title: 'Error', description: err?.response?.data?.error || err?.message || 'Could not update follow status.', variant: 'destructive' });
     }
   };
 

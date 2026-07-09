@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Send, CheckCircle } from 'lucide-react';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
+import { useToast } from '@/components/ui/use-toast';
 
 const TYPES = ['In-person', 'Remote', 'Hybrid'];
 
 export default function OfferForm({ user, onPosted }) {
+  const { toast } = useToast();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -35,7 +37,7 @@ export default function OfferForm({ user, onPosted }) {
       });
       setSubmitted(true);
     } catch (err) {
-      alert(err?.response?.data?.error || err?.message || 'Could not post your offer. Please try again.');
+      toast({ title: 'Error', description: err?.response?.data?.error || err?.message || 'Could not post your offer. Please try again.', variant: 'destructive' });
     } finally {
       setSubmitting(false);
     }
