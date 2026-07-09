@@ -36,7 +36,7 @@ export default function Home() {
           </h1>
 
           {/* Subheadline */}
-          <p className="mb-10 max-w-2xl mx-auto leading-relaxed text-2xl md:text-2xl [font-family:'DM_Serif_Display',_serif]" style={{ color: '#555' }}>
+          <p className="mb-10 max-w-2xl mx-auto leading-relaxed text-2xl md:text-2xl font-body" style={{ color: '#555' }}>
             Share your talents, skills, & passions. Support one another. Grow together.
           </p>
 
