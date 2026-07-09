@@ -74,7 +74,7 @@ export default function Home() {
               <img
                 src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5102d156d_Desogn_R3_page_1.jpeg"
                 alt="Diverse hands reaching toward the center"
-                className="w-full h-full object-contain scale-110"
+                className="w-full h-full object-cover rounded-full"
                 onError={() => setHeroImgError(true)} />
 
               }

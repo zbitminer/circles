@@ -136,7 +136,7 @@ export default function Feed() {
               <img
                 src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/205ce2265_generated_image.png"
                 alt="Israeli volunteers sorting donations"
-                className="w-full h-36 object-cover"
+                className="w-full aspect-video object-cover"
               />
               <div className="p-4" style={{ background: '#FAF7EE' }}>
                 <p className="text-xs font-semibold mb-1" style={{ color: '#1A2744' }}>Get Involved</p>

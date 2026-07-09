@@ -83,7 +83,7 @@ export default function ShabbatMeals() {
       {/* Host / Guest CTA cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="rounded-2xl overflow-hidden" style={{ background: '#1A2744', border: '1.5px solid #C9A84C' }}>
-          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a7ca42b49_generated_image.png" alt="Communal Shabbat dinner" className="w-full h-36 object-cover" />
+          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a7ca42b49_generated_image.png" alt="Communal Shabbat dinner" className="w-full aspect-video object-cover" />
           <div className="p-6">
             <div className="text-3xl mb-3">🪑</div>
             <h3 className="font-display text-lg font-bold mb-2 text-white">Are You a Host?</h3>
@@ -98,7 +98,7 @@ export default function ShabbatMeals() {
           </div>
         </div>
         <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17fdc762b_generated_image.png" alt="Passover Seder gathering" className="w-full h-36 object-cover" />
+          <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17fdc762b_generated_image.png" alt="Passover Seder gathering" className="w-full aspect-video object-cover" />
           <div className="p-6">
             <div className="text-3xl mb-3">🤝</div>
             <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#1A2744' }}>Looking for a Meal?</h3>

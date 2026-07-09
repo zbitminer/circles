@@ -294,7 +294,7 @@ export default function Events() {
                   <img
                     src={evt.image_url || CAUSE_FALLBACK_IMAGES[evt.cause_category] || DEFAULT_EVENT_IMAGE}
                     alt={evt.title}
-                    className="w-full h-36 object-cover"
+                    className="w-full aspect-video object-cover"
                   />
                   {/* Corner decorations */}
                   <div className="absolute top-1 left-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C', borderRadius: '2px 0 0 0' }} />
@@ -406,7 +406,7 @@ export default function Events() {
               },
             ].map((evt) => (
               <div key={evt.title} className="overflow-hidden" style={{ background: '#FAF7EE', border: `1.5px solid ${evt.highlight ? '#C9A84C' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
-                <img src={evt.image} alt={evt.title} className="w-full h-36 object-cover" />
+                <img src={evt.image} alt={evt.title} className="w-full aspect-video object-cover" />
                 <div className="px-4 py-3">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{evt.category}</span>
@@ -432,7 +432,7 @@ export default function Events() {
             <img
               src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
               alt={selected.title}
-              className="w-full h-48 object-cover"
+              className="w-full aspect-video object-cover"
             />
             <div className="px-6 py-5" style={{ background: '#1A2744', borderBottom: '1px solid #C9A84C' }}>
               <div className="flex items-start justify-between">

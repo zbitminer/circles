@@ -8,7 +8,7 @@ export default function BuildingCommunitySection() {
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d0bc78a84_generated_image.png"
               alt="Jewish Israeli women mentoring and sharing over tea"
-              className="w-full h-48 object-cover"
+              className="w-full aspect-[16/7] object-cover"
             />
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
@@ -36,7 +36,7 @@ export default function BuildingCommunitySection() {
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/2f5f4085f_generated_image.png"
               alt="Israeli volunteers preparing food packages at community kitchen"
-              className="w-full h-48 object-cover"
+              className="w-full aspect-[16/7] object-cover"
             />
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ borderTop: '2px solid #C99738' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#C99738' }}>
