@@ -20,7 +20,9 @@ export default function Login() {
     setLoading(true);
     try {
       await base44.auth.loginViaEmailPassword(email, password);
-      window.location.href = "/";
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = params.get("from_url") || params.get("fromUrl") || "/";
+      window.location.href = fromUrl;
     } catch (err) {
       setError(err.message || "Invalid email or password");
     } finally {
@@ -29,7 +31,9 @@ export default function Login() {
   };
 
   const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", window.location.origin + "/");
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get("from_url") || params.get("fromUrl") || "/";
+    base44.auth.loginWithProvider("google", window.location.origin + fromUrl);
   };
 
   return (
