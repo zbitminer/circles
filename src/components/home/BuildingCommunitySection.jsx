@@ -12,7 +12,7 @@ export default function BuildingCommunitySection() {
             
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
-                <span className="line-through hidden" style={{ color: '#ccc' }}>THE FUTURE</span> · CONNECTION
+                 · CONNECTION
               </span>
               <h2 className="font-bold text-2xl md:text-3xl mb-6 leading-tight" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
                 BUILDING COMMUNITY THRU GIVING
