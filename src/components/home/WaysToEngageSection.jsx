@@ -78,7 +78,7 @@ export default function WaysToEngageSection({ children }) {
             {/* CTA — pinned to bottom for visual equality */}
             <Link
             to={card.to}
-            className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3 rounded-full hover:opacity-90 transition-opacity mt-auto w-full justify-center"
+            className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3 rounded-full hover:opacity-90 transition-opacity mt-auto w-56 max-w-full justify-center"
             style={{ background: card.color, color: '#fff' }}>
             
               {card.cta}
