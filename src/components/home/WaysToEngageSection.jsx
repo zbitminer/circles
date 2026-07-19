@@ -71,7 +71,7 @@ export default function WaysToEngageSection({ children }) {
             </p>
 
             {/* Benefit line */}
-            <p className="text-xs font-medium mb-6" style={{ color: card.color, opacity: 0.75 }}>
+            <p className="text-xs font-medium mb-6 hidden" style={{ color: card.color, opacity: 0.75 }}>
               {card.benefit}
             </p>
 
