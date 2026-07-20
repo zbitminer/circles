@@ -57,7 +57,7 @@ export default function WaysToEngageSection({ children }) {
           
             {/* Icon — consistent size across all cards */}
             <div className="flex items-center justify-center mb-5">
-              <img src={card.icon} alt={card.title} className="w-[300px] h-[300px] max-w-full object-contain" />
+              <img src={card.icon} alt={card.title} className="w-40 h-40 sm:w-52 sm:h-52 md:w-[300px] md:h-[300px] max-w-full object-contain" />
             </div>
 
             {/* Title */}
