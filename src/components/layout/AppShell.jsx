@@ -301,7 +301,7 @@ export default function AppShell() {
             <h4 className="font-bold text-sm mb-3" style={{ color: '#D95D1A' }}>Contact</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
               <li>🌐 <a href="https://www.circlesofgiving.org" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">circlesofgiving.org</a></li>
-              <li>📧 <a href="mailto:info@circlesofgiving.org" className="transition-colors hover:text-white">info@circlesofgiving.org</a></li>
+              <li>📧 <a href="mailto:support@circlesofgiving.com" className="transition-colors hover:text-white">support@circlesofgiving.com</a></li>
             </ul>
             <div className="mt-4 flex gap-3">
               <a href="https://www.facebook.com/circlesofgiving" target="_blank" rel="noopener noreferrer" className="text-sm transition-colors hover:text-white" style={{ color: '#777' }}>Facebook</a>
