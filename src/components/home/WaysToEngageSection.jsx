@@ -38,8 +38,8 @@ const CARDS = [
 
 export default function WaysToEngageSection({ children }) {
   return (
-    <section className="max-w-5xl mx-auto px-4 py-12 md:py-20">
-      <div className="text-center mb-10 md:mb-14">
+    <section className="max-w-5xl mx-auto px-4 py-8 md:py-16">
+      <div className="text-center mb-6 md:mb-12">
         <span className="font-bold uppercase tracking-[0.2em] block text-2xl md:text-3xl mb-2" style={{ color: '#D95D1A' }}>
           WAYS TO ENGAGE
         </span>
@@ -48,15 +48,15 @@ export default function WaysToEngageSection({ children }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-7">
         {CARDS.map((card) =>
         <div
           key={card.key}
-          className="group flex flex-col items-center text-center p-7 md:p-9 rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1"
+          className="group flex flex-col items-center text-center p-4 md:p-9 rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1"
           style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
           
             {/* Icon — consistent size across all cards */}
-            <div className="flex items-center justify-center mb-5">
+            <div className="flex items-center justify-center mb-3">
               <img src={card.icon} alt={card.title} className="w-40 h-40 sm:w-52 sm:h-52 md:w-[300px] md:h-[300px] max-w-full object-contain" />
             </div>
 
