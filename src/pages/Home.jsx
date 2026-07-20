@@ -11,6 +11,7 @@ import CommunityGridSection from '@/components/home/CommunityGridSection';
 import VolunteerSpotlightSection from '@/components/home/VolunteerSpotlightSection';
 import RealImpactSection from '@/components/home/RealImpactSection';
 import WaysToEngageSection from '@/components/home/WaysToEngageSection';
+import DecorativeCircles from '@/components/home/DecorativeCircles';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 import TrustBadge from '@/components/TrustBadge';
 
@@ -23,6 +24,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative bg-white overflow-hidden" style={{ borderBottom: '1px solid #e0e0e0' }}>
+        <DecorativeCircles variant="light" />
         <div className="max-w-4xl mx-auto px-4 py-10 md:py-24 text-center relative z-10">
           {/* Badge */}
           
@@ -113,8 +115,9 @@ export default function Home() {
       <RealImpactSection />
 
       {/* Closing CTA */}
-      <section style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
-        <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center">
+      <section className="relative overflow-hidden" style={{ background: '#1A1A1A', borderTop: '3px solid #E67E22' }}>
+        <DecorativeCircles variant="dark" />
+        <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#fff' }}>Your Time is Valuable</h2>
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.7)' }}>
             In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
