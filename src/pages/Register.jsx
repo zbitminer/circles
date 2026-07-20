@@ -264,14 +264,6 @@ export default function Register() {
               Continue <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => { if (!phone.trim()) { setError("Phone number is required"); return; } setError(""); setStep(3); }}
-            className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors"
-          >
-            Skip for now
-          </button>
         </div>
       </AuthLayout>
     );
