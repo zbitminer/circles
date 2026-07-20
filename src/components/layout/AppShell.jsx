@@ -90,7 +90,7 @@ export default function AppShell() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══ Top Nav ═══ */}
-      <header className="sticky top-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }} ref={navRef}>
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-md" style={{ background: '#1A1A1A', borderBottom: '2px solid #D95D1A' }} ref={navRef}>
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
@@ -249,6 +249,8 @@ export default function AppShell() {
           </div>
         }
       </header>
+
+      <div className="h-16" />
 
       {!user && <RegisterBanner />}
 
