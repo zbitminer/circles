@@ -13,7 +13,6 @@ import RealImpactSection from '@/components/home/RealImpactSection';
 import WaysToEngageSection from '@/components/home/WaysToEngageSection';
 import DecorativeCircles from '@/components/home/DecorativeCircles';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
-import TrustBadge from '@/components/TrustBadge';
 
 export default function Home() {
   const { user } = useAuth();
@@ -51,7 +50,6 @@ export default function Home() {
               style={{ background: '#D95D1A', color: '#fff' }}>
                 Join the Circle — Free <ArrowRight className="w-5 h-5" />
               </Link>
-            <TrustBadge text="Every member is verified" />
           </div> :
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             

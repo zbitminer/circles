@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShieldCheck, ArrowRight, Clock } from 'lucide-react';
-import TrustBadge from '@/components/TrustBadge';
+import { ShieldCheck, Clock } from 'lucide-react';
 
 export default function SafeExplorationBanner({ location = 'your community', className = '' }) {
   return (
@@ -21,7 +20,6 @@ export default function SafeExplorationBanner({ location = 'your community', cla
           <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>
             Browse freely — every face is a verified member
           </p>
-          <TrustBadge text="Verified" />
         </div>
         <p className="text-xs" style={{ color: '#555' }}>
           Explore opportunities from neighbors in {location} before you commit.{' '}

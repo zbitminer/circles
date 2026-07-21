@@ -4,7 +4,6 @@ import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefc
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
-import TrustBadges from '@/components/TrustBadges';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
 
@@ -219,9 +218,6 @@ export default function Profile() {
           </div>
         ))}
       </div>
-
-      {/* Trust & Verification Badges */}
-      <TrustBadges profile={profile} />
 
       {/* Calendar */}
       <ProfileCalendar userId={user.id} />

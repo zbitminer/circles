@@ -6,7 +6,6 @@ import FilterBar from '@/components/FilterBar';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
-import { TrustBadgeStrip } from '@/components/TrustBadges';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -89,9 +88,6 @@ function ProfileModal({ profile, currentUser, following, onFollow, onClose, myCa
                 <p className="text-xs text-muted-foreground">{label}</p>
               </div>
             ))}
-          </div>
-          <div className="mb-4">
-            <TrustBadgeStrip profile={profile} maxBadges={4} />
           </div>
           {showBio && <p className="text-sm text-muted-foreground leading-relaxed mb-4">{profile.bio}</p>}
           {sharedCauses.length > 0 && (
@@ -478,7 +474,6 @@ export default function Directory() {
                           <p className="text-xs text-muted-foreground">followers</p>
                         </div>
                       </div>
-                      <TrustBadgeStrip profile={profile} maxBadges={2} className="mb-3" />
                       <div className="flex flex-wrap gap-1">
                         {sharedCauses.length > 0 && (
                           <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-accent/15 text-accent">
