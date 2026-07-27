@@ -55,9 +55,9 @@ export default function WaysToEngageSection({ children }) {
           className="group flex flex-col items-center text-center p-4 md:p-9 rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1"
           style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
           
-            {/* Icon — consistent size across all cards */}
-            <div className="flex items-center justify-center mb-3">
-              <img src={card.icon} alt={card.title} className="w-40 h-40 sm:w-52 sm:h-52 md:w-[300px] md:h-[300px] max-w-full object-contain" />
+            {/* Icon — fixed square box, image scaled to fill it equally */}
+            <div className="flex items-center justify-center mb-3 w-40 h-40 sm:w-52 sm:h-52 md:w-[240px] md:h-[240px]">
+              <img src={card.icon} alt={card.title} className="w-full h-full object-contain scale-125" />
             </div>
 
             {/* Title */}
