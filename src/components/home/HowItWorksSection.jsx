@@ -39,9 +39,9 @@ export default function HowItWorksSection() {
           <div key={step.num} className="relative flex flex-col p-5 md:p-6 rounded-2xl transition-all hover:shadow-lg" style={{ background: '#fff', border: '1px solid #e0e0e0', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}>
               <div className="flex items-baseline gap-3 mb-3">
                 <span className="text-sm font-bold" style={{ color: '#C99738' }}>{step.num}</span>
-                <h3 className="font-bold text-2xl font-heading" style={{ color: '#1A1A1A' }}>{step.title}</h3>
+                <h3 className="font-bold text-lg font-heading" style={{ color: '#1A1A1A' }}>{step.title}</h3>
               </div>
-              <p className="leading-snug font-body text-xl" style={{ color: '#555' }}>
+              <p className="leading-snug font-body text-sm" style={{ color: '#555' }}>
                 {step.desc}
               </p>
               {i < STEPS.length - 1 &&
