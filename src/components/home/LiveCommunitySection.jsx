@@ -9,9 +9,9 @@ const ACTIVITY_TYPES = [
 ];
 
 const FALLBACK_ACTIVITIES = [
-  { name: 'Miriam R.', type: 'giving', desc: 'Offering 2hrs career coaching for new graduates', time: '3 min ago', location: 'Safed', link: '/opportunities' },
-  { name: 'David K.', type: 'receiving', desc: 'Needs a ride to a medical appointment Thursday', time: '12 min ago', location: 'Tel Aviv', link: '/sos' },
-  { name: 'Sarah L.', type: 'joining', desc: 'Joining Communal Shabbat Dinner this Friday', time: '25 min ago', location: 'Jerusalem', link: '/events' },
+  { name: 'Miriam R.', type: 'giving', desc: 'Offering 2hrs career coaching for new graduates', time: '3 min ago', location: 'Safed, Israel', link: '/opportunities' },
+  { name: 'David K.', type: 'receiving', desc: 'Needs a ride to a medical appointment Thursday', time: '12 min ago', location: 'Safed, Israel', link: '/sos' },
+  { name: 'Sarah L.', type: 'joining', desc: 'Joining Communal Shabbat Dinner this Friday', time: '25 min ago', location: 'Safed, Israel', link: '/events' },
 ];
 
 function getInitial(name) {
@@ -33,7 +33,7 @@ export default function LiveCommunitySection() {
             type: ACTIVITY_TYPES[i % 3].key,
             desc: o.title || 'Community offering',
             time: 'Recently',
-            location: o.location || 'Israel',
+            location: o.location || 'Safed, Israel',
             link: '/opportunities',
           }));
           setActivities(mapped);

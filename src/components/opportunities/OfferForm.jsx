@@ -99,7 +99,7 @@ export default function OfferForm({ user, onPosted }) {
             onChange={e => setLocation(e.target.value)}
             className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30"
             style={{ borderColor: '#C9A84C' }}
-            placeholder="e.g. Jerusalem"
+            placeholder="e.g. Safed, Israel"
           />
         </div>
         <div>

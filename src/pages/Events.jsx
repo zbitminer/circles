@@ -370,7 +370,7 @@ export default function Events() {
               {
                 title: 'Tech Support Day for Seniors',
                 date: 'August 2024',
-                location: 'Haifa, Northern District',
+                location: 'Safed, Northern District',
                 category: 'Other',
                 description: 'Volunteers helped 45 elderly residents set up smartphones, WhatsApp, and video calls to stay connected with family.',
                 attendees: 45,

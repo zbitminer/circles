@@ -85,7 +85,7 @@ export default function Home() {
 
       {/* Ways to Engage — Give / Receive / Belong */}
       <WaysToEngageSection>
-        {!user && <SafeExplorationBanner location="your neighborhood" className="mt-8" />}
+        {!user && <SafeExplorationBanner location="Safed, Israel" className="mt-8" />}
       </WaysToEngageSection>
 
       {/* Building Community Thru Giving */}

@@ -1,8 +1,8 @@
 const TESTIMONIALS = [
   {
     name: 'Avraham',
-    quote: 'Volunteering to distribute food during the war in Tzfat was one of the most moving experiences of my life. Every delivery reminded me that small acts of giving change everything.',
-    role: 'Food distribution volunteer, Tzfat',
+    quote: 'Volunteering to distribute food during the war in Safed was one of the most moving experiences of my life. Every delivery reminded me that small acts of giving change everything.',
+    role: 'Food distribution volunteer, Safed',
     emoji: '🍞',
   },
   {

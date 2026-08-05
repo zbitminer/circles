@@ -9,7 +9,7 @@ export default function RealImpactSection() {
           <div className="relative lg:col-span-5 min-h-[320px]">
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f3f10b37d_generated_image.png"
-              alt="Israeli community gathering sharing food outdoors in Jerusalem"
+              alt="Israeli community gathering sharing food outdoors in Safed"
               width="720"
               height="720"
               loading="lazy"

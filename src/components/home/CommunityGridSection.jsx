@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const MEMBERS = [
 {
   img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/afe5518a3_generated_image.png',
-  caption: 'Rivka · Jerusalem',
+  caption: 'Rivka · Safed',
   tag: 'MENTOR',
   tagBg: '#FBBF24',
   tagColor: '#1A1A1A',
@@ -11,22 +11,22 @@ const MEMBERS = [
 },
 {
   img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/7b12843e1_generated_image.png',
-  caption: 'Devorah · Tel Aviv',
+  caption: 'Devorah · Safed',
   large: false
 },
 {
   img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/af83a5bc6_generated_image.png',
-  caption: 'Evening Circle · Haifa',
+  caption: 'Evening Circle · Safed',
   large: false
 },
 {
   img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5b2d8c9dc_generated_image.png',
-  caption: 'Shira · Jerusalem',
+  caption: 'Shira · Safed',
   large: false
 },
 {
   img: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fae5a9a9d_generated_image.png',
-  caption: 'Nava & Sara · Beersheva',
+  caption: 'Nava & Sara · Safed',
   large: false
 }];
 

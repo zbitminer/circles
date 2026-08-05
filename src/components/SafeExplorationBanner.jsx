@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Clock } from 'lucide-react';
 
-export default function SafeExplorationBanner({ location = 'your community', className = '' }) {
+export default function SafeExplorationBanner({ location = 'Safed, Israel', className = '' }) {
   return (
     <div
       className={`p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-3 ${className}`}
