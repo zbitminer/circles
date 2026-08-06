@@ -6,7 +6,7 @@ export default function VolunteerOfTheMonthSection() {
       <div className="max-w-5xl mx-auto px-4 py-12 md:py-20">
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C99738' }}>
-            <Award className="w-4 h-4" /> Honoured Volunteer
+            <Award className="w-4 h-4" /> Honored Volunteer
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold uppercase leading-none tracking-tight" style={{ color: '#1A1A1A', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
             Meet Rachel
