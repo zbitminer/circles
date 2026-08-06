@@ -17,7 +17,7 @@ const CARDS = [
   title: 'Receive.',
   color: '#247D7D',
   bgTint: 'rgba(36,125,125,0.08)',
-  icon: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png',
+  icon: "https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png",
   description: 'Find support from trusted neighbors.',
   benefit: 'Get matched with a verified helper',
   cta: 'Get Support →',
