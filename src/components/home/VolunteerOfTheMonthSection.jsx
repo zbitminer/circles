@@ -19,13 +19,13 @@ export default function VolunteerOfTheMonthSection() {
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/984169b9e_IMG_1210.jpg"
               alt="Rachel, Volunteer of the Month"
-              className="w-full h-full object-cover"
-            />
+              className="w-full h-full object-cover opacity-70" />
+            
             {/* Design mask overlay */}
             <div
               className="absolute inset-0 pointer-events-none"
-              style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0.15) 45%, rgba(217,93,26,0.18) 100%)' }}
-            />
+              style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75) 0%, rgba(26,26,26,0.15) 45%, rgba(217,93,26,0.18) 100%)' }} />
+            
             <div className="absolute top-4 left-4 z-10">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide px-3 py-1.5 rounded-full" style={{ background: '#D95D1A', color: '#fff' }}>
                 <Award className="w-3.5 h-3.5" /> Honored Volunteer
@@ -55,6 +55,6 @@ export default function VolunteerOfTheMonthSection() {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
