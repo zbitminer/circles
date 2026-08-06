@@ -36,47 +36,47 @@ const HANDLES = {
   Joy: '@joy_iran',
   Eitan: '@eitan_border',
   Yosef: '@yosef_war',
-  Avraham: '@avraham_vol',
+  Avraham: '@avraham_vol'
 };
 
 export default function VolunteerSpotlightSection() {
   return (
     <section className="bg-white">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
-        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight text-4xl md:text-6xl mb-10 md:mb-14" style={{ color: '#C99738', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight mb-10 md:mb-14 text-3xl md:text-3xl" style={{ color: '#C99738', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
           Real People. Real Impact.
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {SPOTLIGHTS.map((s) => (
-            <a
-              key={s.name}
-              href={s.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex flex-col overflow-visible rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
-              style={{ background: '#1A1A1A' }}
-            >
+          {SPOTLIGHTS.map((s) =>
+          <a
+            key={s.name}
+            href={s.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex flex-col overflow-visible rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
+            style={{ background: '#1A1A1A' }}>
+            
               {/* Gold bookmark corner tab */}
               <div
-                className="absolute -top-1 left-6 h-14 w-8"
-                style={{
-                  background: '#C99738',
-                  clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)',
-                }}
-              />
+              className="absolute -top-1 left-6 h-14 w-8"
+              style={{
+                background: '#C99738',
+                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)'
+              }} />
+            
 
               {/* Portrait */}
               <div className="p-3 pb-0">
                 <div className="relative aspect-square w-3/4 mx-auto overflow-hidden bg-black">
                   <img
-                    src={s.img}
-                    alt={s.name}
-                    width="400"
-                    height="400"
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  src={s.img}
+                  alt={s.name}
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                
                 </div>
               </div>
 
@@ -96,17 +96,17 @@ export default function VolunteerSpotlightSection() {
               {/* Orange arrow block — links to member directory */}
               <div className="mt-4 flex justify-end">
                 <Link
-                  to="/directory"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 hover:opacity-90"
-                  style={{ background: '#D95D1A' }}
-                  aria-label="View member directory"
-                >
+                to="/directory"
+                onClick={(e) => e.stopPropagation()}
+                className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 hover:opacity-90"
+                style={{ background: '#D95D1A' }}
+                aria-label="View member directory">
+                
                   <ArrowRight className="h-6 w-6 text-black" strokeWidth={3} />
                 </Link>
               </div>
             </a>
-          ))}
+          )}
         </div>
       </div>
     </section>);
