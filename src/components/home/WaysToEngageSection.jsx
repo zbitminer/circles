@@ -6,7 +6,7 @@ const CARDS = [
   title: 'Give.',
   color: '#D35E35',
   bgTint: 'rgba(211,94,53,0.08)',
-  icon: "https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d00dedeea_Black_and_White_Corporate_Pitch_Presentation.png",
+  icon: "https://media.base44.com/images/public/6a2feeb0292b105992c98be7/30732f2b4_BlackandWhiteCorporatePitchPresentation.png",
   description: 'Share your time, skills & resources.',
   benefit: 'Earn goodwill & build your reputation',
   cta: 'Give Now →',
