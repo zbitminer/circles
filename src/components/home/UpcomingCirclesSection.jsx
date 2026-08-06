@@ -119,7 +119,7 @@ export default function UpcomingCirclesSection() {
                 <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block" style={{ color: '#C99738' }}>
                   {event.tag}
                 </span>
-                <h3 className="font-bold mb-2 text-lg" style={{ color: '#1A1A1A' }}>{event.title}</h3>
+                <h2 className="font-bold mb-2 text-lg" style={{ color: '#1A1A1A' }}>{event.title}</h2>
                 <div className="flex items-center gap-1 text-xs mb-3" style={{ color: '#555' }}>
                   <MapPin className="w-3 h-3" style={{ color: '#C99738' }} />
                   <span>{event.location} · {event.time}</span>
