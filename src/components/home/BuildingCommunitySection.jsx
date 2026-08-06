@@ -5,10 +5,10 @@ export default function BuildingCommunitySection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {/* Left Block — Philosophy with image */}
           <div className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl" style={{ border: '2px solid #1A1A1A', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
-            <img
-              src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d0bc78a84_generated_image.png"
-              alt="Jewish Israeli women mentoring and sharing over tea"
-              className="w-full aspect-[16/7] object-cover" />
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3c8f5ca06_IMG-20251021-WA0316.jpg"
+
+            alt="Jewish Israeli women mentoring and sharing over tea"
+            className="w-full aspect-[16/7] object-cover" />
             
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center" style={{ background: '#fff' }}>
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
