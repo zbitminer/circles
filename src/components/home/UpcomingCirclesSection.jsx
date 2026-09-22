@@ -87,9 +87,9 @@ export default function UpcomingCirclesSection() {
       } catch {
 
 
+
         // keep fallback
-      } finally {if (mounted) setLoading(false);}
-    })();
+      } finally {if (mounted) setLoading(false);}})();
     return () => {mounted = false;};
   }, []);
 
@@ -108,7 +108,7 @@ export default function UpcomingCirclesSection() {
           <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {/* Image */}
               <div className="relative h-40 overflow-hidden">
-                <img src={event.image_url} alt={event.title} className="w-full h-full object-cover" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
+                <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/65a9fdf2c_IMG_0662.jpeg" alt={event.title} className="w-full h-full object-cover" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
                 <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#1A1A1A' }}>
                   {event.date_label}
                 </div>
