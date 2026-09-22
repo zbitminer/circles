@@ -18,13 +18,13 @@ export default function CommunityTicker() {
 
   const content = updates.map((update, index) => (
     <span key={index} className="inline-flex items-center gap-8 px-4">
-      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
       <span>{update}</span>
     </span>
   ));
 
   return (
-    <Link to="/feed" aria-label="View the community feed" className="block h-8 overflow-hidden bg-card text-foreground border-t border-border">
+    <Link to="/feed" aria-label="View the community feed" className="block h-8 overflow-hidden border-t border-emerald-800 bg-emerald-950 text-emerald-300">
       <div className="community-ticker-track flex w-max items-center h-8 whitespace-nowrap text-xs font-medium">
         <div className="flex items-center">{content}</div>
         <div className="flex items-center" aria-hidden="true">{content}</div>
