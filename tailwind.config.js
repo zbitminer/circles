@@ -66,9 +66,11 @@ module.exports = {
   			brand: {
   				50: 'hsl(var(--palette-50))',
   				100: 'hsl(var(--palette-100))',
-  				400: 'hsl(var(--palette-400))',
+  				300: 'hsl(var(--palette-300))',
+  				400: 'hsl(var(--palette-300))',
   				600: 'hsl(var(--palette-600))',
-  				900: 'hsl(var(--palette-900))'
+  				900: 'hsl(var(--palette-950))',
+  				950: 'hsl(var(--palette-950))'
   			}
   		},
   		fontFamily: {
