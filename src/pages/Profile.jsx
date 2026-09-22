@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
+import OpportunityMatcher from '@/components/agents/OpportunityMatcher';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -218,6 +219,8 @@ export default function Profile() {
           </div>
         ))}
       </div>
+
+      <OpportunityMatcher />
 
       {/* Calendar */}
       <ProfileCalendar userId={user.id} />
