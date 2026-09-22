@@ -66,12 +66,12 @@
         },
         {
           "user_condition": {
-            "role": {
-              "$in": [
-                "admin",
-                "moderator"
-              ]
-            }
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]
@@ -83,12 +83,12 @@
         },
         {
           "user_condition": {
-            "role": {
-              "$in": [
-                "admin",
-                "moderator"
-              ]
-            }
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]
@@ -100,12 +100,12 @@
         },
         {
           "user_condition": {
-            "role": {
-              "$in": [
-                "admin",
-                "moderator"
-              ]
-            }
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]

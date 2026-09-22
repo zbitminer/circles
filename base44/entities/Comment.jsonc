@@ -34,7 +34,7 @@
     "create": {
       "created_by_id": "{{user.id}}"
     },
-    "read": {},
+    "read": null,
     "update": {
       "$or": [
         {
@@ -42,12 +42,12 @@
         },
         {
           "user_condition": {
-            "role": {
-              "$in": [
-                "admin",
-                "moderator"
-              ]
-            }
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]
@@ -59,12 +59,12 @@
         },
         {
           "user_condition": {
-            "role": {
-              "$in": [
-                "admin",
-                "moderator"
-              ]
-            }
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]
