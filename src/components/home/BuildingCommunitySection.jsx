@@ -33,7 +33,7 @@ export default function BuildingCommunitySection() {
 
           {/* Right Block — Mission Statement with image */}
           <div className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl" style={{ background: '#1A1A1A', border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.12)' }}>
-            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/5b3a8e0b0_IMG-20251021-WA0365.jpg"
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fe1ddf59a_IMG_0718.jpeg"
 
             alt="Israeli volunteers preparing food packages at community kitchen"
             className="w-full aspect-[16/7] object-cover" />
