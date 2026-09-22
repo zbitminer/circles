@@ -2,12 +2,27 @@ export default function MemorialTribute() {
   return (
     <section className="mb-10 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="grid gap-0 md:grid-cols-[minmax(240px,0.8fr)_1.4fr]">
-        <div className="min-h-72 bg-secondary">
-          <img
-            src="https://circlesofgiving.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-24-at-14.46.44-892x1024.jpeg"
-            alt="Herman P. and Sophia Taubman"
-            className="h-full w-full object-cover"
-          />
+        <div className="grid min-h-72 grid-rows-2 bg-secondary">
+          <figure className="relative min-h-64 overflow-hidden border-b border-border">
+            <img
+              src="https://cache.legacy.net/legacy/images/cobrands/sfgate/photos/S0174000_1_20210524.jpgx?w=421&h=500&option=3"
+              alt="Geraldine Steinberg"
+              className="h-full w-full object-cover"
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 bg-foreground/80 px-3 py-2 text-xs font-medium text-background">
+              Geraldine Steinberg
+            </figcaption>
+          </figure>
+          <figure className="relative min-h-64 overflow-hidden">
+            <img
+              src="https://circlesofgiving.org/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-24-at-14.46.44-892x1024.jpeg"
+              alt="Herman P. and Sophia Taubman"
+              className="h-full w-full object-cover"
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 bg-foreground/80 px-3 py-2 text-xs font-medium text-background">
+              Herman P. and Sophia Taubman
+            </figcaption>
+          </figure>
         </div>
         <div className="p-6 md:p-8">
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">In Memoriam</p>
