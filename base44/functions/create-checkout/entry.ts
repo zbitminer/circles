@@ -17,15 +17,7 @@ Deno.serve(async (req) => {
     }
 
     const priceStr = parseFloat(form.amount).toFixed(2);
-    const appUrl = req.headers.get("X-Base44-App-Url") || Deno.env.get("WIX_CHECKOUT_APP_URL");
-    if (!appUrl) {
-      return Response.json({ error: "Checkout return URL is not configured." }, { status: 500 });
-    }
-    const trustedAppUrl = new URL(appUrl);
-    if (trustedAppUrl.protocol !== "https:") {
-      return Response.json({ error: "Checkout return URL must use HTTPS." }, { status: 500 });
-    }
-    const returnBaseUrl = trustedAppUrl.origin;
+    const returnBaseUrl = "https://circlesofgivingplatform.base44.app";
 
     const item: any = {
       name: form.is_memorial ? `Donation in memory of ${form.memorial_name}` : "Donation",

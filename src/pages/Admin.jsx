@@ -365,8 +365,11 @@ function ToolsTab({ users }) {
     e.preventDefault();
     setSending(true);
     setSendMsg('');
-    // Send to manually entered email (or extend to all users)
-    await base44.integrations.Core.SendEmail({ to: announcementEmail, subject: announcementSubject, body: announcementBody, from_name: 'Circles of Giving' });
+    await base44.functions.invoke('sendAdminAnnouncement', {
+      to: announcementEmail,
+      subject: announcementSubject,
+      message: announcementBody,
+    });
     setSendMsg('✓ Announcement sent successfully');
     setAnnouncementEmail(''); setAnnouncementSubject(''); setAnnouncementBody('');
     setSending(false);

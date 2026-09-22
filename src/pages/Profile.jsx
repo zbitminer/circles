@@ -116,7 +116,7 @@ export default function Profile() {
   const handleAvatarUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+    const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
     await base44.entities.VolunteerProfile.update(profile.id, { avatar_url: file_url });
     setProfile(prev => ({ ...prev, avatar_url: file_url }));
   };

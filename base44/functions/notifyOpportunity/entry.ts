@@ -3,10 +3,18 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const body = await req.json();
+    const caller = await base44.auth.me();
+    if (!caller) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!['admin', 'moderator'].includes(caller.role)) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
 
-    const opportunity = body.data;
-    if (!opportunity) return Response.json({ ok: true, skipped: 'no data' });
+    const body = await req.json();
+    const opportunityId = body.opportunity_id || body.data?.id;
+    if (!opportunityId) return Response.json({ error: 'Missing opportunity id' }, { status: 400 });
+
+    const opportunity = await base44.asServiceRole.entities.Opportunity.get(opportunityId);
+    if (!opportunity) return Response.json({ error: 'Opportunity not found' }, { status: 404 });
 
     const causeCategory = opportunity.cause_category;
 

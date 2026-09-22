@@ -5,15 +5,21 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
+    const caller = await base44.auth.me();
+    if (!caller) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!['admin', 'moderator'].includes(caller.role)) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
     const body = await req.json();
+    const mealId = body.meal_id || body.data?.id;
+    if (!mealId) return Response.json({ error: 'Missing meal id' }, { status: 400 });
 
-    const meal = body.data;
-    const oldMeal = body.old_data;
+    const meal = await base44.asServiceRole.entities.ShabbatMeal.get(mealId);
+    if (!meal) return Response.json({ error: 'Meal not found' }, { status: 404 });
 
-    if (!meal) return Response.json({ ok: true, skipped: 'no data' });
-
-    // Only act on the transition into "completed"
-    const justCompleted = meal.status === 'completed' && oldMeal?.status !== 'completed';
+    // Trust the stored meal record, not caller-supplied guest or host data.
+    const justCompleted = meal.status === 'completed' && body.old_data?.status !== 'completed';
     if (!justCompleted) {
       return Response.json({ ok: true, skipped: 'not a completion transition' });
     }

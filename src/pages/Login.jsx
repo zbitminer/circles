@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
+import { safeReturnTo } from "@/lib/authReturnTo";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,9 +21,7 @@ export default function Login() {
     setLoading(true);
     try {
       await base44.auth.loginViaEmailPassword(email, password);
-      const params = new URLSearchParams(window.location.search);
-      const fromUrl = params.get("from_url") || params.get("fromUrl") || "/";
-      window.location.href = fromUrl;
+      window.location.href = safeReturnTo();
     } catch (err) {
       setError(err.message || "Invalid email or password");
     } finally {
@@ -31,9 +30,7 @@ export default function Login() {
   };
 
   const handleGoogle = () => {
-    const params = new URLSearchParams(window.location.search);
-    const fromUrl = params.get("from_url") || params.get("fromUrl") || "/";
-    base44.auth.loginWithProvider("google", window.location.origin + fromUrl);
+    base44.auth.loginWithProvider("google", window.location.origin + safeReturnTo());
   };
 
   return (

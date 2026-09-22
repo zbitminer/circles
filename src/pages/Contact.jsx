@@ -11,12 +11,7 @@ export default function Contact() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await base44.integrations.Core.SendEmail({
-        to: 'info@circlesofgiving.org',
-        subject: `Contact Form: ${form.subject}`,
-        body: `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`,
-        from_name: 'Circles of Giving'
-      });
+      await base44.functions.invoke('submitContactForm', form);
       setSubmitted(true);
       setForm({ name: '', email: '', subject: '', message: '' });
     } catch (error) {

@@ -189,7 +189,7 @@ export default function Events() {
                     const file = e.target.files?.[0];
                     if (!file) return;
                     setUploadingImg(true);
-                    const { file_url } = await base44.integrations.Core.UploadFile({ file });
+                    const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
                     setForm(f => ({ ...f, image_url: file_url }));
                     setUploadingImg(false);
                   }}
