@@ -40,10 +40,10 @@ export default function WaysToEngageSection({ children }) {
   return (
     <section className="max-w-5xl mx-auto px-4 py-8 md:py-16">
       <div className="text-center mb-6 md:mb-12">
-        <span className="font-bold uppercase tracking-[0.2em] block text-2xl md:text-3xl mb-2" style={{ color: '#D95D1A' }}>
+        <span className="font-bold uppercase tracking-[0.2em] block text-2xl md:text-3xl mb-2 text-primary">
           WAYS TO ENGAGE
         </span>
-        <p className="text-sm md:text-base" style={{ color: '#888' }}>
+        <p className="text-sm md:text-base text-muted-foreground">
           Three paths. One community.
         </p>
       </div>
@@ -52,8 +52,7 @@ export default function WaysToEngageSection({ children }) {
         {CARDS.map((card) =>
         <div
           key={card.key}
-          className="group flex flex-col items-center text-center p-4 md:p-9 rounded-2xl transition-all hover:shadow-xl hover:-translate-y-1"
-          style={{ background: '#fff', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+          className="group flex flex-col items-center text-center p-4 md:p-9 rounded-2xl bg-card border border-border shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
           
             {/* Icon — fixed square box, image scaled to fill it equally */}
             <div className="flex items-center justify-center mb-3 w-40 h-40 sm:w-52 sm:h-52 md:w-[240px] md:h-[240px]">
@@ -61,12 +60,12 @@ export default function WaysToEngageSection({ children }) {
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl font-extrabold mb-2" style={{ color: card.color, fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-2xl font-extrabold mb-2 text-primary font-heading">
               {card.title}
             </h2>
 
             {/* Description — equalized to one line */}
-            <p className="leading-relaxed text-base mb-1" style={{ color: '#555' }}>
+            <p className="leading-relaxed text-base mb-1 text-muted-foreground">
               {card.description}
             </p>
 
@@ -78,8 +77,7 @@ export default function WaysToEngageSection({ children }) {
             {/* CTA — pinned to bottom for visual equality */}
             <Link
             to={card.to}
-            className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3 rounded-full hover:opacity-90 transition-opacity mt-auto w-56 max-w-full justify-center"
-            style={{ background: card.color, color: '#fff' }}>
+            className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity mt-auto w-56 max-w-full justify-center">
             
               {card.cta}
             </Link>

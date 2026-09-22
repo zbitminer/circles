@@ -38,9 +38,9 @@ const HANDLES = {
 
 export default function VolunteerSpotlightSection() {
   return (
-    <section className="bg-white">
+    <section className="bg-card">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
-        <h2 className="text-center font-extrabold uppercase leading-none tracking-tight mb-10 md:mb-14 text-3xl md:text-3xl" style={{ color: '#C99738', fontFamily: "'Bebas Neue', system-ui, sans-serif", letterSpacing: '0.02em' }}>
+        <h2 className="text-center font-heading font-extrabold uppercase leading-none tracking-tight mb-10 md:mb-14 text-3xl text-primary">
           Real People. Real Impact.
         </h2>
 
@@ -51,16 +51,12 @@ export default function VolunteerSpotlightSection() {
             href={s.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex h-[430px] flex-col overflow-hidden rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
-            style={{ background: '#1A1A1A' }}>
+            className="group relative flex h-[430px] flex-col overflow-hidden rounded-2xl bg-foreground transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             
               {/* Gold bookmark corner tab */}
               <div
-              className="absolute -top-1 left-6 h-14 w-8"
-              style={{
-                background: '#C99738',
-                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)'
-              }} />
+              className="absolute -top-1 left-6 h-14 w-8 bg-accent"
+              style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)' }} />
             
 
               {/* Portrait */}
@@ -79,7 +75,7 @@ export default function VolunteerSpotlightSection() {
 
               {/* Text */}
               <div className="flex flex-1 flex-col px-4 pt-4 pb-0">
-                <h3 className="font-extrabold uppercase leading-none text-3xl tracking-tight" style={{ color: '#D95D1A', fontFamily: "'Bebas Neue', system-ui, sans-serif" }}>
+                <h3 className="font-heading font-extrabold uppercase leading-none text-3xl tracking-tight text-accent">
                   {s.name}
                 </h3>
                 <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">

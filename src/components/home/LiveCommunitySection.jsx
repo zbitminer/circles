@@ -48,20 +48,20 @@ export default function LiveCommunitySection() {
   }, []);
 
   return (
-    <section className="bg-white">
+    <section className="bg-card">
       <div className="max-w-3xl mx-auto px-4 py-10 md:py-16 text-center">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
           LIVE COMMUNITY
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold italic mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl md:text-4xl font-bold italic mb-3 text-foreground font-heading">
           Happening right now
         </h2>
-        <p className="text-base mb-10" style={{ color: '#555' }}>
+        <p className="text-base mb-10 text-muted-foreground">
           Your neighbours are giving and receiving in real time. Join the circle.
         </p>
 
         <div className="text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: '#C99738' }}>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block text-accent-foreground">
             HAPPENING NOW
           </span>
 
@@ -69,11 +69,10 @@ export default function LiveCommunitySection() {
             {activities.map((act, i) => {
               const typeConfig = ACTIVITY_TYPES.find((t) => t.key === act.type) || ACTIVITY_TYPES[0];
               return (
-                <div key={i} className="flex items-center gap-3 p-3 md:p-4 md:gap-4 rounded-xl transition-all hover:shadow-md" style={{ background: '#fff', border: '1px solid #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                <div key={i} className="flex items-center gap-3 p-3 md:p-4 md:gap-4 rounded-xl bg-card border border-border shadow-sm transition-all hover:shadow-md">
                   {/* Avatar */}
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm"
-                    style={{ background: typeConfig.color }}
+                    className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 font-bold bg-primary text-primary-foreground text-sm"
                   >
                     {getInitial(act.name)}
                   </div>
@@ -81,20 +80,19 @@ export default function LiveCommunitySection() {
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="font-bold text-sm" style={{ color: '#1A1A1A' }}>{act.name}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#C99738' }}>
+                      <span className="font-bold text-sm text-foreground">{act.name}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
                         {typeConfig.label}
                       </span>
                     </div>
-                    <p className="text-sm truncate" style={{ color: '#555' }}>{act.desc}</p>
-                    <p className="text-xs mt-0.5" style={{ color: '#888' }}>{act.time} · {act.location}</p>
+                    <p className="text-sm truncate text-muted-foreground">{act.desc}</p>
+                    <p className="text-xs mt-0.5 text-muted-foreground">{act.time} · {act.location}</p>
                   </div>
 
                   {/* Action Button */}
                   <Link
                     to={act.link}
-                    className="flex-shrink-0 text-xs font-bold px-4 py-2 md:px-5 rounded-full hover:opacity-90 transition-opacity text-white"
-                    style={{ background: typeConfig.btnColor }}
+                    className="flex-shrink-0 text-xs font-bold px-4 py-2 md:px-5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                   >
                     {typeConfig.btnLabel}
                   </Link>

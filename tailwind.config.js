@@ -61,8 +61,15 @@ module.exports = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
   			'brand-orange': 'hsl(var(--brand-orange))',
-  				'brand-teal': 'hsl(var(--brand-teal))',
-  				'brand-gold': 'hsl(var(--brand-gold))'
+  			'brand-teal': 'hsl(var(--brand-teal))',
+  			'brand-gold': 'hsl(var(--brand-gold))',
+  			brand: {
+  				50: 'hsl(var(--palette-50))',
+  				100: 'hsl(var(--palette-100))',
+  				400: 'hsl(var(--palette-400))',
+  				600: 'hsl(var(--palette-600))',
+  				900: 'hsl(var(--palette-900))'
+  			}
   		},
   		fontFamily: {
   			heading: ['var(--font-heading)'],
