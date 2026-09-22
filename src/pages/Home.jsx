@@ -33,7 +33,7 @@ export default function Home() {
 
           {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto" style={{ color: '#1A1A1A' }}>
-            A Community Platform Based on Giving, Receiving & Belonging
+            A Community Based on Giving, Receiving & Belonging
           </h1>
 
           {/* Subheadline */}
