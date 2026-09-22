@@ -6,7 +6,7 @@ export default function RealImpactSection() {
     <section className="bg-background">
       <div className="max-w-5xl mx-auto px-4 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 overflow-hidden rounded-3xl border border-brand-gold/70 bg-card shadow-[0_18px_50px_rgba(26,26,26,0.12)]">
-          <div className="relative lg:col-span-5 min-h-[320px]">
+          <div className="relative lg:col-span-5 min-h-[220px] md:min-h-[260px]">
             <img
               src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f3f10b37d_generated_image.png"
               alt="Israeli community gathering sharing food outdoors in Safed"
