@@ -31,7 +31,7 @@ export default function SosBoard() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(() => new URLSearchParams(window.location.search).get('new') === '1');
   const [form, setForm] = useState({ title: '', description: '', contact_name: '', location: '', cause_category: 'Other', urgency_hours: 24 });
   const [submitting, setSubmitting] = useState(false);
   const [statusFilter, setStatusFilter] = useState('open');

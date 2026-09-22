@@ -21,7 +21,7 @@ const CARDS = [
   description: 'Find support from trusted neighbors.',
   benefit: 'Get matched with a verified helper',
   cta: 'Get Support →',
-  to: '/sos'
+  to: '/sos?new=1'
 },
 {
   key: 'belong',
