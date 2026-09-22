@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
+import GalleryAdmin from '@/components/gallery/GalleryAdmin';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -533,6 +534,7 @@ export default function Admin() {
     { id: 'impact', label: '📊 Impact' },
     { id: 'users', label: 'Users' },
     { id: 'content', label: 'Content' },
+    { id: 'gallery', label: 'Gallery' },
     { id: 'sos', label: '🆘 SOS' },
     { id: 'corporate', label: 'Corporate' },
     { id: 'tools', label: '🛠 Tools' },
@@ -641,6 +643,8 @@ export default function Admin() {
           <LeaderboardTab profiles={profiles} users={users} />
           ) : tab === 'content' ? (
           <ContentTab />
+          ) : tab === 'gallery' ? (
+          <GalleryAdmin />
           ) : tab === 'sos' ? (
           <SosTab />
           ) : tab === 'corporate' ? (

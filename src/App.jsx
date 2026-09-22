@@ -37,6 +37,7 @@ import Donate from './pages/Donate';
 import About from './pages/About';
 import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
+import Gallery from './pages/Gallery';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
@@ -85,6 +86,7 @@ const AuthenticatedApp = () => {
         <Route path="/about" element={<About />} />
         <Route path="/trust" element={<Trust />} />
         <Route path="/platform" element={<PlatformOverview />} />
+        <Route path="/gallery" element={<Gallery />} />
       </Route>
 
       {/* Protected routes — require login */}

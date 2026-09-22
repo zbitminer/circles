@@ -288,6 +288,7 @@ export default function AppShell() {
                 <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
                 <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
                 <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
+                <li><Link to="/gallery" className="transition-colors hover:text-white">Gallery</Link></li>
                 <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
                 <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
                 <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
