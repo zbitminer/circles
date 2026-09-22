@@ -105,7 +105,7 @@
   .brand-gold { background-color: hsl(var(--brand-gold)); }
 
   .community-ticker-track {
-    animation: community-ticker 35s linear infinite;
+    animation: community-ticker 60s linear infinite;
   }
 
   @keyframes community-ticker {
