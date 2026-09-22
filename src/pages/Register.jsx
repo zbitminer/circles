@@ -10,6 +10,7 @@ import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
 import RegistrationAssistant from "@/components/agents/RegistrationAssistant";
 import { toast } from "@/components/ui/use-toast";
+import { safeReturnTo } from "@/lib/authReturnTo";
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 const CAUSE_EMOJI = { 'Companionship': '\u{1F91D}', 'Food': '\u{1F372}', 'Home': '\u{1F3E0}', 'Skills Sharing': '\u{1F4DA}', 'Technology': '\u{1F4BB}', 'Transportation': '\u{1F697}', 'Other': '\u{1F4A1}' };
@@ -70,7 +71,7 @@ export default function Register() {
       } catch {
         // best-effort
       }
-      window.location.href = "/";
+      window.location.href = safeReturnTo();
     } catch (err) {
       setError(err.message || "Invalid verification code");
     } finally {
@@ -89,7 +90,7 @@ export default function Register() {
   };
 
   const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", window.location.origin + "/");
+    base44.auth.loginWithProvider("google", window.location.origin + safeReturnTo());
   };
 
   // Step indicator
@@ -146,7 +147,7 @@ export default function Register() {
         icon={ShieldCheck}
         title="Terms & Conditions"
         subtitle="Please review and accept to complete your registration"
-        footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+        footer={<>Already have an account?{" "}<Link to={`/login?returnTo=${encodeURIComponent(safeReturnTo())}`} className="text-primary font-medium hover:underline">Log in</Link></>}
         aside={<RegistrationAssistant currentStep={step} />}
       >
         <StepIndicator />
@@ -214,7 +215,7 @@ export default function Register() {
         icon={UserPlus}
         title="Tell us about you"
         subtitle="Help us match you with the right opportunities"
-        footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+        footer={<>Already have an account?{" "}<Link to={`/login?returnTo=${encodeURIComponent(safeReturnTo())}`} className="text-primary font-medium hover:underline">Log in</Link></>}
         aside={<RegistrationAssistant currentStep={step} />}
       >
         <StepIndicator />
@@ -278,7 +279,7 @@ export default function Register() {
       icon={UserPlus}
       title="Join the Circle"
       subtitle="Create your account to start giving & receiving"
-      footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+      footer={<>Already have an account?{" "}<Link to={`/login?returnTo=${encodeURIComponent(safeReturnTo())}`} className="text-primary font-medium hover:underline">Log in</Link></>}
       aside={<RegistrationAssistant currentStep={step} />}
     >
       <StepIndicator />

@@ -38,6 +38,7 @@ import About from './pages/About';
 import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
 import Gallery from './pages/Gallery';
+import OAuthConsent from './pages/OAuthConsent';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
@@ -64,6 +65,7 @@ const AuthenticatedApp = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/oauth/consent" element={<OAuthConsent />} />
 
       {/* Public browsing routes */}
       <Route element={<AppShell />}>
