@@ -8,6 +8,7 @@ import { UserPlus, Mail, Lock, Loader2, MapPin, User, ArrowRight, ArrowLeft, Che
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
+import RegistrationAssistant from "@/components/agents/RegistrationAssistant";
 import { toast } from "@/components/ui/use-toast";
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
@@ -112,7 +113,7 @@ export default function Register() {
   // Step 4: OTP
   if (step === 4) {
     return (
-      <AuthLayout icon={Mail} title="Verify your email" subtitle={`We sent a code to ${email}`}>
+      <AuthLayout icon={Mail} title="Verify your email" subtitle={`We sent a code to ${email}`} aside={<RegistrationAssistant currentStep={step} />}>
         <StepIndicator />
         {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
         <div className="flex justify-center mb-6">
@@ -146,6 +147,7 @@ export default function Register() {
         title="Terms & Conditions"
         subtitle="Please review and accept to complete your registration"
         footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+        aside={<RegistrationAssistant currentStep={step} />}
       >
         <StepIndicator />
         {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
@@ -213,6 +215,7 @@ export default function Register() {
         title="Tell us about you"
         subtitle="Help us match you with the right opportunities"
         footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+        aside={<RegistrationAssistant currentStep={step} />}
       >
         <StepIndicator />
         {error && <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
@@ -276,6 +279,7 @@ export default function Register() {
       title="Join the Circle"
       subtitle="Create your account to start giving & receiving"
       footer={<>Already have an account?{" "}<Link to="/login" className="text-primary font-medium hover:underline">Log in</Link></>}
+      aside={<RegistrationAssistant currentStep={step} />}
     >
       <StepIndicator />
 
