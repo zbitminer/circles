@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart, Users, Clock, Sparkles } from 'lucide-react';
+import MemorialTribute from '@/components/about/MemorialTribute';
 
 export default function About() {
   return (
@@ -78,6 +79,8 @@ export default function About() {
           </p>
         </div>
       </section>
+
+      <MemorialTribute />
 
       {/* This Is Where You Come In */}
       <section className="rounded-2xl p-8 mb-8 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
