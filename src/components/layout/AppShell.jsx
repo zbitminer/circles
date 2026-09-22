@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown, LogIn, LogOut } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import CommunityTicker from '../CommunityTicker';
 import RegistrationPrompt from '../RegistrationPrompt';
+import RequestAssistant from '@/components/agents/RequestAssistant';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
 
@@ -260,6 +261,8 @@ export default function AppShell() {
       <main className="flex-1">
         <Outlet />
       </main>
+
+      <RequestAssistant />
 
       {/* ═══ Footer ═══ */}
       <footer className="mt-12" style={{ background: '#1A1A1A', borderTop: '3px solid #D95D1A' }}>
