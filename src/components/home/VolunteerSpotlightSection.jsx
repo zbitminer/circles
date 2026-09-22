@@ -29,9 +29,6 @@ const SPOTLIGHTS = [
 }];
 
 
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
 const HANDLES = {
   Joy: '@joy_iran',
   Eitan: '@eitan_border',
@@ -54,7 +51,7 @@ export default function VolunteerSpotlightSection() {
             href={s.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex flex-col overflow-visible rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
+            className="group relative flex h-[430px] flex-col overflow-hidden rounded-2xl transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D95D1A]"
             style={{ background: '#1A1A1A' }}>
             
               {/* Gold bookmark corner tab */}
@@ -68,7 +65,7 @@ export default function VolunteerSpotlightSection() {
 
               {/* Portrait */}
               <div className="p-3 pb-0">
-                <div className="relative aspect-square w-3/4 mx-auto overflow-hidden bg-black">
+                <div className="relative h-52 w-full overflow-hidden rounded-xl bg-black">
                   <img
                   src={s.img}
                   alt={s.name}
@@ -88,22 +85,9 @@ export default function VolunteerSpotlightSection() {
                 <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">
                   {HANDLES[s.name] || `@${s.name.toLowerCase()}`}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-white/70 line-clamp-3">
+                <p className="mt-3 min-h-0 flex-1 overflow-y-auto pr-2 text-sm leading-relaxed text-white/70">
                   {s.quote.replace(/^"|"$/g, '')}
                 </p>
-              </div>
-
-              {/* Orange arrow block — links to member directory */}
-              <div className="mt-4 flex justify-end">
-                <Link
-                to="/directory"
-                onClick={(e) => e.stopPropagation()}
-                className="flex h-14 w-14 items-center justify-center transition-opacity duration-200 hover:opacity-90"
-                style={{ background: '#D95D1A' }}
-                aria-label="View member directory">
-                
-                  <ArrowRight className="h-6 w-6 text-black" strokeWidth={3} />
-                </Link>
               </div>
             </a>
           )}
