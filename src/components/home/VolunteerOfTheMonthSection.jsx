@@ -10,7 +10,7 @@ export default function VolunteerOfTheMonthSection() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-xl max-w-2xl max-h-[520px] mx-auto" style={{ background: '#1A1A1A' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-xl max-w-2xl md:max-h-[520px] mx-auto" style={{ background: '#1A1A1A' }}>
           {/* Photo */}
           <div className="relative aspect-[4/3] md:aspect-auto min-h-0">
             <img
