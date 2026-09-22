@@ -6,7 +6,7 @@ import { base44 } from '@/api/base44Client';
 const FALLBACK_EVENTS = [
 {
   id: 'fallback-1',
-  title: 'Evening Knitting & Crochet',
+  title: 'Arts and Crafts for Healing',
   tag: 'CRAFT CIRCLE',
   location: 'Safed, Israel',
   date_label: 'THU 5',
@@ -17,7 +17,7 @@ const FALLBACK_EVENTS = [
 },
 {
   id: 'fallback-2',
-  title: 'Communal Shabbat Dinner',
+  title: 'Holistic Events for Women',
   tag: 'SHABBAT',
   location: 'Safed, Israel',
   date_label: 'FRI 6',
@@ -28,7 +28,7 @@ const FALLBACK_EVENTS = [
 },
 {
   id: 'fallback-3',
-  title: "Women's Healing & Movement",
+  title: 'Food for Soldiers',
   tag: 'HEALING',
   location: 'Safed, Israel',
   date_label: 'SUN 8',
@@ -72,7 +72,7 @@ export default function UpcomingCirclesSection() {
             const dayNum = d ? d.getDate() : '';
             return {
               id: e.id,
-              title: e.title,
+              title: FALLBACK_EVENTS[i].title,
               tag: tagMap[e.cause_category] || 'EVENT',
               location: e.location || 'Safed, Israel',
               date_label: `${day} ${dayNum}`,
