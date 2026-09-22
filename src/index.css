@@ -103,4 +103,17 @@
   .brand-orange { background-color: hsl(var(--brand-orange)); }
   .brand-teal { background-color: hsl(var(--brand-teal)); }
   .brand-gold { background-color: hsl(var(--brand-gold)); }
+
+  .community-ticker-track {
+    animation: community-ticker 35s linear infinite;
+  }
+
+  @keyframes community-ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .community-ticker-track { animation: none; }
+  }
 }

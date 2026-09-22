@@ -2,7 +2,8 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, LogIn, LogOut } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
-import RegisterBanner from '../RegisterBanner';
+import CommunityTicker from '../CommunityTicker';
+import RegistrationPrompt from '../RegistrationPrompt';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
 
@@ -176,6 +177,8 @@ export default function AppShell() {
           </div>
         </div>
 
+        <CommunityTicker />
+
         {/* ═══ Mobile dropdown ═══ */}
         {mobileOpen &&
         <div className="border-t lg:hidden" style={{ background: '#1A1A1A', borderColor: '#333' }}>
@@ -250,9 +253,9 @@ export default function AppShell() {
         }
       </header>
 
-      <div className="h-16" />
+      <div className="h-24" />
 
-      {!user && <RegisterBanner />}
+      <RegistrationPrompt user={user} />
 
       <main className="flex-1">
         <Outlet />
