@@ -60,7 +60,7 @@ export default function About() {
       <section className="rounded-2xl p-8 mb-8 text-center" style={{ background: '#1A2744' }}>
         <h2 className="font-display text-2xl font-bold mb-4" style={{ color: '#C9A84C' }}>The Heart of It All</h2>
         <p className="text-base leading-relaxed mb-4 max-w-2xl mx-auto" style={{ color: '#F5E6C0' }}>
-          Step into our center in Safed and you'll feel it immediately: this is a place that's alive. People gather in the community café. Share their stories over coffee. Everyone carries a unique spark — talent, passion, skill. Here, we illuminate each other by teaching, sharing and learning together. Meet a friend they didn't know they needed. Sit in a workshop, join an event, discover a talent they forgot they had.
+          Step into our center in Safed and you'll feel it immediately: this is a place that's alive. People gather in the community café. Share their stories over coffee. Everyone carries a unique spark - talent, passion, skill. Here, we illuminate each other by teaching, sharing and learning together. Meet a friend they didn't know they needed. Sit in a workshop, join an event, discover a talent they forgot they had.
         </p>
         <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(245,230,192,0.85)' }}>
           This building isn't just a headquarters. It's the beating heart of everything we do — proof that community isn't an idea, it's something you can walk into.
@@ -73,10 +73,8 @@ export default function About() {
           J.L.
         </div>
         <div className="text-center sm:text-left">
-          <span className="text-xs font-bold uppercase tracking-[0.15em] block mb-1" style={{ color: '#C9A84C' }}>Founder and CEO</span>
-          <h3 className="font-display text-xl font-bold mb-3" style={{ color: '#1A2744' }}>Joan Rachel Bracha Laurence</h3>
           <p className="text-sm leading-relaxed" style={{ color: '#6b5c3e' }}>
-            Joan Rachel Bracha Laurence — Founder and CEO — is a social entrepreneur and community designer who has spent her career doing exactly one thing: building places where people heal and belong. From her first model community in Santa Clara, California, to a string of pioneering programs in Tzfat (from 1990) — The Loving Children's Home, The Mother Child Healing Hostel, New Beginnings Hostel for pregnant unwed mothers, and a Single Mother’s Healing Center — Joan has spent over three decades learning what makes a community actually work. Circles of Giving is the culmination of that life's work: a place built to foster unity by helping people give to one another.
+            Joan Rachel Bracha Laurence- Founder and CEO is a social entrepreneur and community designer who has spent her career doing exactly one thing: building places where people heal and belong. From her first model community in Santa Clara, California, to a string of pioneering programs in Tzfat (from 1990) The Loving Children's Home, The Mother Child Healing Hostel, New Beginnings Hostel for pregnant unwed mothers, to a Single Mother’s Healing center — Joan has spent over three decades learning what makes a community actually work. Circles of Giving is the culmination of that life's work: a place built to foster unity by helping people give to one another.
           </p>
         </div>
       </section>
