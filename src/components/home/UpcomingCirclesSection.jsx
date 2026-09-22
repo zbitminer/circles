@@ -79,7 +79,7 @@ export default function UpcomingCirclesSection() {
               time: d ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '',
               joining: e.attendees?.length || 0,
               btnColor: btnColors[i % 3],
-              image_url: e.image_url || FALLBACK_EVENTS[i % 3].image_url
+              image_url: i > 0 ? FALLBACK_EVENTS[i].image_url : (e.image_url || FALLBACK_EVENTS[0].image_url)
             };
           });
           setEvents(mapped);
@@ -105,17 +105,17 @@ export default function UpcomingCirclesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {events.map((event) =>
-          <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col h-[380px]" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1 grid grid-rows-2 min-h-[440px]" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {/* Image */}
-              <div className="relative flex-1 overflow-hidden">
-                <img src={event.image_url} alt={event.title} className="w-full h-full object-cover object-center" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
+              <div className="relative min-h-0 overflow-hidden">
+                <img src={event.image_url} alt={event.title} className="absolute inset-0 w-full h-full object-cover object-center" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
                 <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#1A1A1A' }}>
                   {event.date_label}
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-5 flex-1 flex flex-col">
+              <div className="p-5 min-w-0 flex flex-col">
                 <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block" style={{ color: '#C99738' }}>
                   {event.tag}
                 </span>
