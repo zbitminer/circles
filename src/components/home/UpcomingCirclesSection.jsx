@@ -24,7 +24,7 @@ const FALLBACK_EVENTS = [
   time: '6:30 PM',
   joining: 4,
   btnColor: '#A85573',
-  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3468ee4d4_generated_image.png'
+  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/56172c89e_IMG_0727.jpeg'
 },
 {
   id: 'fallback-3',
@@ -35,7 +35,7 @@ const FALLBACK_EVENTS = [
   time: '10:00 AM',
   joining: 8,
   btnColor: '#0F766E',
-  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/46292aca1_generated_image.png'
+  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/1f270f7ad_IMG_0662.jpeg'
 }];
 
 
@@ -105,17 +105,17 @@ export default function UpcomingCirclesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {events.map((event) =>
-          <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+          <div key={event.id} className="rounded-2xl overflow-hidden bg-white transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col h-[380px]" style={{ border: '1px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
               {/* Image */}
-              <div className="relative h-40 overflow-hidden">
-                <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/56172c89e_IMG_0727.jpeg" alt={event.title} className="w-full h-full object-contain object-center bg-[#e8e2d6]" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
+              <div className="relative flex-1 overflow-hidden">
+                <img src={event.image_url} alt={event.title} className="w-full h-full object-cover object-center" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
                 <div className="absolute top-3 right-3 bg-white rounded-lg px-2.5 py-1 text-xs font-bold" style={{ color: '#1A1A1A' }}>
                   {event.date_label}
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-5 flex flex-col h-full">
+              <div className="p-5 flex-1 flex flex-col">
                 <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block" style={{ color: '#C99738' }}>
                   {event.tag}
                 </span>
