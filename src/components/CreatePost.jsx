@@ -10,6 +10,7 @@ export default function CreatePost({ currentUser, onCreated }) {
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedCauses, setSelectedCauses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [expanded, setExpanded] = useState(false);
 
   const handleImage = (e) => {
@@ -27,29 +28,35 @@ export default function CreatePost({ currentUser, onCreated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!content.trim() || !currentUser) return;
+    if ((!content.trim() && !imageFile) || !currentUser || loading) return;
+    setError('');
     setLoading(true);
-    let image_url = null;
-    if (imageFile) {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file: imageFile });
-      image_url = file_url;
+    try {
+      let image_url = null;
+      if (imageFile) {
+        const { file_url } = await base44.integrations.Core.UploadPublicFile({ file: imageFile });
+        image_url = file_url;
+      }
+      await base44.entities.Post.create({
+        author_id: currentUser.id,
+        author_name: currentUser.full_name,
+        content: content.trim() || 'Shared a community photo.',
+        image_url,
+        cause_tags: selectedCauses,
+        likes: [],
+        comment_count: 0,
+      });
+      setContent('');
+      setImageFile(null);
+      setImagePreview(null);
+      setSelectedCauses([]);
+      setExpanded(false);
+      onCreated?.();
+    } catch (err) {
+      setError(err?.response?.data?.error || err?.message || 'Could not share your post. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    await base44.entities.Post.create({
-      author_id: currentUser.id,
-      author_name: currentUser.full_name,
-      content,
-      image_url,
-      cause_tags: selectedCauses,
-      likes: [],
-      comment_count: 0,
-    });
-    setContent('');
-    setImageFile(null);
-    setImagePreview(null);
-    setSelectedCauses([]);
-    setExpanded(false);
-    setLoading(false);
-    onCreated?.();
   };
 
   const initials = currentUser?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
@@ -124,13 +131,14 @@ export default function CreatePost({ currentUser, onCreated }) {
                   )}
                   <button
                     onClick={handleSubmit}
-                    disabled={!content.trim() || loading}
+                    disabled={(!content.trim() && !imageFile) || loading}
                     className="px-5 py-2 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
                   >
                     {loading ? 'Sharing...' : 'Share'}
                   </button>
                 </div>
               </div>
+              {error && <p className="text-xs text-destructive" role="alert">{error}</p>}
             </div>
         </div>
       </div>
