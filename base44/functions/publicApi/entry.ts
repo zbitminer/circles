@@ -69,7 +69,7 @@ Deno.serve(async (req) => {
       return Response.json({ error: `Unknown entity "${resource}". Available: ${Object.keys(PUBLIC_ENTITIES).join(', ')}` }, { status: 404, headers: CORS });
     }
 
-    const entity = base44.asServiceRole.entities[resource];
+    const entity = base44.entities[resource];
 
     // Single record by id
     const id = params.get('id');
