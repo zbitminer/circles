@@ -13,7 +13,7 @@ const FALLBACK_EVENTS = [
   time: '7:00 PM',
   joining: 12,
   btnColor: '#2563EB',
-  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/4cc406591_generated_image.png'
+  image_url: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/32b6d8b38_IMG_0723.jpeg'
 },
 {
   id: 'fallback-2',
