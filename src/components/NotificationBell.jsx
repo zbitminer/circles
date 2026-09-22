@@ -51,12 +51,12 @@ export default function NotificationBell({ currentUser }) {
     <div className="relative">
       <button
         onClick={() => setShowPanel(!showPanel)}
-        className="relative p-2 rounded-lg hover:opacity-80 transition-opacity"
+        className="relative p-2 rounded-lg hover:opacity-80 transition-opacity hidden"
         style={{ background: '#FAF7EE' }}>
         <Bell className="w-5 h-5" style={{ color: '#1A2744' }} />
         {unreadCount > 0 &&
         <span
-          className="absolute top-0 right-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white"
+          className="absolute top-0 right-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white hidden"
           style={{ background: '#C9A84C', color: '#fff' }}>
           
             {unreadCount}
