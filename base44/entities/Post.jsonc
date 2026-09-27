@@ -11,6 +11,20 @@
     "author_avatar": {
       "type": "string"
     },
+    "title": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "post_type": {
+      "type": "string",
+      "enum": [
+        "story",
+        "request"
+      ],
+      "default": "story"
+    },
     "content": {
       "type": "string"
     },

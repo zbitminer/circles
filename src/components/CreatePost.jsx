@@ -1,17 +1,21 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Image, X, Plus } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
-export default function CreatePost({ currentUser, onCreated }) {
+export default function CreatePost({ currentUser, onCreated, mode = 'story', topics = [], autoFocus = false }) {
   const [content, setContent] = useState('');
+  const [title, setTitle] = useState(() => topics.length ? `Help with ${topics.join(', ')}` : '');
+  const [location, setLocation] = useState('');
+  const inputRef = useRef(null);
+  useEffect(() => { if (autoFocus) inputRef.current?.focus(); }, [autoFocus]);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [selectedCauses, setSelectedCauses] = useState([]);
+  const [selectedCauses, setSelectedCauses] = useState(topics);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(autoFocus);
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -30,6 +34,7 @@ export default function CreatePost({ currentUser, onCreated }) {
     e.preventDefault();
     if ((!content.trim() && !imageFile) || !currentUser || loading) return;
     setError('');
+    if (mode === 'request' && (!title.trim() || !content.trim())) { setError('Please add a request title and explain what help you need.'); return; }
     setLoading(true);
     try {
       let image_url = null;
@@ -41,12 +46,15 @@ export default function CreatePost({ currentUser, onCreated }) {
         author_id: currentUser.id,
         author_name: currentUser.full_name,
         content: content.trim() || 'Shared a community photo.',
+        title: title.trim(), location: location.trim(), post_type: mode,
+        status: 'active',
         image_url,
         cause_tags: selectedCauses,
         likes: [],
         comment_count: 0,
       });
       setContent('');
+      setTitle(''); setLocation('');
       setImageFile(null);
       setImagePreview(null);
       setSelectedCauses([]);
@@ -62,17 +70,28 @@ export default function CreatePost({ currentUser, onCreated }) {
   const initials = currentUser?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
 
   return (
-    <div className="bg-card rounded-2xl shadow-sm border border-border p-5">
+    <div id="community-post-composer" className="bg-card rounded-2xl shadow-sm border border-border p-5 scroll-mt-28">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-xl">{mode === 'request' ? 'Post a Request' : 'Share your story'}</h2>
+        <button type="button" onClick={handleSubmit} disabled={(!content.trim() && !imageFile) || loading} className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-50">{loading ? 'Posting…' : mode === 'request' ? 'Post Request' : 'Post'}</button>
+      </div>
+      {mode === 'request' && <div className="mb-4 space-y-3">
+        <label className="block text-sm">What do you need? *<input value={title} onChange={e => setTitle(e.target.value)} className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-3" /></label>
+        <label className="block text-sm">Location<input value={location} onChange={e => setLocation(e.target.value)} placeholder="City / area" className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-3" /></label>
+        {topics.length > 0 && <p className="text-xs text-muted-foreground">Selected topics: {topics.join(', ')}</p>}
+      </div>}
       <div className="flex gap-3">
         <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-semibold flex-shrink-0">
           {initials}
         </div>
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <textarea
+            ref={inputRef}
+            aria-label={mode === 'request' ? 'Request details' : 'Your story'}
             value={content}
             onChange={e => { setContent(e.target.value); if (!expanded) setExpanded(true); }}
             onFocus={() => setExpanded(true)}
-            placeholder="Share your volunteer story, experience, or inspiration..."
+            placeholder={mode === 'request' ? 'Describe the help you need and when you need it…' : 'Share your volunteer story, experience, or inspiration...'}
             rows={expanded ? 4 : 2}
             className="w-full text-sm bg-muted rounded-xl px-4 py-3 outline-none resize-none border border-transparent focus:border-primary/30 transition-all placeholder:text-muted-foreground"
           />
@@ -129,13 +148,7 @@ export default function CreatePost({ currentUser, onCreated }) {
                       Cancel
                     </button>
                   )}
-                  <button
-                    onClick={handleSubmit}
-                    disabled={(!content.trim() && !imageFile) || loading}
-                    className="px-5 py-2 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
-                  >
-                    {loading ? 'Sharing...' : 'Share'}
-                  </button>
+
                 </div>
               </div>
               {error && <p className="text-xs text-destructive" role="alert">{error}</p>}

@@ -1,80 +1,42 @@
 import { useState } from 'react';
-import { base44 } from '@/api/base44Client';
-import { Send, CheckCircle } from 'lucide-react';
+import useOfferPublisher from '@/components/opportunities/useOfferPublisher';
+import { Send } from 'lucide-react';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 
 const TYPES = ['In-person', 'Remote', 'Hybrid'];
 
-export default function OfferForm({ user, onPosted }) {
+export default function OfferForm({ user, onPosted, onSaved }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [type, setType] = useState('In-person');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
+  const [helpDetails, setHelpDetails] = useState('');
+  const { publish, submitting, error, saved } = useOfferPublisher(user, onSaved);
+  const details = { description, location, type, helpDetails };
+  const selectTopics = async next => {
+    if (await publish(next, details)) setSelectedCategories(next);
+  };
+  const handleSubmit = async e => {
     e.preventDefault();
-    if (selectedCategories.length === 0) return;
-    setSubmitting(true);
-
-    const categoryLabel = selectedCategories.map(c => `${c.emoji} ${c.subcategory || c.category}`).join(', ');
-    const mainCategory = selectedCategories[0].category;
-
-    try {
-      await base44.entities.Opportunity.create({
-        title: `${user.full_name} — Offering: ${categoryLabel}`,
-        description: description || `I'd like to offer my help in: ${categoryLabel}`,
-        organization: 'Community Volunteer',
-        location: location || '',
-        cause_category: mainCategory,
-        type,
-        applicants: [],
-        created_by_name: user.full_name,
-        status: 'active',
-      });
-      setSubmitted(true);
-    } catch (err) {
-      alert(err?.response?.data?.error || err?.message || 'Could not post your offer. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+    if (!selectedCategories.length && !description.trim()) return;
+    if (await publish(selectedCategories, details)) onPosted?.();
   };
 
-  if (submitted) {
-    return (
-      <div className="text-center py-16 rounded-2xl" style={{ background: '#E8F5F3', border: '1.5px solid #247D7D' }}>
-        <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: '#247D7D' }} />
-        <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Your Offer Has Been Posted!</h3>
-        <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>Community members who need your help will be able to find and connect with you.</p>
-        <div className="flex gap-3 justify-center">
-          <button onClick={() => { setSubmitted(false); setSelectedCategories([]); setDescription(''); setLocation(''); }}
-            className="px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D35E35', color: '#fff' }}>
-            Post Another Offer
-          </button>
-          <button onClick={() => onPosted()}
-            className="px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#247D7D', color: '#fff' }}>
-            View All Opportunities
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #D35E35' }}>
+    <form id="community-offer-form" onSubmit={handleSubmit} className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #D35E35' }}>
       <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Share What You'd Like to Offer</h2>
-      <p className="text-xs mb-5" style={{ color: '#6b5c3e' }}>Select the areas where you can help, add details, and post your offer to the community.</p>
+      <p className="text-xs mb-5 text-muted-foreground">Selecting a topic publishes your offer immediately. Add more topics to the same offer, then save your written details below.</p>
+      {saved && <p role="status" className="text-sm text-primary mb-4">Your offer is live. Topic changes are saved automatically.</p>}
+      {submitting && <p role="status" className="text-sm text-muted-foreground">Saving your offer…</p>}
+      {error && <p role="alert" className="text-sm text-destructive mb-4">{error}</p>}
 
       {/* Category multi-select */}
       <div className="mb-5">
         <label className="block text-sm font-bold mb-2" style={{ color: '#1A2744' }}>What can you offer? *</label>
         <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>Select one or more topics across categories.</p>
-        <CategorySearchFilters
-          multiSelect
-          selectedFilters={selectedCategories}
-          onSelectFilters={setSelectedCategories}
-        />
+        <fieldset disabled={submitting} className="disabled:opacity-60">
+          <CategorySearchFilters multiSelect selectedFilters={selectedCategories} onSelectFilters={selectTopics} />
+        </fieldset>
       </div>
 
       {/* Description */}
@@ -90,6 +52,9 @@ export default function OfferForm({ user, onPosted }) {
         />
       </div>
 
+      <label className="block text-sm text-foreground mb-4">How can you help?
+        <textarea value={helpDetails} onChange={e => setHelpDetails(e.target.value)} rows={3} className="mt-1 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm" placeholder="Describe what you can do, when you are available, and any practical details." />
+      </label>
       {/* Location + Type */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
         <div>
@@ -103,7 +68,7 @@ export default function OfferForm({ user, onPosted }) {
           />
         </div>
         <div>
-          <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>How can you help?</label>
+          <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>In person or remotely?</label>
           <select
             value={type}
             onChange={e => setType(e.target.value)}
@@ -118,12 +83,12 @@ export default function OfferForm({ user, onPosted }) {
       {/* Submit */}
       <button
         type="submit"
-        disabled={submitting || selectedCategories.length === 0}
+        disabled={submitting || (!selectedCategories.length && !description.trim())}
         className="w-full py-3.5 font-bold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
         style={{ background: '#D35E35', color: '#fff' }}
       >
         <Send className="w-4 h-4" />
-        {submitting ? 'Posting...' : 'Post My Offer'}
+        {submitting ? 'Saving…' : saved ? 'Save Offer Details' : 'Post My Offer'}
       </button>
     </form>
   );

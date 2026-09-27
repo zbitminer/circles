@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { MapPin, Calendar, Users, Plus, X, LayoutGrid, Map, Send, CheckCircle, Megaphone } from 'lucide-react';
+import { MapPin, Calendar, Users, Plus, X, List, Map, Send, CheckCircle, Megaphone } from 'lucide-react';
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 import OfferForm from '@/components/opportunities/OfferForm';
+import OpportunityListItem from '@/components/opportunities/OpportunityListItem';
 import RemarksSection from '@/components/opportunities/RemarksSection';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 
@@ -47,7 +48,7 @@ export default function Opportunities() {
   const [enrollingId, setEnrollingId] = useState(null);
   const [enrollSuccess, setEnrollSuccess] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState('receive');
+  const [activeTab, setActiveTab] = useState(() => searchParams.get('tab') === 'give' ? 'give' : 'receive');
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -76,15 +77,20 @@ export default function Opportunities() {
   };
 
   const filtered = opportunities.filter((o) => {
-    const catMatch = selectedFilters.length === 0 || selectedFilters.some((f) =>
-    o.cause_category === f.category
-    );
+    const catMatch = selectedFilters.length === 0 || selectedFilters.some(f => {
+      const categories = o.cause_categories?.length ? o.cause_categories : [o.cause_category];
+      return categories.includes(f.category) && (!f.subcategory || !o.offer_topics?.length || o.offer_topics.some(topic => topic.category === f.category && topic.subcategory === f.subcategory));
+    });
     const typeMatch = typeFilter === 'All' || o.type === typeFilter;
     const searchMatch = searchQuery === '' || o.title?.toLowerCase().includes(searchQuery.toLowerCase()) || o.description?.toLowerCase().includes(searchQuery.toLowerCase()) || o.organization?.toLowerCase().includes(searchQuery.toLowerCase());
     return catMatch && typeMatch && searchMatch;
   });
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
+  const requestParams = new URLSearchParams({ compose: 'request' });
+  selectedFilters.forEach(topic => requestParams.append('topic', topic.subcategory || topic.category));
+  const requestTarget = `/feed?${requestParams.toString()}`;
+  const requestLink = user ? requestTarget : `/login?returnTo=${encodeURIComponent(requestTarget)}`;
 
   const handleApply = async (opp) => {
     if (!user) return;
@@ -127,16 +133,17 @@ export default function Opportunities() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#D95D1A' }}>GIVE & RECEIVE</span>
           <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>Community Hub</h1>
           <p className="text-sm" style={{ color: '#555' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {activeTab === 'give' && user ? <button type="submit" form="community-offer-form" className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> Post Offer</button> : <Link to={activeTab === 'give' ? '/login?returnTo=%2Fopportunities%3Ftab%3Dgive' : requestLink} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> {activeTab === 'give' ? 'Post Offer' : 'Post a Request'}</Link>}
           <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#fff', border: '1px solid #C99738' }}>
-            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="Grid view">
-              <LayoutGrid className="w-4 h-4" />
+            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="List view">
+              <List className="w-4 h-4" />
             </button>
             <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="Map view">
               <Map className="w-4 h-4" />
@@ -183,7 +190,7 @@ export default function Opportunities() {
           {/* Explanation */}
           <div className="mb-6 p-5 rounded-xl" style={{ background: '#E8F5F3', border: '1px solid #247D7D', borderLeft: '4px solid #247D7D', boxShadow: '0 2px 8px rgba(36,125,125,0.08)' }}>
             <p className="text-sm" style={{ color: '#1A1A1A' }}>
-              <strong>How it works:</strong> Select the categories you need help with below, then submit your request. You will be matched with givers who will contact you to arrange support.
+              <strong>How it works:</strong> Choose topics to browse offers of help, or select Post a Request above to share your needs with the community.
             </p>
           </div>
 
@@ -297,41 +304,9 @@ export default function Opportunities() {
                   <p className="text-sm" style={{ color: '#555' }}>Try adjusting your filters or check back soon.</p>
                 </div> :
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filtered.map((opp) =>
-              <div key={opp.id} onClick={() => {setSelected(opp);setEnrollSuccess(null);}}
-              className="p-5 cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
-              style={{ background: '#fff', border: '1.5px solid #C99738', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-                      <div className="flex items-start justify-between mb-3">
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[opp.type] || 'bg-muted text-muted-foreground'}`}>
-                          {opp.type}
-                        </span>
-                        <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{categoryEmoji[opp.cause_category] || '💡'} {opp.cause_category}</span>
-                      </div>
-                      <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A1A1A' }}>{opp.title}</h3>
-                      <p className="text-sm mb-2" style={{ color: '#C99738' }}>{opp.organization}</p>
-                      <p className="text-xs line-clamp-2 mb-4" style={{ color: '#555' }}>{opp.description}</p>
-                      <div className="flex items-center justify-between text-xs" style={{ color: '#888' }}>
-                        {opp.location &&
-                  <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C99738' }} />{opp.location}</div>
-                  }
-                        {opp.capacity ?
-                  <div className="flex items-center gap-1 font-medium" style={{ color: (opp.applicants?.length || 0) >= opp.capacity ? '#c0392b' : '#C99738' }}>
-                            <Users className="w-3 h-3" />
-                            {Math.max(0, opp.capacity - (opp.applicants?.length || 0))} spots left
-                          </div> :
-
-                  <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C99738' }} />{opp.applicants?.length || 0} interested</div>
-                  }
-                      </div>
-                      {opp.deadline &&
-                <div className="mt-2 flex items-center gap-1 text-xs font-medium" style={{ color: '#C99738' }}>
-                          <Calendar className="w-3 h-3" />Deadline: {format(new Date(opp.deadline), 'MMM d, yyyy')}
-                        </div>
-                }
-                    </div>
-              )}
-                </div>
+            <div className="rounded-xl border border-border bg-card px-5 py-2">
+              {filtered.map(opp => <OpportunityListItem key={opp.id} opportunity={opp} onSelect={item => { setSelected(item); setEnrollSuccess(null); }} />)}
+            </div>
             }
             </div>
 
@@ -350,11 +325,11 @@ export default function Opportunities() {
             <p className="text-sm font-bold mb-1" style={{ color: '#1A1A1A' }}>Don't see what you need?</p>
             <p className="text-xs mb-3" style={{ color: '#555' }}>Post your request and let the community know how they can help you.</p>
             {user ?
-          <Link to="/feed" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#247D7D', color: '#fff' }}>
+          <Link to={requestLink} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#247D7D', color: '#fff' }}>
                 <Megaphone className="w-4 h-4" /> Post a Request
               </Link> :
 
-          <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+          <Link to={`/register?returnTo=${encodeURIComponent(requestTarget)}`} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
                 Register to Post →
               </Link>
           }
@@ -373,7 +348,7 @@ export default function Opportunities() {
           </div>
 
           {user ?
-        <OfferForm user={user} onPosted={() => {loadOpportunities(null);setActiveTab('receive');}} /> :
+        <OfferForm user={user} onSaved={() => loadOpportunities(null)} onPosted={() => {loadOpportunities(null);setSelectedFilters([]);setSearchQuery('');setTypeFilter('All');setActiveTab('receive');}} /> :
 
         <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
               <div className="text-5xl mb-4">🔒</div>
@@ -397,7 +372,8 @@ export default function Opportunities() {
             </div>
             <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A1A1A' }}>{selected.title}</h2>
             <p className="font-medium mb-4" style={{ color: '#C99738' }}>{selected.organization}</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#555' }}>{selected.description}</p>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap mb-4" style={{ color: '#555' }}>{selected.description}</p>
+            {selected.help_details && <p className="text-sm whitespace-pre-wrap mb-4"><strong>How I can help:</strong> {selected.help_details}</p>}
             <div className="space-y-2 mb-6 text-sm">
               {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C99738' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{selected.cause_category}</span></div>

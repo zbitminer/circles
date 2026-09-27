@@ -23,8 +23,37 @@
         "Skill Sharing",
         "Technology",
         "Transportation",
-        "Creative Workshops"
+        "Creative Workshops",
+        "Consultants",
+        "Wellness",
+        "Other"
       ]
+    },
+    "cause_categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "offer_topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "subcategory": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "category"
+        ]
+      }
+    },
+    "help_details": {
+      "type": "string"
     },
     "type": {
       "type": "string",

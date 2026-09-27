@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PostCard from '@/components/PostCard';
 import CreatePost from '@/components/CreatePost';
@@ -11,6 +11,10 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [postNotice, setPostNotice] = useState('');
+  const requestMode = searchParams.get('compose') === 'request';
+  const returnTo = `/feed?${searchParams.toString()}`;
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -85,7 +89,8 @@ export default function Feed() {
         {/* Feed */}
         <div className="lg:col-span-6 space-y-5">
 
-          {user && <CreatePost currentUser={user} onCreated={loadPosts} />}
+          {postNotice && <p role="status" className="rounded-xl bg-secondary p-4 text-sm text-secondary-foreground">{postNotice}</p>}
+          {user ? <CreatePost key={searchParams.toString()} currentUser={user} mode={requestMode ? 'request' : 'story'} topics={searchParams.getAll('topic')} autoFocus={!!searchParams.get('compose')} onCreated={() => { setPostNotice(requestMode ? 'Your request is posted below for the community to respond.' : 'Your story has been posted.'); setSearchParams({}, { replace: true }); loadPosts(); }} /> : <Link className="block rounded-xl bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground" to={`/login?returnTo=${encodeURIComponent(returnTo)}`}>{requestMode ? 'Sign in to post your request' : 'Sign in to post'}</Link>}
 
           {loading ? (
             <div className="space-y-4">

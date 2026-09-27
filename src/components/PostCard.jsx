@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PostEditor from '@/components/PostEditor';
 import { Heart, MessageCircle, Flag, MoreHorizontal, Trash2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
@@ -53,6 +54,7 @@ const DEFAULT_FALLBACK_IMAGES = [
 
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
   const [showMenu, setShowMenu] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?.id));
   const [likeCount, setLikeCount] = useState(post.likes?.length || 0);
   const [showComments, setShowComments] = useState(false);
@@ -165,6 +167,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
                   <Flag className="w-4 h-4 text-orange-500" /> Report post
                 </button>
             }
+              {(isMod || (currentUser && currentUser.id === post.created_by_id)) && <button onClick={() => { setEditing(true); setShowMenu(false); }} className="w-full px-4 py-3 text-left text-sm hover:bg-muted">Edit {post.post_type === 'request' ? 'request' : 'story'}</button>}
               {(isMod || currentUser?.id === post.author_id) &&
             <button onClick={handleRemove} className="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-muted text-left text-destructive">
                   <Trash2 className="w-4 h-4" /> Remove post
@@ -187,9 +190,12 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
       }
 
       {/* Content */}
-      <div className="px-5 pb-3">
-        <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{post.content}</p>
-      </div>
+      {editing ? <PostEditor post={post} onCancel={() => setEditing(false)} onSaved={() => { setEditing(false); onUpdate?.(); }} /> : <div className="px-5 pb-3 space-y-2">
+        {post.post_type === 'request' && <p className="text-xs font-semibold uppercase text-primary">Help requested</p>}
+        {post.title && <h3 className="text-xl break-words">{post.title}</h3>}
+        {post.location && <p className="text-xs text-muted-foreground">{post.location}</p>}
+        <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap break-words">{post.content}</p>
+      </div>}
 
       {/* Image */}
       {(() => {
@@ -198,7 +204,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
         DEFAULT_FALLBACK_IMAGES[post.id ? post.id.charCodeAt(0) % DEFAULT_FALLBACK_IMAGES.length : 0];
         return (
           <div className="px-5 pb-3">
-            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/065d12556_IMG_0661.jpeg" alt="Post" className="w-full rounded-xl object-cover max-h-80" />
+            <img src={imgSrc} alt={post.title || 'Community post'} className="w-full rounded-xl object-cover max-h-80" />
           </div>);
 
       })()}
