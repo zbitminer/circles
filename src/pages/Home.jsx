@@ -112,11 +112,11 @@ export default function Home() {
       <RealImpactSection />
 
       {/* Closing CTA */}
-      <section className="relative overflow-hidden bg-foreground text-background border-t-4 border-primary">
+      <section className="relative overflow-hidden bg-brand-950 text-brand-50 border-t-4 border-primary">
         <DecorativeCircles variant="dark" />
         <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-background">Your Time is Valuable</h2>
-          <p className="text-lg leading-relaxed mb-8 text-background/70">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-brand-50">Your Time is Valuable</h2>
+          <p className="text-lg leading-relaxed mb-8 text-brand-50/70">
             In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -129,7 +129,7 @@ export default function Home() {
                 Join Now <ArrowRight className="w-5 h-5" />
               </Link>
             }
-            <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full text-background border-2 border-background/40 hover:bg-background/10 transition-colors shadow-lg">
+            <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full text-brand-50 border-2 border-brand-50/40 hover:bg-brand-50/10 transition-colors shadow-lg">
               <Heart className="w-5 h-5" /> Donate
             </Link>
           </div>

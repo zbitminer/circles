@@ -92,14 +92,14 @@ export default function AppShell() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══ Top Nav ═══ */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-md bg-foreground text-background border-b-2 border-primary" ref={navRef}>
+      <header className="fixed top-0 left-0 right-0 z-50 shadow-md bg-brand-950 text-brand-50 border-b-2 border-primary" ref={navRef}>
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-card p-0.5" />
             <div className="flex flex-col leading-none">
               
-              <span className="text-[10px] hidden sm:block text-accent">I Give. I Receive. I Belong. I Grow.</span>
+              <span className="text-[10px] hidden sm:block text-brand-300">I Give. I Receive. I Belong. I Grow.</span>
             </div>
           </Link>
 
@@ -109,23 +109,23 @@ export default function AppShell() {
             <Link
               key={label}
               to={path}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-background ${label === 'S.O.S.' ? 'text-destructive' : isActive(path) ? 'text-accent' : 'text-background/70'}`}>
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-brand-50 ${label === 'S.O.S.' ? 'text-destructive' : isActive(path) ? 'text-brand-300' : 'text-brand-50/70'}`}>
               
                 {label}
               </Link>
             )}
-            <div className="w-px h-5 mx-1 bg-background/20" />
+            <div className="w-px h-5 mx-1 bg-brand-50/20" />
             {dropdowns.map(({ label, items }) =>
             <div key={label} className="relative">
                 <button
                 onClick={(e) => {e.stopPropagation();setOpenDropdown(openDropdown === label ? null : label);}}
-                className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-background ${openDropdown === label ? 'text-accent' : 'text-background/70'}`}>
+                className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors hover:text-brand-50 ${openDropdown === label ? 'text-brand-300' : 'text-brand-50/70'}`}>
                 
                   {label}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === label ? 'rotate-180' : ''}`} />
                 </button>
                 {openDropdown === label &&
-              <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-2xl overflow-hidden z-50 bg-foreground border border-background/20">
+              <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-2xl overflow-hidden z-50 bg-brand-950 border border-brand-50/20">
                     {items.map(({ label: itemLabel, path, desc }) =>
                 <Link
                   key={itemLabel}
@@ -133,8 +133,8 @@ export default function AppShell() {
                   onClick={() => setOpenDropdown(null)}
                   className="block px-4 py-3 hover:bg-white/5 transition-colors">
                   
-                        <p className={`text-sm font-semibold ${isActive(path) ? 'text-accent' : 'text-background'}`}>{itemLabel}</p>
-                        <p className="text-xs mt-0.5 text-background/60">{desc}</p>
+                        <p className={`text-sm font-semibold ${isActive(path) ? 'text-brand-300' : 'text-brand-50'}`}>{itemLabel}</p>
+                        <p className="text-xs mt-0.5 text-brand-50/60">{desc}</p>
                       </Link>
                 )}
                   </div>
@@ -148,7 +148,7 @@ export default function AppShell() {
             {user && <NotificationBell currentUser={user} />}
             {!user ?
             <div className="hidden sm:flex items-center gap-2">
-              <Link to="/login" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-2.5 rounded-lg text-background/70 transition-colors hover:text-background">
+              <Link to="/login" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-2.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <LogIn className="w-4 h-4" /> Login
               </Link>
               <Link to="/register" className="inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
@@ -156,12 +156,12 @@ export default function AppShell() {
               </Link>
             </div> :
             <div className="hidden lg:flex items-center gap-1">
-              <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-background/70 transition-colors hover:text-background">
+              <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <span>Profile</span>
               </Link>
               <button
                 onClick={() => base44.auth.logout()}
-                className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-background/70 transition-colors hover:text-background">
+                className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <LogOut className="w-4 h-4" /> Logout
               </button>
             </div>
@@ -179,7 +179,7 @@ export default function AppShell() {
 
         {/* ═══ Mobile dropdown ═══ */}
         {mobileOpen &&
-        <div className="border-t border-background/20 bg-foreground lg:hidden">
+        <div className="border-t border-brand-50/20 bg-brand-950 lg:hidden">
             {/* Top links */}
             <div className="px-4 py-2 flex flex-wrap gap-1">
               {topLinks.map(({ label, path }) =>
@@ -187,7 +187,7 @@ export default function AppShell() {
               key={label}
               to={path}
               onClick={() => setMobileOpen(false)}
-              className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-background/10 ${label === 'S.O.S.' ? 'text-destructive' : isActive(path) ? 'text-accent' : 'text-background/70'}`}>
+              className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-brand-50/10 ${label === 'S.O.S.' ? 'text-destructive' : isActive(path) ? 'text-brand-300' : 'text-brand-50/70'}`}>
               
                   {label}
                 </Link>
@@ -200,7 +200,7 @@ export default function AppShell() {
             <div key={label}>
                   <button
                 onClick={() => toggleMobileSection(label)}
-                className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-accent">
+                className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-brand-300">
                 
                     {label}
                     <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded[label] ? 'rotate-180' : ''}`} />
@@ -212,7 +212,7 @@ export default function AppShell() {
                   key={itemLabel}
                   to={path}
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-6 py-2.5 text-sm transition-colors hover:bg-background/5 ${isActive(path) ? 'text-accent' : 'text-background/70'}`}>
+                  className={`block px-6 py-2.5 text-sm transition-colors hover:bg-brand-50/5 ${isActive(path) ? 'text-brand-300' : 'text-brand-50/70'}`}>
                   
                           {itemLabel}
                         </Link>
@@ -225,8 +225,8 @@ export default function AppShell() {
 
             {/* Auth CTA */}
             {!user &&
-          <div className="px-4 py-3 border-t border-background/20 space-y-2">
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm text-background/70 border border-background/30">
+          <div className="px-4 py-3 border-t border-brand-50/20 space-y-2">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm text-brand-50/70 border border-brand-50/30">
                   <LogIn className="w-4 h-4" /> Login
                 </Link>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl font-bold text-sm bg-primary text-primary-foreground">
@@ -259,21 +259,21 @@ export default function AppShell() {
       <RequestAssistant />
 
       {/* ═══ Footer ═══ */}
-      <footer className="mt-12 bg-foreground text-background border-t-4 border-primary">
+      <footer className="mt-12 bg-brand-950 text-brand-50 border-t-4 border-primary">
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-8 h-8 rounded-full object-contain bg-card p-0.5" />
               <span className="font-extrabold text-lg text-white">Circles of Giving</span>
             </div>
-            <p className="text-sm leading-relaxed text-background/60">
+            <p className="text-sm leading-relaxed text-brand-50/60">
               A community that brings together people who want to create change and make an impact — through caring, collaboration, and mutual aid.
             </p>
           </div>
           <div>
             <button
               onClick={() => setFooterLinksOpen(!footerLinksOpen)}
-              className="flex items-center justify-between w-full font-bold text-sm mb-3 text-accent">
+              className="flex items-center justify-between w-full font-bold text-sm mb-3 text-brand-300">
               
               Quick Links
               <ChevronDown className={`w-4 h-4 transition-transform ${footerLinksOpen ? 'rotate-180' : ''}`} />
@@ -298,7 +298,7 @@ export default function AppShell() {
             }
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3 text-accent">Contact</h4>
+            <h4 className="font-bold text-sm mb-3 text-brand-300">Contact</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
               <li>🌐 <a href="https://www.circlesofgiving.org" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">circlesofgiving.org</a></li>
               <li>📧 <a href="mailto:support@circlesofgiving.com" className="transition-colors hover:text-white">support@circlesofgiving.com</a></li>
@@ -309,7 +309,7 @@ export default function AppShell() {
             </div>
           </div>
         </div>
-        <div className="border-t border-background/20 text-center py-4 text-xs space-y-2 text-background/50">
+        <div className="border-t border-brand-50/20 text-center py-4 text-xs space-y-2 text-brand-50/50">
           <p>© {new Date().getFullYear()} Circles of Giving. All rights reserved.</p>
           <p className="space-x-3">
             <Link to="/privacy" className="transition-colors hover:text-white">Privacy Policy</Link>

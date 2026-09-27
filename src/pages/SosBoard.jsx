@@ -86,19 +86,19 @@ export default function SosBoard() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Receiving Help</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Post urgent requests for help within 24–48 hours</p>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>Receiving Help</h1>
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Post urgent requests for help within 24–48 hours</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }} title="Grid view">
+          <div className="flex p-1 gap-1 rounded-lg" style={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--primary))' }}>
+            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: 'hsl(var(--foreground))', color: '#F5E6C0' } : { color: 'hsl(var(--foreground))' }} title="Grid view">
               <LayoutGrid className="w-4 h-4" />
             </button>
-            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }} title="Map view">
+            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: 'hsl(var(--foreground))', color: '#F5E6C0' } : { color: 'hsl(var(--foreground))' }} title="Map view">
               <Map className="w-4 h-4" />
             </button>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--foreground))', color: '#F5E6C0', border: '1px solid hsl(var(--primary))' }}>
             <Plus className="w-4 h-4" /> Post Urgent
           </button>
         </div>
@@ -106,41 +106,41 @@ export default function SosBoard() {
 
       {/* Create Form */}
       {showForm && (
-        <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-          <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A2744' }}>Post an Urgent Request</h2>
+        <div className="rounded-2xl p-6 mb-6" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
+          <h2 className="font-display text-xl font-bold mb-4" style={{ color: 'hsl(var(--foreground))' }}>Post an Urgent Request</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>What do you need? *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>What do you need? *</label>
               <input required value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Urgent ride to hospital needed" />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Details *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Details *</label>
               <textarea required rows={3} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Describe the situation and what kind of help is needed..." />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Your Name *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Your Name *</label>
               <input required value={form.contact_name} onChange={e => setForm({ ...form, contact_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Full name" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Location</label>
               <input value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City or area" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Category</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Category</label>
               <select value={form.cause_category} onChange={e => setForm({ ...form, cause_category: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
                 {CAUSES.map(c => <option key={c}>{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Urgency</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Urgency</label>
               <select value={form.urgency_hours} onChange={e => setForm({ ...form, urgency_hours: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
                 <option value={24}>Within 24 hours</option>
                 <option value={48}>Within 48 hours</option>
               </select>
             </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
-              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Cancel</button>
+              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: 'hsl(var(--primary))', color: 'hsl(var(--foreground))' }}>
                 {submitting ? 'Posting...' : 'Post Urgent Request'}
               </button>
             </div>
@@ -156,23 +156,23 @@ export default function SosBoard() {
           onChange={e => setSearchQuery(e.target.value)}
           placeholder="🔍 Search requests by title, description, or contact..."
           className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30"
-          style={{ borderColor: '#C9A84C', background: '#FAF7EE' }}
+          style={{ borderColor: 'hsl(var(--primary))', background: 'hsl(var(--card))' }}
         />
       </div>
 
       {/* Filters */}
       <div className="mb-6">
-        <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
           <CategorySearchFilters selectedFilter={categoryFilter} onSelectFilter={setCategoryFilter} className="mb-4" />
-          <div className="pt-4 border-t" style={{ borderColor: '#C9A84C' }}>
-            <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Status</p>
+          <div className="pt-4 border-t" style={{ borderColor: 'hsl(var(--primary))' }}>
+            <p className="text-xs font-medium mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>Status</p>
             <div className="flex gap-2 flex-wrap">
               {STATUS_OPTIONS.map(s => (
                 <button key={s} onClick={() => setStatusFilter(s)}
                   className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
                   style={statusFilter === s
-                    ? { background: '#C9A84C', color: '#1A2744', border: '1px solid #C9A84C' }
-                    : { background: '#fff', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                    ? { background: 'hsl(var(--primary))', color: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' }
+                    : { background: '#fff', color: 'hsl(var(--muted-foreground))', border: '1px solid hsl(var(--primary))' }
                   }>
                   {STATUS_LABELS[s]}
                 </button>
@@ -187,37 +187,37 @@ export default function SosBoard() {
         <div className="lg:col-span-7">
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: '#FAF7EE' }} />)}
+          {[1,2,3,4].map(i => <div key={i} className="rounded-2xl border border-border p-5 animate-pulse h-48" style={{ background: 'hsl(var(--card))' }} />)}
         </div>
       ) : viewMode === 'map' ? (
         <div className="lg:hidden"><LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" /></div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
           <div className="text-5xl mb-4">✅</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No {statusFilter === 'all' ? '' : statusFilter} requests</h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Check back soon or post a new urgent request.</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>No {statusFilter === 'all' ? '' : statusFilter} requests</h3>
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Check back soon or post a new urgent request.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map(req => (
             <div key={req.id} onClick={() => setSelected(req)}
               className="p-5 cursor-pointer hover:shadow-xl transition-all group"
-              style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+              style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }}>
               <div className="flex items-start justify-between mb-3">
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_CARD_COLORS[req.status] || 'bg-muted text-muted-foreground'}`}>
                   {STATUS_LABELS[req.status] || req.status}
                 </span>
-                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{categoryEmoji[req.cause_category] || '💡'} {req.cause_category}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[req.cause_category] || '💡'} {req.cause_category}</span>
               </div>
-              <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A2744' }}>{req.title}</h3>
-              <p className="text-sm mb-2" style={{ color: '#C9A84C' }}>{req.contact_name}</p>
-              <p className="text-xs line-clamp-2 mb-4" style={{ color: '#6b5c3e' }}>{req.description}</p>
+              <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: 'hsl(var(--foreground))' }}>{req.title}</h3>
+              <p className="text-sm mb-2" style={{ color: 'hsl(var(--primary))' }}>{req.contact_name}</p>
+              <p className="text-xs line-clamp-2 mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}>{req.description}</p>
               <div className="flex items-center justify-between text-xs" style={{ color: '#888' }}>
                 <div className="flex items-center gap-1 text-orange-600 font-medium">
                   <Clock className="w-3 h-3" /> Within {req.urgency_hours}h
                 </div>
                 {req.location && (
-                  <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} />{req.location}</div>
+                  <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />{req.location}</div>
                 )}
               </div>
               {req.claimed_by_name && req.status === 'claimed' && (
@@ -242,20 +242,20 @@ export default function SosBoard() {
       {/* Detail Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-lg w-full p-6 shadow-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-lg w-full p-6 shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-4">
               <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_CARD_COLORS[selected.status] || 'bg-muted text-muted-foreground'}`}>
                 {STATUS_LABELS[selected.status] || selected.status}
               </span>
-              <button onClick={() => setSelected(null)} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: '#6b5c3e' }} /></button>
+              <button onClick={() => setSelected(null)} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: 'hsl(var(--muted-foreground))' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A2744' }}>{selected.title}</h2>
-            <p className="font-medium mb-4" style={{ color: '#C9A84C' }}>{selected.contact_name}</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>{selected.title}</h2>
+            <p className="font-medium mb-4" style={{ color: 'hsl(var(--primary))' }}>{selected.contact_name}</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}>{selected.description}</p>
             <div className="space-y-2 mb-6 text-sm">
-              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} /> {selected.location}</div>}
+              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2">
-                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>{categoryEmoji[selected.cause_category] || '💡'} {selected.cause_category}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[selected.cause_category] || '💡'} {selected.cause_category}</span>
                 <span className="flex items-center gap-1 text-xs font-semibold text-orange-600"><Clock className="w-3.5 h-3.5" /> Within {selected.urgency_hours} hours</span>
               </div>
               {selected.claimed_by_name && <div className="flex items-center gap-2 text-yellow-700 text-xs font-medium"><Users className="w-4 h-4" /> Claimed by {selected.claimed_by_name}</div>}
@@ -263,7 +263,7 @@ export default function SosBoard() {
             {user && selected.status === 'open' && (
               <button onClick={() => handleClaim(selected)}
                 className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
-                style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                style={{ background: 'hsl(var(--foreground))', color: '#F5E6C0', border: '1px solid hsl(var(--primary))' }}>
                 I Can Help!
               </button>
             )}
@@ -273,7 +273,7 @@ export default function SosBoard() {
               </button>
             )}
             {!user && (
-              <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to help with this request</p>
+              <p className="text-center text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Sign in to help with this request</p>
             )}
           </div>
         </div>

@@ -39,17 +39,17 @@ export default function CommunityGridSection() {
   const smalls = MEMBERS.slice(1);
 
   return (
-    <section style={{ background: '#F9F9F9' }}>
+    <section className="bg-background">
       <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         {/* Header */}
         <div className="mb-10 max-w-xl">
-          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: '#D95D1A' }}>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
             COMMUNITY
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: '#1A1A1A', fontFamily: 'Georgia, serif' }}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">
             Real people. Real giving.
           </h2>
-          <p className="text-base" style={{ color: '#555' }}>
+          <p className="text-base text-muted-foreground">
             Every face you see is a verified member — a neighbour, a mentor, a friend you haven't met yet.
           </p>
         </div>
@@ -57,11 +57,11 @@ export default function CommunityGridSection() {
         {/* Photo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
           {/* Large photo */}
-          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px]" style={{ border: '2px solid #C99738', boxShadow: '0 4px 16px rgba(0,0,0,0.10)' }}>
+          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px] border-2 border-primary shadow-md">
             <img src={large.img} alt={large.caption} className="w-full h-full object-cover" />
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
               {large.tag &&
-              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ background: '#C99738', color: '#fff' }}>
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-primary text-primary-foreground">
                   {large.tag}
                 </span>
               }
@@ -71,7 +71,7 @@ export default function CommunityGridSection() {
 
           {/* Small photos */}
           {smalls.map((m) =>
-          <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg" style={{ border: '1px solid #C99738' }}>
+          <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg border border-primary">
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
                 <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{m.caption}</span>
@@ -96,7 +96,7 @@ export default function CommunityGridSection() {
           
 
           
-          <Link to="/directory" className="ml-auto text-sm font-bold hover:underline" style={{ color: '#D95D1A' }}>
+          <Link to="/directory" className="ml-auto text-sm font-bold hover:underline text-primary">
             Browse all members →
           </Link>
         </div>

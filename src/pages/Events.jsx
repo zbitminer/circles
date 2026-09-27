@@ -111,16 +111,16 @@ export default function Events() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A2744' }}>Volunteer Events</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Discover and RSVP to local and virtual events</p>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: 'hsl(var(--palette-950))' }}>Volunteer Events</h1>
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Discover and RSVP to local and virtual events</p>
         </div>
         <div className="flex items-center gap-2">
           {/* View toggle */}
-          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+          <div className="flex p-1 gap-1 rounded-lg" style={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--primary))' }}>
             <button
               onClick={() => setViewMode('grid')}
               className="p-2 rounded-lg transition-all"
-              style={viewMode === 'grid' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
+              style={viewMode === 'grid' ? { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))' } : { color: 'hsl(var(--palette-950))' }}
               title="Grid view"
             >
               <LayoutGrid className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default function Events() {
             <button
               onClick={() => setViewMode('calendar')}
               className="p-2 rounded-lg transition-all"
-              style={viewMode === 'calendar' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
+              style={viewMode === 'calendar' ? { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))' } : { color: 'hsl(var(--palette-950))' }}
               title="Calendar view"
             >
               <CalendarDays className="w-4 h-4" />
@@ -136,14 +136,14 @@ export default function Events() {
             <button
               onClick={() => setViewMode('map')}
               className="p-2 rounded-lg transition-all"
-              style={viewMode === 'map' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#1A2744' }}
+              style={viewMode === 'map' ? { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))' } : { color: 'hsl(var(--palette-950))' }}
               title="Map view"
             >
               <Map className="w-4 h-4" />
             </button>
           </div>
           {isMod && (
-            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }}>
               <Plus className="w-4 h-4" /> Create Event
             </button>
           )}
@@ -213,18 +213,18 @@ export default function Events() {
         <div className="space-y-3">
           {/* Search bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: '#C9A84C' }} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search events by title, description, or location..."
               className="w-full pl-10 pr-4 py-3 rounded-xl text-sm outline-none transition-colors"
-              style={{ background: '#FAF7EE', border: '1px solid #C9A84C', color: '#1A2744' }}
+              style={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--primary))', color: 'hsl(var(--palette-950))' }}
             />
             {searchQuery && (
               <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded hover:bg-black/5">
-                <X className="w-4 h-4" style={{ color: '#6b5c3e' }} />
+                <X className="w-4 h-4" style={{ color: 'hsl(var(--muted-foreground))' }} />
               </button>
             )}
           </div>
@@ -232,13 +232,13 @@ export default function Events() {
             <div className="sm:w-64">
               <CategoryFilterDropdown selected={dropdownFilter} onSelect={handleDropdownSelect} />
             </div>
-            <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+            <div className="flex gap-1.5 flex-wrap p-3 rounded-xl flex-1" style={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--primary))' }}>
               {CAUSES.map(c => (
                 <button key={c} onClick={() => handleCauseFilter(c)}
                   className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
                   style={causeFilter === c && !dropdownFilter
-                    ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                    : { background: '#FAF7EE', color: '#1A2744', border: '1px solid #C9A84C' }
+                    ? { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--palette-950))' }
+                    : { background: 'hsl(var(--card))', color: 'hsl(var(--palette-950))', border: '1px solid hsl(var(--primary))' }
                   }>
                   {c}
                 </button>
@@ -247,10 +247,10 @@ export default function Events() {
           </div>
           {activeFilterCount > 0 && (
             <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: '#6b5c3e' }}>
+              <span className="text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
                 {filtered.length} event{filtered.length !== 1 ? 's' : ''} found
               </span>
-              <button onClick={clearAllFilters} className="text-xs font-medium hover:underline" style={{ color: '#C9A84C' }}>
+              <button onClick={clearAllFilters} className="text-xs font-medium hover:underline" style={{ color: 'hsl(var(--primary))' }}>
                 Clear all filters
               </button>
             </div>
@@ -272,10 +272,10 @@ export default function Events() {
       ) : viewMode === 'map' ? (
         <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
           <div className="text-5xl mb-4">📅</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No events yet</h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Events will appear here. Check back soon!</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--palette-950))' }}>No events yet</h3>
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Events will appear here. Check back soon!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -288,7 +288,7 @@ export default function Events() {
             return (
               <div key={evt.id} onClick={() => setSelected(evt)}
                 className="cursor-pointer hover:shadow-xl transition-all group overflow-hidden"
-                style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '8px', boxShadow: '0 2px 8px rgba(26,39,68,0.10)' }}>
+                style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '8px', boxShadow: '0 2px 8px rgba(26,39,68,0.10)' }}>
                 {/* Ornate corner accents */}
                 <div className="relative">
                   <img
@@ -297,39 +297,39 @@ export default function Events() {
                     className="w-full aspect-video object-cover"
                   />
                   {/* Corner decorations */}
-                  <div className="absolute top-1 left-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C', borderRadius: '2px 0 0 0' }} />
-                  <div className="absolute top-1 right-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid #C9A84C', borderRight: '2px solid #C9A84C', borderRadius: '0 2px 0 0' }} />
+                  <div className="absolute top-1 left-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid hsl(var(--primary))', borderLeft: '2px solid hsl(var(--primary))', borderRadius: '2px 0 0 0' }} />
+                  <div className="absolute top-1 right-1 w-5 h-5 pointer-events-none" style={{ borderTop: '2px solid hsl(var(--primary))', borderRight: '2px solid hsl(var(--primary))', borderRadius: '0 2px 0 0' }} />
                 </div>
                 <div className="px-4 pt-3 pb-1">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{evt.cause_category}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{evt.cause_category}</span>
                     {past && <span className="text-xs" style={{ color: '#aaa' }}>Past event</span>}
-                    {attending && !past && <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: '#C9A84C', color: '#fff' }}>✓ Going</span>}
+                    {attending && !past && <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>✓ Going</span>}
                   </div>
-                  <h3 className="font-display font-bold text-lg mb-2 group-hover:opacity-80 transition-opacity" style={{ color: '#1A2744' }}>{evt.title}</h3>
+                  <h3 className="font-display font-bold text-lg mb-2 group-hover:opacity-80 transition-opacity" style={{ color: 'hsl(var(--palette-950))' }}>{evt.title}</h3>
                 </div>
                 <div className="px-4 pb-4 space-y-1.5">
                   {evt.date && (
                     <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
-                      <Calendar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
+                      <Calendar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'hsl(var(--primary))' }} />
                       {format(new Date(evt.date), 'EEE, MMM d, yyyy · h:mm a')}
                     </div>
                   )}
                   <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
-                    <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'hsl(var(--primary))' }} />
                     {evt.location}
                   </div>
                   <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
-                    <Users className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#C9A84C' }} />
+                    <Users className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'hsl(var(--primary))' }} />
                     {evt.attendees?.length || 0} attending
                     {evt.capacity && <span>· {evt.capacity} max</span>}
-                    {full && <span className="font-medium" style={{ color: '#C9A84C' }}>· Full</span>}
+                    {full && <span className="font-medium" style={{ color: 'hsl(var(--primary))' }}>· Full</span>}
                   </div>
                 </div>
                 {/* Bottom corner accents */}
                 <div className="relative h-0">
-                  <div className="absolute bottom-2 left-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid #C9A84C', borderLeft: '2px solid #C9A84C', borderRadius: '0 0 0 2px' }} />
-                  <div className="absolute bottom-2 right-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid #C9A84C', borderRight: '2px solid #C9A84C', borderRadius: '0 0 2px 0' }} />
+                  <div className="absolute bottom-2 left-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid hsl(var(--primary))', borderLeft: '2px solid hsl(var(--primary))', borderRadius: '0 0 0 2px' }} />
+                  <div className="absolute bottom-2 right-1 w-5 h-5 pointer-events-none" style={{ borderBottom: '2px solid hsl(var(--primary))', borderRight: '2px solid hsl(var(--primary))', borderRadius: '0 0 2px 0' }} />
                 </div>
               </div>
             );
@@ -352,8 +352,8 @@ export default function Events() {
       {!loading && viewMode === 'grid' && (
         <div className="mt-12">
           <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Past Events</h2>
-            <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#FAF7EE', color: '#6b5c3e', border: '1px solid #C9A84C' }}>From Our History</span>
+            <h2 className="font-display text-2xl font-bold" style={{ color: 'hsl(var(--palette-950))' }}>Past Events</h2>
+            <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'hsl(var(--card))', color: 'hsl(var(--muted-foreground))', border: '1px solid hsl(var(--primary))' }}>From Our History</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
@@ -405,18 +405,18 @@ export default function Events() {
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',
               },
             ].map((evt) => (
-              <div key={evt.title} className="overflow-hidden" style={{ background: '#FAF7EE', border: `1.5px solid ${evt.highlight ? '#C9A84C' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
+              <div key={evt.title} className="overflow-hidden" style={{ background: 'hsl(var(--card))', border: `1.5px solid ${evt.highlight ? 'hsl(var(--primary))' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
                 <img src={evt.image} alt={evt.title} className="w-full aspect-video object-cover" />
                 <div className="px-4 py-3">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{evt.category}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{evt.category}</span>
                     <span className="text-xs" style={{ color: '#888' }}>{evt.date}</span>
                   </div>
-                  <h3 className="font-display font-semibold text-sm mb-1" style={{ color: '#1A2744' }}>{evt.title}</h3>
-                  <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b5c3e' }}>{evt.description}</p>
+                  <h3 className="font-display font-semibold text-sm mb-1" style={{ color: 'hsl(var(--palette-950))' }}>{evt.title}</h3>
+                  <p className="text-xs line-clamp-2 mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>{evt.description}</p>
                   <div className="flex items-center gap-3 text-xs" style={{ color: '#888' }}>
-                    <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} />{evt.location}</div>
-                    <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: '#C9A84C' }} />{evt.attendees} attended</div>
+                    <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />{evt.location}</div>
+                    <div className="flex items-center gap-1"><Users className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />{evt.attendees} attended</div>
                   </div>
                 </div>
               </div>
@@ -428,36 +428,36 @@ export default function Events() {
       {/* Event Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-lg w-full shadow-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-lg w-full shadow-2xl overflow-hidden" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <img
               src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
               alt={selected.title}
               className="w-full aspect-video object-cover"
             />
-            <div className="px-6 py-5" style={{ background: '#1A2744', borderBottom: '1px solid #C9A84C' }}>
+            <div className="px-6 py-5" style={{ background: 'hsl(var(--palette-950))', borderBottom: '1px solid hsl(var(--primary))' }}>
               <div className="flex items-start justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: '#C9A84C' }}>{selected.cause_category}</span>
-                <button onClick={() => setSelected(null)} className="p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: '#F5E6C0' }} /></button>
+                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{selected.cause_category}</span>
+                <button onClick={() => setSelected(null)} className="p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: 'hsl(var(--palette-50))' }} /></button>
               </div>
-              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: '#F5E6C0' }}>{selected.title}</h2>
+              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: 'hsl(var(--palette-50))' }}>{selected.title}</h2>
             </div>
             <div className="p-6">
               <div className="space-y-3 mb-4">
                 {selected.date && (
-                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a')}</div>
+                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a')}</div>
                 )}
-                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>
+                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{selected.location}</div>
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}>
-                  <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
+                  <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                   {selected.attendees?.length || 0} attending
                   {selected.capacity && ` · ${selected.capacity} max capacity`}
                 </div>
               </div>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}>{selected.description}</p>
 
               {isMod && selected.attendees?.length > 0 && (
                 <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
-                  <p className="text-xs font-semibold mb-2" style={{ color: '#6b5c3e' }}>Attendee Count: {selected.attendees.length}</p>
+                  <p className="text-xs font-semibold mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>Attendee Count: {selected.attendees.length}</p>
                 </div>
               )}
 
@@ -468,16 +468,16 @@ export default function Events() {
                   className="w-full py-3 font-semibold rounded-xl transition-all"
                   style={
                     selected.attendees?.includes(user.id)
-                      ? { background: '#f0e8d0', color: '#6b5c3e' }
+                      ? { background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }
                       : isFull(selected)
                       ? { background: '#e0d5be', color: '#aaa', cursor: 'not-allowed' }
-                      : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
+                      : { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }
                   }
                 >
                   {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : "RSVP — I'll Be There!"}
                 </button>
               ) : (
-                <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to RSVP</p>
+                <p className="text-center text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Sign in to RSVP</p>
               )}
 
               <EventChat eventId={selected.id} currentUser={user} />

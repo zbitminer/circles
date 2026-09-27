@@ -51,11 +51,11 @@ export default function VolunteerSpotlightSection() {
             href={s.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative flex h-[430px] flex-col overflow-hidden rounded-2xl bg-foreground transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            className="group relative flex h-[430px] flex-col overflow-hidden rounded-2xl bg-brand-950 transition-transform duration-200 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             
               {/* Gold bookmark corner tab */}
               <div
-              className="absolute -top-1 left-6 h-14 w-8 bg-accent"
+              className="absolute -top-1 left-6 h-14 w-8 bg-brand-300"
               style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%)' }} />
             
 
@@ -75,7 +75,7 @@ export default function VolunteerSpotlightSection() {
 
               {/* Text */}
               <div className="flex flex-1 flex-col px-4 pt-4 pb-0">
-                <h3 className="font-heading font-extrabold uppercase leading-none text-3xl tracking-tight text-accent">
+                <h3 className="font-heading font-extrabold uppercase leading-none text-3xl tracking-tight text-brand-300">
                   {s.name}
                 </h3>
                 <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">

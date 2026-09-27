@@ -135,22 +135,22 @@ export default function Opportunities() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
         <div>
-          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: '#D95D1A' }}>GIVE & RECEIVE</span>
-          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>Community Hub</h1>
+          <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-2" style={{ color: 'hsl(var(--primary))' }}>GIVE & RECEIVE</span>
+          <h1 className="font-display text-4xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>Community Hub</h1>
           <p className="text-sm" style={{ color: '#555' }}>Choose a tab below: <strong>I Need Help</strong> to find support, or <strong>I Can Help</strong> to share your skills</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {activeTab === 'give' && user ? <button type="submit" form="community-offer-form" className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> Post Offer</button> : <Link to={activeTab === 'give' ? '/login?returnTo=%2Fopportunities%3Ftab%3Dgive' : requestLink} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"><Plus className="h-4 w-4" /> {activeTab === 'give' ? 'Post Offer' : 'Post a Request'}</Link>}
-          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#fff', border: '1px solid #C99738' }}>
-            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="List view">
+          <div className="flex p-1 gap-1 rounded-lg" style={{ background: '#fff', border: '1px solid hsl(var(--primary))' }}>
+            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: 'hsl(var(--foreground))', color: '#fff' } : { color: 'hsl(var(--foreground))' }} title="List view">
               <List className="w-4 h-4" />
             </button>
-            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: '#1A1A1A', color: '#fff' } : { color: '#1A1A1A' }} title="Map view">
+            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: 'hsl(var(--foreground))', color: '#fff' } : { color: 'hsl(var(--foreground))' }} title="Map view">
               <Map className="w-4 h-4" />
             </button>
           </div>
           {isMod &&
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A1A1A', color: '#fff', border: '1px solid #C99738' }}>
+          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--foreground))', color: '#fff', border: '1px solid hsl(var(--primary))' }}>
               <Plus className="w-4 h-4" /> Post Opportunity
             </button>
           }
@@ -163,8 +163,8 @@ export default function Opportunities() {
           onClick={() => setActiveTab('receive')}
           className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg"
           style={activeTab === 'receive' ?
-          { background: '#247D7D', color: '#fff', border: '2px solid #247D7D', boxShadow: '0 4px 12px rgba(36,125,125,0.25)' } :
-          { background: '#fff', color: '#247D7D', border: '2px solid #247D7D', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
+          { background: 'hsl(var(--primary))', color: '#fff', border: '2px solid hsl(var(--primary))', boxShadow: '0 4px 12px rgba(36,125,125,0.25)' } :
+          { background: '#fff', color: 'hsl(var(--primary))', border: '2px solid hsl(var(--primary))', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
           }>
           
           🙋 I Need Help (Receive)
@@ -173,8 +173,8 @@ export default function Opportunities() {
           onClick={() => setActiveTab('give')}
           className="flex-1 py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 hover:shadow-lg"
           style={activeTab === 'give' ?
-          { background: '#D35E35', color: '#fff', border: '2px solid #D35E35', boxShadow: '0 4px 12px rgba(211,94,53,0.25)' } :
-          { background: '#fff', color: '#D35E35', border: '2px solid #D35E35', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
+          { background: 'hsl(var(--primary))', color: '#fff', border: '2px solid hsl(var(--primary))', boxShadow: '0 4px 12px rgba(211,94,53,0.25)' } :
+          { background: '#fff', color: 'hsl(var(--primary))', border: '2px solid hsl(var(--primary))', boxShadow: '0 2px 6px rgba(0,0,0,0.04)' }
           }>
           
           🤲 I Can Help (Give)
@@ -188,16 +188,16 @@ export default function Opportunities() {
       {activeTab === 'receive' &&
       <>
           {/* Explanation */}
-          <div className="mb-6 p-5 rounded-xl" style={{ background: '#E8F5F3', border: '1px solid #247D7D', borderLeft: '4px solid #247D7D', boxShadow: '0 2px 8px rgba(36,125,125,0.08)' }}>
-            <p className="text-sm" style={{ color: '#1A1A1A' }}>
+          <div className="mb-6 p-5 rounded-xl" style={{ background: 'hsl(var(--secondary))', border: '1px solid hsl(var(--primary))', borderLeft: '4px solid hsl(var(--primary))', boxShadow: '0 2px 8px rgba(36,125,125,0.08)' }}>
+            <p className="text-sm" style={{ color: 'hsl(var(--foreground))' }}>
               <strong>How it works:</strong> Choose topics to browse offers of help, or select Post a Request above to share your needs with the community.
             </p>
           </div>
 
           {/* Category multi-select */}
           <div className="mb-6">
-            <div className="rounded-2xl p-5" style={{ background: '#fff', border: '1.5px solid #C99738', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
-              <p className="text-sm font-bold mb-1" style={{ color: '#1A1A1A' }}>What do you need help with?</p>
+            <div className="rounded-2xl p-5" style={{ background: '#fff', border: '1.5px solid hsl(var(--primary))', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+              <p className="text-sm font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>What do you need help with?</p>
               <p className="text-xs mb-4" style={{ color: '#555' }}>Select one or more topics — you can choose across categories.</p>
               <CategorySearchFilters
               multiSelect
@@ -205,15 +205,15 @@ export default function Opportunities() {
               onSelectFilters={setSelectedFilters}
               className="mb-4" />
             
-              <div className="pt-4 border-t" style={{ borderColor: '#C99738' }}>
+              <div className="pt-4 border-t" style={{ borderColor: 'hsl(var(--primary))' }}>
                 <p className="text-xs font-medium mb-2" style={{ color: '#555' }}>Type</p>
                 <div className="flex gap-2 flex-wrap">
                   {TYPES.map((t) =>
                 <button key={t} onClick={() => setTypeFilter(t)}
                 className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
                 style={typeFilter === t ?
-                { background: '#C99738', color: '#1A1A1A', border: '1px solid #C99738' } :
-                { background: '#fff', color: '#555', border: '1px solid #C99738' }
+                { background: 'hsl(var(--primary))', color: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' } :
+                { background: '#fff', color: '#555', border: '1px solid hsl(var(--primary))' }
                 }>
                       {t}
                     </button>
@@ -231,14 +231,14 @@ export default function Opportunities() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="🔍 Search opportunities by title, organization, or keywords..."
             className="w-full px-4 py-3 rounded-xl border outline-none focus:border-primary/30 transition-shadow"
-            style={{ borderColor: '#C99738', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }} />
+            style={{ borderColor: 'hsl(var(--primary))', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }} />
           
           </div>
 
           {/* Create Form (admin/mod) */}
           {showForm && isMod &&
-        <div className="rounded-2xl p-6 mb-6" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
-              <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A1A1A' }}>New Opportunity</h2>
+        <div className="rounded-2xl p-6 mb-6" style={{ background: '#fff', border: '1.5px solid hsl(var(--primary))' }}>
+              <h2 className="font-display text-xl font-bold mb-4" style={{ color: 'hsl(var(--foreground))' }}>New Opportunity</h2>
               <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
                   <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Title *</label>
@@ -278,7 +278,7 @@ export default function Opportunities() {
                 </div>
                 <div className="md:col-span-2 flex gap-3 justify-end">
                   <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#555' }}>Cancel</button>
-                  <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C99738', color: '#1A1A1A' }}>
+                  <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: 'hsl(var(--primary))', color: 'hsl(var(--foreground))' }}>
                     {submitting ? 'Publishing...' : 'Publish'}
                   </button>
                 </div>
@@ -298,9 +298,9 @@ export default function Opportunities() {
                   <LocationMap items={filtered} onSelectItem={setSelected} labelKey="title" locationKey="location" />
                 </div> :
             filtered.length === 0 ?
-            <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
+            <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid hsl(var(--primary))' }}>
                   <div className="text-5xl mb-4">🔍</div>
-                  <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>No opportunities found</h3>
+                  <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>No opportunities found</h3>
                   <p className="text-sm" style={{ color: '#555' }}>Try adjusting your filters or check back soon.</p>
                 </div> :
 
@@ -321,15 +321,15 @@ export default function Opportunities() {
           </div>
 
           {/* "Other" — post what you need */}
-          <div className="mt-8 p-6 rounded-2xl text-center" style={{ background: '#fff', border: '1.5px dashed #C99738', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-            <p className="text-sm font-bold mb-1" style={{ color: '#1A1A1A' }}>Don't see what you need?</p>
+          <div className="mt-8 p-6 rounded-2xl text-center" style={{ background: '#fff', border: '1.5px dashed hsl(var(--primary))', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+            <p className="text-sm font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>Don't see what you need?</p>
             <p className="text-xs mb-3" style={{ color: '#555' }}>Post your request and let the community know how they can help you.</p>
             {user ?
-          <Link to={requestLink} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#247D7D', color: '#fff' }}>
+          <Link to={requestLink} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>
                 <Megaphone className="w-4 h-4" /> Post a Request
               </Link> :
 
-          <Link to={`/register?returnTo=${encodeURIComponent(requestTarget)}`} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: '#D95D1A', color: '#fff' }}>
+          <Link to={`/register?returnTo=${encodeURIComponent(requestTarget)}`} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>
                 Register to Post →
               </Link>
           }
@@ -341,8 +341,8 @@ export default function Opportunities() {
       {activeTab === 'give' &&
       <>
           {/* Explanation */}
-          <div className="mb-6 p-5 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #D35E35', borderLeft: '4px solid #D35E35', boxShadow: '0 2px 8px rgba(211,94,53,0.08)' }}>
-            <p className="text-sm" style={{ color: '#1A1A1A' }}>
+          <div className="mb-6 p-5 rounded-xl" style={{ background: 'hsl(var(--secondary))', border: '1px solid hsl(var(--primary))', borderLeft: '4px solid hsl(var(--primary))', boxShadow: '0 2px 8px rgba(211,94,53,0.08)' }}>
+            <p className="text-sm" style={{ color: 'hsl(var(--foreground))' }}>
               <strong>Want to give?</strong> Share what you'd like to offer — your time, skills, or talents. Post your offering below and community members who need your help will be connected with you.
             </p>
           </div>
@@ -350,11 +350,11 @@ export default function Opportunities() {
           {user ?
         <OfferForm user={user} onSaved={() => loadOpportunities(null)} onPosted={() => {loadOpportunities(null);setSelectedFilters([]);setSearchQuery('');setTypeFilter('All');setActiveTab('receive');}} /> :
 
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid #C99738' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: '#fff', border: '1.5px solid hsl(var(--primary))' }}>
               <div className="text-5xl mb-4">🔒</div>
-              <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>Register to Give</h3>
+              <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>Register to Give</h3>
               <p className="text-sm mb-4" style={{ color: '#555' }}>You must create an account before you can offer your skills and talents.</p>
-              <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+              <Link to="/register" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm hover:opacity-90" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>
                 Create Your Free Account →
               </Link>
             </div>
@@ -365,21 +365,21 @@ export default function Opportunities() {
       {/* Detail Modal */}
       {selected &&
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => {setSelected(null);setEnrollSuccess(null);}}>
-          <div className="max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto" style={{ background: '#fff', border: '1.5px solid #C99738', borderRadius: '12px' }} onClick={(e) => e.stopPropagation()}>
+          <div className="max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto" style={{ background: '#fff', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-4">
               <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[selected.type] || 'bg-muted text-muted-foreground'}`}>{selected.type}</span>
               <button onClick={() => {setSelected(null);setEnrollSuccess(null);}} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: '#555' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A1A1A' }}>{selected.title}</h2>
-            <p className="font-medium mb-4" style={{ color: '#C99738' }}>{selected.organization}</p>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>{selected.title}</h2>
+            <p className="font-medium mb-4" style={{ color: 'hsl(var(--primary))' }}>{selected.organization}</p>
             <p className="text-sm leading-relaxed whitespace-pre-wrap mb-4" style={{ color: '#555' }}>{selected.description}</p>
             {selected.help_details && <p className="text-sm whitespace-pre-wrap mb-4"><strong>How I can help:</strong> {selected.help_details}</p>}
             <div className="space-y-2 mb-6 text-sm">
-              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C99738' }} /> {selected.location}</div>}
+              {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{selected.cause_category}</span></div>
-              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: '#C99738' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
+              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: 'hsl(var(--primary))' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
               <div className="flex items-center gap-2" style={{ color: '#555' }}>
-                <Users className="w-4 h-4" style={{ color: '#C99738' }} />
+                <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                 {selected.capacity ?
               `${selected.applicants?.length || 0} / ${selected.capacity} enrolled · ${Math.max(0, selected.capacity - (selected.applicants?.length || 0))} spots left` :
               `${selected.applicants?.length || 0} people interested`}
@@ -396,10 +396,10 @@ export default function Opportunities() {
             if (isEnrolled) {
               return (
                 <div>
-                      <div className="p-4 rounded-xl mb-3" style={{ background: '#E8F5F3', border: '1px solid #247D7D' }}>
+                      <div className="p-4 rounded-xl mb-3" style={{ background: 'hsl(var(--secondary))', border: '1px solid hsl(var(--primary))' }}>
                         <div className="flex items-center gap-2 mb-2">
-                          <CheckCircle className="w-5 h-5" style={{ color: '#247D7D' }} />
-                          <p className="font-bold text-sm" style={{ color: '#1A1A1A' }}>
+                          <CheckCircle className="w-5 h-5" style={{ color: 'hsl(var(--primary))' }} />
+                          <p className="font-bold text-sm" style={{ color: 'hsl(var(--foreground))' }}>
                             {justEnrolled ? "You've expressed interest!" : "You expressed interest"}
                           </p>
                         </div>
@@ -416,15 +416,15 @@ export default function Opportunities() {
 
             return (
               <div>
-                    <p className="text-xs mb-3 p-3 rounded-lg" style={{ background: '#E8F5F3', color: '#555' }}>
-                      <Send className="w-3 h-3 inline mr-1" style={{ color: '#247D7D' }} />
+                    <p className="text-xs mb-3 p-3 rounded-lg" style={{ background: 'hsl(var(--secondary))', color: '#555' }}>
+                      <Send className="w-3 h-3 inline mr-1" style={{ color: 'hsl(var(--primary))' }} />
                       By clicking below, you'll be matched with a giver who will contact you to arrange support.
                     </p>
                     <button onClick={() => handleApply(selected)} disabled={isFull || isLoading}
                 className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-60"
                 style={isFull ?
                 { background: 'rgba(201,151,56,0.12)', color: '#c0392b' } :
-                { background: '#1A1A1A', color: '#fff', border: '1px solid #C99738' }
+                { background: 'hsl(var(--foreground))', color: '#fff', border: '1px solid hsl(var(--primary))' }
                 }>
                       {isLoading ? 'Processing...' : isFull ? 'Workshop Full' : "I'm Interested — Match Me"}
                     </button>
@@ -432,10 +432,10 @@ export default function Opportunities() {
 
           })() :
 
-          <div className="text-center p-4 rounded-xl" style={{ background: '#FFF3E0', border: '1px solid #E67E22' }}>
-                <p className="text-sm font-bold mb-2" style={{ color: '#1A1A1A' }}>Registration Required</p>
+          <div className="text-center p-4 rounded-xl" style={{ background: 'hsl(var(--secondary))', border: '1px solid #E67E22' }}>
+                <p className="text-sm font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>Registration Required</p>
                 <p className="text-xs mb-3" style={{ color: '#555' }}>You must register to express interest and get matched.</p>
-                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: '#D95D1A', color: '#fff' }}>
+                <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>
                   Register Free →
                 </Link>
               </div>
