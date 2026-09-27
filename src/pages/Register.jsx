@@ -56,9 +56,9 @@ export default function Register() {
       }
       try {
         const me = await base44.auth.me();
-        if (name) await base44.auth.updateMe({ full_name: name });
         await base44.entities.VolunteerProfile.create({
           user_id: me.id,
+          display_name: name,
           location,
           phone,
           causes: selectedCauses,

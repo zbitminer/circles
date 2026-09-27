@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { LANGUAGES, FORMATS } from '@/lib/workshop-categories';
 import WorkshopCategoryGrid from './WorkshopCategoryGrid';
+import useWorkshopAutofill from '@/components/workshops/useWorkshopAutofill';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function ParticipateForm() {
   const [form, setForm] = useState({
     first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
   });
+  const { autofilling, autofillError } = useWorkshopAutofill(setForm);
+  const queryClient = useQueryClient();
   const [categories, setCategories] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -22,6 +26,7 @@ export default function ParticipateForm() {
         inquiry_type: 'participate',
         workshop_categories: categories,
       });
+      queryClient.invalidateQueries({ queryKey: ['workshop-listings'] });
       setDone(true);
     } catch (err) {
       alert(err?.response?.data?.error || 'Could not submit. Please try again.');
@@ -36,13 +41,15 @@ export default function ParticipateForm() {
         <div className="text-5xl mb-4">🎉</div>
         <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank you!</h3>
         <p className="text-sm" style={{ color: '#6b5c3e' }}>We received your request. We'll contact you when a group forms for your chosen workshops.</p>
-        <button onClick={() => { setDone(false); setCategories([]); setForm({ first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', format: 'In-person' }); }} className="mt-4 text-sm font-semibold" style={{ color: '#C9A84C' }}>Submit another request →</button>
+        <button onClick={() => { setDone(false); setCategories([]); }} className="mt-4 text-sm font-semibold" style={{ color: '#C9A84C' }}>Submit another request →</button>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {autofilling && <p role="status" className="text-sm text-muted-foreground">Filling in your signup details…</p>}
+      {autofillError && <p className="text-sm text-muted-foreground">Your saved contact details could not be loaded. You can enter them below.</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="First Name *"><input required value={form.first_name} onChange={(e) => set('first_name', e.target.value)} className={inputCls} placeholder="First name" /></Field>
         <Field label="Last Name *"><input required value={form.last_name} onChange={(e) => set('last_name', e.target.value)} className={inputCls} placeholder="Last name" /></Field>

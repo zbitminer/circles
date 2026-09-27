@@ -68,6 +68,31 @@
     "notes": {
       "type": "string"
     },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "supplies": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "start_time": {
+      "type": "string"
+    },
+    "end_time": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
     "status": {
       "type": "string",
       "enum": [

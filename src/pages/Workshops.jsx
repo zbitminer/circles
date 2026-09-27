@@ -6,7 +6,8 @@ import LeadForm from '@/components/workshops/LeadForm';
 import WorkshopListings from '@/components/workshops/WorkshopListings';
 
 export default function Workshops() {
-  const [tab, setTab] = useState('participate');
+  const [tab, setTab] = useState('list');
+  const [created, setCreated] = useState(false);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
@@ -30,7 +31,9 @@ export default function Workshops() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6">
+      {created && <p role="status" className="mb-4 rounded-xl bg-secondary p-4 text-secondary-foreground">Workshop created. Your details, map, and printable flyer are available below.</p>}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <button onClick={() => setTab('list')} className={`flex-1 min-w-36 rounded-xl border border-border px-4 py-3 text-sm font-semibold ${tab === 'list' ? 'bg-primary text-primary-foreground' : 'bg-card text-foreground'}`}>Browse Workshops</button>
         <button
           onClick={() => setTab('participate')}
           className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition-all"
@@ -47,20 +50,20 @@ export default function Workshops() {
             ? { background: '#1A2744', color: '#F5E6C0', border: '1.5px solid #C9A84C' }
             : { background: '#FAF7EE', color: '#6b5c3e', border: '1.5px solid #C9A84C' }}
         >
-          <Heart className="w-4 h-4" /> I want to lead
+          <Heart className="w-4 h-4" /> Create Workshop
         </button>
       </div>
 
       {/* Form card */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      {tab !== 'list' && <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>
-          {tab === 'participate' ? 'Sign up for a workshop' : 'Offer to lead a workshop'}
+          {tab === 'participate' ? 'Share your workshop interests' : 'Create a workshop'}
         </h2>
         <p className="text-xs mb-5" style={{ color: '#6b5c3e' }}>
           {tab === 'participate' ? 'Tell us what you\'d love to learn — we\'ll match you when a group forms.' : 'Share your knowledge with the community as a workshop leader.'}
         </p>
-        {tab === 'participate' ? <ParticipateForm /> : <LeadForm />}
-      </div>
+        {tab === 'participate' ? <ParticipateForm /> : <LeadForm onCreated={() => { setCreated(true); setTab('list'); }} />}
+      </div>}
 
       {/* Sample / live workshop listings */}
       <div className="mt-10">

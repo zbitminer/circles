@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
+import WorkshopMap from '@/components/workshops/WorkshopMap';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Video, Users, Sparkles } from 'lucide-react';
 
@@ -22,15 +24,10 @@ const CATEGORY_IMAGES = {
 };
 
 export default function WorkshopListings() {
-  const [inquiries, setInquiries] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    base44.entities.WorkshopInquiry.list('-created_date', 50)
-      .then((data) => setInquiries(data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
+  const { data: inquiries = [], isLoading: loading, error, refetch } = useQuery({
+    queryKey: ['workshop-listings'],
+    queryFn: () => base44.entities.WorkshopInquiry.list('-created_date', 500),
+  });
 
   if (loading) {
     return (
@@ -42,7 +39,8 @@ export default function WorkshopListings() {
     );
   }
 
-  if (inquiries.length === 0) return null;
+  if (error) return <div role="alert" className="text-sm text-destructive">Unable to load workshops. <button className="underline" onClick={() => refetch()}>Try again</button></div>;
+  if (inquiries.length === 0) return <p className="rounded-xl border border-border p-6 text-center text-muted-foreground">No workshops yet. Create the first workshop or share what you would like to learn.</p>;
 
   const leads = inquiries.filter((i) => i.inquiry_type === 'lead');
   const participants = inquiries.filter((i) => i.inquiry_type === 'participate');
@@ -53,6 +51,7 @@ export default function WorkshopListings() {
   };
 
   const renderCard = (inq) => {
+    if (inq.inquiry_type === 'lead' && inq.title) return <WorkshopFlyer key={inq.id} workshop={inq} />;
     const cats = (inq.workshop_categories || []).map(parseCategory).filter((c) => c.main);
     const mainCat = cats[0]?.main;
     return (
@@ -100,6 +99,7 @@ export default function WorkshopListings() {
           </div>
         )}
         {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b5c3e' }}>{inq.notes}</p>}
+        {inq.inquiry_type === 'lead' && <WorkshopMap workshop={inq} />}
         </div>
       </div>
     );
