@@ -97,8 +97,8 @@ export default function AppShell() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-card p-0.5" />
-            <div className="flex flex-col leading-none">
-              
+            <div className="flex flex-col gap-1 leading-none">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-brand-50">Circles of Giving</span>
               <span className="text-[10px] hidden sm:block text-brand-300">I Give. I Receive. I Belong. I Grow.</span>
             </div>
           </Link>
