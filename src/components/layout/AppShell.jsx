@@ -15,7 +15,7 @@ const topLinks = [
 { label: 'Community', path: '/feed' },
 { label: 'Events', path: '/events' },
 { label: 'Workshops', path: '/workshops' },
-{ label: 'Shabbat Hosting', path: '/shabbat' },
+{ label: 'Hosting', path: '/shabbat' },
 { label: 'S.O.S.', path: '/sos' }];
 
 
