@@ -344,9 +344,13 @@ function ToolsTab({ users }) {
     e.preventDefault();
     setInviting(true);
     setInviteMsg('');
-    await base44.users.inviteUser(inviteEmail, inviteRole);
-    setInviteMsg(`✓ Invitation sent to ${inviteEmail}`);
-    setInviteEmail('');
+    try {
+      await base44.users.inviteUser(inviteEmail, inviteRole);
+      setInviteMsg(`✓ Invitation sent to ${inviteEmail}`);
+      setInviteEmail('');
+    } catch (err) {
+      setInviteMsg(`Could not send invitation: ${err?.message || 'please try again'}`);
+    }
     setInviting(false);
   };
 
@@ -366,13 +370,17 @@ function ToolsTab({ users }) {
     e.preventDefault();
     setSending(true);
     setSendMsg('');
-    await base44.functions.invoke('sendAdminAnnouncement', {
-      to: announcementEmail,
-      subject: announcementSubject,
-      message: announcementBody,
-    });
-    setSendMsg('✓ Announcement sent successfully');
-    setAnnouncementEmail(''); setAnnouncementSubject(''); setAnnouncementBody('');
+    try {
+      await base44.functions.invoke('sendAdminAnnouncement', {
+        to: announcementEmail,
+        subject: announcementSubject,
+        message: announcementBody,
+      });
+      setSendMsg('✓ Announcement sent successfully');
+      setAnnouncementEmail(''); setAnnouncementSubject(''); setAnnouncementBody('');
+    } catch (err) {
+      setSendMsg(`Could not send announcement: ${err?.message || 'please try again'}`);
+    }
     setSending(false);
   };
 
@@ -511,9 +519,9 @@ export default function Admin() {
   if (!user || user.role !== 'admin') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <Shield className="w-12 h-12 mx-auto mb-4" style={{ color: '#C9A84C' }} />
-        <h1 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Admin Only</h1>
-        <p style={{ color: '#6b5c3e' }}>You need admin access to view this dashboard.</p>
+        <Shield className="w-12 h-12 mx-auto mb-4 text-primary" />
+        <h1 className="font-display text-2xl font-bold mb-2 text-foreground">Admin Only</h1>
+        <p className="text-muted-foreground">You need admin access to view this dashboard.</p>
       </div>
     );
   }
@@ -545,25 +553,24 @@ export default function Admin() {
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#1A2744', border: '1px solid #C9A84C' }}>
-            <Shield className="w-5 h-5" style={{ color: '#F5E6C0' }} />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-brand-950 border border-primary">
+            <Shield className="w-5 h-5 text-brand-300" />
           </div>
           <div>
-            <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Admin Dashboard</h1>
-            <p className="text-sm" style={{ color: '#6b5c3e' }}>Master control panel</p>
+            <h1 className="font-display text-2xl font-bold text-foreground">Admin Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Master control panel</p>
           </div>
         </div>
-        <button onClick={loadData} className="flex items-center gap-2 text-sm px-3 py-2 rounded-xl transition-colors hover:bg-muted" style={{ color: '#6b5c3e' }}>
+        <button onClick={loadData} className="flex items-center gap-2 text-sm px-3 py-2 rounded-xl transition-colors hover:bg-muted text-muted-foreground">
           <RefreshCw className="w-4 h-4" /> Refresh
         </button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-xl p-1 mb-8 flex-wrap" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+      <div className="flex gap-1 rounded-xl p-1 mb-8 flex-wrap bg-secondary border border-primary">
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
-            style={tab === t.id ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t.id ? 'bg-brand-950 text-brand-300' : 'text-muted-foreground'}`}>
             {t.label}
           </button>
         ))}
@@ -576,25 +583,25 @@ export default function Admin() {
       ) : tab === 'overview' ? (
         <div>
           {/* Community Control Panel */}
-          <div className="rounded-2xl p-6 mb-8" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-            <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
-            <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Quick access to key community features</p>
+          <div className="rounded-2xl p-6 mb-8 bg-secondary border border-primary">
+            <h2 className="font-display text-xl font-bold mb-1 text-foreground">Community Control Panel</h2>
+            <p className="text-sm mb-5 text-muted-foreground">Quick access to key community features</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
-                { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
-                { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
-                { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
-                { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent requests', iconColor: '#c0392b', bg: '#fdecea' },
-                { to: '/shabbat', Icon: Users, label: 'Shabbat Meals', sub: 'Meals & tables', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
-                { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
-              ].map(({ to, Icon, label, sub, iconColor, bg }) => (
-                <a key={to} href={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
-                    <Icon className="w-5 h-5" style={{ color: iconColor }} />
+                { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact' },
+                { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Volunteer roles' },
+                { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend' },
+                { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent requests' },
+                { to: '/shabbat', Icon: Users, label: 'Hosting', sub: 'Meals & tables' },
+                { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members' },
+              ].map(({ to, Icon, label, sub }) => (
+                <a key={to} href={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md bg-card border border-border">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors bg-primary/10">
+                    <Icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</p>
-                    <p className="text-xs" style={{ color: '#6b5c3e' }}>{sub}</p>
+                    <p className="font-semibold text-sm text-foreground">{label}</p>
+                    <p className="text-xs text-muted-foreground">{sub}</p>
                   </div>
                 </a>
               ))}
@@ -613,7 +620,7 @@ export default function Admin() {
             ))}
           </div>
           <div className="bg-card rounded-2xl border border-border p-6">
-            <h2 className="font-display text-lg font-bold mb-4">Platform Health</h2>
+            <h2 className="font-display text-lg font-bold mb-4">Community Health</h2>
             <div className="space-y-4">
               {[
                 { label: 'Posts', value: stats.posts, max: 50, color: 'bg-primary' },
