@@ -8,6 +8,8 @@ import {
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
 import GalleryAdmin from '@/components/gallery/GalleryAdmin';
+import AdminEventsTab from '@/components/admin/AdminEventsTab';
+import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -541,6 +543,8 @@ export default function Admin() {
     { id: 'monthly', label: '📈 Monthly Impact' },
     { id: 'impact', label: '📊 Impact' },
     { id: 'users', label: 'Users' },
+    { id: 'events', label: 'Events' },
+    { id: 'workshops', label: 'Workshops' },
     { id: 'content', label: 'Content' },
     { id: 'gallery', label: 'Gallery' },
     { id: 'sos', label: '🆘 SOS' },
@@ -648,6 +652,10 @@ export default function Admin() {
           <ImpactDashboard hourLogs={hourLogs} profiles={profiles} events={events} posts={[]} />
           ) : tab === 'leaderboard' ? (
           <LeaderboardTab profiles={profiles} users={users} />
+          ) : tab === 'events' ? (
+          <AdminEventsTab />
+          ) : tab === 'workshops' ? (
+          <AdminWorkshopsTab />
           ) : tab === 'content' ? (
           <ContentTab />
           ) : tab === 'gallery' ? (
