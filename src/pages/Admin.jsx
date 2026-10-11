@@ -29,7 +29,7 @@ function LeaderboardTab({ profiles, users }) {
   return (
     <div className="space-y-4">
       {ranked.length >= 3 && (
-        <div className="grid grid-cols-3 gap-4 mb-2">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-2">
           {[ranked[1], ranked[0], ranked[2]].map((p, i) => {
             const rank = i === 0 ? 2 : i === 1 ? 1 : 3;
             const u = userMap[p.user_id];
@@ -57,7 +57,7 @@ function LeaderboardTab({ profiles, users }) {
             const initials = u?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
             const pct = Math.round(((p.total_hours || 0) / maxHours) * 100);
             return (
-              <div key={p.id} className="flex items-center gap-4 px-6 py-4">
+              <div key={p.id} className="flex items-center gap-3 sm:gap-4 px-3 sm:px-6 py-4">
                 <span className="w-8 text-center font-bold text-sm text-muted-foreground">{MEDAL[rank] || `#${rank}`}</span>
                 <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">{initials}</div>
                 <div className="flex-1 min-w-0">
@@ -248,13 +248,13 @@ function SosTab() {
       {requests.length === 0 ? <p className="text-center text-muted-foreground py-8 text-sm">No SOS requests.</p> : (
         <div className="divide-y divide-border">
           {requests.map(r => (
-            <div key={r.id} className="px-6 py-4 flex items-start justify-between gap-4">
+            <div key={r.id} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold">{r.title}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{r.contact_name} · {r.cause_category}</p>
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{r.description}</p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex flex-wrap items-center gap-2 sm:flex-shrink-0">
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[r.status] || 'bg-muted text-muted-foreground'}`}>{r.status}</span>
                 {r.status !== 'resolved' && (
                   <button onClick={() => updateStatus(r.id, 'resolved')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Resolve</button>
@@ -303,14 +303,14 @@ function CorporateTab() {
       {inquiries.length === 0 ? <p className="text-center text-muted-foreground py-8 text-sm">No corporate inquiries yet.</p> : (
         <div className="divide-y divide-border">
           {inquiries.map(inq => (
-            <div key={inq.id} className="px-6 py-4 flex items-start justify-between gap-4">
+            <div key={inq.id} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold">{inq.company_name}</p>
                 <p className="text-xs text-muted-foreground">{inq.contact_name} · {inq.contact_email}</p>
                 <p className="text-xs text-muted-foreground">{inq.employee_count} employees · {inq.preferred_date}</p>
                 {inq.message && <p className="text-xs text-muted-foreground mt-1 line-clamp-1 italic">"{inq.message}"</p>}
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex flex-wrap items-center gap-2 sm:flex-shrink-0">
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[inq.status] || 'bg-muted text-muted-foreground'}`}>{inq.status}</span>
                 {nextStatus[inq.status] && (
                   <button onClick={() => updateStatus(inq.id, nextStatus[inq.status])} className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-lg hover:bg-primary/20">
@@ -551,8 +551,8 @@ export default function Admin() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between gap-3 mb-6 md:mb-8">
+        <div className="flex items-center gap-3 min-w-0">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-brand-950 border border-primary">
             <Shield className="w-5 h-5 text-brand-300" />
           </div>
@@ -567,10 +567,10 @@ export default function Admin() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-xl p-1 mb-8 flex-wrap bg-secondary border border-primary">
+      <div className="flex gap-1 rounded-xl p-1 mb-8 overflow-x-auto md:flex-wrap bg-secondary border border-primary">
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t.id ? 'bg-brand-950 text-brand-300' : 'text-muted-foreground'}`}>
+            className={`px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${tab === t.id ? 'bg-brand-950 text-brand-300' : 'text-muted-foreground'}`}>
             {t.label}
           </button>
         ))}
@@ -666,7 +666,7 @@ export default function Admin() {
           </div>
           <div className="divide-y divide-border">
             {users.map(u => (
-              <div key={u.id} className="flex items-center justify-between px-6 py-4">
+              <div key={u.id} className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-semibold">
                     {u.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?'}
