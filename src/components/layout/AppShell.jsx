@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, LogIn, LogOut } from 'lucide-react';
+import { Menu, X, ChevronDown, LogIn, LogOut, Shield } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import CommunityTicker from '../CommunityTicker';
 import RegistrationPrompt from '../RegistrationPrompt';
@@ -157,6 +157,11 @@ export default function AppShell() {
               </Link>
             </div> :
             <div className="hidden lg:flex items-center gap-1">
+              {user.role === 'admin' &&
+              <Link to="/admin" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
+                <Shield className="w-4 h-4" /> Admin
+              </Link>
+              }
               <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <span>Profile</span>
               </Link>
@@ -236,7 +241,12 @@ export default function AppShell() {
               </div>
           }
             {user &&
-          <div className="px-4 py-3 border-t" style={{ borderColor: '#333' }}>
+          <div className="px-4 py-3 border-t space-y-2" style={{ borderColor: '#333' }}>
+                {user.role === 'admin' &&
+                <Link to="/admin" onClick={() => setMobileOpen(false)} className="w-full flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm bg-primary text-primary-foreground">
+                  <Shield className="w-4 h-4" /> Admin
+                </Link>
+                }
                 <button
                   onClick={() => { setMobileOpen(false); base44.auth.logout(); }}
                   className="w-full flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm border"
