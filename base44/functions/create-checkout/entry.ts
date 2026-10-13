@@ -1,36 +1,88 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
+
+// Simple fixed-window rate limiter backed by the admin-only RateLimit entity.
+// Not perfectly atomic under heavy concurrency, but enough to stop casual abuse.
+async function rateLimited(base44, key, max, windowMs) {
+  const store = base44.asServiceRole.entities.RateLimit;
+  const now = Date.now();
+  const rows = await store.filter({ key });
+  const row = rows[0];
+  if (!row || now - new Date(row.window_start).getTime() > windowMs) {
+    if (row) await store.update(row.id, { count: 1, window_start: new Date(now).toISOString() });
+    else await store.create({ key, count: 1, window_start: new Date(now).toISOString() });
+    return false;
+  }
+  if ((row.count || 0) >= max) return true;
+  await store.update(row.id, { count: (row.count || 0) + 1 });
+  return false;
+}
+
+function clientIp(req) {
+  const fwd = req.headers.get('x-forwarded-for') || '';
+  return fwd.split(',')[0].trim() || req.headers.get('x-real-ip') || 'unknown';
+}
+const MIN_AMOUNT = 1;
+const MAX_AMOUNT = 50000;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function str(value, max) {
+  return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
 
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const { form } = await req.json();
+    const body = await req.json().catch(() => null);
+    const form = body?.form;
+    if (!form || typeof form !== 'object') {
+      return Response.json({ error: 'Invalid request.' }, { status: 400 });
+    }
 
     const WIX_API_KEY = Deno.env.get("PAYMENTS_BY_WIX_API_KEY");
     const WIX_SITE_ID = Deno.env.get("PAYMENTS_BY_WIX_SITE_ID");
-
     if (!WIX_API_KEY || !WIX_SITE_ID) {
-      return Response.json({ error: "Payment credentials not configured." }, { status: 500 });
+      console.error('create-checkout: payment credentials not configured');
+      return Response.json({ error: "Payments are temporarily unavailable." }, { status: 503 });
     }
 
-    if (!form.amount || parseFloat(form.amount) < 0.50) {
-      return Response.json({ error: "Amount must be at least 0.50." }, { status: 400 });
+    const amount = typeof form.amount === 'number' ? form.amount : Number(String(form.amount ?? '').trim());
+    if (!Number.isFinite(amount) || amount < MIN_AMOUNT || amount > MAX_AMOUNT) {
+      return Response.json({ error: `Amount must be between ${MIN_AMOUNT} and ${MAX_AMOUNT}.` }, { status: 400 });
     }
 
-    const priceStr = parseFloat(form.amount).toFixed(2);
-    const returnBaseUrl = "https://circlesofgivingplatform.base44.app";
+    const email = str(form.email, 254);
+    const firstName = str(form.first_name, 100);
+    const lastName = str(form.last_name, 100);
+    const phone = str(form.phone, 30);
+    const memorialName = str(form.memorial_name, 100);
+    if (!EMAIL_RE.test(email) || !firstName) {
+      return Response.json({ error: 'A valid name and email are required.' }, { status: 400 });
+    }
+    const donationType = form.donation_type === 'recurring' ? 'recurring' : 'one_time';
+    const frequency = form.recurring_frequency === 'yearly' ? 'yearly' : 'monthly';
+
+    // Throttle: 5 checkout sessions per 10 minutes per IP and per email.
+    const windowMs = 10 * 60 * 1000;
+    if (await rateLimited(base44, `checkout:ip:${clientIp(req)}`, 5, windowMs) ||
+        await rateLimited(base44, `checkout:email:${email.toLowerCase()}`, 5, windowMs)) {
+      return Response.json({ error: 'Too many attempts. Please try again in a few minutes.' }, { status: 429 });
+    }
+
+    const priceStr = amount.toFixed(2);
+    const returnBaseUrl = Deno.env.get("APP_BASE_URL") || "https://circlesofgivingplatform.base44.app";
 
     const item: any = {
-      name: form.is_memorial ? `Donation in memory of ${form.memorial_name}` : "Donation",
+      name: form.is_memorial && memorialName ? `Donation in memory of ${memorialName}` : "Donation",
       quantity: 1,
       price: priceStr,
     };
 
-    if (form.donation_type === 'recurring') {
+    if (donationType === 'recurring') {
       item.subscriptionInfo = {
         subscriptionSettings: {
-          frequency: form.recurring_frequency === 'yearly' ? 'YEAR' : 'MONTH',
+          frequency: frequency === 'yearly' ? 'YEAR' : 'MONTH',
         },
-        title: `Recurring Donation - ${form.recurring_frequency === 'yearly' ? 'Yearly' : 'Monthly'}`,
+        title: `Recurring Donation - ${frequency === 'yearly' ? 'Yearly' : 'Monthly'}`,
       };
     }
 
@@ -44,14 +96,9 @@ Deno.serve(async (req) => {
           "wix-site-id": WIX_SITE_ID,
         },
         body: JSON.stringify({
-          cart: { 
+          cart: {
             items: [item],
-            customerInfo: {
-              email: form.email,
-              firstName: form.first_name,
-              lastName: form.last_name,
-              phone: form.phone,
-            }
+            customerInfo: { email, firstName, lastName, phone },
           },
           callbackUrls: {
             postFlowUrl: `${returnBaseUrl}/donate`,
@@ -61,15 +108,15 @@ Deno.serve(async (req) => {
       }
     );
 
-    const data = await response.json();
-    if (!response.ok) {
-        console.error("Wix checkout construct error:", data);
-        return Response.json({ error: "Failed to create checkout session." }, { status: 500 });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data?.checkoutSession?.redirectUrl) {
+      console.error("Wix checkout construct error:", response.status, data);
+      return Response.json({ error: "Failed to create checkout session." }, { status: 502 });
     }
 
     return Response.json({ redirectUrl: data.checkoutSession.redirectUrl });
   } catch (error: any) {
     console.error("Checkout error:", error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: "Could not start checkout. Please try again." }, { status: 500 });
   }
 });
