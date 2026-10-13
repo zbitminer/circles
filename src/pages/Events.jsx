@@ -80,11 +80,13 @@ export default function Events() {
 
   const handleRSVP = async (evt) => {
     if (!user) return;
-    const isAttending = evt.attendees?.includes(user.id);
-    const attendees = isAttending
-      ? evt.attendees.filter(id => id !== user.id)
-      : [...(evt.attendees || []), user.id];
-    await base44.entities.Event.update(evt.id, { attendees });
+    let attendees = evt.attendees || [];
+    try {
+      const res = await base44.functions.invoke('rsvpEvent', { event_id: evt.id });
+      attendees = res.data?.attendees || attendees;
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not update your RSVP.');
+    }
     loadEvents();
     setSelected(prev => prev ? { ...prev, attendees } : prev);
   };

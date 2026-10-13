@@ -54,7 +54,7 @@
     "contact_email"
   ],
   "rls": {
-    "create": null,
+    "create": true,
     "read": {
       "user_condition": {
         "role": "admin"

@@ -38,6 +38,22 @@
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
       }
     },
     "status": {
@@ -76,7 +92,7 @@
         }
       ]
     },
-    "read": null,
+    "read": true,
     "update": {
       "$or": [
         {

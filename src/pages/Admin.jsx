@@ -99,9 +99,12 @@ function ContentTab({ onRefresh }) {
       base44.entities.Event.list('-created_date', 100),
       base44.entities.Opportunity.list('-created_date', 100),
     ]);
+    // Pending/rejected opportunities aren't publicly readable; fetch them via the server.
+    const hidden = await base44.functions.invoke('listPendingOpportunities', {})
+      .then((r) => r.data?.opportunities || []).catch(() => []);
     setPosts(p);
     setEvents(e);
-    setOpps(o);
+    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))]);
     setLoading(false);
   };
 
