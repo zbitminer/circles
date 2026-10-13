@@ -1,25 +1,28 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
-// Simple fixed-window rate limiter backed by the admin-only RateLimit entity.
-// Not perfectly atomic under heavy concurrency, but enough to stop casual abuse.
+// Fixed-window rate limiter backed by the admin-only RateLimit entity.
+// Each hit is its own row (append-only), so concurrent requests can't overwrite each other's counts.
 async function rateLimited(base44, key, max, windowMs) {
   const store = base44.asServiceRole.entities.RateLimit;
   const now = Date.now();
-  const rows = await store.filter({ key });
-  const row = rows[0];
-  if (!row || now - new Date(row.window_start).getTime() > windowMs) {
-    if (row) await store.update(row.id, { count: 1, window_start: new Date(now).toISOString() });
-    else await store.create({ key, count: 1, window_start: new Date(now).toISOString() });
-    return false;
+  const bucket = `${key}:${Math.floor(now / windowMs)}`;
+  const hits = await store.filter({ key: bucket }, '-created_date', max + 1);
+  if (hits.length >= max) return true;
+  await store.create({ key: bucket, count: 1, window_start: new Date(now).toISOString() });
+  // Occasional best-effort cleanup of rows older than a day.
+  if (Math.random() < 0.05) {
+    const cutoff = new Date(now - 24 * 60 * 60 * 1000).toISOString();
+    store.deleteMany({ window_start: { $lt: cutoff } }).catch(() => {});
   }
-  if ((row.count || 0) >= max) return true;
-  await store.update(row.id, { count: (row.count || 0) + 1 });
   return false;
 }
 
 function clientIp(req) {
-  const fwd = req.headers.get('x-forwarded-for') || '';
-  return fwd.split(',')[0].trim() || req.headers.get('x-real-ip') || 'unknown';
+  // Prefer platform-set headers; x-forwarded-for's first hop can be spoofed by the client.
+  const cf = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip');
+  if (cf) return cf.trim();
+  const parts = (req.headers.get('x-forwarded-for') || '').split(',').map((s) => s.trim()).filter(Boolean);
+  return parts[parts.length - 1] || 'unknown';
 }
 const MIN_AMOUNT = 1;
 const MAX_AMOUNT = 50000;

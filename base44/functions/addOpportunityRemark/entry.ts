@@ -1,19 +1,40 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 // Atomic array add/remove using MongoDB-style operators via updateMany.
-// Falls back to read-modify-write if the operator form is not supported.
+// If the operator form isn't supported, fall back to read-modify-write and verify the
+// result, retrying a few times so concurrent writers don't silently drop changes.
+function applyOp(arr, op, value) {
+  if (op === '$push') return [...arr, value];
+  if (op === '$addToSet') return arr.includes(value) ? arr : [...arr, value];
+  return arr.filter((v) => v !== value);
+}
+
+function opApplied(arr, op, value) {
+  if (op === '$pull') return !arr.includes(value);
+  if (op === '$push') return arr.some((v) => JSON.stringify(v) === JSON.stringify(value));
+  return arr.includes(value);
+}
+
 async function arrayOp(store, id, field, op, value) {
   try {
     await store.updateMany({ id }, { [op]: { [field]: value } });
+    const fresh = await store.get(id);
+    const arr = Array.isArray(fresh?.[field]) ? fresh[field] : [];
+    if (opApplied(arr, op, value)) return arr;
   } catch (err) {
-    console.warn(`updateMany ${op} failed, falling back:`, err?.message);
+    console.warn(`updateMany ${op} unsupported, using verified fallback:`, err?.message);
+  }
+  for (let attempt = 0; attempt < 4; attempt++) {
     const rec = await store.get(id);
     const arr = Array.isArray(rec?.[field]) ? rec[field] : [];
-    const next = op === '$push' ? [...arr, value] : op === '$addToSet' ? (arr.includes(value) ? arr : [...arr, value]) : arr.filter((v) => v !== value);
-    await store.update(id, { [field]: next });
+    if (op !== '$push' && opApplied(arr, op, value)) return arr;
+    await store.update(id, { [field]: applyOp(arr, op, value) });
+    const check = await store.get(id);
+    const after = Array.isArray(check?.[field]) ? check[field] : [];
+    if (opApplied(after, op, value)) return after;
+    await new Promise((r) => setTimeout(r, 50 + Math.random() * 100));
   }
-  const fresh = await store.get(id);
-  return Array.isArray(fresh?.[field]) ? fresh[field] : [];
+  throw new Error(`Could not apply ${op} on ${field}`);
 }
 
 // Append a remark to an opportunity. Remarks are write-protected so users can't edit others' remarks.
