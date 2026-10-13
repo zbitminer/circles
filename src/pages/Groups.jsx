@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Plus, Users } from 'lucide-react';
 import GroupCard from '@/components/groups/GroupCard';
@@ -43,14 +42,8 @@ export default function Groups() {
     if (!user) return;
     setJoiningId(group.id);
     try {
-      await base44.entities.GroupMembership.create({
-        group_id: group.id,
-        user_id: user.id,
-        user_name: user.full_name,
-        role: 'member',
-        status: 'active',
-      });
-      await base44.entities.Group.update(group.id, { member_count: (group.member_count || 0) + 1 });
+      const res = await base44.functions.invoke('manageGroupMembership', { action: 'join', group_id: group.id });
+      if (res.data?.membership?.status === 'pending') alert('Your request to join this private group was sent to the group owner.');
       await loadData();
     } finally {
       setJoiningId(null);
@@ -63,8 +56,7 @@ export default function Groups() {
     if (!m) return;
     setJoiningId(group.id);
     try {
-      await base44.entities.GroupMembership.delete(m.id);
-      await base44.entities.Group.update(group.id, { member_count: Math.max(0, (group.member_count || 1) - 1) });
+      await base44.functions.invoke('manageGroupMembership', { action: 'leave', group_id: group.id });
       await loadData();
     } finally {
       setJoiningId(null);

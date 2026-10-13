@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SlidersHorizontal, ChevronDown, X } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 
 export default function FilterBar({ activeCount = 0, children, className = '' }) {
   const [open, setOpen] = useState(false);

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MessageSquare, User, Search, AlertCircle, Utensils, Calendar, Briefcase, Shield, BarChart2, Building2, LogIn, FileText, HelpCircle, Heart, Rss, Globe } from 'lucide-react';
+import { MessageSquare, User, Search, AlertCircle, Utensils, Calendar, Briefcase, Shield, BarChart2, Building2, LogIn, FileText, Heart, Rss, Globe } from 'lucide-react';
 
 const categories = [
   {

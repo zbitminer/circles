@@ -119,7 +119,10 @@ export default function Opportunities() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, applicants: [], created_by_name: user?.full_name, status: 'active' });
+      const isStaff = user?.role === 'admin' || user?.role === 'moderator';
+      // Non-staff submissions start as "pending" and appear once an admin approves them.
+      await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, created_by_name: user?.full_name, ...(isStaff ? { status: 'active' } : {}) });
+      if (!isStaff) alert('Thanks! Your opportunity was submitted and will appear after admin review.');
       setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
       setShowForm(false);
       loadOpportunities(null);

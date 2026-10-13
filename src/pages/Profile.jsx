@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Send, Shield, Eye, EyeOff, MapPin } from 'lucide-react';
+import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Shield, Eye, EyeOff, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
@@ -45,7 +45,7 @@ export default function Profile() {
     const profiles = await base44.entities.VolunteerProfile.filter({ user_id: u.id });
     let p = profiles[0];
     if (!p) {
-      p = await base44.entities.VolunteerProfile.create({ user_id: u.id, total_hours: 0, events_attended: 0, opportunities_completed: 0, followers: [], following: [], causes: [] });
+      p = await base44.entities.VolunteerProfile.create({ user_id: u.id, causes: [] });
     }
     setProfile(p);
     setBioText(p.bio || '');
@@ -92,10 +92,13 @@ export default function Profile() {
     e.preventDefault();
     setSubmittingLog(true);
     const hours = parseFloat(logForm.hours);
+    if (!Number.isFinite(hours) || hours <= 0 || hours > 24) {
+      alert('Please enter between 0.25 and 24 hours.');
+      setSubmittingLog(false);
+      return;
+    }
+    // New logs start as "pending"; they count toward your total once an admin approves them.
     await base44.entities.HourLog.create({ ...logForm, hours, user_id: user.id });
-    const newTotal = (profile.total_hours || 0) + hours;
-    await base44.entities.VolunteerProfile.update(profile.id, { total_hours: newTotal });
-    setProfile(prev => ({ ...prev, total_hours: newTotal }));
     setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Food', notes: '' });
     setShowLogForm(false);
     setSubmittingLog(false);
@@ -104,10 +107,12 @@ export default function Profile() {
   };
 
   const deleteLog = async (log) => {
-    await base44.entities.HourLog.delete(log.id);
-    const newTotal = Math.max(0, (profile.total_hours || 0) - log.hours);
-    await base44.entities.VolunteerProfile.update(profile.id, { total_hours: newTotal });
-    setProfile(prev => ({ ...prev, total_hours: newTotal }));
+    try {
+      await base44.entities.HourLog.delete(log.id);
+    } catch {
+      alert('Only pending logs can be deleted. Please contact an admin.');
+      return;
+    }
     setLogs(prev => prev.filter(l => l.id !== log.id));
   };
 
@@ -397,13 +402,14 @@ export default function Profile() {
                   </div>
                   <div className="flex items-center gap-3 mt-1 text-xs" style={{ color: '#888' }}>
                     <span className="font-semibold" style={{ color: '#C9A84C' }}>{log.hours}h</span>
+                    <span className="text-xs">{log.status === 'approved' ? '✓ approved' : log.status === 'rejected' ? '✗ rejected' : '⏳ pending'}</span>
                     {log.date && <span>{format(new Date(log.date), 'MMM d, yyyy')}</span>}
                     {log.notes && <span>· {log.notes}</span>}
                   </div>
                 </div>
-                <button onClick={() => deleteLog(log)} className="p-1.5 rounded-lg transition-colors hover:text-red-600" style={{ color: '#aaa' }}>
+                {(log.status || 'pending') === 'pending' && <button onClick={() => deleteLog(log)} className="p-1.5 rounded-lg transition-colors hover:text-red-600" style={{ color: '#aaa' }}>
                   <Trash2 className="w-4 h-4" />
-                </button>
+                </button>}
               </div>
             ))}
           </div>

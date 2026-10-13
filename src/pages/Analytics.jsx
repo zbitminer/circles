@@ -27,17 +27,13 @@ export default function Analytics() {
     setLoading(false);
   };
 
-  const totalHours = logs.reduce((sum, log) => sum + (log.hours || 0), 0);
+  const totalHours = logs.filter(log => log.status === 'approved').reduce((sum, log) => sum + (log.hours || 0), 0);
   const totalEvents = profile?.events_attended || 0;
   const totalMeals = profile?.opportunities_completed || 0;
 
   const handleGenerateCertificate = async () => {
-    const response = await base44.functions.invoke('generateCertificate', {
-      user_name: user.full_name,
-      total_hours: totalHours,
-      start_date: logs.length > 0 ? logs[logs.length - 1].date : new Date().toISOString(),
-      end_date: new Date().toISOString()
-    });
+    // Name and approved hours are computed on the server.
+    const response = await base44.functions.invoke('generateCertificate', {});
     if (response.data?.pdf_base64) {
       const dataUrl = `data:application/pdf;base64,${response.data.pdf_base64}`;
       window.open(dataUrl, '_blank');

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Image, X, Plus } from 'lucide-react';
+import { Image, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
