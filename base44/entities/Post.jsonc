@@ -35,6 +35,13 @@
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "rls": {
+        "write": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
       }
     },
     "comment_count": {

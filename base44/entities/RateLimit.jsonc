@@ -1,0 +1,40 @@
+{
+  "name": "RateLimit",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "count": {
+      "type": "number"
+    },
+    "window_start": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "key"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
