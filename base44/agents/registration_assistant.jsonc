@@ -12,7 +12,7 @@
   "line_greeting": null,
   "memory_config": {
     "enabled": false,
-    "scope": "current_conversation",
+    "scope": "user",
     "include_other_conversation_context": false,
     "instructions": null
   },
