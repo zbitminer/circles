@@ -84,14 +84,21 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
 
   const handleReport = async () => {
     if (!currentUser) return;
-    const reported = [...(post.reported_by || []), currentUser.id];
-    await base44.entities.Post.update(post.id, { reported_by: reported, status: 'flagged' });
+    try {
+      await base44.functions.invoke('reportPost', { post_id: post.id });
+      alert('Thanks — this post was reported to our moderators.');
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not report this post.');
+    }
     onUpdate?.();
     setShowMenu(false);
   };
 
   const handleRemove = async () => {
-    await base44.entities.Post.update(post.id, { status: 'removed' });
+    const isStaff = currentUser?.role === 'admin' || currentUser?.role === 'moderator';
+    // Staff soft-remove (keeps the record for moderation); authors delete their own post.
+    if (isStaff) await base44.entities.Post.update(post.id, { status: 'removed' });
+    else await base44.entities.Post.delete(post.id);
     onUpdate?.();
     setShowMenu(false);
   };
