@@ -1,20 +1,33 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const caller = await base44.auth.me();
-    if (!caller) return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    if (!['admin', 'moderator'].includes(caller.role)) {
-      return Response.json({ error: 'Forbidden' }, { status: 403 });
-    }
-
-    const body = await req.json();
+    // Callers: staff (manual / admin approval), the opportunity creator (create-triggered
+    // automation runs as them), or the automation runtime itself (no user session).
+    // Arbitrary callers can't cause harm: we act only on stored data, only for ACTIVE
+    // opportunities, and only once per opportunity (dedupe below).
+    let caller = null;
+    try { caller = await base44.auth.me(); } catch { caller = null; }
+    const body = await req.json().catch(() => ({}));
     const opportunityId = body.opportunity_id || body.data?.id;
     if (!opportunityId) return Response.json({ error: 'Missing opportunity id' }, { status: 400 });
 
     const opportunity = await base44.asServiceRole.entities.Opportunity.get(opportunityId);
     if (!opportunity) return Response.json({ error: 'Opportunity not found' }, { status: 404 });
+
+    if (opportunity.status !== 'active') {
+      return Response.json({ ok: true, skipped: 'opportunity is not active' });
+    }
+    const isStaff = caller && ['admin', 'moderator'].includes(caller.role);
+    if (caller && !isStaff && caller.id !== opportunity.created_by_id) {
+      return Response.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    const already = await base44.asServiceRole.entities.Notification.filter(
+      { related_id: opportunity.id, type: 'new_opportunity' }, '-created_date', 1);
+    if (already.length > 0) {
+      return Response.json({ ok: true, skipped: 'already notified' });
+    }
 
     const causeCategory = opportunity.cause_category;
 
@@ -66,16 +79,16 @@ Deno.serve(async (req) => {
           subject: `New ${causeCategory} opportunity: ${opportunity.title}`,
           body: `Hi ${user.full_name || 'Volunteer'},
 
-A new volunteer opportunity matching your interest in "${causeCategory}" has just been posted on VolunteerHub!
+A new volunteer opportunity matching your interest in "${causeCategory}" has just been posted on Circles of Giving (COG)!
 
 ${opportunity.title}${orgText}${locationText}${typeText}
 
 ${opportunity.description}${deadlineText}
 
-Log in to VolunteerHub to learn more and express your interest.
+Log in to Circles of Giving to learn more and express your interest.
 
 Thank you for volunteering!
-The VolunteerHub Team`,
+The Circles of Giving Team`,
         });
       }
       sent++;
@@ -83,6 +96,7 @@ The VolunteerHub Team`,
 
     return Response.json({ ok: true, sent });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('notifyOpportunity error:', error);
+    return Response.json({ error: 'Internal error.' }, { status: 500 });
   }
 });

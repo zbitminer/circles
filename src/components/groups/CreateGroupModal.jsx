@@ -16,15 +16,8 @@ export default function CreateGroupModal({ user, onClose, onCreated }) {
         ...form,
         owner_id: user.id,
         owner_name: user.full_name,
-        member_count: 1,
       });
-      await base44.entities.GroupMembership.create({
-        group_id: group.id,
-        user_id: user.id,
-        user_name: user.full_name,
-        role: 'owner',
-        status: 'active',
-      });
+      await base44.functions.invoke('manageGroupMembership', { action: 'join', group_id: group.id });
       onCreated?.();
       onClose();
     } finally {

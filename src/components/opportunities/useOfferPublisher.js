@@ -18,11 +18,13 @@ export default function useOfferPublisher(user, onSaved) {
       cause_category: categories[0]?.category || 'Other',
       cause_categories: [...new Set(categories.map(c => c.category))],
       offer_topics: categories.map(({ category, subcategory }) => ({ category, subcategory: subcategory || '' })),
-      help_details: helpDetails.trim(), created_by_name: user.full_name || 'Community member', status: 'active',
+      help_details: helpDetails.trim(), created_by_name: user.full_name || 'Community member',
     };
     try {
       if (id.current) await base44.entities.Opportunity.update(id.current, payload);
-      else { const record = await base44.entities.Opportunity.create({ ...payload, applicants: [] }); id.current = record.id; }
+      else { const isStaff = user.role === 'admin' || user.role === 'moderator';
+        // Non-staff offers start as "pending" until an admin approves them.
+        const record = await base44.entities.Opportunity.create({ ...payload, ...(isStaff ? { status: 'active' } : {}) }); id.current = record.id; }
       setSaved(true); onSaved?.(); return true;
     } catch (err) { setError(err?.message || 'Could not save your offer. Please try again.'); return false; }
     finally { busy.current = false; setSubmitting(false); }

@@ -15,15 +15,8 @@ export default function RemarksSection({ opportunity, user, onUpdate }) {
     setError('');
     setSubmitting(true);
     try {
-      const newRemark = {
-        author_id: user.id,
-        author_name: user.full_name || 'Anonymous',
-        content: text.trim(),
-        date: new Date().toISOString(),
-      };
-      const updated = [...remarks, newRemark];
-      await base44.entities.Opportunity.update(opportunity.id, { remarks: updated });
-      setRemarks(updated);
+      const response = await base44.functions.invoke('addOpportunityRemark', { opportunity_id: opportunity.id, content: text.trim() });
+      setRemarks(response.data?.remarks || remarks);
       setText('');
       onUpdate?.();
     } catch (err) {

@@ -62,11 +62,6 @@ export default function Register() {
           location,
           phone,
           causes: selectedCauses,
-          total_hours: 0,
-          events_attended: 0,
-          opportunities_completed: 0,
-          followers: [],
-          following: [],
         });
       } catch {
         // best-effort

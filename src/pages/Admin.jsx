@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
-  Users, FileText, Calendar, Clock, Briefcase, Shield, Trophy, BarChart2,
-  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw,
-  CheckCircle, XCircle, UserPlus, Send, Eye, Rss
+  Users, FileText, Calendar, Clock, Briefcase, Shield, Trophy,
+  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw, UserPlus, Send, Rss
 } from 'lucide-react';
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
@@ -11,6 +10,7 @@ import GalleryAdmin from '@/components/gallery/GalleryAdmin';
 import AdminReportTab from '@/components/admin/AdminReportTab';
 import AdminEventsTab from '@/components/admin/AdminEventsTab';
 import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
+import AdminHoursTab from '@/components/admin/AdminHoursTab';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -99,9 +99,12 @@ function ContentTab({ onRefresh }) {
       base44.entities.Event.list('-created_date', 100),
       base44.entities.Opportunity.list('-created_date', 100),
     ]);
+    // Pending/rejected opportunities aren't publicly readable; fetch them via the server.
+    const hidden = await base44.functions.invoke('listPendingOpportunities', {})
+      .then((r) => r.data?.opportunities || []).catch(() => []);
     setPosts(p);
     setEvents(e);
-    setOpps(o);
+    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))]);
     setLoading(false);
   };
 
@@ -124,6 +127,15 @@ function ContentTab({ onRefresh }) {
     await base44.entities.Opportunity.delete(id);
     setOpps(prev => prev.filter(o => o.id !== id));
     setDeleting(null);
+  };
+
+  const setOppStatus = async (id, status) => {
+    await base44.entities.Opportunity.update(id, { status });
+    setOpps(prev => prev.map(o => o.id === id ? { ...o, status } : o));
+    if (status === 'active') {
+      // Notify matching volunteers now that the opportunity is approved.
+      base44.functions.invoke('notifyOpportunity', { opportunity_id: id }).catch(() => {});
+    }
   };
 
   const closeOpp = async (id) => {
@@ -200,6 +212,12 @@ function ContentTab({ onRefresh }) {
                 <p className="text-xs text-muted-foreground">{o.organization} · <span className={o.status === 'active' ? 'text-green-600' : 'text-muted-foreground'}>{o.status}</span></p>
               </div>
               <div className="flex gap-1 ml-4">
+                {o.status === 'pending' && (
+                  <>
+                    <button onClick={() => setOppStatus(o.id, 'active')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Approve</button>
+                    <button onClick={() => setOppStatus(o.id, 'rejected')} className="text-xs px-2 py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100">Reject</button>
+                  </>
+                )}
                 {o.status === 'active' && (
                   <button onClick={() => closeOpp(o.id)} className="text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">Close</button>
                 )}
@@ -553,6 +571,7 @@ export default function Admin() {
     { id: 'corporate', label: 'Corporate' },
     { id: 'tools', label: '🛠 Tools' },
     { id: 'leaderboard', label: 'Leaderboard' },
+    { id: 'hours', label: '⏱ Hour Approvals' },
   ];
 
   return (
@@ -652,6 +671,8 @@ export default function Admin() {
           <MonthlyImpactCharts hourLogs={hourLogs} opportunities={opportunities} events={events} />
           ) : tab === 'impact' ? (
           <ImpactDashboard hourLogs={hourLogs} profiles={profiles} events={events} posts={[]} />
+          ) : tab === 'hours' ? (
+          <AdminHoursTab users={users} />
           ) : tab === 'leaderboard' ? (
           <LeaderboardTab profiles={profiles} users={users} />
           ) : tab === 'report' ? (

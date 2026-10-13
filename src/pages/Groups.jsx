@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Plus, Users } from 'lucide-react';
 import GroupCard from '@/components/groups/GroupCard';
 import CreateGroupModal from '@/components/groups/CreateGroupModal';
+import PendingJoinRequests from '@/components/groups/PendingJoinRequests';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 
 const CATEGORY_FILTERS = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Wellness', 'Other'];
@@ -43,14 +43,8 @@ export default function Groups() {
     if (!user) return;
     setJoiningId(group.id);
     try {
-      await base44.entities.GroupMembership.create({
-        group_id: group.id,
-        user_id: user.id,
-        user_name: user.full_name,
-        role: 'member',
-        status: 'active',
-      });
-      await base44.entities.Group.update(group.id, { member_count: (group.member_count || 0) + 1 });
+      const res = await base44.functions.invoke('manageGroupMembership', { action: 'join', group_id: group.id });
+      if (res.data?.membership?.status === 'pending') alert('Your request to join this private group was sent to the group owner.');
       await loadData();
     } finally {
       setJoiningId(null);
@@ -63,8 +57,7 @@ export default function Groups() {
     if (!m) return;
     setJoiningId(group.id);
     try {
-      await base44.entities.GroupMembership.delete(m.id);
-      await base44.entities.Group.update(group.id, { member_count: Math.max(0, (group.member_count || 1) - 1) });
+      await base44.functions.invoke('manageGroupMembership', { action: 'leave', group_id: group.id });
       await loadData();
     } finally {
       setJoiningId(null);
@@ -106,6 +99,10 @@ export default function Groups() {
         ))}
       </div>
 
+      {user && (
+        <PendingJoinRequests groups={groups.filter((g) => g.owner_id === user.id)} onChanged={loadData} />
+      )}
+
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => <div key={i} className="rounded-2xl border border-border h-56 animate-pulse" style={{ background: '#fff' }} />)}
@@ -123,6 +120,7 @@ export default function Groups() {
               key={g.id}
               group={g}
               isMember={!!membershipFor(g.id)}
+              isPending={membershipFor(g.id)?.status === 'pending'}
               isOwner={user?.id === g.owner_id}
               joining={joiningId === g.id}
               onJoin={handleJoin}

@@ -35,6 +35,13 @@
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "rls": {
+        "write": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
       }
     },
     "comment_count": {
@@ -54,12 +61,58 @@
         "removed",
         "flagged"
       ],
-      "default": "active"
+      "default": "active",
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     },
     "reported_by": {
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "rls": {
+        "read": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        },
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
       }
     }
   },

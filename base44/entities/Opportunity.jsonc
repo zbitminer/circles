@@ -77,16 +77,41 @@
       "type": "array",
       "items": {
         "type": "string"
+      },
+      "rls": {
+        "write": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
       }
     },
     "status": {
       "type": "string",
       "enum": [
+        "pending",
         "active",
         "closed",
-        "draft"
+        "draft",
+        "rejected"
       ],
-      "default": "active"
+      "default": "pending",
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     },
     "created_by_name": {
       "type": "string"
@@ -110,6 +135,13 @@
             "format": "date-time"
           }
         }
+      },
+      "rls": {
+        "write": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
       }
     }
   },
@@ -123,7 +155,14 @@
     "create": {
       "created_by_id": "{{user.id}}"
     },
-    "read": null,
+    "read": {
+      "data.status": {
+        "$in": [
+          "active",
+          "closed"
+        ]
+      }
+    },
     "update": {
       "$or": [
         {

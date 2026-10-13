@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 import { jsPDF } from 'npm:jspdf@4.0.0';
 
 Deno.serve(async (req) => {
@@ -7,7 +7,10 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const { user_name, total_hours, start_date, end_date } = await req.json();
+    // Name and hours come from the server, never from the client: only approved hour logs count.
+    const logs = await base44.asServiceRole.entities.HourLog.filter({ user_id: user.id, status: 'approved' }, '-date', 5000);
+    const total_hours = Math.round(logs.reduce((sum, l) => sum + (Number(l.hours) || 0), 0) * 100) / 100;
+    const user_name = String(user.full_name || 'Volunteer').slice(0, 80);
 
     const doc = new jsPDF({
       orientation: 'landscape',
@@ -66,6 +69,7 @@ Deno.serve(async (req) => {
     const pdfBase64 = btoa(binary);
     return Response.json({ pdf_base64: pdfBase64, filename: 'volunteer-certificate.pdf' });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('generateCertificate error:', error);
+    return Response.json({ error: 'Could not generate certificate.' }, { status: 500 });
   }
 });

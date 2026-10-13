@@ -9,7 +9,29 @@
       "type": "string"
     },
     "contact_name": {
-      "type": "string"
+      "type": "string",
+      "rls": {
+        "read": {
+          "$or": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "data.claimed_by_id": "{{user.id}}"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     },
     "location": {
       "type": "string"
@@ -41,13 +63,61 @@
         "claimed",
         "resolved"
       ],
-      "default": "open"
+      "default": "open",
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     },
     "claimed_by_id": {
-      "type": "string"
+      "type": "string",
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     },
     "claimed_by_name": {
-      "type": "string"
+      "type": "string",
+      "rls": {
+        "write": {
+          "$or": [
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            },
+            {
+              "user_condition": {
+                "role": "moderator"
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "required": [
@@ -59,9 +129,11 @@
     "create": {
       "created_by_id": "{{user.id}}"
     },
-    "read": null,
-    "update": {
+    "read": {
       "$or": [
+        {
+          "data.status": "open"
+        },
         {
           "created_by_id": "{{user.id}}"
         },
@@ -69,11 +141,30 @@
           "data.claimed_by_id": "{{user.id}}"
         },
         {
-          "data.claimed_by_id": null
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
         },
         {
           "user_condition": {
             "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "moderator"
           }
         }
       ]

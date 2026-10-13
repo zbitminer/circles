@@ -112,8 +112,12 @@
     "email"
   ],
   "rls": {
-    "create": null,
-    "read": null,
+    "create": true,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
     "update": {
       "user_condition": {
         "role": "admin"

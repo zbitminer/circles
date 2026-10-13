@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Clock, Plus, X, CheckCircle, LayoutGrid, Map, Users } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 
@@ -71,13 +70,24 @@ export default function SosBoard() {
 
   const handleClaim = async (req) => {
     if (!user) return;
-    await base44.entities.SosRequest.update(req.id, { status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name });
+    try {
+      await base44.functions.invoke('helpRequestAction', { entity: 'SosRequest', request_id: req.id, action: 'claim' });
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not claim this request.');
+      loadRequests();
+      return;
+    }
     loadRequests();
     setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'claimed', claimed_by_id: user.id, claimed_by_name: user.full_name } : prev);
   };
 
   const handleResolve = async (req) => {
-    await base44.entities.SosRequest.update(req.id, { status: 'resolved' });
+    try {
+      await base44.functions.invoke('helpRequestAction', { entity: 'SosRequest', request_id: req.id, action: 'resolve' });
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not resolve this request.');
+      return;
+    }
     loadRequests();
     setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'resolved' } : prev);
   };

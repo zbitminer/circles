@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heart, Shield, Check, CreditCard, Landmark, FileText, Wallet, Loader2 } from 'lucide-react';
+import { Heart, Shield, Check, CreditCard, Landmark, Wallet, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const PAYMENT_METHODS = [
@@ -190,7 +190,7 @@ export default function Donate() {
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
                     {form.currency === 'ILS' ? '₪' : '$'}
                   </span>
-                  <input required type="number" min="1" value={form.amount} onChange={(e) => set('amount', e.target.value)} className={`${inputClass} pl-8`} placeholder="e.g. 100" />
+                  <input required type="number" min="1" max="50000" step="0.01" value={form.amount} onChange={(e) => set('amount', e.target.value)} className={`${inputClass} pl-8`} placeholder="e.g. 100" />
                 </div>
               </div>
               <div>

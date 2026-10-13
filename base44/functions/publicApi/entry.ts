@@ -1,13 +1,12 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 // Entities exposed through the public read-only API, mapped to the fields safe to return.
 // Only these entities/fields are ever served — everything else is hidden.
+// SosRequest and HealthRequest are deliberately NOT exposed (personal/medical data).
 const PUBLIC_ENTITIES = {
   Event: ['id', 'created_date', 'title', 'description', 'date', 'location', 'cause_category', 'capacity', 'image_url', 'status', 'created_by_name'],
   Opportunity: ['id', 'created_date', 'title', 'description', 'organization', 'location', 'cause_category', 'type', 'image_url', 'deadline', 'capacity', 'status', 'created_by_name'],
   ShabbatMeal: ['id', 'created_date', 'host_name', 'date', 'location', 'seats_available', 'dietary_options', 'description', 'is_holiday', 'holiday_name', 'status'],
-  SosRequest: ['id', 'created_date', 'title', 'description', 'location', 'cause_category', 'urgency_hours', 'status'],
-  HealthRequest: ['id', 'created_date', 'title', 'description', 'location', 'health_category', 'urgency', 'status'],
   Post: ['id', 'created_date', 'author_name', 'author_avatar', 'content', 'image_url', 'comment_count', 'cause_tags', 'status'],
 };
 
@@ -16,6 +15,13 @@ const CORS = {
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, x-api-key',
 };
+
+function timingSafeEqual(a, b) {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
 
 function pick(obj, fields) {
   const out = {};
@@ -34,13 +40,14 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Optional API-key protection: only enforced if a PUBLIC_API_KEY secret is set.
+    // API key is mandatory. If the PUBLIC_API_KEY secret is not configured the API stays closed.
     const requiredKey = Deno.env.get('PUBLIC_API_KEY');
-    if (requiredKey) {
-      const provided = req.headers.get('x-api-key');
-      if (provided !== requiredKey) {
-        return Response.json({ error: 'Invalid or missing API key. Pass it in the "x-api-key" header.' }, { status: 401, headers: CORS });
-      }
+    if (!requiredKey) {
+      return Response.json({ error: 'Public API is not enabled.' }, { status: 503, headers: CORS });
+    }
+    const provided = req.headers.get('x-api-key') || '';
+    if (!timingSafeEqual(provided, requiredKey)) {
+      return Response.json({ error: 'Invalid or missing API key. Pass it in the "x-api-key" header.' }, { status: 401, headers: CORS });
     }
 
     const base44 = createClientFromRequest(req);
@@ -74,7 +81,8 @@ Deno.serve(async (req) => {
     // Single record by id
     const id = params.get('id');
     if (id) {
-      const record = await entity.get(id);
+      let record = null;
+      try { record = await entity.get(id); } catch { record = null; }
       if (!record) {
         return Response.json({ error: 'Record not found' }, { status: 404, headers: CORS });
       }
@@ -84,7 +92,12 @@ Deno.serve(async (req) => {
     // List with filter / sort / pagination
     const limit = Math.min(parseInt(params.get('limit') || '50', 10) || 50, 200);
     const skip = Math.max(parseInt(params.get('skip') || '0', 10) || 0, 0);
-    const sort = params.get('sort') || '-created_date';
+    const sortRaw = params.get('sort') || '-created_date';
+    const sortField = sortRaw.replace(/^-/, '');
+    if (!fields.includes(sortField)) {
+      return Response.json({ error: `Invalid "sort". Allowed fields: ${fields.join(', ')}` }, { status: 400, headers: CORS });
+    }
+    const sort = sortRaw;
 
     let filter = {};
     const filterRaw = params.get('filter');
@@ -93,6 +106,16 @@ Deno.serve(async (req) => {
         filter = JSON.parse(filterRaw);
       } catch {
         return Response.json({ error: 'Invalid "filter" — must be a JSON object.' }, { status: 400, headers: CORS });
+      }
+      if (!filter || typeof filter !== 'object' || Array.isArray(filter)) {
+        return Response.json({ error: 'Invalid "filter" — must be a JSON object.' }, { status: 400, headers: CORS });
+      }
+      // Only exact matches on publicly returned fields, with scalar values (no operators).
+      for (const [key, value] of Object.entries(filter)) {
+        const scalar = value === null || ['string', 'number', 'boolean'].includes(typeof value);
+        if (!fields.includes(key) || !scalar) {
+          return Response.json({ error: `Invalid "filter". Only exact matches on: ${fields.join(', ')}` }, { status: 400, headers: CORS });
+        }
       }
     }
 
@@ -111,6 +134,6 @@ Deno.serve(async (req) => {
     }, { status: 200, headers: CORS });
   } catch (error) {
     console.error('publicApi error:', error?.message, error);
-    return Response.json({ error: error?.message || 'Internal server error' }, { status: 500, headers: CORS });
+    return Response.json({ error: 'Internal server error' }, { status: 500, headers: CORS });
   }
 });

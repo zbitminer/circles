@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Image, X, Plus } from 'lucide-react';
+import { Image, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
@@ -47,10 +47,8 @@ export default function CreatePost({ currentUser, onCreated, mode = 'story', top
         author_name: currentUser.full_name,
         content: content.trim() || 'Shared a community photo.',
         title: title.trim(), location: location.trim(), post_type: mode,
-        status: 'active',
         image_url,
         cause_tags: selectedCauses,
-        likes: [],
         comment_count: 0,
       });
       setContent('');

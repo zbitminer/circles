@@ -10,43 +10,45 @@ export default function EventChat({ eventId, currentUser }) {
   const [sending, setSending] = useState(false);
   const bottomRef = useRef(null);
 
+  const [notice, setNotice] = useState('');
+
+  // Messages are only readable by participants, so we go through the eventChat function
+  // and poll instead of subscribing to the entity directly.
   useEffect(() => {
-    loadMessages();
-    const unsubscribe = base44.entities.EventMessage.subscribe((event) => {
-      if (event.data?.event_id === eventId) {
-        setMessages(prev => {
-          if (event.type === 'create') return [...prev, event.data];
-          if (event.type === 'delete') return prev.filter(m => m.id !== event.id);
-          return prev;
-        });
+    let active = true;
+    const load = async (initial) => {
+      if (initial) setLoading(true);
+      try {
+        const res = await base44.functions.invoke('eventChat', { action: 'list', event_id: eventId });
+        if (active) { setMessages(res.data?.messages || []); setNotice(''); }
+      } catch (err) {
+        if (active) setNotice(err?.response?.data?.error || 'Chat is unavailable right now.');
+      } finally {
+        if (active && initial) setLoading(false);
       }
-    });
-    return unsubscribe;
+    };
+    load(true);
+    const timer = setInterval(() => load(false), 10000);
+    return () => { active = false; clearInterval(timer); };
   }, [eventId]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const loadMessages = async () => {
-    setLoading(true);
-    const data = await base44.entities.EventMessage.filter({ event_id: eventId }, 'created_date', 100);
-    setMessages(data);
-    setLoading(false);
-  };
-
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!text.trim() || !currentUser) return;
     setSending(true);
-    await base44.entities.EventMessage.create({
-      event_id: eventId,
-      author_id: currentUser.id,
-      author_name: currentUser.full_name || 'Anonymous',
-      content: text.trim(),
-    });
-    setText('');
-    setSending(false);
+    try {
+      const res = await base44.functions.invoke('eventChat', { action: 'send', event_id: eventId, content: text.trim() });
+      if (res.data?.message) setMessages(prev => [...prev, res.data.message]);
+      setText('');
+    } catch (err) {
+      setNotice(err?.response?.data?.error || 'Could not send message.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const initials = (name) => name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
@@ -61,6 +63,7 @@ export default function EventChat({ eventId, currentUser }) {
 
       {/* Messages */}
       <div className="max-h-52 overflow-y-auto space-y-3 mb-3 pr-1">
+        {notice && <p className="text-xs text-muted-foreground mb-2">{notice}</p>}
         {loading ? (
           <p className="text-xs text-muted-foreground text-center py-4">Loading messages...</p>
         ) : messages.length === 0 ? (

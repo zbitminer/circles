@@ -56,10 +56,7 @@ export default function Health() {
   const handleCreate = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    await base44.entities.HealthRequest.create({
-      ...form,
-      status: 'open',
-    });
+    await base44.entities.HealthRequest.create({ ...form });
     setForm({ title: '', description: '', contact_name: '', location: '', health_category: 'medical', urgency: 'medium' });
     setShowForm(false);
     setSubmitting(false);
@@ -68,17 +65,21 @@ export default function Health() {
 
   const handleClaim = async (reqId, isCancelling) => {
     if (!user) return;
-    await base44.entities.HealthRequest.update(reqId, {
-      status: isCancelling ? 'open' : 'claimed',
-      claimed_by_id: isCancelling ? null : user.id,
-      claimed_by_name: isCancelling ? null : user.full_name,
-    });
+    try {
+      await base44.functions.invoke('helpRequestAction', { entity: 'HealthRequest', request_id: reqId, action: isCancelling ? 'unclaim' : 'claim' });
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not update this request.');
+    }
     loadRequests();
     setSelected(null);
   };
 
   const handleResolve = async (reqId) => {
-    await base44.entities.HealthRequest.update(reqId, { status: 'resolved' });
+    try {
+      await base44.functions.invoke('helpRequestAction', { entity: 'HealthRequest', request_id: reqId, action: 'resolve' });
+    } catch (err) {
+      alert(err?.response?.data?.error || 'Could not update this request.');
+    }
     loadRequests();
     setSelected(null);
   };

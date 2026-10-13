@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { Bell, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export default function NotificationBell({ currentUser }) {
   const navigate = useNavigate();
