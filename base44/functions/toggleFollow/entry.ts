@@ -1,4 +1,20 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
+
+// Atomic array add/remove using MongoDB-style operators via updateMany.
+// Falls back to read-modify-write if the operator form is not supported.
+async function arrayOp(store, id, field, op, value) {
+  try {
+    await store.updateMany({ id }, { [op]: { [field]: value } });
+  } catch (err) {
+    console.warn(`updateMany ${op} failed, falling back:`, err?.message);
+    const rec = await store.get(id);
+    const arr = Array.isArray(rec?.[field]) ? rec[field] : [];
+    const next = op === '$addToSet' ? (arr.includes(value) ? arr : [...arr, value]) : arr.filter((v) => v !== value);
+    await store.update(id, { [field]: next });
+  }
+  const fresh = await store.get(id);
+  return Array.isArray(fresh?.[field]) ? fresh[field] : [];
+}
 
 Deno.serve(async (req) => {
   try {
@@ -6,44 +22,26 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const body = await req.json();
-    const { target_user_id } = body;
-    if (!target_user_id) return Response.json({ error: 'target_user_id is required' }, { status: 400 });
+    const { target_user_id } = await req.json().catch(() => ({}));
+    if (typeof target_user_id !== 'string' || !target_user_id) {
+      return Response.json({ error: 'target_user_id is required' }, { status: 400 });
+    }
+    if (target_user_id === user.id) return Response.json({ error: 'You cannot follow yourself.' }, { status: 400 });
 
-    // Find current user's profile
-    const myProfiles = await base44.asServiceRole.entities.VolunteerProfile.filter({ user_id: user.id });
-    const myProfile = myProfiles[0];
+    const store = base44.asServiceRole.entities.VolunteerProfile;
+    const myProfile = (await store.filter({ user_id: user.id }))[0];
     if (!myProfile) return Response.json({ error: 'Your profile not found' }, { status: 404 });
-
-    // Find target user's profile
-    const targetProfiles = await base44.asServiceRole.entities.VolunteerProfile.filter({ user_id: target_user_id });
-    const targetProfile = targetProfiles[0];
+    const targetProfile = (await store.filter({ user_id: target_user_id }))[0];
+    if (!targetProfile) return Response.json({ error: 'User not found' }, { status: 404 });
 
     const isFollowing = (myProfile.following || []).includes(target_user_id);
+    const op = isFollowing ? '$pull' : '$addToSet';
+    const following = await arrayOp(store, myProfile.id, 'following', op, target_user_id);
+    const followers = await arrayOp(store, targetProfile.id, 'followers', op, user.id);
 
-    // Update my following list
-    const newFollowing = isFollowing
-      ? (myProfile.following || []).filter(id => id !== target_user_id)
-      : [...(myProfile.following || []), target_user_id];
-
-    await base44.asServiceRole.entities.VolunteerProfile.update(myProfile.id, { following: newFollowing });
-
-    // Update target's followers list (requires service role — RLS prevents updating others' profiles)
-    let newFollowers = [];
-    if (targetProfile) {
-      newFollowers = isFollowing
-        ? (targetProfile.followers || []).filter(id => id !== user.id)
-        : [...(targetProfile.followers || []), user.id];
-      await base44.asServiceRole.entities.VolunteerProfile.update(targetProfile.id, { followers: newFollowers });
-    }
-
-    return Response.json({
-      following: newFollowing,
-      followers: newFollowers,
-      is_following: !isFollowing
-    });
+    return Response.json({ following, followers, is_following: following.includes(target_user_id) });
   } catch (error) {
     console.error('toggleFollow error:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    return Response.json({ error: 'Could not update follow.' }, { status: 500 });
   }
 });

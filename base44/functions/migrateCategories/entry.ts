@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 const MIGRATION_MAP = {
   'Environment': 'Other',
@@ -69,6 +69,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ success: true, migrated: results });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('migrateCategories error:', error);
+    return Response.json({ error: 'Internal error.' }, { status: 500 });
   }
 });

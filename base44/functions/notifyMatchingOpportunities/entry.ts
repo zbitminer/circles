@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 Deno.serve(async (req) => {
   try {
@@ -6,15 +6,16 @@ Deno.serve(async (req) => {
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const body = await req.json();
-    const causes = body.data?.causes || body.causes;
+    // Always use the caller's own stored profile; never trust causes from the request body.
+    const profiles = await base44.asServiceRole.entities.VolunteerProfile.filter({ user_id: user.id });
+    const causes = Array.isArray(profiles[0]?.causes) ? profiles[0].causes : [];
 
     if (!causes || causes.length === 0) {
       return Response.json({ ok: true, skipped: 'no causes' });
     }
 
     // Find active opportunities matching any of the member's causes
-    const allOpps = await base44.asServiceRole.entities.Opportunity.list();
+    const allOpps = await base44.asServiceRole.entities.Opportunity.filter({ status: 'active' }, '-created_date', 500);
     const matchedOpps = allOpps.filter(o =>
       o.status === 'active' && causes.includes(o.cause_category)
     );
@@ -53,6 +54,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ ok: true, sent });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('notifyMatchingOpportunities error:', error);
+    return Response.json({ error: 'Internal error.' }, { status: 500 });
   }
 });

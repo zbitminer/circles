@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 // Entity automation handler: fires when a ShabbatMeal is updated.
 // When a meal transitions to "completed", prompt each guest to review the host.
@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
 
     return Response.json({ ok: true, sent });
   } catch (error) {
-    console.error('promptMealReviews error:', error?.message, error);
-    return Response.json({ error: error?.message }, { status: 500 });
+    console.error('promptMealReviews error:', error);
+    return Response.json({ error: 'Internal error.' }, { status: 500 });
   }
 });

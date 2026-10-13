@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
 Deno.serve(async (req) => {
   try {
@@ -15,6 +15,10 @@ Deno.serve(async (req) => {
 
     const opportunity = await base44.asServiceRole.entities.Opportunity.get(opportunityId);
     if (!opportunity) return Response.json({ error: 'Opportunity not found' }, { status: 404 });
+
+    if (opportunity.status !== 'active') {
+      return Response.json({ ok: true, skipped: 'opportunity is not active' });
+    }
 
     const causeCategory = opportunity.cause_category;
 
@@ -66,16 +70,16 @@ Deno.serve(async (req) => {
           subject: `New ${causeCategory} opportunity: ${opportunity.title}`,
           body: `Hi ${user.full_name || 'Volunteer'},
 
-A new volunteer opportunity matching your interest in "${causeCategory}" has just been posted on VolunteerHub!
+A new volunteer opportunity matching your interest in "${causeCategory}" has just been posted on Circles of Giving (COG)!
 
 ${opportunity.title}${orgText}${locationText}${typeText}
 
 ${opportunity.description}${deadlineText}
 
-Log in to VolunteerHub to learn more and express your interest.
+Log in to Circles of Giving to learn more and express your interest.
 
 Thank you for volunteering!
-The VolunteerHub Team`,
+The Circles of Giving Team`,
         });
       }
       sent++;
@@ -83,6 +87,7 @@ The VolunteerHub Team`,
 
     return Response.json({ ok: true, sent });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('notifyOpportunity error:', error);
+    return Response.json({ error: 'Internal error.' }, { status: 500 });
   }
 });
