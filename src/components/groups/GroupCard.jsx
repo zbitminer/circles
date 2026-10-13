@@ -5,7 +5,7 @@ const categoryEmoji = {
   Technology: '💻', Transportation: '🚗', Wellness: '🌿', Other: '✨',
 };
 
-export default function GroupCard({ group, isMember, isOwner, onJoin, onLeave, onOpen, joining }) {
+export default function GroupCard({ group, isMember, isPending, isOwner, onJoin, onLeave, onOpen, joining }) {
   return (
     <div
       className="rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all flex flex-col"
@@ -42,7 +42,7 @@ export default function GroupCard({ group, isMember, isOwner, onJoin, onLeave, o
           </button>
         ) : isMember ? (
           <button onClick={() => onLeave(group)} disabled={joining} className="w-full py-2 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-60" style={{ background: '#fff', color: '#c0392b', border: '1px solid #c0392b' }}>
-            <Check className="w-3.5 h-3.5 inline mr-1" /> Joined — Leave
+            <Check className="w-3.5 h-3.5 inline mr-1" /> {isPending ? 'Requested — Cancel' : 'Joined — Leave'}
           </button>
         ) : (
           <button onClick={() => onJoin(group)} disabled={joining} className="w-full py-2 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-60" style={{ background: '#1A1A1A', color: '#fff', border: '1px solid #C99738' }}>
