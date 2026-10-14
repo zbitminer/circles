@@ -14,11 +14,6 @@ export default function SafeExplorationBanner({ location = 'Safed, Israel', clas
         </span>
       </div>
       <div className="flex-1">
-        <div className="flex items-center gap-2 mb-0.5">
-          <p className="font-bold text-sm text-foreground">
-            Browse freely — every face is a verified member
-          </p>
-        </div>
         <p className="text-xs text-muted-foreground">
           Explore opportunities from neighbors in {location} before you commit.{' '}
           <Link to="/register" className="font-bold text-primary hover:underline">
