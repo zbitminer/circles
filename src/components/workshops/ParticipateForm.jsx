@@ -51,10 +51,10 @@ export default function ParticipateForm() {
       {autofilling && <p role="status" className="text-sm text-muted-foreground">Filling in your signup details…</p>}
       {autofillError && <p className="text-sm text-muted-foreground">Your saved contact details could not be loaded. You can enter them below.</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="First Name *"><input required value={form.first_name} onChange={(e) => set('first_name', e.target.value)} className={inputCls} placeholder="First name" /></Field>
-        <Field label="Last Name *"><input required value={form.last_name} onChange={(e) => set('last_name', e.target.value)} className={inputCls} placeholder="Last name" /></Field>
-        <Field label="Phone *"><input required type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} className={inputCls} placeholder="Phone" /></Field>
-        <Field label="Email *"><input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} className={inputCls} placeholder="Email" /></Field>
+        <Field label="First Name *"><input required value={form.first_name} onChange={(e) => set('first_name', e.target.value)} autoComplete="given-name" className={inputCls} placeholder="First name" /></Field>
+        <Field label="Last Name *"><input required value={form.last_name} onChange={(e) => set('last_name', e.target.value)} autoComplete="family-name" className={inputCls} placeholder="Last name" /></Field>
+        <Field label="Phone *"><input required type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} autoComplete="tel" className={inputCls} placeholder="Phone" /></Field>
+        <Field label="Email *"><input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} autoComplete="email" className={inputCls} placeholder="Email" /></Field>
         <Field label="I am *">
           <select required value={form.gender} onChange={(e) => set('gender', e.target.value)} className={inputCls}>
             <option value="" disabled>Select</option><option value="female">Woman</option><option value="male">Man</option>
