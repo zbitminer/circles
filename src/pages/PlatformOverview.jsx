@@ -151,7 +151,7 @@ export default function PlatformOverview() {
       <section style={{ background: '#F9F9F9', borderTop: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0' }}>
         <div className="max-w-3xl mx-auto px-6 py-14 text-center">
           <span className="text-xs font-bold uppercase tracking-[0.2em] block mb-3" style={{ color: '#D95D1A' }}>The Circle Model</span>
-          <h2 className="text-2xl font-extrabold mb-4" style={{ color: '#1A1A1A' }}>I Give. I Receive. I Belong. I Grow.</h2>
+          <h2 className="text-2xl font-extrabold mb-4" style={{ color: '#1A1A1A' }}>I Give. I Receive. I Belong.</h2>
           <p className="text-base leading-relaxed mb-8" style={{ color: '#555' }}>
             Every feature on this platform is designed around one idea: that community flourishes when people freely give what they have and openly receive what they need — without transaction, without obligation, without judgment.
           </p>
