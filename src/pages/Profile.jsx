@@ -156,9 +156,9 @@ export default function Profile() {
               </div>
               <input ref={avatarInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
             </div>
-            <div className="pb-1">
-              <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{user?.full_name}</h1>
-              {profile?.location && <p className="text-sm" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
+            <div className="self-start">
+              <h1 className="font-display text-2xl font-bold text-white">{user?.full_name}</h1>
+              {profile?.location && <p className="text-sm mt-2" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
             </div>
           </div>
 
