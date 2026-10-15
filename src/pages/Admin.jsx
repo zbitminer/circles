@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   Users, FileText, Calendar, Clock, Briefcase, Shield, Trophy,
-  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw, UserPlus, Send, Rss
+  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw, UserPlus, Send, Rss, Palette
 } from 'lucide-react';
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
@@ -616,6 +616,7 @@ export default function Admin() {
                 { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact' },
                 { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Volunteer roles' },
                 { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend' },
+                { to: '/workshops', Icon: Palette, label: 'Workshops', sub: 'Join or lead' },
                 { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent requests' },
                 { to: '/shabbat', Icon: Users, label: 'Hosting', sub: 'Meals & tables' },
                 { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members' },
