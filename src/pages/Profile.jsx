@@ -227,6 +227,32 @@ export default function Profile() {
 
       <OpportunityMatcher />
 
+      {/* Community Control Panel */}
+      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
+        <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Jump into community action from right here</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {[
+            { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
+            { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
+            { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
+            { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
+            { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
+            { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
+          ].map(({ to, Icon, label, sub, iconColor, bg }) => (
+            <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
+                <Icon className="w-5 h-5" style={{ color: iconColor }} />
+              </div>
+              <div>
+                <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</p>
+                <p className="text-xs" style={{ color: '#6b5c3e' }}>{sub}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* Calendar */}
       <ProfileCalendar userId={user.id} />
 
@@ -291,32 +317,6 @@ export default function Profile() {
             </div>
           </div>
         )}
-      </div>
-
-      {/* Community Control Panel */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
-        <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Jump into community action from right here</p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {[
-            { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
-            { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
-            { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
-            { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
-            { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
-            { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
-          ].map(({ to, Icon, label, sub, iconColor, bg }) => (
-            <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
-                <Icon className="w-5 h-5" style={{ color: iconColor }} />
-              </div>
-              <div>
-                <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</p>
-                <p className="text-xs" style={{ color: '#6b5c3e' }}>{sub}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
       </div>
 
       {/* Badges */}
