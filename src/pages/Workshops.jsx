@@ -6,7 +6,7 @@ import LeadForm from '@/components/workshops/LeadForm';
 import WorkshopListings from '@/components/workshops/WorkshopListings';
 
 export default function Workshops() {
-  const [tab, setTab] = useState('list');
+  const [tab, setTab] = useState(new URLSearchParams(window.location.search).get('tab') === 'lead' ? 'lead' : 'list');
   const [created, setCreated] = useState(false);
 
   return (

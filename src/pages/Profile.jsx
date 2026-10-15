@@ -236,6 +236,7 @@ export default function Profile() {
             { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
             { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
             { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
+            { to: '/workshops?tab=lead', Icon: Plus, label: 'Create Workshop', sub: 'Lead a new workshop', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
             { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
             { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
             { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
