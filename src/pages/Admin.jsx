@@ -504,7 +504,7 @@ export default function Admin() {
 
   const loadData = async () => {
     setLoading(true);
-    const [posts, evts, opps, profs, userList, logs, sos, corp] = await Promise.all([
+    const results = await Promise.allSettled([
       base44.entities.Post.list('-created_date', 200),
       base44.entities.Event.list('-created_date', 200),
       base44.entities.Opportunity.list('-created_date', 200),
@@ -514,6 +514,7 @@ export default function Admin() {
       base44.entities.SosRequest.list('-created_date', 100),
       base44.entities.CorporateInquiry.list('-created_date', 100),
     ]);
+    const [posts, evts, opps, profs, userList, logs, sos, corp] = results.map((r) => (r.status === 'fulfilled' ? r.value : []));
     const totalHours = profs.reduce((sum, p) => sum + (p.total_hours || 0), 0);
     setStats({
       users: userList.length,
