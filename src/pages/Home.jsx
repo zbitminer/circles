@@ -13,9 +13,11 @@ import RealImpactSection from '@/components/home/RealImpactSection';
 import WaysToEngageSection from '@/components/home/WaysToEngageSection';
 import DecorativeCircles from '@/components/home/DecorativeCircles';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
+import { useLanguage } from '@/lib/i18n';
 
 export default function Home() {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [heroImgError, setHeroImgError] = useState(false);
 
   return (
@@ -33,12 +35,12 @@ export default function Home() {
 
           {/* Headline */}
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 max-w-3xl mx-auto text-foreground">
-            A Community Based on Giving, Receiving & Belonging
+            {t('A Community Based on Giving, Receiving & Belonging')}
           </h1>
 
           {/* Subheadline */}
           <p className="mb-10 max-w-2xl mx-auto leading-relaxed text-2xl md:text-2xl font-body text-muted-foreground">
-            Share your talents, skills, & passions. Support one another. Grow together.
+            {t('Share your talents, skills, & passions. Support one another. Grow together.')}
           </p>
 
           {/* CTA */}
@@ -47,7 +49,7 @@ export default function Home() {
             <Link
               to="/register"
               className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-lg hover:shadow-xl">
-                Join the Circle — Free <ArrowRight className="w-5 h-5" />
+                {t('Join the Circle — Free')} <ArrowRight className="w-5 h-5" />
               </Link>
           </div> :
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -115,22 +117,22 @@ export default function Home() {
       <section className="relative overflow-hidden bg-brand-950 text-brand-50 border-t-4 border-primary">
         <DecorativeCircles variant="dark" />
         <div className="max-w-2xl mx-auto px-4 py-10 md:py-16 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-brand-50">Your Time is Valuable</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-brand-50">{t('Your Time is Valuable')}</h2>
           <p className="text-lg leading-relaxed mb-8 text-brand-50/70">
-            In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.
+            {t('In a world that measures worth in currency, we measure it in connection. Join hundreds of volunteers redefining community, one hour at a time.')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {user ?
             <Link to="/profile" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg">
-                Create Your Profile <ArrowRight className="w-5 h-5" />
+                {t('Create Your Profile')} <ArrowRight className="w-5 h-5" />
               </Link> :
 
             <Link to="/register" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg">
-                Join Now <ArrowRight className="w-5 h-5" />
+                {t('Join Now')} <ArrowRight className="w-5 h-5" />
               </Link>
             }
             <Link to="/donate" className="inline-flex items-center gap-2 font-bold text-lg px-10 py-4 rounded-full text-brand-50 border-2 border-brand-50/40 hover:bg-brand-50/10 transition-colors shadow-lg">
-              <Heart className="w-5 h-5" /> Donate
+              <Heart className="w-5 h-5" /> {t('Donate')}
             </Link>
           </div>
         </div>

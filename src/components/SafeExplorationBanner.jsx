@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/lib/i18n';
 import { ShieldCheck, Clock } from 'lucide-react';
 
 export default function SafeExplorationBanner({ location = 'Safed, Israel', className = '' }) {
+  const { t } = useLanguage();
   return (
     <div
       className={`p-4 rounded-xl border border-primary bg-secondary flex flex-col sm:flex-row items-start sm:items-center gap-3 ${className}`}
@@ -15,9 +17,9 @@ export default function SafeExplorationBanner({ location = 'Safed, Israel', clas
       </div>
       <div className="flex-1">
         <p className="text-xs text-muted-foreground">
-          Explore opportunities from neighbors in {location} before you commit.{' '}
+          {t('Explore opportunities from neighbors in')} {t(location)} {t('before you commit.')}{' '}
           <Link to="/register" className="font-bold text-primary hover:underline">
-            Create a free account (30 seconds) →
+            {t('Create a free account (30 seconds) →')}
           </Link>
         </p>
       </div>
@@ -26,7 +28,7 @@ export default function SafeExplorationBanner({ location = 'Safed, Israel', clas
         className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full font-bold text-sm hover:opacity-90 transition-opacity whitespace-nowrap flex-shrink-0 bg-primary text-primary-foreground"
       >
         <Clock className="w-3.5 h-3.5" />
-        Join free · 30 sec
+        {t('Join free · 30 sec')}
       </Link>
     </div>
   );

@@ -1,3 +1,5 @@
+import { useLanguage } from '@/lib/i18n';
+
 const SPOTLIGHTS = [
 {
   name: 'Joy',
@@ -37,11 +39,12 @@ const HANDLES = {
 };
 
 export default function VolunteerSpotlightSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-card">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
         <h2 className="text-center font-heading font-extrabold uppercase leading-none tracking-tight mb-10 md:mb-14 text-3xl text-primary">
-          Real People. Real Impact.
+          {t('Real People. Real Impact.')}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
@@ -76,13 +79,13 @@ export default function VolunteerSpotlightSection() {
               {/* Text */}
               <div className="flex flex-1 flex-col px-4 pt-4 pb-0">
                 <h3 className="font-heading font-extrabold uppercase leading-none text-3xl tracking-tight text-brand-300">
-                  {s.name}
+                  {t(s.name)}
                 </h3>
                 <p className="mt-1 font-bold uppercase tracking-wide text-sm text-white/90">
                   {HANDLES[s.name] || `@${s.name.toLowerCase()}`}
                 </p>
                 <p className="mt-3 min-h-0 flex-1 overflow-y-auto pr-2 text-sm leading-relaxed text-white/70">
-                  {s.quote.replace(/^"|"$/g, '')}
+                  {t(s.quote.replace(/^"|"$/g, ''))}
                 </p>
               </div>
             </a>

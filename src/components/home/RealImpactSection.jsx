@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function RealImpactSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-background">
       <div className="max-w-5xl mx-auto px-4 py-12 md:py-20">
@@ -18,7 +20,7 @@ export default function RealImpactSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-brand-gold/60 bg-black/75 p-4 backdrop-blur-sm">
               <p className="text-sm font-semibold leading-relaxed text-white">
-                “Giving is not only what we deliver — it is the relationship we build at every door.”
+                {t('“Giving is not only what we deliver — it is the relationship we build at every door.”')}
               </p>
             </div>
           </div>
@@ -32,25 +34,25 @@ export default function RealImpactSection() {
             
 
             <h2 className="max-w-xl text-3xl md:text-5xl font-extrabold leading-tight text-foreground text-balance">
-              A Hot Meal Is Also A <span className="text-primary">Hello.</span>
+              {t('A Hot Meal Is Also A')} <span className="text-primary">{t('Hello.')}</span>
             </h2>
 
             <p className="mt-5 max-w-2xl text-base md:text-lg leading-8 text-muted-foreground">
-              Every week, Circles members bring food, warmth, and presence to neighbours who need it most. This is what giving looks like — not just a donation, but a knock on the door and a familiar smile.
+              {t('Every week, Circles members bring food, warmth, and presence to neighbours who need it most. This is what giving looks like — not just a donation, but a knock on the door and a familiar smile.')}
             </p>
 
             <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="rounded-2xl border border-border bg-secondary p-4">
-                <p className="text-2xl font-extrabold text-primary">Food</p>
-                <p className="mt-1 text-sm text-muted-foreground">Practical care</p>
+                <p className="text-2xl font-extrabold text-primary">{t('Food')}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{t('Practical care')}</p>
               </div>
               <div className="rounded-2xl border border-border bg-secondary p-4">
-                <p className="text-2xl font-extrabold text-primary">Warmth</p>
-                <p className="mt-1 text-sm text-muted-foreground">Human presence</p>
+                <p className="text-2xl font-extrabold text-primary">{t('Warmth')}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{t('Human presence')}</p>
               </div>
               <div className="rounded-2xl border border-border bg-secondary p-4">
-                <p className="text-2xl font-extrabold text-primary">Belonging</p>
-                <p className="mt-1 text-sm text-muted-foreground">Lasting circles</p>
+                <p className="text-2xl font-extrabold text-primary">{t('Belonging')}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{t('Lasting circles')}</p>
               </div>
             </div>
 
@@ -59,13 +61,13 @@ export default function RealImpactSection() {
                 to="/opportunities"
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-primary-foreground shadow-lg transition-opacity duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 
-                Start Giving In Your City <ArrowRight className="h-4 w-4" />
+                {t('Start Giving In Your City')} <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex min-h-11 items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-extrabold text-foreground transition-colors duration-200 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 
-                Learn Our Mission
+                {t('Learn Our Mission')}
               </Link>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 
 const ACTIVITY_TYPES = [
   { key: 'giving', label: 'GIVING', color: '#D95D1A', btnLabel: 'Offer', btnColor: '#D95D1A' },
@@ -19,6 +20,7 @@ function getInitial(name) {
 }
 
 export default function LiveCommunitySection() {
+  const { t } = useLanguage();
   const [activities, setActivities] = useState(FALLBACK_ACTIVITIES);
   const [loading, setLoading] = useState(true);
 
@@ -51,23 +53,23 @@ export default function LiveCommunitySection() {
     <section className="bg-card">
       <div className="max-w-3xl mx-auto px-4 py-10 md:py-16 text-center">
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
-          LIVE COMMUNITY
+          {t('LIVE COMMUNITY')}
         </span>
         <h2 className="text-3xl md:text-4xl font-bold italic mb-3 text-foreground font-heading">
-          Happening right now
+          {t('Happening right now')}
         </h2>
         <p className="text-base mb-10 text-muted-foreground">
-          Your neighbours are giving and receiving in real time. Join the circle.
+          {t('Your neighbours are giving and receiving in real time. Join the circle.')}
         </p>
 
         <div className="text-left">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-4 block text-accent-foreground">
-            HAPPENING NOW
+            {t('HAPPENING NOW')}
           </span>
 
           <div className="space-y-4">
             {activities.map((act, i) => {
-              const typeConfig = ACTIVITY_TYPES.find((t) => t.key === act.type) || ACTIVITY_TYPES[0];
+              const typeConfig = ACTIVITY_TYPES.find((x) => x.key === act.type) || ACTIVITY_TYPES[0];
               return (
                 <div key={i} className="flex items-center gap-3 p-3 md:p-4 md:gap-4 rounded-xl bg-card border border-border shadow-sm transition-all hover:shadow-md">
                   {/* Avatar */}
@@ -80,13 +82,13 @@ export default function LiveCommunitySection() {
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="font-bold text-sm text-foreground">{act.name}</span>
+                      <span className="font-bold text-sm text-foreground">{t(act.name)}</span>
                       <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
-                        {typeConfig.label}
+                        {t(typeConfig.label)}
                       </span>
                     </div>
-                    <p className="text-sm truncate text-muted-foreground">{act.desc}</p>
-                    <p className="text-xs mt-0.5 text-muted-foreground">{act.time} · {act.location}</p>
+                    <p className="text-sm truncate text-muted-foreground">{t(act.desc)}</p>
+                    <p className="text-xs mt-0.5 text-muted-foreground">{t(act.time)} · {t(act.location)}</p>
                   </div>
 
                   {/* Action Button */}
@@ -94,7 +96,7 @@ export default function LiveCommunitySection() {
                     to={act.link}
                     className="flex-shrink-0 text-xs font-bold px-4 py-2 md:px-5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                   >
-                    {typeConfig.btnLabel}
+                    {t(typeConfig.btnLabel)}
                   </Link>
                 </div>
               );

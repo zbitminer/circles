@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 const STEPS = [
 {
@@ -20,16 +21,17 @@ const STEPS = [
 
 
 export default function HowItWorksSection() {
+  const { t } = useLanguage();
   return (
     <section id="how-it-works" className="bg-secondary/60 border-y border-border">
       <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         {/* Header */}
         <div className="mb-12">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-3 block text-primary">
-            HOW IT WORKS
+            {t('HOW IT WORKS')}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight text-foreground font-heading">
-            Three steps. <span className="italic text-primary">Infinite impact.</span>
+            {t('Three steps.')} <span className="italic text-primary">{t('Infinite impact.')}</span>
           </h2>
         </div>
 
@@ -39,10 +41,10 @@ export default function HowItWorksSection() {
           <div key={step.num} className="relative flex flex-col p-5 md:p-6 rounded-2xl bg-card border border-border shadow-sm transition-all hover:shadow-lg">
               <div className="flex items-baseline gap-3 mb-3">
                 <span className="text-sm font-bold text-primary">{step.num}</span>
-                <h3 className="font-bold text-base font-heading text-foreground">{step.title}</h3>
+                <h3 className="font-bold text-base font-heading text-foreground">{t(step.title)}</h3>
               </div>
               <p className="leading-snug font-body text-xs text-muted-foreground">
-                {step.desc}
+                {t(step.desc)}
               </p>
               {i < STEPS.length - 1 &&
             <div className="hidden md:flex items-center absolute top-2 -right-3">
@@ -58,7 +60,7 @@ export default function HowItWorksSection() {
             to="/register"
             className="inline-flex items-center gap-2 font-bold text-sm px-7 py-3.5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg hover:shadow-xl">
             
-            Get started — it's free <ArrowRight className="w-4 h-4" />
+            {t("Get started — it's free")} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

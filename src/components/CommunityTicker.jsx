@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 
 const FALLBACK = ['Neighbors helping neighbors in Safed', 'Share your time, skills, and support', 'Join the Circles of Giving community'];
 
 export default function CommunityTicker() {
+  const { t } = useLanguage();
   const [updates, setUpdates] = useState(FALLBACK);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function CommunityTicker() {
   const content = updates.map((update, index) => (
     <span key={index} className="inline-flex items-center gap-8 px-4">
       <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-      <span>{update}</span>
+      <span>{t(update)}</span>
     </span>
   ));
 

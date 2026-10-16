@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/lib/i18n';
 
 const CARDS = [
 {
@@ -37,14 +38,15 @@ const CARDS = [
 
 
 export default function WaysToEngageSection({ children }) {
+  const { t } = useLanguage();
   return (
     <section className="max-w-5xl mx-auto px-4 py-8 md:py-16">
       <div className="text-center mb-6 md:mb-12">
         <span className="font-bold uppercase tracking-[0.2em] block text-2xl md:text-3xl mb-2 text-primary">
-          WAYS TO ENGAGE
+          {t('WAYS TO ENGAGE')}
         </span>
         <p className="text-sm md:text-base text-muted-foreground">
-          Three paths. One community.
+          {t('Three paths. One community.')}
         </p>
       </div>
 
@@ -56,17 +58,17 @@ export default function WaysToEngageSection({ children }) {
           
             {/* Icon — fixed square box, image scaled to fill it equally */}
             <div className="flex items-center justify-center mb-3 w-40 h-40 sm:w-52 sm:h-52 md:w-[240px] md:h-[240px]">
-              <img src={card.icon} alt={card.title} className="w-full h-full object-cover object-center" />
+              <img src={card.icon} alt={t(card.title)} className="w-full h-full object-cover object-center" />
             </div>
 
             {/* Title */}
             <h2 className="text-2xl font-extrabold mb-2 text-primary font-heading">
-              {card.title}
+              {t(card.title)}
             </h2>
 
             {/* Description — equalized to one line */}
             <p className="leading-relaxed text-base mb-1 text-muted-foreground">
-              {card.description}
+              {t(card.description)}
             </p>
 
             {/* Benefit line */}
@@ -79,7 +81,7 @@ export default function WaysToEngageSection({ children }) {
             to={card.to}
             className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity mt-auto w-56 max-w-full justify-center">
             
-              {card.cta}
+              {t(card.cta)}
             </Link>
           </div>
         )}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/lib/i18n';
 
 const MEMBERS = [
 {
@@ -35,6 +36,7 @@ const JOINED_AVATARS = ['R', 'E', 'S', 'M', 'Y'];
 const JOINED_COLORS = ['#3498DB', '#E74C3C', '#2ECC71', '#9B59B6', '#E67E22'];
 
 export default function CommunityGridSection() {
+  const { t } = useLanguage();
   const large = MEMBERS[0];
   const smalls = MEMBERS.slice(1);
 
@@ -44,13 +46,13 @@ export default function CommunityGridSection() {
         {/* Header */}
         <div className="mb-10 max-w-xl">
           <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
-            COMMUNITY
+            {t('COMMUNITY')}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">
-            Real people. Real giving.
+            {t('Real people. Real giving.')}
           </h2>
           <p className="text-base text-muted-foreground">
-            Every face you see is a verified member — a neighbour, a mentor, a friend you haven't met yet.
+            {t("Every face you see is a verified member — a neighbour, a mentor, a friend you haven't met yet.")}
           </p>
         </div>
 
@@ -62,10 +64,10 @@ export default function CommunityGridSection() {
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
               {large.tag &&
               <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-primary text-primary-foreground">
-                  {large.tag}
+                  {t(large.tag)}
                 </span>
               }
-              <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{large.caption}</span>
+              <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{t(large.caption)}</span>
             </div>
           </div>
 
@@ -74,7 +76,7 @@ export default function CommunityGridSection() {
           <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg border border-primary">
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
-                <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{m.caption}</span>
+                <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{t(m.caption)}</span>
               </div>
             </div>
           )}
@@ -97,7 +99,7 @@ export default function CommunityGridSection() {
 
           
           <Link to="/directory" className="ml-auto text-sm font-bold hover:underline text-primary">
-            Browse all members →
+            {t('Browse all members →')}
           </Link>
         </div>
       </div>

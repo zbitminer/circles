@@ -1,12 +1,14 @@
 import { Award, Heart } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function VolunteerOfTheMonthSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-card">
       <div className="max-w-5xl mx-auto px-4 py-8 md:py-12">
         <div className="text-center mb-6">
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">
-            <Award className="w-4 h-4" /> Honored Volunteer
+            <Award className="w-4 h-4" /> {t('Honored Volunteer')}
           </span>
         </div>
 
@@ -30,20 +32,17 @@ export default function VolunteerOfTheMonthSection() {
           <div className="flex flex-col p-5 md:p-6 min-h-0 overflow-y-auto">
             <div className="h-1.5 w-16 mb-6 bg-primary" />
             <h3 className="text-4xl md:text-5xl font-extrabold uppercase leading-none tracking-tight mb-4 text-brand-300">
-              Rachel
+              {t('Rachel')}
             </h3>
             <p className="text-base leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.85)' }}>
-              This month we honor Rachel for her tireless dedication cooking and baking for our holistic healing programs.
-              Every dish she prepares is made with warmth, care, and love — nourishing not just the body, but the spirit of
-              everyone she serves.
+              {t('This month we honor Rachel for her tireless dedication cooking and baking for our holistic healing programs. Every dish she prepares is made with warmth, care, and love — nourishing not just the body, but the spirit of everyone she serves.')}
             </p>
             <p className="text-base leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.7)' }}>
-              Rachel embodies the heart of our community: giving generously, showing up consistently, and reminding us all
-              that healing begins with kindness. Thank you, Rachel. 💛
+              {t('Rachel embodies the heart of our community: giving generously, showing up consistently, and reminding us all that healing begins with kindness. Thank you, Rachel. 💛')}
             </p>
             <div className="flex items-center gap-2 text-sm font-semibold text-brand-300">
               <Heart className="w-5 h-5 fill-current" />
-              Baking with love for our holistic healing programs
+              {t('Baking with love for our holistic healing programs')}
             </div>
           </div>
         </div>

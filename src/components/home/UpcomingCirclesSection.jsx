@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 
 const FALLBACK_EVENTS = [
 {
@@ -48,6 +49,8 @@ encodeURIComponent(
 );
 
 export default function UpcomingCirclesSection() {
+  const { t, lang } = useLanguage();
+  const locale = lang === 'he' ? 'he-IL' : 'en-US';
   const [events, setEvents] = useState(FALLBACK_EVENTS);
   const [loading, setLoading] = useState(true);
 
@@ -97,10 +100,10 @@ export default function UpcomingCirclesSection() {
     <section className="bg-background">
       <div className="max-w-5xl mx-auto px-4 py-10 md:py-16">
         <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
-          THIS WEEK
+          {t('THIS WEEK')}
         </span>
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground font-heading">
-          Upcoming Circles
+          {t('Upcoming Circles')}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
@@ -117,12 +120,12 @@ export default function UpcomingCirclesSection() {
               {/* Content */}
               <div className="p-5 min-w-0 flex flex-col">
                 <span className="text-[10px] font-bold uppercase tracking-wide mb-1.5 block text-primary">
-                  {event.tag}
+                  {t(event.tag)}
                 </span>
-                <h2 className="font-bold mb-2 text-lg capitalize text-foreground">{event.title}</h2>
+                <h2 className="font-bold mb-2 text-lg capitalize text-foreground">{t(event.title)}</h2>
                 <div className="flex items-center gap-1 text-xs mb-3 text-muted-foreground">
                   <MapPin className="w-3 h-3 text-primary" />
-                  <span>{event.location} · {event.time}</span>
+                  <span>{t(event.location)} · {event.time}</span>
                 </div>
 
                 {/* Avatars + joining */}
@@ -132,7 +135,7 @@ export default function UpcomingCirclesSection() {
                   <div key={i} className="w-6 h-6 rounded-full border-2 border-white" style={{ background: c }} />
                   )}
                   </div>
-                  <span className="text-xs text-muted-foreground">+{event.joining} joining</span>
+                  <span className="text-xs text-muted-foreground">+{event.joining} {t('joining')}</span>
                 </div>
 
                 {/* RSVP Button */}
@@ -140,7 +143,7 @@ export default function UpcomingCirclesSection() {
                 to="/events"
                 className="block text-center text-sm font-bold py-2.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-sm mt-auto">
                 
-                  RSVP
+                  {t('RSVP')}
                 </Link>
               </div>
             </div>
