@@ -39,6 +39,7 @@ import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
 import Gallery from './pages/Gallery';
 import OAuthConsent from './pages/OAuthConsent';
+import { LanguageProvider } from '@/lib/i18n';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
@@ -114,6 +115,7 @@ const AuthenticatedApp = () => {
 
 function App() {
   return (
+    <LanguageProvider>
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
@@ -123,6 +125,7 @@ function App() {
         <Toaster />
       </QueryClientProvider>
     </AuthProvider>
+    </LanguageProvider>
   )
 }
 

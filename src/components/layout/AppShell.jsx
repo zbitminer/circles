@@ -1,12 +1,13 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, LogIn, LogOut, Shield } from 'lucide-react';
+import { Menu, X, ChevronDown, LogIn, LogOut, Shield, Globe } from 'lucide-react';
 import NotificationBell from '../NotificationBell';
 import CommunityTicker from '../CommunityTicker';
 import RegistrationPrompt from '../RegistrationPrompt';
 import RequestAssistant from '@/components/agents/RequestAssistant';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 
 /* ── Top-level links (standalone, shown alongside dropdowns) ── */
 const topLinks = [
@@ -22,6 +23,8 @@ const topLinks = [
 export default function AppShell() {
   const location = useLocation();
   const { user } = useAuth();
+  const { t, lang, setLang } = useLanguage();
+  const links = topLinks.map((l) => ({ ...l, label: t(l.label) }));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileExpanded, setMobileExpanded] = useState({});
@@ -64,29 +67,29 @@ export default function AppShell() {
   /* ── Dropdown definitions (role-aware) ── */
   const dropdowns = [
   {
-    label: 'Give',
+    label: t('Give'),
     items: [
-    { label: 'Opportunities', path: '/opportunities', desc: 'Browse & apply for volunteer roles' },
-    { label: 'Corporate Volunteering', path: '/corporate', desc: 'Team-building with impact' },
-    { label: 'Shabbat & Holidays', path: '/shabbat', desc: 'Host or join a Shabbat or holiday table' }]
+    { label: t('Opportunities'), path: '/opportunities', desc: t('Browse & apply for volunteer roles') },
+    { label: t('Corporate Volunteering'), path: '/corporate', desc: t('Team-building with impact') },
+    { label: t('Shabbat & Holidays'), path: '/shabbat', desc: t('Host or join a Shabbat or holiday table') }]
 
   },
   {
-    label: 'Receive',
+    label: t('Receive'),
     items: [
-    { label: 'Health Support', path: '/health', desc: 'Health & wellness requests' },
-    { label: 'Opportunities', path: '/opportunities', desc: 'Find support & services' }]
+    { label: t('Health Support'), path: '/health', desc: t('Health & wellness requests') },
+    { label: t('Opportunities'), path: '/opportunities', desc: t('Find support & services') }]
 
   },
   {
-    label: 'Belong',
+    label: t('Belong'),
     items: [
-    { label: 'My Profile', path: '/profile', desc: 'Your volunteer identity' },
-    { label: 'Directory', path: '/directory', desc: 'Discover fellow volunteers' },
-    { label: 'Gallery', path: '/gallery', desc: 'Photos from our community' },
-    { label: 'Community Chat', path: '/chat', desc: 'Group chat with all members' },
-    { label: 'Messages', path: '/messages', desc: 'Private conversations' },
-    { label: 'Impact', path: '/analytics', desc: 'Track your contribution' }]
+    { label: t('My Profile'), path: '/profile', desc: t('Your volunteer identity') },
+    { label: t('Directory'), path: '/directory', desc: t('Discover fellow volunteers') },
+    { label: t('Gallery'), path: '/gallery', desc: t('Photos from our community') },
+    { label: t('Community Chat'), path: '/chat', desc: t('Group chat with all members') },
+    { label: t('Messages'), path: '/messages', desc: t('Private conversations') },
+    { label: t('Impact'), path: '/analytics', desc: t('Track your contribution') }]
 
   }];
 
@@ -100,14 +103,14 @@ export default function AppShell() {
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-card p-0.5" />
             <div className="flex flex-col gap-1 leading-none">
-              <span className="text-xl sm:text-2xl font-bold tracking-tight text-brand-50">Circles of Giving</span>
-              <span className="text-[10px] hidden sm:block text-brand-300">I Give. I Receive. I Belong.</span>
+              <span className="text-xl sm:text-2xl font-bold tracking-tight text-brand-50">{t('Circles of Giving')}</span>
+              <span className="text-[10px] hidden sm:block text-brand-300">{t('I Give. I Receive. I Belong.')}</span>
             </div>
           </Link>
 
           {/* Desktop: top-level links + dropdowns */}
           <nav className="hidden lg:flex items-center gap-0.5">
-            {topLinks.map(({ label, path }) =>
+            {links.map(({ label, path }) =>
             <Link
               key={label}
               to={path}
@@ -147,29 +150,35 @@ export default function AppShell() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
+              aria-label="Switch language"
+              className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full border border-primary text-brand-300 hover:bg-white/10 transition-colors">
+              <Globe className="w-3.5 h-3.5" /> {lang === 'he' ? 'English' : 'עברית'}
+            </button>
             {user && <NotificationBell currentUser={user} />}
             {!user ?
             <div className="hidden sm:flex items-center gap-2">
               <Link to="/login" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-2.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
-                <LogIn className="w-4 h-4" /> Login
+                <LogIn className="w-4 h-4" /> {t('Login')}
               </Link>
               <Link to="/register" className="inline-flex items-center gap-1 font-bold text-sm px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
-                Register Now →
+                {t('Register Now →')}
               </Link>
             </div> :
             <div className="hidden lg:flex items-center gap-1">
               {user.role === 'admin' &&
               <Link to="/admin" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
-                <Shield className="w-4 h-4" /> Admin
+                <Shield className="w-4 h-4" /> {t('Admin')}
               </Link>
               }
               <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
-                <span>Profile</span>
+                <span>{t('Profile')}</span>
               </Link>
               <button
                 onClick={() => base44.auth.logout()}
                 className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
-                <LogOut className="w-4 h-4" /> Logout
+                <LogOut className="w-4 h-4" /> {t('Logout')}
               </button>
             </div>
             }
@@ -189,7 +198,7 @@ export default function AppShell() {
         <div className="border-t border-brand-50/20 bg-brand-950 lg:hidden">
             {/* Top links */}
             <div className="px-4 py-2 flex flex-wrap gap-1">
-              {topLinks.map(({ label, path }) =>
+              {links.map(({ label, path }) =>
             <Link
               key={label}
               to={path}
@@ -234,10 +243,10 @@ export default function AppShell() {
             {!user &&
           <div className="px-4 py-3 border-t border-brand-50/20 space-y-2">
                 <Link to="/login" onClick={() => setMobileOpen(false)} className="flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm text-brand-50/70 border border-brand-50/30">
-                  <LogIn className="w-4 h-4" /> Login
+                  <LogIn className="w-4 h-4" /> {t('Login')}
                 </Link>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="block text-center py-3 rounded-xl font-bold text-sm bg-primary text-primary-foreground">
-                  Register Now →
+                  {t('Register Now →')}
                 </Link>
               </div>
           }
@@ -245,14 +254,14 @@ export default function AppShell() {
           <div className="px-4 py-3 border-t space-y-2" style={{ borderColor: '#333' }}>
                 {user.role === 'admin' &&
                 <Link to="/admin" onClick={() => setMobileOpen(false)} className="w-full flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm bg-primary text-primary-foreground">
-                  <Shield className="w-4 h-4" /> Admin
+                  <Shield className="w-4 h-4" /> {t('Admin')}
                 </Link>
                 }
                 <button
                   onClick={() => { setMobileOpen(false); base44.auth.logout(); }}
                   className="w-full flex items-center justify-center gap-1.5 text-center py-3 rounded-xl font-semibold text-sm border"
                   style={{ color: '#aaa', borderColor: '#444' }}>
-                  <LogOut className="w-4 h-4" /> Logout
+                  <LogOut className="w-4 h-4" /> {t('Logout')}
                 </button>
               </div>
           }
@@ -279,7 +288,7 @@ export default function AppShell() {
               <span className="font-extrabold text-lg text-white">Circles of Giving</span>
             </div>
             <p className="text-sm leading-relaxed text-brand-50/60">
-              A community that brings together people who want to create change and make an impact — through caring, collaboration, and mutual aid.
+              {t('A community that brings together people who want to create change and make an impact — through caring, collaboration, and mutual aid.')}
             </p>
           </div>
           <div>
@@ -287,30 +296,30 @@ export default function AppShell() {
               onClick={() => setFooterLinksOpen(!footerLinksOpen)}
               className="flex items-center justify-between w-full font-bold text-sm mb-3 text-brand-300">
               
-              Quick Links
+              {t('Quick Links')}
               <ChevronDown className={`w-4 h-4 transition-transform ${footerLinksOpen ? 'rotate-180' : ''}`} />
             </button>
             {footerLinksOpen &&
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
-                <li><Link to="/feed" className="transition-colors hover:text-white">Belong</Link></li>
-                <li><Link to="/contact" className="transition-colors hover:text-white">Contact</Link></li>
-                <li><Link to="/donate" className="transition-colors hover:text-white">Donate</Link></li>
-                <li><Link to="/events" className="transition-colors hover:text-white">Events</Link></li>
-                <li><Link to="/gallery" className="transition-colors hover:text-white">Gallery</Link></li>
-                <li><Link to="/opportunities" className="transition-colors hover:text-white">Give</Link></li>
-                <li><Link to="/sos" className="transition-colors hover:text-white">Receive</Link></li>
-                <li><Link to="/shabbat" className="transition-colors hover:text-white">Shabbat & Holidays</Link></li>
-                <li><Link to="/sos" className="transition-colors hover:text-white">Urgent</Link></li>
-                <li><Link to="/trust" className="transition-colors hover:text-white">Trust</Link></li>
-                <li><Link to="/health" className="transition-colors hover:text-white">Health & Wellness</Link></li>
-                <li><Link to="/platform" className="transition-colors hover:text-white">Platform Overview</Link></li>
-                <li><Link to="/about" className="transition-colors hover:text-white">About</Link></li>
-                <li><Link to="/sitemap" className="transition-colors hover:text-white">Sitemap</Link></li>
+                <li><Link to="/feed" className="transition-colors hover:text-white">{t('Belong')}</Link></li>
+                <li><Link to="/contact" className="transition-colors hover:text-white">{t('Contact')}</Link></li>
+                <li><Link to="/donate" className="transition-colors hover:text-white">{t('Donate')}</Link></li>
+                <li><Link to="/events" className="transition-colors hover:text-white">{t('Events')}</Link></li>
+                <li><Link to="/gallery" className="transition-colors hover:text-white">{t('Gallery')}</Link></li>
+                <li><Link to="/opportunities" className="transition-colors hover:text-white">{t('Give')}</Link></li>
+                <li><Link to="/sos" className="transition-colors hover:text-white">{t('Receive')}</Link></li>
+                <li><Link to="/shabbat" className="transition-colors hover:text-white">{t('Shabbat & Holidays')}</Link></li>
+                <li><Link to="/sos" className="transition-colors hover:text-white">{t('Urgent')}</Link></li>
+                <li><Link to="/trust" className="transition-colors hover:text-white">{t('Trust')}</Link></li>
+                <li><Link to="/health" className="transition-colors hover:text-white">{t('Health & Wellness')}</Link></li>
+                <li><Link to="/platform" className="transition-colors hover:text-white">{t('Platform Overview')}</Link></li>
+                <li><Link to="/about" className="transition-colors hover:text-white">{t('About')}</Link></li>
+                <li><Link to="/sitemap" className="transition-colors hover:text-white">{t('Sitemap')}</Link></li>
               </ul>
             }
           </div>
           <div>
-            <h4 className="font-bold text-sm mb-3 text-brand-300">Contact</h4>
+            <h4 className="font-bold text-sm mb-3 text-brand-300">{t('Contact')}</h4>
             <ul className="space-y-1.5 text-sm" style={{ color: '#999' }}>
               <li>🌐 <a href="https://www.circlesofgiving.org" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-white">circlesofgiving.org</a></li>
               <li>📧 <a href="mailto:support@circlesofgiving.com" className="transition-colors hover:text-white">support@circlesofgiving.com</a></li>
@@ -322,11 +331,11 @@ export default function AppShell() {
           </div>
         </div>
         <div className="border-t border-brand-50/20 text-center py-4 text-xs space-y-2 text-brand-50/50">
-          <p>© {new Date().getFullYear()} Circles of Giving. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {t('Circles of Giving')}. {t('All rights reserved.')}</p>
           <p className="space-x-3">
-            <Link to="/privacy" className="transition-colors hover:text-white">Privacy Policy</Link>
+            <Link to="/privacy" className="transition-colors hover:text-white">{t('Privacy Policy')}</Link>
             <span>•</span>
-            <Link to="/terms" className="transition-colors hover:text-white">Terms of Use</Link>
+            <Link to="/terms" className="transition-colors hover:text-white">{t('Terms of Use')}</Link>
           </p>
         </div>
       </footer>
