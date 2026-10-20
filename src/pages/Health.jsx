@@ -44,9 +44,14 @@ export default function Health() {
 
   const loadRequests = async () => {
     setLoading(true);
-    const data = await base44.entities.HealthRequest.list('-created_date', 100);
-    setRequests(data || []);
-    setLoading(false);
+    try {
+      const data = await base44.entities.HealthRequest.list('-created_date', 100);
+      setRequests(data || []);
+    } catch {
+      // Gracefully recover on transient network errors
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filtered = requests.filter(r => {

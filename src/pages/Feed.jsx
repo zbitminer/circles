@@ -24,9 +24,14 @@ export default function Feed() {
 
   const loadPosts = async () => {
     setLoading(true);
-    const data = await base44.entities.Post.list('-created_date', 50);
-    setPosts(data.filter(p => p.status !== 'removed'));
-    setLoading(false);
+    try {
+      const data = await base44.entities.Post.list('-created_date', 50);
+      setPosts((data || []).filter(p => p.status !== 'removed'));
+    } catch {
+      // Gracefully recover on transient network errors
+    } finally {
+      setLoading(false);
+    }
   };
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';

@@ -48,9 +48,14 @@ export default function SosBoard() {
 
   const loadRequests = async () => {
     setLoading(true);
-    const data = await base44.entities.SosRequest.list('-created_date', 100);
-    setRequests(data);
-    setLoading(false);
+    try {
+      const data = await base44.entities.SosRequest.list('-created_date', 100);
+      setRequests(data || []);
+    } catch {
+      // Gracefully recover on transient network errors
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filtered = requests.filter(r => {

@@ -65,16 +65,21 @@ export default function Opportunities() {
 
   const loadOpportunities = async (focusId) => {
     setLoading(true);
-    const data = await base44.entities.Opportunity.list('-created_date', 100);
-    const active = data.filter((o) => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title));
-    setOpportunities(active);
-    setLoading(false);
-    if (focusId) {
-      const focus = active.find((o) => o.id === focusId);
-      if (focus) {
-        setSelected(focus);
-        setSearchParams({}, { replace: true });
+    try {
+      const data = await base44.entities.Opportunity.list('-created_date', 100);
+      const active = (data || []).filter((o) => o.status === 'active').sort((a, b) => a.title.localeCompare(b.title));
+      setOpportunities(active);
+      if (focusId) {
+        const focus = active.find((o) => o.id === focusId);
+        if (focus) {
+          setSelected(focus);
+          setSearchParams({}, { replace: true });
+        }
       }
+    } catch {
+      // Gracefully recover on transient network errors
+    } finally {
+      setLoading(false);
     }
   };
 
