@@ -4,6 +4,7 @@ import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, List, Map, Send, CheckCircle, Megaphone } from 'lucide-react';
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
+import DeleteButton from '@/components/DeleteButton';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 import OfferForm from '@/components/opportunities/OfferForm';
 import OpportunityListItem from '@/components/opportunities/OpportunityListItem';

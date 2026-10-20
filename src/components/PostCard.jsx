@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PostEditor from '@/components/PostEditor';
+import DeleteButton from '@/components/DeleteButton';
 import { Heart, MessageCircle, Flag, MoreHorizontal, Trash2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
@@ -51,8 +52,6 @@ const DEFAULT_FALLBACK_IMAGES = [
 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ff0585af8_generated_image.png',
 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png'];
 
-
-import DeleteButton from '@/components/DeleteButton';
 
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
   const [showMenu, setShowMenu] = useState(false);

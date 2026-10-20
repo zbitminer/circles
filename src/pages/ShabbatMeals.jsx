@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Star } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
+import DeleteButton from '@/components/DeleteButton';
 import { format, isFuture } from 'date-fns';
 
 export default function ShabbatMeals() {
@@ -318,7 +319,7 @@ export default function ShabbatMeals() {
             {user && selected.host_id === user.id && (
               <div className="mt-4 text-center">
                 <DeleteButton label="Delete my meal" confirmText="Delete this meal? This cannot be undone."
-                  onDelete={async () => { await base44.entities.ShabbatMeal.delete(selected.id); setSelected(null); load(); }} />
+                  onDelete={async () => { await base44.entities.ShabbatMeal.delete(selected.id); setSelected(null); loadMeals(); }} />
               </div>
             )}
           </div>

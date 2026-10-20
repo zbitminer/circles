@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Clock, Plus, X, CheckCircle, LayoutGrid, Map, Users } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
+import DeleteButton from '@/components/DeleteButton';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Other'];
