@@ -271,7 +271,10 @@ export default function SosBoard() {
               </div>
               {selected.claimed_by_name && <div className="flex items-center gap-2 text-yellow-700 text-xs font-medium"><Users className="w-4 h-4" /> Claimed by {selected.claimed_by_name}</div>}
             </div>
-            {user && selected.status === 'open' && (
+            {user && selected.status === 'open' && selected.created_by_id === user.id && (
+              <p className="text-center text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>This is your request. Volunteers will be able to claim it.</p>
+            )}
+            {user && selected.status === 'open' && selected.created_by_id !== user.id && (
               <button onClick={() => handleClaim(selected)}
                 className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
                 style={{ background: 'hsl(var(--foreground))', color: '#F5E6C0', border: '1px solid hsl(var(--primary))' }}>

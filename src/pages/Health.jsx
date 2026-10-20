@@ -340,7 +340,10 @@ export default function Health() {
 
             {user ? (
               <div className="space-y-2">
-                {selected.status === 'open' && (
+                {selected.status === 'open' && selected.created_by_id === user.id && (
+                  <p className="text-center text-sm text-muted-foreground">This is your request. Volunteers will be able to claim it.</p>
+                )}
+                {selected.status === 'open' && selected.created_by_id !== user.id && (
                   <button onClick={() => handleClaim(selected.id, false)}
                     className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
                     style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
