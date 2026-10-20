@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { GraduationCap, Trash2, Mail, Phone, MapPin } from 'lucide-react';
+import { GraduationCap, Trash2, Mail, Phone, MapPin, Plus, Pencil } from 'lucide-react';
+import EditContentDialog from '@/components/content/EditContentDialog';
+import { WORKSHOP_TYPE } from '@/components/admin/adminFormTypes';
 
 const STATUSES = ['new', 'contacted', 'scheduled', 'completed'];
 
@@ -8,6 +10,12 @@ export default function AdminWorkshopsTab() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [editing, setEditing] = useState(null);
+
+  const onSaved = (w) => {
+    setItems((prev) => (prev.some((i) => i.id === w.id) ? prev.map((i) => (i.id === w.id ? w : i)) : [w, ...prev]));
+    setEditing(null);
+  };
 
   useEffect(() => {
     base44.entities.WorkshopInquiry.list('-created_date', 200).then((data) => {
@@ -34,9 +42,14 @@ export default function AdminWorkshopsTab() {
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-4 sm:px-6 py-4 border-b border-border space-y-3">
-        <div className="flex items-center gap-2">
-          <GraduationCap className="w-5 h-5 text-primary" />
-          <h2 className="font-display text-lg font-bold">Workshops ({shown.length})</h2>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-primary" />
+            <h2 className="font-display text-lg font-bold">Workshops ({shown.length})</h2>
+          </div>
+          <button onClick={() => setEditing({ inquiry_type: 'lead' })} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+            <Plus className="w-4 h-4" /> New workshop
+          </button>
         </div>
         <div className="flex gap-2 overflow-x-auto">
           {[['all', 'All'], ['lead', 'Led by members'], ['participate', 'Sign-ups']].map(([val, label]) => (
@@ -68,11 +81,15 @@ export default function AdminWorkshopsTab() {
                 </select>
                 <a href={`mailto:${i.email}`} aria-label="Email" className="p-2 text-primary hover:bg-primary/10 rounded-lg"><Mail className="w-4 h-4" /></a>
                 <a href={`tel:${i.phone}`} aria-label="Call" className="p-2 text-primary hover:bg-primary/10 rounded-lg"><Phone className="w-4 h-4" /></a>
+                <button onClick={() => setEditing(i)} aria-label="Edit" className="p-2 text-primary hover:bg-primary/10 rounded-lg"><Pencil className="w-4 h-4" /></button>
                 <button onClick={() => remove(i.id)} aria-label="Delete" className="p-2 text-red-500 hover:bg-red-50 rounded-lg"><Trash2 className="w-4 h-4" /></button>
               </div>
             </div>
           ))}
         </div>
+      )}
+      {editing && (
+        <EditContentDialog type={WORKSHOP_TYPE} item={editing} title={editing.id ? 'Edit workshop' : 'New workshop'} onClose={() => setEditing(null)} onSaved={onSaved} />
       )}
     </div>
   );

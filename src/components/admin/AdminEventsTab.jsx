@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Calendar, Trash2, MapPin, Users } from 'lucide-react';
+import { Calendar, Trash2, MapPin, Users, Plus, Pencil } from 'lucide-react';
 import moment from 'moment';
+import EditContentDialog from '@/components/content/EditContentDialog';
+import { EVENT_TYPE } from '@/components/admin/adminFormTypes';
 
 const STATUS_STYLE = {
   upcoming: 'bg-primary/10 text-primary',
@@ -13,13 +15,21 @@ const STATUS_STYLE = {
 export default function AdminEventsTab() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState(null);
+  const [me, setMe] = useState(null);
 
   useEffect(() => {
-    base44.entities.Event.list('-date', 100).then((data) => {
+    base44.auth.me().then(setMe).catch(() => {});
+    base44.entities.Event.list('-created_date', 100).then((data) => {
       setEvents(data);
       setLoading(false);
     });
   }, []);
+
+  const onSaved = (ev) => {
+    setEvents((prev) => (prev.some((e) => e.id === ev.id) ? prev.map((e) => (e.id === ev.id ? ev : e)) : [ev, ...prev]));
+    setEditing(null);
+  };
 
   const setStatus = async (id, status) => {
     await base44.entities.Event.update(id, { status });
@@ -36,9 +46,14 @@ export default function AdminEventsTab() {
 
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
-      <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center gap-2">
-        <Calendar className="w-5 h-5 text-primary" />
-        <h2 className="font-display text-lg font-bold">Events ({events.length})</h2>
+      <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-primary" />
+          <h2 className="font-display text-lg font-bold">Events ({events.length})</h2>
+        </div>
+        <button onClick={() => setEditing({ created_by_name: me?.full_name })} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+          <Plus className="w-4 h-4" /> New event
+        </button>
       </div>
       {events.length === 0 ? (
         <p className="text-center text-muted-foreground py-8 text-sm">No events yet.</p>
@@ -64,6 +79,9 @@ export default function AdminEventsTab() {
                   <option value="completed">Completed</option>
                   <option value="cancelled">Cancelled</option>
                 </select>
+                <button onClick={() => setEditing(e)} aria-label="Edit event" className="p-2 text-primary hover:bg-primary/10 rounded-lg">
+                  <Pencil className="w-4 h-4" />
+                </button>
                 <button onClick={() => remove(e.id)} aria-label="Delete event" className="p-2 text-red-500 hover:bg-red-50 rounded-lg">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -71,6 +89,9 @@ export default function AdminEventsTab() {
             </div>
           ))}
         </div>
+      )}
+      {editing && (
+        <EditContentDialog type={EVENT_TYPE} item={editing} title={editing.id ? 'Edit event' : 'New event'} onClose={() => setEditing(null)} onSaved={onSaved} />
       )}
     </div>
   );

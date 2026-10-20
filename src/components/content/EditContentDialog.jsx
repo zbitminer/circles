@@ -5,8 +5,21 @@ import { Button } from '@/components/ui/button';
 
 const inputCls = 'w-full bg-muted rounded-xl px-3 py-2 text-sm outline-none border border-transparent focus:border-primary/40';
 
-export default function EditContentDialog({ type, item, onClose, onSaved }) {
-  const [form, setForm] = useState(() => Object.fromEntries(type.fields.map((f) => [f.key, item[f.key] ?? ''])));
+const toInput = (f, v) => {
+  if (v == null) return f.default ?? '';
+  if (f.type === 'datetime-local') {
+    const d = new Date(v);
+    if (isNaN(d)) return '';
+    const p = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+  return v;
+};
+
+// Edits an existing record (item.id set) or creates a new one (item without id, using item as defaults).
+export default function EditContentDialog({ type, item, onClose, onSaved, title }) {
+  const isNew = !item.id;
+  const [form, setForm] = useState(() => Object.fromEntries(type.fields.map((f) => [f.key, toInput(f, item[f.key])])));
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -18,13 +31,16 @@ export default function EditContentDialog({ type, item, onClose, onSaved }) {
     type.fields.forEach((f) => {
       const v = form[f.key];
       if (f.type === 'number') data[f.key] = v === '' ? undefined : Number(v);
-      else data[f.key] = v;
+      else if (f.type === 'datetime-local') data[f.key] = v ? new Date(v).toISOString() : undefined;
+      else data[f.key] = v === '' && (isNew || f.type === 'select') ? undefined : v;
     });
     try {
-      await base44.entities[type.key].update(item.id, data);
-      onSaved({ ...item, ...data });
-    } catch {
-      setError('Could not save changes. Please try again.');
+      const saved = isNew
+        ? await base44.entities[type.key].create({ ...item, ...data })
+        : await base44.entities[type.key].update(item.id, data);
+      onSaved({ ...item, ...data, ...(saved || {}) });
+    } catch (err) {
+      setError(err?.response?.data?.message || err?.message || 'Could not save changes. Please try again.');
       setSaving(false);
     }
   };
@@ -32,22 +48,27 @@ export default function EditContentDialog({ type, item, onClose, onSaved }) {
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto">
-        <DialogHeader><DialogTitle>Edit {type.label.toLowerCase()}</DialogTitle></DialogHeader>
+        <DialogHeader><DialogTitle>{title || `Edit ${type.label.toLowerCase()}`}</DialogTitle></DialogHeader>
         <form onSubmit={save} className="space-y-3">
           {type.fields.map((f) => (
             <label key={f.key} className="block text-xs font-semibold">
-              {f.label}
+              {f.label}{f.required ? ' *' : ''}
               {f.type === 'textarea' ? (
-                <textarea rows={4} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1 resize-none`} />
+                <textarea rows={4} required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1 resize-none`} />
+              ) : f.type === 'select' ? (
+                <select required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1`}>
+                  {!f.required && <option value="">—</option>}
+                  {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
+                </select>
               ) : (
-                <input type={f.type} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1`} />
+                <input type={f.type} required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1`} />
               )}
             </label>
           ))}
           {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
           <div className="flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
-            <Button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save changes'}</Button>
+            <Button type="submit" disabled={saving}>{saving ? 'Saving…' : isNew ? 'Create' : 'Save changes'}</Button>
           </div>
         </form>
       </DialogContent>
