@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
 const inputCls = 'w-full bg-muted rounded-xl px-3 py-2 text-sm outline-none border border-transparent focus:border-primary/40';
@@ -48,7 +48,10 @@ export default function EditContentDialog({ type, item, onClose, onSaved, title 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto">
-        <DialogHeader><DialogTitle>{title || `Edit ${type.label.toLowerCase()}`}</DialogTitle></DialogHeader>
+        <DialogHeader>
+          <DialogTitle>{title || (isNew ? `New ${type.label.toLowerCase()}` : `Edit ${type.label.toLowerCase()}`)}</DialogTitle>
+          <DialogDescription className="sr-only">Fill in the details below and save.</DialogDescription>
+        </DialogHeader>
         <form onSubmit={save} className="space-y-3">
           {type.fields.map((f) => (
             <label key={f.key} className="block text-xs font-semibold">
@@ -60,6 +63,20 @@ export default function EditContentDialog({ type, item, onClose, onSaved, title 
                   {!f.required && <option value="">—</option>}
                   {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
+              ) : f.key === 'image_url' ? (
+                <div className="space-y-2 mt-1">
+                  <input type="text" value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} placeholder="Paste image URL or upload file below" className={inputCls} />
+                  <input type="file" accept="image/*" onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    try {
+                      const { file_url } = await base44.integrations.Core.UploadPublicFile({ file });
+                      setForm((prev) => ({ ...prev, [f.key]: file_url }));
+                    } catch {
+                      setError('Could not upload image.');
+                    }
+                  }} className="text-xs text-muted-foreground file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground" />
+                </div>
               ) : (
                 <input type={f.type} required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1`} />
               )}

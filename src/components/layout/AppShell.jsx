@@ -84,6 +84,7 @@ export default function AppShell() {
   {
     label: t('Belong'),
     items: [
+    ...(user?.role === 'admin' ? [{ label: t('Admin'), path: '/admin', desc: 'Admin control panel' }] : []),
     { label: t('My Profile'), path: '/profile', desc: t('Your volunteer identity') },
     { label: t('Directory'), path: '/directory', desc: t('Discover fellow volunteers') },
     { label: t('Gallery'), path: '/gallery', desc: t('Photos from our community') },
@@ -166,18 +167,18 @@ export default function AppShell() {
                 {t('Register Now →')}
               </Link>
             </div> :
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="flex items-center gap-1">
               {user.role === 'admin' &&
-              <Link to="/admin" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
+              <Link to="/admin" className="inline-flex items-center gap-1 font-semibold text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
                 <Shield className="w-4 h-4" /> {t('Admin')}
               </Link>
               }
-              <Link to="/profile" className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
+              <Link to="/profile" className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <span>{t('Profile')}</span>
               </Link>
               <button
                 onClick={() => base44.auth.logout()}
-                className="inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
+                className="hidden lg:inline-flex items-center gap-1 font-semibold text-sm px-3 py-1.5 rounded-lg text-brand-50/70 transition-colors hover:text-brand-50">
                 <LogOut className="w-4 h-4" /> {t('Logout')}
               </button>
             </div>

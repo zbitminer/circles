@@ -234,6 +234,7 @@ export default function Profile() {
         <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Jump into community action from right here</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {[
+            ...(user?.role === 'admin' ? [{ to: '/admin', Icon: Shield, label: 'Admin Dashboard', sub: 'Manage site & content', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.20)' }] : []),
             { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
             { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
             { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },

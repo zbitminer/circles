@@ -35,6 +35,8 @@ export default function AdminReportTab() {
         totalHours: rows.reduce((s, r) => s + r.hours, 0),
         entries: rows.reduce((s, r) => s + r.entries, 0),
       });
+    }).catch(() => {
+      setData({ attendance: 0, led: 0, completed: 0, rows: [], totalHours: 0, entries: 0 });
     });
   }, []);
 

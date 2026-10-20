@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import {
   Users, FileText, Calendar, Clock, Briefcase, Shield, Trophy,
-  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw, UserPlus, Send, Rss, Palette, Plus
+  Trash2, Download, Mail, Megaphone, AlertTriangle, Building2, RefreshCw, UserPlus, Send, Rss, Palette, Plus, Pencil
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ImpactDashboard from '@/components/ImpactDashboard';
 import MonthlyImpactCharts from '@/components/MonthlyImpactCharts';
 import GalleryAdmin from '@/components/gallery/GalleryAdmin';
@@ -12,6 +13,9 @@ import AdminEventsTab from '@/components/admin/AdminEventsTab';
 import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
 import AdminHoursTab from '@/components/admin/AdminHoursTab';
 import MyContentPanel from '@/components/content/MyContentPanel';
+import EditContentDialog from '@/components/content/EditContentDialog';
+import { EVENT_TYPE } from '@/components/admin/adminFormTypes';
+import { CONTENT_TYPES } from '@/components/content/contentConfig';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -88,6 +92,9 @@ function ContentTab({ onRefresh }) {
   const [opps, setOpps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(null);
+  const [editing, setEditing] = useState(null);
+  const postType = CONTENT_TYPES.find(t => t.key === 'Post');
+  const oppType = CONTENT_TYPES.find(t => t.key === 'Opportunity');
 
   useEffect(() => {
     load();
@@ -155,19 +162,27 @@ function ContentTab({ onRefresh }) {
     <div className="space-y-6">
       {/* Posts */}
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
           <div className="flex items-center gap-2"><FileText className="w-5 h-5 text-primary" /><h2 className="font-display text-lg font-bold">Posts ({posts.length})</h2></div>
+          <button onClick={() => setEditing({ type: postType, item: { status: 'active' } })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+            <Plus className="w-3.5 h-3.5" /> New post
+          </button>
         </div>
         <div className="divide-y divide-border max-h-64 overflow-y-auto">
           {posts.map(p => (
-            <div key={p.id} className="flex items-center justify-between px-6 py-3">
+            <div key={p.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
-                <p className="text-sm truncate">{p.content?.slice(0, 80)}...</p>
-                <p className="text-xs text-muted-foreground">{p.author_name} · <span className={p.status === 'removed' ? 'text-red-500' : p.status === 'flagged' ? 'text-yellow-600' : 'text-green-600'}>{p.status}</span></p>
+                <p className="text-sm truncate">{p.title || p.content?.slice(0, 80)}</p>
+                <p className="text-xs text-muted-foreground">{p.author_name || 'Member'} · <span className={p.status === 'removed' ? 'text-red-500' : p.status === 'flagged' ? 'text-yellow-600' : 'text-green-600'}>{p.status}</span></p>
               </div>
-              <button onClick={() => deletePost(p.id)} disabled={deleting === p.id} className="ml-4 p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
-                <Trash2 className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button onClick={() => setEditing({ type: postType, item: p })} aria-label="Edit post" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
+                  <Pencil className="w-4 h-4" />
+                </button>
+                <button onClick={() => deletePost(p.id)} disabled={deleting === p.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -175,21 +190,29 @@ function ContentTab({ onRefresh }) {
 
       {/* Events */}
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-6 py-4 border-b border-border flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-purple-600" />
-          <h2 className="font-display text-lg font-bold">Events ({events.length})</h2>
+        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-purple-600" />
+            <h2 className="font-display text-lg font-bold">Events ({events.length})</h2>
+          </div>
+          <button onClick={() => setEditing({ type: EVENT_TYPE, item: {} })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+            <Plus className="w-3.5 h-3.5" /> New event
+          </button>
         </div>
         <div className="divide-y divide-border max-h-64 overflow-y-auto">
           {events.map(e => (
-            <div key={e.id} className="flex items-center justify-between px-6 py-3">
+            <div key={e.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{e.title}</p>
                 <p className="text-xs text-muted-foreground">{e.location} · <span className={e.status === 'cancelled' ? 'text-red-500' : 'text-green-600'}>{e.status}</span></p>
               </div>
-              <div className="flex gap-1 ml-4">
+              <div className="flex items-center gap-1">
                 {e.status !== 'cancelled' && (
                   <button onClick={() => cancelEvent(e.id)} className="text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">Cancel</button>
                 )}
+                <button onClick={() => setEditing({ type: EVENT_TYPE, item: e })} aria-label="Edit event" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
+                  <Pencil className="w-4 h-4" />
+                </button>
                 <button onClick={() => deleteEvent(e.id)} disabled={deleting === e.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -201,18 +224,23 @@ function ContentTab({ onRefresh }) {
 
       {/* Opportunities */}
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-6 py-4 border-b border-border flex items-center gap-2">
-          <Briefcase className="w-5 h-5 text-accent" />
-          <h2 className="font-display text-lg font-bold">Opportunities ({opps.length})</h2>
+        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Briefcase className="w-5 h-5 text-accent" />
+            <h2 className="font-display text-lg font-bold">Opportunities ({opps.length})</h2>
+          </div>
+          <button onClick={() => setEditing({ type: oppType, item: { status: 'active' } })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+            <Plus className="w-3.5 h-3.5" /> New offer
+          </button>
         </div>
         <div className="divide-y divide-border max-h-64 overflow-y-auto">
           {opps.map(o => (
-            <div key={o.id} className="flex items-center justify-between px-6 py-3">
+            <div key={o.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{o.title}</p>
                 <p className="text-xs text-muted-foreground">{o.organization} · <span className={o.status === 'active' ? 'text-green-600' : 'text-muted-foreground'}>{o.status}</span></p>
               </div>
-              <div className="flex gap-1 ml-4">
+              <div className="flex items-center gap-1">
                 {o.status === 'pending' && (
                   <>
                     <button onClick={() => setOppStatus(o.id, 'active')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Approve</button>
@@ -222,6 +250,9 @@ function ContentTab({ onRefresh }) {
                 {o.status === 'active' && (
                   <button onClick={() => closeOpp(o.id)} className="text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">Close</button>
                 )}
+                <button onClick={() => setEditing({ type: oppType, item: o })} aria-label="Edit opportunity" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
+                  <Pencil className="w-4 h-4" />
+                </button>
                 <button onClick={() => deleteOpp(o.id)} disabled={deleting === o.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -230,6 +261,15 @@ function ContentTab({ onRefresh }) {
           ))}
         </div>
       </div>
+
+      {editing && (
+        <EditContentDialog
+          type={editing.type}
+          item={editing.item}
+          onClose={() => setEditing(null)}
+          onSaved={() => { setEditing(null); load(); }}
+        />
+      )}
     </div>
   );
 }
@@ -237,6 +277,8 @@ function ContentTab({ onRefresh }) {
 function SosTab() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState(null);
+  const sosType = CONTENT_TYPES.find(t => t.key === 'SosRequest');
 
   useEffect(() => { load(); }, []);
 
@@ -263,9 +305,14 @@ function SosTab() {
 
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
-      <div className="px-6 py-4 border-b border-border flex items-center gap-2">
-        <AlertTriangle className="w-5 h-5 text-red-500" />
-        <h2 className="font-display text-lg font-bold">SOS Requests ({requests.length})</h2>
+      <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="w-5 h-5 text-red-500" />
+          <h2 className="font-display text-lg font-bold">SOS Requests ({requests.length})</h2>
+        </div>
+        <button onClick={() => setEditing({ status: 'open' })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+          <Plus className="w-3.5 h-3.5" /> New SOS
+        </button>
       </div>
       {requests.length === 0 ? <p className="text-center text-muted-foreground py-8 text-sm">No SOS requests.</p> : (
         <div className="divide-y divide-border">
@@ -281,6 +328,9 @@ function SosTab() {
                 {r.status !== 'resolved' && (
                   <button onClick={() => updateStatus(r.id, 'resolved')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Resolve</button>
                 )}
+                <button onClick={() => setEditing(r)} aria-label="Edit SOS" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
+                  <Pencil className="w-4 h-4" />
+                </button>
                 <button onClick={() => deleteReq(r.id)} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg">
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -288,6 +338,9 @@ function SosTab() {
             </div>
           ))}
         </div>
+      )}
+      {editing && (
+        <EditContentDialog type={sosType} item={editing} onClose={() => setEditing(null)} onSaved={() => { setEditing(null); load(); }} />
       )}
     </div>
   );
@@ -625,7 +678,7 @@ export default function Admin() {
                 { to: '/shabbat', Icon: Users, label: 'Hosting', sub: 'Meals & tables' },
                 { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members' },
               ].map(({ to, Icon, label, sub }) => (
-                <a key={to} href={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md bg-card border border-border">
+                <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md bg-card border border-border">
                   <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors bg-primary/10">
                     <Icon className="w-5 h-5 text-primary" />
                   </div>
@@ -633,7 +686,7 @@ export default function Admin() {
                     <p className="font-semibold text-sm text-foreground">{label}</p>
                     <p className="text-xs text-muted-foreground">{sub}</p>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

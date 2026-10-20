@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Pencil } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 import DeleteButton from '@/components/DeleteButton';
 import EditContentDialog from '@/components/content/EditContentDialog';
 import { CONTENT_TYPES } from '@/components/content/contentConfig';
@@ -17,10 +17,23 @@ export default function MyContentPanel({ userId }) {
     let cancelled = false;
     setLoading(true);
     const query = { ...(type.query || {}), ...(userId ? { created_by_id: userId } : {}) };
-    base44.entities[type.key].filter(query, { sort: '-created_date', limit: 100 })
-      .then((page) => { if (!cancelled) setItems(page.items); })
-      .catch(() => { if (!cancelled) setItems([]); })
-      .finally(() => { if (!cancelled) setLoading(false); });
+    const loadItems = async () => {
+      try {
+        const page = await base44.entities[type.key].filter(query, { sort: '-created_date', limit: 100 });
+        let list = page.items || [];
+        if (type.key === 'Opportunity') {
+          const hidden = await base44.functions.invoke('listPendingOpportunities', {}).then((r) => r.data?.opportunities || []).catch(() => []);
+          const ownHidden = userId ? hidden.filter((h) => h.created_by_id === userId) : hidden;
+          list = [...ownHidden, ...list.filter((x) => !ownHidden.some((h) => h.id === x.id))];
+        }
+        if (!cancelled) setItems(list);
+      } catch {
+        if (!cancelled) setItems([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    loadItems();
     return () => { cancelled = true; };
   }, [typeKey, userId]);
 
@@ -29,7 +42,14 @@ export default function MyContentPanel({ userId }) {
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-4 sm:px-6 py-4 border-b border-border">
-        <h2 className="font-display text-lg font-bold mb-3">{userId ? 'My Content' : 'User Content'}</h2>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <h2 className="font-display text-lg font-bold">{userId ? 'My Content' : 'User Content'}</h2>
+          {!userId && !['Comment', 'Review', 'Group'].includes(type.key) && (
+            <button onClick={() => setEditing({ ...(type.query || {}) })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
+              <Plus className="w-3.5 h-3.5" /> New
+            </button>
+          )}
+        </div>
         <div className="flex gap-1 overflow-x-auto">
           {CONTENT_TYPES.map((t) => (
             <button key={t.key} onClick={() => setTypeKey(t.key)}
@@ -58,7 +78,7 @@ export default function MyContentPanel({ userId }) {
       )}
       {editing && (
         <EditContentDialog type={type} item={editing} onClose={() => setEditing(null)}
-          onSaved={(u) => { setItems((p) => p.map((x) => (x.id === u.id ? u : x))); setEditing(null); }} />
+          onSaved={(u) => { setItems((p) => (p.some((x) => x.id === u.id) ? p.map((x) => (x.id === u.id ? u : x)) : [u, ...p])); setEditing(null); }} />
       )}
     </div>
   );
