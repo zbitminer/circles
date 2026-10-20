@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import BadgeDisplay from '@/components/BadgeDisplay';
 import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
+import MyContentPanel from '@/components/content/MyContentPanel';
 import OpportunityMatcher from '@/components/agents/OpportunityMatcher';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
@@ -256,6 +257,8 @@ export default function Profile() {
 
       {/* Calendar */}
       <ProfileCalendar userId={user.id} />
+
+      <MyContentPanel userId={user.id} />
 
       {/* Privacy Settings */}
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
