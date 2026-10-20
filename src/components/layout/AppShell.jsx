@@ -106,12 +106,12 @@ export default function AppShell() {
         style={{ paddingTop: 'var(--safe-area-top, 0px)' }}
         ref={navRef}
       >
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-9 h-9 rounded-full object-contain bg-card p-0.5" />
-            <div className="flex flex-col gap-1 leading-none">
-              <span className="text-xl sm:text-2xl font-bold tracking-tight text-brand-50">{t('Circles of Giving')}</span>
+          <Link to="/" className="flex items-center gap-2 min-w-0">
+            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/81e1a6354_Untitled1000x1000px.png" alt="Circles of Giving" className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-contain bg-card p-0.5 flex-shrink-0" />
+            <div className="flex flex-col gap-0.5 sm:gap-1 leading-none min-w-0">
+              <span className="text-base sm:text-2xl font-bold tracking-tight text-brand-50 truncate">{t('Circles of Giving')}</span>
               <span className="text-[10px] hidden sm:block text-brand-300">{t('I Give. I Receive. I Belong.')}</span>
             </div>
           </Link>
@@ -157,11 +157,11 @@ export default function AppShell() {
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
             <button
               onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
               aria-label="Switch language"
-              className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full border border-primary text-brand-300 hover:bg-white/10 transition-colors">
+              className="inline-flex items-center gap-1 text-xs font-bold px-2.5 sm:px-3 py-1.5 rounded-full border border-primary text-brand-300 hover:bg-white/10 transition-colors">
               <Globe className="w-3.5 h-3.5" /> {lang === 'he' ? 'English' : 'עברית'}
             </button>
             {user && <NotificationBell currentUser={user} />}
@@ -176,7 +176,7 @@ export default function AppShell() {
             </div> :
             <div className="flex items-center gap-1">
               {user.role === 'admin' &&
-              <Link to="/admin" className="inline-flex items-center gap-1 font-semibold text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
+              <Link to="/admin" className="hidden sm:inline-flex items-center gap-1 font-semibold text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 rounded-lg text-brand-300 transition-colors hover:text-brand-50">
                 <Shield className="w-4 h-4" /> {t('Admin')}
               </Link>
               }
@@ -191,9 +191,10 @@ export default function AppShell() {
             </div>
             }
             <button
-              className="hidden md:inline-flex lg:hidden p-2 rounded-lg hover:bg-white/10 text-white"
+              type="button"
+              aria-label="Toggle menu"
+              className="inline-flex lg:hidden p-2 rounded-lg hover:bg-white/10 text-white"
               onClick={() => setMobileOpen(!mobileOpen)}>
-              
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -203,7 +204,7 @@ export default function AppShell() {
 
         {/* ═══ Mobile dropdown ═══ */}
         {mobileOpen &&
-        <div className="hidden md:block lg:hidden border-t border-brand-50/20 bg-brand-950">
+        <div className="block lg:hidden border-t border-brand-50/20 bg-brand-950 max-h-[calc(100vh-6rem)] overflow-y-auto">
             {/* Top links */}
             <div className="px-4 py-2 flex flex-wrap gap-1">
               {links.map(({ label, path }) =>
