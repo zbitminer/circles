@@ -44,10 +44,28 @@
     },
     "read": {},
     "update": {
-      "data.reviewer_id": "{{user.id}}"
+      "$or": [
+        {
+          "data.reviewer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
     },
     "delete": {
-      "data.reviewer_id": "{{user.id}}"
+      "$or": [
+        {
+          "data.reviewer_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
     }
   }
 }
