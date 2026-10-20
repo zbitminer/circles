@@ -24,6 +24,14 @@ export const CONTENT_TYPES = [
     { key: 'title', label: 'Title', type: 'text' },
     { key: 'description', label: 'Description', type: 'textarea' },
     { key: 'location', label: 'Location', type: 'text' }] },
+  { key: 'Group', label: 'Groups', titleKey: 'name', fields: [
+    { key: 'name', label: 'Name', type: 'text' },
+    { key: 'description', label: 'Description', type: 'textarea' }] },
+  { key: 'Comment', label: 'Comments', titleKey: 'content', fields: [
+    { key: 'content', label: 'Comment', type: 'textarea' }] },
+  { key: 'Review', label: 'Reviews', titleKey: 'content', fields: [
+    { key: 'rating', label: 'Rating (1-5)', type: 'number' },
+    { key: 'content', label: 'Review', type: 'textarea' }] },
   { key: 'WorkshopInquiry', label: 'Workshops', titleKey: 'title', query: { inquiry_type: 'lead' }, fields: [
     { key: 'title', label: 'Title', type: 'text' },
     { key: 'description', label: 'Description', type: 'textarea' },
