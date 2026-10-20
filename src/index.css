@@ -133,4 +133,29 @@
   @media (prefers-reduced-motion: reduce) {
     .community-ticker-track { animation: none; }
   }
+
+  html.a11y-high-contrast {
+    filter: contrast(1.25);
+  }
+
+  html.a11y-highlight-links a,
+  html.a11y-highlight-links button {
+    text-decoration: underline !important;
+    outline: 2px solid hsl(var(--primary)) !important;
+    outline-offset: 2px;
+  }
+
+  html.a11y-readable-spacing body,
+  html.a11y-readable-spacing p,
+  html.a11y-readable-spacing li {
+    line-height: 1.85 !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  html.a11y-pause-animations *,
+  html.a11y-pause-animations *::before,
+  html.a11y-pause-animations *::after {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
 }

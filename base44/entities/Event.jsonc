@@ -28,6 +28,12 @@
         "Other"
       ]
     },
+    "accessibility_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "capacity": {
       "type": "number"
     },

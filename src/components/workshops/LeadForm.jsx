@@ -11,7 +11,7 @@ export default function LeadForm({ onCreated }) {
   const [form, setForm] = useState({
     first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
     zoom_link: '', has_studio: false, studio_address: '', workshop_date: '', notes: '',
-    title: '', description: '', supplies: '', city: '', start_time: '', end_date: '', end_time: '', image_url: '',
+    title: '', description: '', supplies: '', city: '', start_time: '', end_date: '', end_time: '', image_url: '', accessibility_options: [],
   });
   const { autofilling, autofillError } = useWorkshopAutofill(setForm, 'city');
   const queryClient = useQueryClient();

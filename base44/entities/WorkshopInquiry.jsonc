@@ -55,6 +55,12 @@
         "type": "string"
       }
     },
+    "accessibility_options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "has_studio": {
       "type": "boolean"
     },

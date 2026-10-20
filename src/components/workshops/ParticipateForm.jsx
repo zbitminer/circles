@@ -5,10 +5,11 @@ import WorkshopCategoryGrid from './WorkshopCategoryGrid';
 import useWorkshopAutofill from '@/components/workshops/useWorkshopAutofill';
 import { useQueryClient } from '@tanstack/react-query';
 import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
+import AccessibilityPicker from '@/components/AccessibilityPicker';
 
 export default function ParticipateForm() {
   const [form, setForm] = useState({
-    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person',
+    first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person', accessibility_options: [],
   });
   const { autofilling, autofillError } = useWorkshopAutofill(setForm);
   const queryClient = useQueryClient();
@@ -94,6 +95,12 @@ export default function ParticipateForm() {
         <p className="text-sm font-semibold mb-2" style={{ color: '#1A2744' }}>Which workshops would you like to attend?</p>
         <WorkshopCategoryGrid selected={categories} onToggle={setCategories} />
       </div>
+
+      <AccessibilityPicker
+        label="Accessibility Needs / Preferences (optional)"
+        selected={form.accessibility_options || []}
+        onChange={(vals) => set('accessibility_options', vals)}
+      />
 
       <p className="text-xs italic" style={{ color: '#6b5c3e' }}>◦ Workshops are subject to a minimum number of participants — we'll contact you when a group forms.</p>
 

@@ -29,6 +29,15 @@ export default function WorkshopFlyer({ workshop, preview = false }) {
           <div><dt className="font-semibold">Language</dt><dd>{workshop.language === 'Other' ? workshop.other_language : workshop.language}</dd></div>
           {workshop.supplies && <div><dt className="font-semibold">Supplies</dt><dd className="whitespace-pre-wrap break-words">{workshop.supplies}</dd></div>}
         </dl>
+        {workshop.accessibility_options?.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {workshop.accessibility_options.map((acc) => (
+              <span key={acc} className="text-xs px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                ♿ {acc}
+              </span>
+            ))}
+          </div>
+        )}
         {workshop.notes && <p className="text-sm whitespace-pre-wrap break-words">{workshop.notes}</p>}
         {workshop.format !== 'In-person' && /^https?:\/\//i.test(workshop.zoom_link || '') && <a href={workshop.zoom_link} target="_blank" rel="noopener noreferrer" className="text-sm text-primary underline">Join on Zoom</a>}
       </div>

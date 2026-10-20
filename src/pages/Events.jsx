@@ -7,6 +7,7 @@ import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
 import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
+import AccessibilityPicker from '@/components/AccessibilityPicker';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Arts & Crafts', 'Personal Development', 'Languages', 'Health & Wellness', 'Music', 'Cooking', 'Support Groups', 'Other'];
@@ -30,12 +31,13 @@ export default function Events() {
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '' });
+  const [form, setForm] = useState({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '', accessibility_options: [] });
   const [uploadingImg, setUploadingImg] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'calendar' | 'map'
   const [dropdownFilter, setDropdownFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [accessibleOnly, setAccessibleOnly] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -56,7 +58,8 @@ export default function Events() {
       e.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       e.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       e.location?.toLowerCase().includes(searchQuery.toLowerCase());
-    return catMatch && dropdownCatMatch && searchMatch;
+    const a11yMatch = !accessibleOnly || (e.accessibility_options && e.accessibility_options.length > 0);
+    return catMatch && dropdownCatMatch && searchMatch && a11yMatch;
   });
 
   const handleDropdownSelect = (selection) => {
@@ -73,9 +76,10 @@ export default function Events() {
     setCauseFilter('All');
     setDropdownFilter(null);
     setSearchQuery('');
+    setAccessibleOnly(false);
   };
 
-  const activeFilterCount = (causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (searchQuery ? 1 : 0);
+  const activeFilterCount = (causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (searchQuery ? 1 : 0) + (accessibleOnly ? 1 : 0);
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
@@ -102,7 +106,7 @@ export default function Events() {
       created_by_name: user?.full_name,
       status: 'upcoming',
     });
-    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '' });
+    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '', accessibility_options: [] });
     setShowForm(false);
     setSubmitting(false);
     loadEvents();
@@ -188,6 +192,13 @@ export default function Events() {
               <input type="number" value={form.capacity} onChange={e => setForm({...form, capacity: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="Max attendees" min="1" />
             </div>
             <div className="md:col-span-2">
+              <AccessibilityPicker
+                label="Accessibility Options (optional)"
+                selected={form.accessibility_options || []}
+                onChange={(vals) => setForm({ ...form, accessibility_options: vals })}
+              />
+            </div>
+            <div className="md:col-span-2">
               <label className="block text-xs font-medium text-muted-foreground mb-1">Event Image (optional)</label>
               <div className="flex items-center gap-3">
                 <input type="file" accept="image/*" className="text-sm text-muted-foreground file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-primary file:text-primary-foreground hover:file:opacity-90 cursor-pointer"
@@ -249,6 +260,17 @@ export default function Events() {
                   {c}
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => setAccessibleOnly(v => !v)}
+                className="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
+                style={accessibleOnly
+                  ? { background: 'hsl(var(--primary))', color: '#fff', border: '1px solid hsl(var(--primary))' }
+                  : { background: 'hsl(var(--card))', color: 'hsl(var(--palette-950))', border: '1px solid hsl(var(--primary))' }
+                }
+              >
+                ♿ Accessible
+              </button>
             </div>
           </div>
           {activeFilterCount > 0 && (
@@ -331,6 +353,15 @@ export default function Events() {
                     {evt.capacity && <span>· {evt.capacity} max</span>}
                     {full && <span className="font-medium" style={{ color: 'hsl(var(--primary))' }}>· Full</span>}
                   </div>
+                  {evt.accessibility_options?.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-0.5">
+                      {evt.accessibility_options.map(acc => (
+                        <span key={acc} className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'hsl(var(--secondary))', color: 'hsl(var(--foreground))' }}>
+                          ♿ {acc}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   {user && !past && (
                     <button
                       type="button"
@@ -476,6 +507,15 @@ export default function Events() {
                   {selected.capacity && ` · ${selected.capacity} max capacity`}
                 </div>
               </div>
+              {selected.accessibility_options?.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {selected.accessibility_options.map(acc => (
+                    <span key={acc} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: 'hsl(var(--secondary))', color: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' }}>
+                      ♿ {acc}
+                    </span>
+                  ))}
+                </div>
+              )}
               <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}>{selected.description}</p>
 
               {isMod && selected.attendees?.length > 0 && (

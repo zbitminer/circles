@@ -109,6 +109,15 @@ export default function WorkshopListings() {
             <Video className="w-3 h-3" style={{ color: '#C9A84C' }} /> Zoom available
           </div>
         )}
+        {inq.accessibility_options?.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {inq.accessibility_options.map((acc) => (
+              <span key={acc} className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#f0e8d0', color: '#1A2744', border: '1px solid #C9A84C' }}>
+                ♿ {acc}
+              </span>
+            ))}
+          </div>
+        )}
         {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b5c3e' }}>{inq.notes}</p>}
         {inq.inquiry_type === 'lead' && <WorkshopMap workshop={inq} />}
         <div className="mt-3">{ownerDelete(inq)}</div>

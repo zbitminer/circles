@@ -6,6 +6,7 @@ import CommunityTicker from '../CommunityTicker';
 import RegistrationPrompt from '../RegistrationPrompt';
 import RequestAssistant from '@/components/agents/RequestAssistant';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
+import AccessibilityWidget from '@/components/AccessibilityWidget';
 import PageTransition from '@/components/layout/PageTransition';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
@@ -286,6 +287,7 @@ export default function AppShell() {
         </PageTransition>
       </main>
 
+      <AccessibilityWidget />
       <RequestAssistant />
       <MobileBottomNav />
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import AccessibilityPicker from '@/components/AccessibilityPicker';
 
 export default function WorkshopDetailsFields({ form, set }) {
   const fields = [
@@ -49,6 +50,11 @@ export default function WorkshopDetailsFields({ form, set }) {
     </div>
     <label className="block text-sm text-foreground">Describe your workshop *<Textarea required className="mt-1" rows={5} value={form.description || ''} onChange={e => set('description', e.target.value)} placeholder="What will you teach, and what will participants do?" /></label>
     <label className="block text-sm text-foreground">Supplies to bring<Textarea className="mt-1" value={form.supplies || ''} onChange={e => set('supplies', e.target.value)} placeholder="List materials to bring or explain what you provide." /></label>
+    <AccessibilityPicker
+      label="Accessibility Options (optional)"
+      selected={form.accessibility_options || []}
+      onChange={(vals) => set('accessibility_options', vals)}
+    />
     <p className="text-xs text-muted-foreground">A flyer is generated from these details. Skip the image to use the community learning image.</p>
   </fieldset>;
 }
