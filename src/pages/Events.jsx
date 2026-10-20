@@ -331,6 +331,23 @@ export default function Events() {
                     {evt.capacity && <span>· {evt.capacity} max</span>}
                     {full && <span className="font-medium" style={{ color: 'hsl(var(--primary))' }}>· Full</span>}
                   </div>
+                  {user && !past && (
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); handleRSVP(evt); }}
+                      disabled={full && !attending}
+                      className="w-full mt-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all"
+                      style={
+                        attending
+                          ? { background: '#f0e8d0', color: '#1A2744', border: '1px solid hsl(var(--primary))' }
+                          : full
+                          ? { background: '#e0d5be', color: '#888', cursor: 'not-allowed' }
+                          : { background: 'hsl(var(--primary))', color: '#fff' }
+                      }
+                    >
+                      {attending ? '✓ Going (Tap to Cancel)' : full ? 'Event Full' : 'RSVP — Join Event'}
+                    </button>
+                  )}
                 </div>
                 {/* Bottom corner accents */}
                 <div className="relative h-0">
@@ -434,7 +451,7 @@ export default function Events() {
       {/* Event Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-lg w-full shadow-2xl overflow-hidden" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <img
               src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
               alt={selected.title}
