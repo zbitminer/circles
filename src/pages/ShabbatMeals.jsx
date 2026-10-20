@@ -315,6 +315,12 @@ export default function ShabbatMeals() {
             ) : (
               <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to join this meal</p>
             )}
+            {user && selected.host_id === user.id && (
+              <div className="mt-4 text-center">
+                <DeleteButton label="Delete my meal" confirmText="Delete this meal? This cannot be undone."
+                  onDelete={async () => { await base44.entities.ShabbatMeal.delete(selected.id); setSelected(null); load(); }} />
+              </div>
+            )}
           </div>
         </div>
       )}

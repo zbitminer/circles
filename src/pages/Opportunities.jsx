@@ -444,6 +444,12 @@ export default function Opportunities() {
               </div>
           }
 
+            {user && selected.created_by_id === user.id &&
+            <div className="mt-4 text-center">
+                <DeleteButton label="Delete my post" confirmText="Delete this post? This cannot be undone."
+              onDelete={async () => {await base44.entities.Opportunity.delete(selected.id);setSelected(null);loadOpportunities(null);}} />
+              </div>
+            }
             <RemarksSection opportunity={selected} user={user} onUpdate={loadOpportunities} />
           </div>
         </div>

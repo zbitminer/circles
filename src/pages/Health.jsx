@@ -370,6 +370,12 @@ export default function Health() {
             ) : (
               <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to help with this request</p>
             )}
+            {user && selected.created_by_id === user.id && (
+              <div className="mt-4 text-center">
+                <DeleteButton label="Delete my request" confirmText="Delete this request? This cannot be undone."
+                  onDelete={async () => { await base44.entities.HealthRequest.delete(selected.id); setSelected(null); loadRequests(); }} />
+              </div>
+            )}
           </div>
         </div>
       )}

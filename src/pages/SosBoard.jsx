@@ -285,6 +285,12 @@ export default function SosBoard() {
             {!user && (
               <p className="text-center text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Sign in to help with this request</p>
             )}
+            {user && selected.created_by_id === user.id && (
+              <div className="mt-4 text-center">
+                <DeleteButton label="Delete my request" confirmText="Delete this request? This cannot be undone."
+                  onDelete={async () => { await base44.entities.SosRequest.delete(selected.id); setSelected(null); loadRequests(); }} />
+              </div>
+            )}
           </div>
         </div>
       )}

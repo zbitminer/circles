@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import DeleteButton from '@/components/DeleteButton';
 import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
 import WorkshopMap from '@/components/workshops/WorkshopMap';
 import { base44 } from '@/api/base44Client';
@@ -24,6 +25,16 @@ const CATEGORY_IMAGES = {
 };
 
 export default function WorkshopListings() {
+  const queryClient = useQueryClient();
+  const { data: me } = useQuery({ queryKey: ['me'], queryFn: () => base44.auth.me().catch(() => null) });
+  const canDelete = (inq) => me && (me.id === inq.created_by_id || me.role === 'admin');
+  const ownerDelete = (inq) => canDelete(inq) && (
+    <DeleteButton
+      label="Delete my workshop"
+      confirmText="Delete this workshop? This cannot be undone."
+      onDelete={async () => { await base44.entities.WorkshopInquiry.delete(inq.id); queryClient.invalidateQueries({ queryKey: ['workshop-listings'] }); }}
+    />
+  );
   const { data: inquiries = [], isLoading: loading, error, refetch } = useQuery({
     queryKey: ['workshop-listings'],
     queryFn: () => base44.entities.WorkshopInquiry.list('-created_date', 500),
@@ -51,7 +62,7 @@ export default function WorkshopListings() {
   };
 
   const renderCard = (inq) => {
-    if (inq.inquiry_type === 'lead' && inq.title) return <WorkshopFlyer key={inq.id} workshop={inq} />;
+    if (inq.inquiry_type === 'lead' && inq.title) return <div key={inq.id} className="space-y-2"><WorkshopFlyer workshop={inq} />{ownerDelete(inq)}</div>;
     const cats = (inq.workshop_categories || []).map(parseCategory).filter((c) => c.main);
     const mainCat = cats[0]?.main;
     return (
@@ -100,6 +111,7 @@ export default function WorkshopListings() {
         )}
         {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b5c3e' }}>{inq.notes}</p>}
         {inq.inquiry_type === 'lead' && <WorkshopMap workshop={inq} />}
+        <div className="mt-3">{ownerDelete(inq)}</div>
         </div>
       </div>
     );

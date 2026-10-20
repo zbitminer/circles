@@ -52,6 +52,8 @@ const DEFAULT_FALLBACK_IMAGES = [
 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png'];
 
 
+import DeleteButton from '@/components/DeleteButton';
+
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
   const [showMenu, setShowMenu] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -253,6 +255,10 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
                 <div className="bg-muted rounded-xl px-3 py-2 flex-1">
                   <p className="text-xs font-semibold mb-0.5">{c.author_name}</p>
                   <p className="text-xs text-foreground">{c.content}</p>
+                  {currentUser && currentUser.id === c.created_by_id &&
+                  <DeleteButton label="Delete" confirmText="Delete this comment?" className="mt-1"
+                    onDelete={async () => { await base44.entities.Comment.delete(c.id); setComments((prev) => prev.filter((x) => x.id !== c.id)); }} />
+                  }
                 </div>
               </div>
         )
