@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const inputCls = 'w-full bg-muted rounded-xl px-3 py-2 text-sm outline-none border border-transparent focus:border-primary/40';
 
@@ -59,10 +60,13 @@ export default function EditContentDialog({ type, item, onClose, onSaved, title 
               {f.type === 'textarea' ? (
                 <textarea rows={4} required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1 resize-none`} />
               ) : f.type === 'select' ? (
-                <select required={f.required} value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} className={`${inputCls} mt-1`}>
-                  {!f.required && <option value="">—</option>}
-                  {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
-                </select>
+                <BottomSheetSelect
+                  label={f.label}
+                  value={form[f.key]}
+                  onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
+                  options={!f.required ? [{ value: '', label: '—' }, ...f.options] : f.options}
+                  className={`${inputCls} mt-1`}
+                />
               ) : f.key === 'image_url' ? (
                 <div className="space-y-2 mt-1">
                   <input type="text" value={form[f.key]} onChange={(e) => setForm({ ...form, [f.key]: e.target.value })} placeholder="Paste image URL or upload file below" className={inputCls} />

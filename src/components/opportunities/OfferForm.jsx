@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useOfferPublisher from '@/components/opportunities/useOfferPublisher';
 import { Send } from 'lucide-react';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const TYPES = ['In-person', 'Remote', 'Hybrid'];
 
@@ -69,14 +70,14 @@ export default function OfferForm({ user, onPosted, onSaved }) {
         </div>
         <div>
           <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>In person or remotely?</label>
-          <select
+          <BottomSheetSelect
+            label="In person or remotely?"
             value={type}
             onChange={e => setType(e.target.value)}
+            options={TYPES}
             className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30"
             style={{ borderColor: '#C9A84C' }}
-          >
-            {TYPES.map(t => <option key={t}>{t}</option>)}
-          </select>
+          />
         </div>
       </div>
 

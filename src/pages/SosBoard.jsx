@@ -138,16 +138,24 @@ export default function SosBoard() {
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Category</label>
-              <select value={form.cause_category} onChange={e => setForm({ ...form, cause_category: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {CAUSES.map(c => <option key={c}>{c}</option>)}
-              </select>
+              <BottomSheetSelect
+                label="Category"
+                value={form.cause_category}
+                onChange={e => setForm({ ...form, cause_category: e.target.value })}
+                options={CAUSES}
+              />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: 'hsl(var(--muted-foreground))' }}>Urgency</label>
-              <select value={form.urgency_hours} onChange={e => setForm({ ...form, urgency_hours: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                <option value={24}>Within 24 hours</option>
-                <option value={48}>Within 48 hours</option>
-              </select>
+              <BottomSheetSelect
+                label="Urgency"
+                value={form.urgency_hours}
+                onChange={e => setForm({ ...form, urgency_hours: Number(e.target.value) })}
+                options={[
+                  { value: 24, label: 'Within 24 hours' },
+                  { value: 48, label: 'Within 48 hours' },
+                ]}
+              />
             </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Cancel</button>

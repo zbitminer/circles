@@ -5,6 +5,8 @@ import NotificationBell from '../NotificationBell';
 import CommunityTicker from '../CommunityTicker';
 import RegistrationPrompt from '../RegistrationPrompt';
 import RequestAssistant from '@/components/agents/RequestAssistant';
+import MobileBottomNav from '@/components/layout/MobileBottomNav';
+import PageTransition from '@/components/layout/PageTransition';
 import { useAuth } from '@/lib/AuthContext';
 import { base44 } from '@/api/base44Client';
 import { useLanguage } from '@/lib/i18n';
@@ -98,7 +100,11 @@ export default function AppShell() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══ Top Nav ═══ */}
-      <header className="fixed top-0 left-0 right-0 z-50 shadow-md bg-brand-950 text-brand-50 border-b-2 border-primary" ref={navRef}>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 shadow-md bg-brand-950 text-brand-50 border-b-2 border-primary"
+        style={{ paddingTop: 'var(--safe-area-top, 0px)' }}
+        ref={navRef}
+      >
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 flex-shrink-0">
@@ -184,7 +190,7 @@ export default function AppShell() {
             </div>
             }
             <button
-              className="p-2 rounded-lg hover:bg-white/10 lg:hidden text-white"
+              className="hidden md:inline-flex lg:hidden p-2 rounded-lg hover:bg-white/10 text-white"
               onClick={() => setMobileOpen(!mobileOpen)}>
               
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -196,7 +202,7 @@ export default function AppShell() {
 
         {/* ═══ Mobile dropdown ═══ */}
         {mobileOpen &&
-        <div className="border-t border-brand-50/20 bg-brand-950 lg:hidden">
+        <div className="hidden md:block lg:hidden border-t border-brand-50/20 bg-brand-950">
             {/* Top links */}
             <div className="px-4 py-2 flex flex-wrap gap-1">
               {links.map(({ label, path }) =>
@@ -270,18 +276,24 @@ export default function AppShell() {
         }
       </header>
 
-      <div className="h-24" />
+      <div style={{ height: 'calc(6rem + var(--safe-area-top, 0px))' }} />
 
       <RegistrationPrompt user={user} />
 
-      <main className="flex-1">
-        <Outlet />
+      <main className="flex-1 overflow-x-hidden">
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
 
       <RequestAssistant />
+      <MobileBottomNav />
 
       {/* ═══ Footer ═══ */}
-      <footer className="mt-12 bg-brand-950 text-brand-50 border-t-4 border-primary">
+      <footer
+        className="mt-12 pb-20 md:pb-0 bg-brand-950 text-brand-50 border-t-4 border-primary"
+        style={{ paddingBottom: 'calc(5rem + var(--safe-area-bottom, 0px))' }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">

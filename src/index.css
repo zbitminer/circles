@@ -49,6 +49,10 @@
     --brand-orange: var(--palette-600);
     --brand-teal: var(--palette-300);
     --brand-gold: var(--palette-300);
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
   }
 
   .dark {
@@ -90,6 +94,10 @@
     @apply border-border outline-ring/50;
   }
 
+  html, body {
+    overscroll-behavior-y: none;
+  }
+
   body {
     @apply bg-background text-foreground font-body overflow-x-hidden;
   }
@@ -101,6 +109,10 @@
 
   h1, h2, h3, h4 {
     @apply font-heading;
+  }
+
+  button, header, h1, h2, h3, h4, [role="tab"], [role="tablist"] {
+    @apply select-none;
   }
 }
 

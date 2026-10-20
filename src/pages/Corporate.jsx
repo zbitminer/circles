@@ -109,9 +109,12 @@ export default function Corporate() {
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Number of Employees</label>
-              <select value={form.employee_count} onChange={e => setForm({ ...form, employee_count: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {['1-10', '11-50', '51-200', '201-500', '500+'].map(s => <option key={s}>{s}</option>)}
-              </select>
+              <BottomSheetSelect
+                label="Number of Employees"
+                value={form.employee_count}
+                onChange={e => setForm({ ...form, employee_count: e.target.value })}
+                options={['1-10', '11-50', '51-200', '201-500', '500+']}
+              />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Preferred Date</label>

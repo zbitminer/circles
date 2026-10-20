@@ -6,6 +6,7 @@ import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
 import FilterBar from '@/components/FilterBar';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 import { format, isPast } from 'date-fns';
 
 const CAUSES = ['All', 'Arts & Crafts', 'Personal Development', 'Languages', 'Health & Wellness', 'Music', 'Cooking', 'Support Groups', 'Other'];
@@ -175,9 +176,12 @@ export default function Events() {
             </div>
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">Cause Category</label>
-              <select value={form.cause_category} onChange={e => setForm({...form, cause_category: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {CAUSES.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
-              </select>
+              <BottomSheetSelect
+                label="Cause Category"
+                value={form.cause_category}
+                onChange={e => setForm({ ...form, cause_category: e.target.value })}
+                options={CAUSES.filter(c => c !== 'All')}
+              />
             </div>
             <div>
               <label className="block text-xs font-medium text-muted-foreground mb-1">Capacity (optional)</label>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const CATEGORIES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Wellness', 'Other'];
 
@@ -48,16 +49,21 @@ export default function CreateGroupModal({ user, onClose, onCreated }) {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Category</label>
-              <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-              </select>
+              <BottomSheetSelect
+                label="Category"
+                value={form.category}
+                onChange={(e) => setForm({ ...form, category: e.target.value })}
+                options={CATEGORIES}
+              />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Privacy</label>
-              <select value={form.privacy} onChange={(e) => setForm({ ...form, privacy: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                <option value="public">Public</option>
-                <option value="private">Private</option>
-              </select>
+              <BottomSheetSelect
+                label="Privacy"
+                value={form.privacy}
+                onChange={(e) => setForm({ ...form, privacy: e.target.value })}
+                options={[{ value: 'public', label: 'Public' }, { value: 'private', label: 'Private' }]}
+              />
             </div>
           </div>
           <div className="flex gap-3 justify-end pt-2">

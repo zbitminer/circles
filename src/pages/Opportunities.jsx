@@ -262,15 +262,21 @@ export default function Opportunities() {
                 </div>
                 <div>
                   <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Cause Category</label>
-                  <select value={form.cause_category} onChange={(e) => setForm({ ...form, cause_category: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                    {CAUSE_OPTIONS.map((c) => <option key={c.label} value={c.label}>{c.emoji} {c.label}</option>)}
-                  </select>
+                  <BottomSheetSelect
+                    label="Cause Category"
+                    value={form.cause_category}
+                    onChange={(e) => setForm({ ...form, cause_category: e.target.value })}
+                    options={CAUSE_OPTIONS.map((c) => ({ value: c.label, label: `${c.emoji} ${c.label}` }))}
+                  />
                 </div>
                 <div>
                   <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Type</label>
-                  <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                    {TYPES.filter((t) => t !== 'All').map((t) => <option key={t}>{t}</option>)}
-                  </select>
+                  <BottomSheetSelect
+                    label="Type"
+                    value={form.type}
+                    onChange={(e) => setForm({ ...form, type: e.target.value })}
+                    options={TYPES.filter((t) => t !== 'All')}
+                  />
                 </div>
                 <div>
                   <label className="block text-xs font-medium mb-1" style={{ color: '#555' }}>Application Deadline</label>

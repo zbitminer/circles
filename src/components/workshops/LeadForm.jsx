@@ -5,6 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import useWorkshopAutofill from '@/components/workshops/useWorkshopAutofill';
 import WorkshopDetailsFields from '@/components/workshops/WorkshopDetailsFields';
 import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 export default function LeadForm({ onCreated }) {
   const [form, setForm] = useState({
@@ -71,31 +72,48 @@ export default function LeadForm({ onCreated }) {
         <Field label="Phone *"><input required type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} autoComplete="tel" className={inputCls} placeholder="Phone" /></Field>
         <Field label="Email *"><input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} autoComplete="email" className={inputCls} placeholder="Email" /></Field>
         <Field label="I am *">
-          <select required value={form.gender} onChange={(e) => set('gender', e.target.value)} className={inputCls}>
-            <option value="" disabled>Select</option><option value="female">Woman</option><option value="male">Man</option>
-          </select>
+          <BottomSheetSelect
+            label="I am"
+            placeholder="Select"
+            value={form.gender}
+            onChange={(e) => set('gender', e.target.value)}
+            options={[{ value: 'female', label: 'Woman' }, { value: 'male', label: 'Man' }]}
+            className={inputCls}
+          />
         </Field>
         <Field label="Venue / street address"><input required={form.format !== 'Zoom'} value={form.location} onChange={(e) => set('location', e.target.value)} className={inputCls} placeholder="Venue and street address" /></Field>
         <Field label="Language *">
-          <select value={form.language} onChange={(e) => set('language', e.target.value)} className={inputCls}>
-            {LANGUAGES.map((l) => <option key={l}>{l}</option>)}
-          </select>
+          <BottomSheetSelect
+            label="Language"
+            value={form.language}
+            onChange={(e) => set('language', e.target.value)}
+            options={LANGUAGES}
+            className={inputCls}
+          />
         </Field>
         {form.language === 'Other' && (
           <Field label="Other language *"><input required value={form.other_language} onChange={(e) => set('other_language', e.target.value)} className={inputCls} placeholder="Specify language" /></Field>
         )}
         <Field label="Format *">
-          <select value={form.format} onChange={(e) => set('format', e.target.value)} className={inputCls}>
-            {FORMATS.map((f) => <option key={f}>{f}</option>)}
-          </select>
+          <BottomSheetSelect
+            label="Format"
+            value={form.format}
+            onChange={(e) => set('format', e.target.value)}
+            options={FORMATS}
+            className={inputCls}
+          />
         </Field>
         {(form.format === 'Zoom' || form.format === 'Both') && (
           <Field label="Zoom link"><input type="url" value={form.zoom_link} onChange={(e) => set('zoom_link', e.target.value)} className={inputCls} placeholder="https://zoom.us/..." /></Field>
         )}
         <Field label="Do you have a studio? *">
-          <select value={form.has_studio ? 'yes' : 'no'} onChange={(e) => set('has_studio', e.target.value === 'yes')} className={inputCls}>
-            <option value="no">No</option><option value="yes">Yes</option>
-          </select>
+          <BottomSheetSelect
+            label="Do you have a studio?"
+            value={form.has_studio ? 'yes' : 'no'}
+            onChange={(e) => set('has_studio', e.target.value === 'yes')}
+            options={[{ value: 'no', label: 'No' }, { value: 'yes', label: 'Yes' }]}
+            className={inputCls}
+          />
         </Field>
         {form.has_studio && (
           <Field label="Studio address"><input value={form.studio_address} onChange={(e) => set('studio_address', e.target.value)} className={inputCls} placeholder="Studio address" /></Field>

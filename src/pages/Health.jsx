@@ -198,17 +198,25 @@ export default function Health() {
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Category *</label>
-              <select required value={form.health_category} onChange={e => setForm({ ...form, health_category: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                {HEALTH_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
+              <BottomSheetSelect
+                label="Category"
+                value={form.health_category}
+                onChange={e => setForm({ ...form, health_category: e.target.value })}
+                options={HEALTH_CATEGORIES}
+              />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Urgency</label>
-              <select value={form.urgency} onChange={e => setForm({ ...form, urgency: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30">
-                <option value="high">🔥 Urgent</option>
-                <option value="medium">⚠️ Medium</option>
-                <option value="low">✅ Low</option>
-              </select>
+              <BottomSheetSelect
+                label="Urgency"
+                value={form.urgency}
+                onChange={e => setForm({ ...form, urgency: e.target.value })}
+                options={[
+                  { value: 'high', label: '🔥 Urgent' },
+                  { value: 'medium', label: '⚠️ Medium' },
+                  { value: 'low', label: '✅ Low' },
+                ]}
+              />
             </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>

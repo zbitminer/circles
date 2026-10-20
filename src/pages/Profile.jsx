@@ -8,6 +8,8 @@ import ProfileCalendar from '@/components/ProfileCalendar';
 import ReviewCard from '@/components/ReviewCard';
 import MyContentPanel from '@/components/content/MyContentPanel';
 import OpportunityMatcher from '@/components/agents/OpportunityMatcher';
+import DeleteAccountSection from '@/components/profile/DeleteAccountSection';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'];
 
@@ -372,9 +374,13 @@ export default function Profile() {
               </div>
               <div>
                 <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Cause Category</label>
-                <select value={logForm.cause_category} onChange={e => setLogForm({...logForm, cause_category: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30">
-                  {CAUSES.map(c => <option key={c}>{c}</option>)}
-                </select>
+                <BottomSheetSelect
+                  label="Cause Category"
+                  value={logForm.cause_category}
+                  onChange={e => setLogForm({ ...logForm, cause_category: e.target.value })}
+                  options={CAUSES}
+                  className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30"
+                />
               </div>
               <div className="md:col-span-2">
                 <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Notes (optional)</label>
@@ -420,6 +426,9 @@ export default function Profile() {
           </div>
         )}
       </div>
+
+      {/* Account Deletion */}
+      <DeleteAccountSection user={user} profileId={profile?.id} />
     </div>
   );
 }

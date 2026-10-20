@@ -4,6 +4,7 @@ import { LANGUAGES, FORMATS } from '@/lib/workshop-categories';
 import WorkshopCategoryGrid from './WorkshopCategoryGrid';
 import useWorkshopAutofill from '@/components/workshops/useWorkshopAutofill';
 import { useQueryClient } from '@tanstack/react-query';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 export default function ParticipateForm() {
   const [form, setForm] = useState({
@@ -56,23 +57,36 @@ export default function ParticipateForm() {
         <Field label="Phone *"><input required type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} autoComplete="tel" className={inputCls} placeholder="Phone" /></Field>
         <Field label="Email *"><input required type="email" value={form.email} onChange={(e) => set('email', e.target.value)} autoComplete="email" className={inputCls} placeholder="Email" /></Field>
         <Field label="I am *">
-          <select required value={form.gender} onChange={(e) => set('gender', e.target.value)} className={inputCls}>
-            <option value="" disabled>Select</option><option value="female">Woman</option><option value="male">Man</option>
-          </select>
+          <BottomSheetSelect
+            label="I am"
+            placeholder="Select"
+            value={form.gender}
+            onChange={(e) => set('gender', e.target.value)}
+            options={[{ value: 'female', label: 'Woman' }, { value: 'male', label: 'Man' }]}
+            className={inputCls}
+          />
         </Field>
         <Field label="Where would you like to participate? *"><input required value={form.location} onChange={(e) => set('location', e.target.value)} className={inputCls} placeholder="City / Area" /></Field>
         <Field label="Preferred language *">
-          <select value={form.language} onChange={(e) => set('language', e.target.value)} className={inputCls}>
-            {LANGUAGES.map((l) => <option key={l}>{l}</option>)}
-          </select>
+          <BottomSheetSelect
+            label="Preferred language"
+            value={form.language}
+            onChange={(e) => set('language', e.target.value)}
+            options={LANGUAGES}
+            className={inputCls}
+          />
         </Field>
         {form.language === 'Other' && (
           <Field label="Other language *"><input required value={form.other_language} onChange={(e) => set('other_language', e.target.value)} className={inputCls} placeholder="Specify language" /></Field>
         )}
         <Field label="Format *">
-          <select value={form.format} onChange={(e) => set('format', e.target.value)} className={inputCls}>
-            {FORMATS.map((f) => <option key={f}>{f}</option>)}
-          </select>
+          <BottomSheetSelect
+            label="Format"
+            value={form.format}
+            onChange={(e) => set('format', e.target.value)}
+            options={FORMATS}
+            className={inputCls}
+          />
         </Field>
       </div>
 
