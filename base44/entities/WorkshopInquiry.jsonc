@@ -1,6 +1,6 @@
 {
-  "name": "WorkshopInquiry",
   "type": "object",
+  "name": "WorkshopInquiry",
   "properties": {
     "inquiry_type": {
       "type": "string",
@@ -124,9 +124,16 @@
       }
     },
     "delete": {
-      "user_condition": {
-        "role": "admin"
-      }
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
     }
   }
 }
