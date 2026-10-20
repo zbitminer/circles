@@ -11,6 +11,7 @@ import AdminReportTab from '@/components/admin/AdminReportTab';
 import AdminEventsTab from '@/components/admin/AdminEventsTab';
 import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
 import AdminHoursTab from '@/components/admin/AdminHoursTab';
+import MyContentPanel from '@/components/content/MyContentPanel';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
@@ -567,6 +568,7 @@ export default function Admin() {
     { id: 'events', label: 'Events' },
     { id: 'workshops', label: 'Workshops' },
     { id: 'content', label: 'Content' },
+    { id: 'usercontent', label: 'User Content' },
     { id: 'gallery', label: 'Gallery' },
     { id: 'sos', label: '🆘 SOS' },
     { id: 'corporate', label: 'Corporate' },
@@ -686,6 +688,8 @@ export default function Admin() {
           <AdminWorkshopsTab />
           ) : tab === 'content' ? (
           <ContentTab />
+          ) : tab === 'usercontent' ? (
+          <MyContentPanel />
           ) : tab === 'gallery' ? (
           <GalleryAdmin />
           ) : tab === 'sos' ? (
