@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Heart, MapPin, Clock, User, Plus, X, Search } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
 import DeleteButton from '@/components/DeleteButton';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const HEALTH_CATEGORIES = [
   { value: 'medical', label: '🩺 Medical', desc: 'Doctor visits, medications, rehabilitation' },

@@ -2,6 +2,9 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 const HE = {
   'Home': 'בית',
+  'Feed': 'קהילה',
+  'S.O.S': 'חירום',
+  'S.O.S.': 'חירום',
   'About': 'אודות',
   'Community': 'קהילה',
   'Events': 'אירועים',

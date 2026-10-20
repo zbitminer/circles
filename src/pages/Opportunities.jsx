@@ -10,6 +10,7 @@ import OfferForm from '@/components/opportunities/OfferForm';
 import OpportunityListItem from '@/components/opportunities/OpportunityListItem';
 import RemarksSection from '@/components/opportunities/RemarksSection';
 import SafeExplorationBanner from '@/components/SafeExplorationBanner';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const CAUSE_OPTIONS = [
 { label: 'Companionship', emoji: '🤝' },

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Building2, Heart, CheckCircle } from 'lucide-react';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 

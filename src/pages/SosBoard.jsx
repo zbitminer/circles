@@ -4,6 +4,7 @@ import { MapPin, Clock, Plus, X, CheckCircle, LayoutGrid, Map, Users } from 'luc
 import LocationMap from '@/components/LocationMap';
 import DeleteButton from '@/components/DeleteButton';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
+import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Other'];
 
