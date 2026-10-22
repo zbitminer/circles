@@ -47,7 +47,7 @@ export default function AccessibilityWidget() {
     (prefs.pauseAnimations ? 1 : 0);
 
   return (
-    <div className={`fixed z-50 ${isHe ? 'right-4' : 'left-4'}`} style={{ bottom: 'calc(5rem + var(--safe-area-bottom, 0px))' }}>
+    <div className={`fixed ${open ? 'z-[60]' : 'z-40'} bottom-[calc(4.75rem+var(--safe-area-bottom,0px))] md:bottom-6 ${isHe ? 'right-4 sm:right-6' : 'left-4 sm:left-6'}`}>
       {open && (
         <div
           role="dialog"
