@@ -13,7 +13,7 @@ export default function GroupCard({ group, isMember, isPending, isOwner, onJoin,
     >
       <button onClick={() => onOpen?.(group)} className="text-left">
         <div
-          className="h-28 w-full bg-cover bg-center flex items-end p-3"
+          className="h-28 w-full bg-contain bg-no-repeat bg-center flex items-end p-3"
           style={{
             backgroundImage: group.cover_image ? `url(${group.cover_image})` : 'none',
             background: group.cover_image ? undefined : 'linear-gradient(135deg, #1A1A1A, #444)',
