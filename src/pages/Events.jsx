@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import '@/components/events/events-mobile.css';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
 import EventChat from '@/components/EventChat';
@@ -115,8 +117,8 @@ export default function Events() {
   const isFull = (evt) => evt.capacity && evt.attendees?.length >= evt.capacity;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
-      <div className="flex items-start justify-between mb-8">
+    <div className="events-page max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
+      <div className="events-header flex items-start justify-between mb-8">
         <div>
           <h1 className="font-display text-4xl font-bold mb-1" style={{ color: 'hsl(var(--palette-950))' }}>Volunteer Events</h1>
           <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Discover and RSVP to local and virtual events</p>
@@ -315,7 +317,7 @@ export default function Events() {
             const full = isFull(evt);
             return (
               <div key={evt.id} onClick={() => setSelected(evt)}
-                className="cursor-pointer hover:shadow-xl transition-all group overflow-hidden"
+                className="event-card cursor-pointer hover:shadow-xl transition-all group overflow-hidden"
                 style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '8px', boxShadow: '0 2px 8px rgba(26,39,68,0.10)' }}>
                 {/* Ornate corner accents */}
                 <div className="relative">
@@ -480,9 +482,9 @@ export default function Events() {
       )}
 
       {/* Event Modal */}
-      {selected && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+      {selected && createPortal(
+        <div className="event-details-overlay fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
+          <div role="dialog" aria-modal="true" aria-label={selected.title} className="event-details-panel max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <img
               src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
               alt={selected.title}
@@ -491,7 +493,7 @@ export default function Events() {
             <div className="px-6 py-5" style={{ background: 'hsl(var(--palette-950))', borderBottom: '1px solid hsl(var(--primary))' }}>
               <div className="flex items-start justify-between">
                 <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{selected.cause_category}</span>
-                <button onClick={() => setSelected(null)} className="p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: 'hsl(var(--palette-50))' }} /></button>
+                <button aria-label="Close event details" onClick={() => setSelected(null)} className="event-details-close p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: 'hsl(var(--palette-50))' }} /></button>
               </div>
               <h2 className="font-display text-2xl font-bold mt-2" style={{ color: 'hsl(var(--palette-50))' }}>{selected.title}</h2>
             </div>
@@ -546,7 +548,7 @@ export default function Events() {
               <EventChat eventId={selected.id} currentUser={user} />
             </div>
           </div>
-        </div>
+        </div>, document.body
       )}
     </div>
   );
