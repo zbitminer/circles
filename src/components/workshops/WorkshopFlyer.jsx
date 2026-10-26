@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import ContentImageDetails from '@/components/content/ContentImageDetails';
 import WorkshopMap from '@/components/workshops/WorkshopMap';
 import printWorkshopFlyer from '@/components/workshops/printWorkshopFlyer';
 
@@ -17,7 +18,11 @@ export default function WorkshopFlyer({ workshop, preview = false }) {
   };
   return <div className="space-y-3 min-w-0">
     <article ref={ref} className="overflow-hidden rounded-xl border border-border bg-card text-card-foreground">
-      <img src={picture} alt={workshop.title || 'Community learning workshop'} className="h-48 w-full object-cover" />
+      {preview ? <img src={picture} alt={workshop.title || 'Community learning workshop'} className="h-48 w-full object-cover" /> : (
+        <ContentImageDetails image={picture} title={workshop.title || 'Community learning workshop'} imageClassName="h-48 w-full object-cover">
+          <WorkshopFlyer workshop={workshop} preview />
+        </ContentImageDetails>
+      )}
       <div className="space-y-3 p-5">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary">Circles of Giving · {preview ? 'Flyer preview' : 'Workshop'}</p>
         <h3 className="text-2xl break-words">{workshop.title || 'Your workshop title'}</h3>

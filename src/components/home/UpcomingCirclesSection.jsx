@@ -110,12 +110,12 @@ export default function UpcomingCirclesSection() {
           {events.map((event) =>
           <div key={event.id} className="rounded-2xl overflow-hidden bg-card border border-border shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 grid grid-rows-2 min-h-[440px]">
               {/* Image */}
-              <div className="relative min-h-0 overflow-hidden">
+              <Link to={event.id.startsWith('fallback-') ? '/events' : `/events?event=${encodeURIComponent(event.id)}`} aria-label={t(event.title)} className="relative min-h-0 overflow-hidden focus-visible:ring-2 focus-visible:ring-ring">
                 <img src={event.image_url} alt={event.title} className="absolute inset-0 w-full h-full object-cover object-center" onError={(e) => {e.target.onerror = null;e.target.src = PLACEHOLDER_IMG;}} />
                 <div className="absolute top-3 right-3 bg-card text-card-foreground rounded-lg px-2.5 py-1 text-xs font-bold">
                   {event.date_label}
                 </div>
-              </div>
+              </Link>
 
               {/* Content */}
               <div className="p-5 min-w-0 flex flex-col">

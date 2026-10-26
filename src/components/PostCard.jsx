@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PostEditor from '@/components/PostEditor';
 import DeleteButton from '@/components/DeleteButton';
-import ImageLightbox from '@/components/ImageLightbox';
+import ContentImageDetails from '@/components/content/ContentImageDetails';
 import { Heart, MessageCircle, Flag, MoreHorizontal, Trash2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
@@ -57,7 +57,6 @@ const DEFAULT_FALLBACK_IMAGES = [
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
   const [showMenu, setShowMenu] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?.id));
   const [likeCount, setLikeCount] = useState(post.likes?.length || 0);
   const [showComments, setShowComments] = useState(false);
@@ -219,25 +218,18 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
         DEFAULT_FALLBACK_IMAGES[post.id ? post.id.charCodeAt(0) % DEFAULT_FALLBACK_IMAGES.length : 0];
         return (
           <div className="px-5 pb-3">
-            <button
-              type="button"
-              onClick={() => setLightboxOpen(true)}
-              className="w-full block rounded-xl overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary group"
-              aria-label={`Open image for ${post.title || 'community post'}`}
-            >
-              <img
-                src={imgSrc}
-                alt={post.title || 'Community post'}
-                className="w-full rounded-xl object-cover max-h-80 cursor-pointer transition-transform duration-200 group-hover:scale-[1.01]"
-              />
-            </button>
-            <ImageLightbox
-              open={lightboxOpen}
-              onOpenChange={setLightboxOpen}
-              src={imgSrc}
+            <ContentImageDetails
+              image={imgSrc}
               alt={post.title || 'Community post'}
-              caption={post.title}
-            />
+              title={post.title || (post.post_type === 'request' ? 'Help requested' : 'Community story')}
+              description={[post.author_name, post.location].filter(Boolean).join(' · ')}
+              className="w-full block rounded-xl overflow-hidden group"
+              imageClassName="w-full rounded-xl object-cover max-h-80 cursor-pointer transition-transform duration-200 group-hover:scale-[1.01]"
+            >
+              <img src={imgSrc} alt={post.title || 'Community post'} className="max-h-80 w-full rounded-xl object-contain" />
+              <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">{post.content}</p>
+              {post.cause_tags?.length > 0 && <p className="text-sm text-muted-foreground">{post.cause_tags.join(' · ')}</p>}
+            </ContentImageDetails>
           </div>);
 
       })()}

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useSearchParams } from 'react-router-dom';
+import ContentImageDetails from '@/components/content/ContentImageDetails';
 import '@/components/events/events-mobile.css';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
@@ -40,6 +42,17 @@ export default function Events() {
   const [dropdownFilter, setDropdownFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [accessibleOnly, setAccessibleOnly] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const eventId = searchParams.get('event');
+    if (!eventId) return;
+    let active = true;
+    base44.entities.Event.get(eventId).then(event => {
+      if (active && event && event.status !== 'cancelled') setSelected(event);
+    });
+    return () => { active = false; };
+  }, [searchParams]);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
@@ -462,7 +475,11 @@ export default function Events() {
               },
             ].map((evt) => (
               <div key={evt.title} className="overflow-hidden" style={{ background: 'hsl(var(--card))', border: `1.5px solid ${evt.highlight ? 'hsl(var(--primary))' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
-                <img src={evt.image} alt={evt.title} className="w-full aspect-video object-cover" />
+                <ContentImageDetails image={evt.image} title={evt.title} description={`${evt.date} · ${evt.location}`} imageClassName="w-full aspect-video object-cover">
+                  <img src={evt.image} alt={evt.title} className="w-full max-h-80 object-contain" />
+                  <p className="text-sm leading-relaxed">{evt.description}</p>
+                  <p className="text-sm text-muted-foreground">{evt.attendees} attended · {evt.category}</p>
+                </ContentImageDetails>
                 <div className="px-4 py-3">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{evt.category}</span>

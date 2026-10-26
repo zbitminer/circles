@@ -1,4 +1,5 @@
 import { useLanguage } from '@/lib/i18n';
+import { Link } from 'react-router-dom';
 
 export default function BuildingCommunitySection() {
   const { t } = useLanguage();
@@ -8,10 +9,9 @@ export default function BuildingCommunitySection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {/* Left Block — Philosophy with image */}
           <div className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl border-2 border-foreground shadow-sm">
-            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3c8f5ca06_IMG-20251021-WA0316.jpg"
-
-            alt="Jewish Israeli women mentoring and sharing over tea"
-            className="w-full aspect-[16/7] object-cover" />
+            <Link to="/about" aria-label={t('BUILDING COMMUNITY THRU GIVING')} className="block focus-visible:ring-2 focus-visible:ring-ring">
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3c8f5ca06_IMG-20251021-WA0316.jpg" alt="Jewish Israeli women mentoring and sharing over tea" className="w-full aspect-[16/7] object-cover" />
+            </Link>
             
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center bg-card">
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-primary">
@@ -36,10 +36,9 @@ export default function BuildingCommunitySection() {
 
           {/* Right Block — Mission Statement with image */}
           <div className="rounded-2xl overflow-hidden flex flex-col transition-all hover:shadow-xl bg-brand-950 border-2 border-primary shadow-sm">
-            <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fe1ddf59a_IMG_0718.jpeg"
-
-            alt="Israeli volunteers preparing food packages at community kitchen"
-            className="w-full aspect-[16/7] object-cover" />
+            <Link to="/about" aria-label={t('OUR MISSION')} className="block focus-visible:ring-2 focus-visible:ring-ring">
+              <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/fe1ddf59a_IMG_0718.jpeg" alt="Israeli volunteers preparing food packages at community kitchen" className="w-full aspect-[16/7] object-cover" />
+            </Link>
             
             <div className="p-6 md:p-10 flex-1 flex flex-col justify-center border-t-2 border-primary">
               <span className="text-xs font-bold uppercase tracking-[0.2em] mb-2 block text-brand-300">

@@ -1,5 +1,6 @@
 import { Award, Heart } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n';
+import ContentImageDetails from '@/components/content/ContentImageDetails';
 
 export default function VolunteerOfTheMonthSection() {
   const { t } = useLanguage();
@@ -15,10 +16,17 @@ export default function VolunteerOfTheMonthSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-3xl shadow-xl max-w-2xl md:max-h-[520px] mx-auto bg-brand-950">
           {/* Photo */}
           <div className="relative aspect-[4/3] md:aspect-auto min-h-0">
-            <img
-              src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/984169b9e_IMG_1210.jpg"
+            <ContentImageDetails
+              image="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/984169b9e_IMG_1210.jpg"
               alt="Rachel, Volunteer of the Month"
-              className="w-full h-full object-cover opacity-70" />
+              title={t('Rachel')}
+              description={t('Honored Volunteer')}
+              className="block h-full w-full"
+              imageClassName="w-full h-full object-cover opacity-70"
+            >
+              <p className="text-sm leading-relaxed">{t('This month we honor Rachel for her tireless dedication cooking and baking for our holistic healing programs. Every dish she prepares is made with warmth, care, and love — nourishing not just the body, but the spirit of everyone she serves.')}</p>
+              <p className="text-sm leading-relaxed">{t('Rachel embodies the heart of our community: giving generously, showing up consistently, and reminding us all that healing begins with kindness. Thank you, Rachel. 💛')}</p>
+            </ContentImageDetails>
             
             {/* Design mask overlay */}
             <div

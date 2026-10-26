@@ -59,7 +59,7 @@ export default function CommunityGridSection() {
         {/* Photo Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
           {/* Large photo */}
-          <div className="relative rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px] border-2 border-primary shadow-md">
+          <Link to="/directory" aria-label={t('Browse all members →')} className="relative block rounded-2xl overflow-hidden md:row-span-2 h-56 md:h-full min-h-[280px] border-2 border-primary shadow-md focus-visible:ring-2 focus-visible:ring-ring">
             <img src={large.img} alt={large.caption} className="w-full h-full object-cover" />
             <div className="absolute bottom-3 left-3 flex items-center gap-2">
               {large.tag &&
@@ -69,16 +69,16 @@ export default function CommunityGridSection() {
               }
               <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{t(large.caption)}</span>
             </div>
-          </div>
+          </Link>
 
           {/* Small photos */}
           {smalls.map((m) =>
-          <div key={m.caption} className="relative rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg border border-primary">
+          <Link to="/directory" key={m.caption} aria-label={t('Browse all members →')} className="relative block rounded-2xl overflow-hidden h-32 md:h-40 transition-all hover:shadow-lg border border-primary focus-visible:ring-2 focus-visible:ring-ring">
               <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
               <div className="absolute bottom-2 left-2">
                 <span className="text-xs font-semibold text-white bg-black/40 px-2 py-0.5 rounded">{t(m.caption)}</span>
-              </div>
-            </div>
+                </div>
+                </Link>
           )}
         </div>
 

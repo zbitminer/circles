@@ -57,9 +57,9 @@ export default function WaysToEngageSection({ children }) {
           className="group flex flex-col items-center text-center p-4 md:p-9 rounded-2xl bg-card border border-border shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
           
             {/* Icon — fixed square box, image scaled to fill it equally */}
-            <div className="flex items-center justify-center mb-3 w-40 h-40 sm:w-52 sm:h-52 md:w-[240px] md:h-[240px]">
+            <Link to={card.to} aria-label={t(card.title)} className="flex items-center justify-center mb-3 w-40 h-40 sm:w-52 sm:h-52 md:w-[240px] md:h-[240px] focus-visible:ring-2 focus-visible:ring-ring">
               <img src={card.icon} alt={t(card.title)} className="w-full h-full object-cover object-center" />
-            </div>
+            </Link>
 
             {/* Title */}
             <h2 className="text-2xl font-extrabold mb-2 text-primary font-heading">

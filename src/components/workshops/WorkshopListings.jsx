@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DeleteButton from '@/components/DeleteButton';
 import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
+import ContentImageDetails from '@/components/content/ContentImageDetails';
 import WorkshopMap from '@/components/workshops/WorkshopMap';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Video, Users, Sparkles } from 'lucide-react';
@@ -68,9 +69,14 @@ export default function WorkshopListings() {
     return (
       <div key={inq.id} className="overflow-hidden transition-all hover:shadow-lg" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
         {CATEGORY_IMAGES[mainCat] && (
-          <div className="h-28 w-full overflow-hidden">
-            <img src={CATEGORY_IMAGES[mainCat]} alt={mainCat} className="w-full h-full object-cover" loading="lazy" />
-          </div>
+          <ContentImageDetails image={CATEGORY_IMAGES[mainCat]} alt={mainCat} title={inq.title || mainCat} description={`${inq.first_name} ${inq.last_name}`} className="h-28 w-full overflow-hidden" imageClassName="w-full h-full object-cover">
+            {inq.description && <p className="whitespace-pre-wrap break-words text-sm">{inq.description}</p>}
+            <p className="text-sm">{(inq.workshop_categories || []).join(' · ')}</p>
+            <p className="text-sm">{[inq.format, inq.location, inq.language, inq.other_language, inq.workshop_date, inq.start_time, inq.end_time].filter(Boolean).join(' · ')}</p>
+            {inq.accessibility_options?.length > 0 && <p className="text-sm">{inq.accessibility_options.join(' · ')}</p>}
+            {inq.notes && <p className="whitespace-pre-wrap break-words text-sm">{inq.notes}</p>}
+            {inq.inquiry_type === 'lead' && <WorkshopMap workshop={inq} />}
+          </ContentImageDetails>
         )}
         <div className="p-5">
         <div className="flex items-start justify-between mb-3">
