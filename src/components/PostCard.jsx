@@ -109,7 +109,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
   const loadComments = async () => {
     setLoadingComments(true);
     try {
-      const data = await base44.entities.Comment.filter({ post_id: post.id });
+      const data = await base44.entities.Comment.filter({ post_id: post.id }, '-created_date');
       setComments((data || []).filter((c) => c.status !== 'removed'));
     } catch {
       setComments([]);

@@ -12,7 +12,7 @@ export default function GalleryAdmin() {
   const [file, setFile] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const load = async () => { const [a, p] = await Promise.all([base44.entities.GalleryAlbum.list('sort_order'), base44.entities.GalleryPhoto.list('sort_order')]); setAlbums(a); setPhotos(p); setPhotoForm(f => ({ ...f, album_id: f.album_id || a[0]?.id || '' })); };
+  const load = async () => { const [a, p] = await Promise.all([base44.entities.GalleryAlbum.list('-created_date'), base44.entities.GalleryPhoto.list('-created_date')]); setAlbums(a); setPhotos(p); setPhotoForm(f => ({ ...f, album_id: f.album_id || a[0]?.id || '' })); };
   useEffect(() => { load(); }, []);
 
   const run = async action => { setError(''); try { await action(); return true; } catch (err) { setError(err.message || 'The gallery could not be updated.'); return false; } };

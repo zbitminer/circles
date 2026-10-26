@@ -63,11 +63,11 @@ export default function Profile() {
     if (p.causes && p.causes.length > 0) {
       base44.functions.invoke('notifyMatchingOpportunities', { data: { causes: p.causes } }).catch(() => {});
     }
-    const hourLogs = await base44.entities.HourLog.filter({ user_id: u.id });
-    setLogs(hourLogs.sort((a, b) => new Date(b.date) - new Date(a.date)));
-    const badgesList = await base44.entities.Badge.filter({ user_id: u.id });
+    const hourLogs = await base44.entities.HourLog.filter({ user_id: u.id }, '-created_date');
+    setLogs(hourLogs);
+    const badgesList = await base44.entities.Badge.filter({ user_id: u.id }, '-created_date');
     setBadges(badgesList);
-    const reviewsList = await base44.entities.Review.filter({ reviewee_id: u.id });
+    const reviewsList = await base44.entities.Review.filter({ reviewee_id: u.id }, '-created_date');
     setReviews(reviewsList);
     setLoading(false);
   };
@@ -105,8 +105,8 @@ export default function Profile() {
     setLogForm({ activity_name: '', hours: '', date: '', cause_category: 'Food', notes: '' });
     setShowLogForm(false);
     setSubmittingLog(false);
-    const updated = await base44.entities.HourLog.filter({ user_id: user.id });
-    setLogs(updated.sort((a, b) => new Date(b.date) - new Date(a.date)));
+    const updated = await base44.entities.HourLog.filter({ user_id: user.id }, '-created_date');
+    setLogs(updated);
   };
 
   const deleteLog = async (log) => {

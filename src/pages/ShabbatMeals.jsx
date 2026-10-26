@@ -22,7 +22,7 @@ export default function ShabbatMeals() {
 
   const loadMeals = async () => {
     setLoading(true);
-    const data = await base44.entities.ShabbatMeal.list('-date', 100);
+    const data = await base44.entities.ShabbatMeal.list('-created_date', 100);
     setMeals(data.filter(m => m.status !== 'cancelled'));
     setLoading(false);
   };

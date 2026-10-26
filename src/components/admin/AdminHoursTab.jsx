@@ -10,7 +10,7 @@ export default function AdminHoursTab({ users = [] }) {
 
   const load = async () => {
     setLoading(true);
-    const data = await base44.entities.HourLog.list('-date', 500);
+    const data = await base44.entities.HourLog.list('-created_date', 500);
     setLogs(data);
     setLoading(false);
   };

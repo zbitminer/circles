@@ -24,7 +24,7 @@ export default function MyContentPanel({ userId }) {
         if (type.key === 'Opportunity') {
           const hidden = await base44.functions.invoke('listPendingOpportunities', {}).then((r) => r.data?.opportunities || []).catch(() => []);
           const ownHidden = userId ? hidden.filter((h) => h.created_by_id === userId) : hidden;
-          list = [...ownHidden, ...list.filter((x) => !ownHidden.some((h) => h.id === x.id))];
+          list = [...ownHidden, ...list.filter((x) => !ownHidden.some((h) => h.id === x.id))].sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
         }
         if (!cancelled) setItems(list);
       } catch {

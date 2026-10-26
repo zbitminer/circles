@@ -11,7 +11,7 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([base44.entities.GalleryAlbum.list('sort_order'), base44.entities.GalleryPhoto.list('sort_order')])
+    Promise.all([base44.entities.GalleryAlbum.list('-created_date'), base44.entities.GalleryPhoto.list('-created_date')])
       .then(([albumData, photoData]) => {
         setAlbums(albumData);
         setPhotos(photoData);

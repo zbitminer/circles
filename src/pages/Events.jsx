@@ -48,7 +48,7 @@ export default function Events() {
 
   const loadEvents = async () => {
     setLoading(true);
-    const data = await base44.entities.Event.list('-date', 100);
+    const data = await base44.entities.Event.list('-created_date', 100);
     setEvents(data.filter(e => e.status !== 'cancelled'));
     setLoading(false);
   };

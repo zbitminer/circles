@@ -58,7 +58,7 @@ export default function UpcomingCirclesSection() {
     let mounted = true;
     (async () => {
       try {
-        const evts = await base44.entities.Event.filter({ status: 'upcoming' }, 'date', 3);
+        const evts = await base44.entities.Event.filter({ status: 'upcoming' }, '-created_date', 3);
         if (mounted && evts && evts.length > 0) {
           const tagMap = {
             Companionship: 'COMMUNITY',

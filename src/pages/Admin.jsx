@@ -112,7 +112,7 @@ function ContentTab({ onRefresh }) {
       .then((r) => r.data?.opportunities || []).catch(() => []);
     setPosts(p);
     setEvents(e);
-    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))]);
+    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))].sort((a, b) => new Date(b.created_date) - new Date(a.created_date)));
     setLoading(false);
   };
 
@@ -496,7 +496,7 @@ function ToolsTab({ users }) {
           </button>
           <button
             onClick={async () => {
-              const logs = await base44.entities.HourLog.list('-date', 1000);
+              const logs = await base44.entities.HourLog.list('-created_date', 1000);
               exportCSV(logs, 'hour_logs.csv');
             }}
             className="flex items-center gap-2 px-4 py-2.5 bg-muted text-foreground text-sm font-medium rounded-xl hover:bg-muted/80 transition-colors"
@@ -564,7 +564,7 @@ export default function Admin() {
       base44.entities.Opportunity.list('-created_date', 200),
       base44.entities.VolunteerProfile.list(),
       base44.entities.User.list(),
-      base44.entities.HourLog.list('-date', 500),
+      base44.entities.HourLog.list('-created_date', 500),
       base44.entities.SosRequest.list('-created_date', 100),
       base44.entities.CorporateInquiry.list('-created_date', 100),
     ]);

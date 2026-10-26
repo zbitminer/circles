@@ -19,7 +19,7 @@ export default function Feed() {
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
     loadPosts();
-    base44.entities.Event.list('-date', 20).then(setEvents).catch(() => {});
+    base44.entities.Event.list('-created_date', 20).then(setEvents).catch(() => {});
   }, []);
 
   const loadPosts = async () => {
