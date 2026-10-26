@@ -1,0 +1,42 @@
+{
+  "name": "Notify Slack on New Opportunity",
+  "description": "Posts a real-time notification to the #social Slack channel whenever a new volunteer opportunity is posted.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "Opportunity",
+      "events": [
+        "create"
+      ]
+    },
+    "condition": "${ (.trigger.data.status // \"active\") != \"draft\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "notify_slack_on_new_opportunity",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "post_slack_notification": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendSlackNotification",
+            "args": {
+              "entity_type": "opportunity",
+              "entity_id": "${ .trigger.entity_id }",
+              "data": "${ .trigger.data }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Post opportunity to Slack",
+            "description": "Send message to #social"
+          }
+        }
+      }
+    ]
+  }
+}

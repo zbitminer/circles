@@ -1,0 +1,42 @@
+{
+  "name": "Notify Slack on New Event",
+  "description": "Posts a real-time notification to the #social Slack channel whenever a new community event is created.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "Event",
+      "events": [
+        "create"
+      ]
+    },
+    "condition": "${ (.trigger.data.status // \"upcoming\") != \"cancelled\" }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "notify_slack_on_new_event",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "post_slack_notification": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendSlackNotification",
+            "args": {
+              "entity_type": "event",
+              "entity_id": "${ .trigger.entity_id }",
+              "data": "${ .trigger.data }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Post event to Slack",
+            "description": "Send message to #social"
+          }
+        }
+      }
+    ]
+  }
+}
