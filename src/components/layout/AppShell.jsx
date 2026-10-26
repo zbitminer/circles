@@ -89,7 +89,7 @@ export default function AppShell() {
     items: [
     ...(user?.role === 'admin' ? [{ label: t('Admin'), path: '/admin', desc: 'Admin control panel' }] : []),
     { label: t('My Profile'), path: '/profile', desc: t('Your volunteer identity') },
-    { label: t('Directory'), path: '/directory', desc: t('Discover fellow volunteers') },
+    { label: t('Member Discovery'), path: '/directory', desc: t('Discover fellow volunteers') },
     { label: t('Gallery'), path: '/gallery', desc: t('Photos from our community') },
     { label: t('Community Chat'), path: '/chat', desc: t('Group chat with all members') },
     { label: t('Messages'), path: '/messages', desc: t('Private conversations') },

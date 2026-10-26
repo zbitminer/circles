@@ -48,7 +48,7 @@ export default function Profile() {
     const profiles = await base44.entities.VolunteerProfile.filter({ user_id: u.id });
     let p = profiles[0];
     if (!p) {
-      p = await base44.entities.VolunteerProfile.create({ user_id: u.id, causes: [] });
+      p = await base44.entities.VolunteerProfile.create({ user_id: u.id, display_name: u.full_name || 'Community Member', causes: [] });
     }
     setProfile(p);
     setBioText(p.bio || '');
@@ -243,7 +243,7 @@ export default function Profile() {
             { to: '/workshops?tab=lead', Icon: Plus, label: 'Create Workshop', sub: 'Lead a new workshop', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
             { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
             { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
-            { to: '/directory', Icon: Users, label: 'Directory', sub: 'Browse members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
+            { to: '/directory', Icon: Users, label: 'Member Discovery', sub: 'Browse & follow members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
           ].map(({ to, Icon, label, sub, iconColor, bg }) => (
             <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
