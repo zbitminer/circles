@@ -3,6 +3,7 @@ import DeleteButton from '@/components/DeleteButton';
 import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
 import WorkshopMap from '@/components/workshops/WorkshopMap';
+import useOrderedWorkshops from '@/components/workshops/useOrderedWorkshops';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Video, Users, Sparkles } from 'lucide-react';
 
@@ -36,10 +37,13 @@ export default function WorkshopListings() {
       onDelete={async () => { await base44.entities.WorkshopInquiry.delete(inq.id); queryClient.invalidateQueries({ queryKey: ['workshop-listings'] }); }}
     />
   );
-  const { data: inquiries = [], isLoading: loading, error, refetch } = useQuery({
-    queryKey: ['workshop-listings'],
-    queryFn: () => base44.entities.WorkshopInquiry.list('-created_date', 500),
-  });
+  const leaders = useOrderedWorkshops('lead');
+  const learners = useOrderedWorkshops('participate');
+  const leads = leaders.items;
+  const participants = learners.items;
+  const loading = leaders.loading || learners.loading;
+  const error = leaders.error || learners.error;
+  const refetch = () => Promise.all([leaders.refresh(), learners.refresh()]);
 
   if (loading) {
     return (
@@ -52,10 +56,7 @@ export default function WorkshopListings() {
   }
 
   if (error) return <div role="alert" className="text-sm text-destructive">Unable to load workshops. <button className="underline" onClick={() => refetch()}>Try again</button></div>;
-  if (inquiries.length === 0) return <p className="rounded-xl border border-border p-6 text-center text-muted-foreground">No workshops yet. Create the first workshop or share what you would like to learn.</p>;
-
-  const leads = inquiries.filter((i) => i.inquiry_type === 'lead');
-  const participants = inquiries.filter((i) => i.inquiry_type === 'participate');
+  if (leads.length === 0 && participants.length === 0) return <p className="rounded-xl border border-border p-6 text-center text-muted-foreground">No workshops yet. Create the first workshop or share what you would like to learn.</p>;
 
   const parseCategory = (cat) => {
     const [main, sub] = (cat || '').split(':');
@@ -143,6 +144,7 @@ export default function WorkshopListings() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {leads.map(renderCard)}
           </div>
+          {leaders.hasMore && <button onClick={() => leaders.loadMore()} disabled={leaders.loadingMore} className="mt-4 min-h-11 rounded-xl border border-border px-4 text-sm disabled:opacity-50">{leaders.loadingMore ? 'Loading…' : 'Load more workshops'}</button>}
         </div>
       )}
       {participants.length > 0 && (
@@ -154,6 +156,7 @@ export default function WorkshopListings() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {participants.map(renderCard)}
           </div>
+          {learners.hasMore && <button onClick={() => learners.loadMore()} disabled={learners.loadingMore} className="mt-4 min-h-11 rounded-xl border border-border px-4 text-sm disabled:opacity-50">{learners.loadingMore ? 'Loading…' : 'Load more interests'}</button>}
         </div>
       )}
     </div>

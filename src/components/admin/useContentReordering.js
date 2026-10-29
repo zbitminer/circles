@@ -17,8 +17,16 @@ export default function useContentReordering(entity, items, onChange) {
     setMessage('Saving order…');
     onChange(ordered);
     try {
-      await base44.entities[entity].bulkUpdate(ordered.map(({ id, display_priority }) => ({ id, display_priority })));
-      await cache.invalidateQueries({ queryKey: ['event-listing'] });
+      for (let offset = 0; offset < ordered.length; offset += 500) {
+        await base44.entities[entity].bulkUpdate(ordered.slice(offset, offset + 500).map(({ id, display_priority }) => ({ id, display_priority })));
+      }
+      await Promise.all([
+        cache.invalidateQueries({ queryKey: ['event-listing'] }),
+        ...(entity === 'WorkshopInquiry' ? [
+          cache.invalidateQueries({ queryKey: ['workshop-listings'] }),
+          cache.invalidateQueries({ queryKey: ['admin-workshop-order'] }),
+        ] : []),
+      ]);
       setMessage('Order saved');
     } catch {
       onChange(items);
