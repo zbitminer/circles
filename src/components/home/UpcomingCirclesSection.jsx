@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 import { useLanguage } from '@/lib/i18n';
 
 const FALLBACK_EVENTS = [
@@ -58,7 +58,7 @@ export default function UpcomingCirclesSection() {
     let mounted = true;
     (async () => {
       try {
-        const evts = await base44.entities.Event.filter({ status: 'upcoming' }, '-created_date', 3);
+        const { items: evts } = await getOrderedContentPage('Event', { status: 'upcoming', date: { $gte: new Date().toISOString() } }, { limit: 3 });
         if (mounted && evts && evts.length > 0) {
           const tagMap = {
             Companionship: 'COMMUNITY',
@@ -75,14 +75,14 @@ export default function UpcomingCirclesSection() {
             const dayNum = d ? d.getDate() : '';
             return {
               id: e.id,
-              title: FALLBACK_EVENTS[i].title,
+              title: e.title,
               tag: tagMap[e.cause_category] || 'EVENT',
               location: e.location || 'Safed, Israel',
               date_label: `${day} ${dayNum}`,
               time: d ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '',
               joining: e.attendees?.length || 0,
               btnColor: btnColors[i % 3],
-              image_url: i > 0 ? FALLBACK_EVENTS[i].image_url : (e.image_url || FALLBACK_EVENTS[0].image_url)
+              image_url: e.image_url || FALLBACK_EVENTS[i].image_url
             };
           });
           setEvents(mapped);

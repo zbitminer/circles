@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 import { MapPin, Calendar, Users, Plus, X, List, Map, Send, CheckCircle, Megaphone } from 'lucide-react';
 import { format } from 'date-fns';
 import LocationMap from '@/components/LocationMap';
@@ -66,7 +67,7 @@ export default function Opportunities() {
   const loadOpportunities = async (focusId) => {
     setLoading(true);
     try {
-      const data = await base44.entities.Opportunity.filter({ status: 'active' }, '-created_date', 100);
+      const data = await getOrderedContentPage('Opportunity', { status: 'active' }, { limit: 100 }).then(p => p.items);
       const active = data || [];
       setOpportunities(active);
       if (focusId) {

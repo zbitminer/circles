@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 import PostCard from '@/components/PostCard';
 import CreatePost from '@/components/CreatePost';
 import LocationMap from '@/components/LocationMap';
@@ -25,7 +26,7 @@ export default function Feed() {
   const loadPosts = async () => {
     setLoading(true);
     try {
-      const data = await base44.entities.Post.list('-created_date', 50);
+      const data = await getOrderedContentPage('Post', { status: { $ne: 'removed' } }, { limit: 50 }).then(p => p.items);
       setPosts((data || []).filter(p => p.status !== 'removed'));
     } catch {
       // Gracefully recover on transient network errors

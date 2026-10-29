@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
+import useEventListing from '@/components/events/useEventListing';
+import EventPeriodFilter from '@/components/events/EventPeriodFilter';
 import '@/components/events/events-mobile.css';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
@@ -29,8 +31,7 @@ const CAUSE_FALLBACK_IMAGES = {
 };
 
 export default function Events() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [period, setPeriod] = useState('upcoming');
   const [user, setUser] = useState(null);
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
@@ -43,6 +44,7 @@ export default function Events() {
   const [searchQuery, setSearchQuery] = useState('');
   const [accessibleOnly, setAccessibleOnly] = useState(false);
   const [searchParams] = useSearchParams();
+  const { events: filtered, loading, error: eventsError, total, refresh: loadEvents, hasMore, loadingMore, loadMore } = useEventListing({ period, cause: dropdownFilter?.category || causeFilter, search: searchQuery, accessibleOnly });
 
   useEffect(() => {
     const eventId = searchParams.get('event');
@@ -56,26 +58,7 @@ export default function Events() {
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => {});
-    loadEvents();
   }, []);
-
-  const loadEvents = async () => {
-    setLoading(true);
-    const data = await base44.entities.Event.list('-created_date', 100);
-    setEvents(data.filter(e => e.status !== 'cancelled'));
-    setLoading(false);
-  };
-
-  const filtered = events.filter(e => {
-    const catMatch = causeFilter === 'All' || e.cause_category === causeFilter;
-    const dropdownCatMatch = !dropdownFilter || (e.cause_category === dropdownFilter.category);
-    const searchMatch = !searchQuery ||
-      e.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      e.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      e.location?.toLowerCase().includes(searchQuery.toLowerCase());
-    const a11yMatch = !accessibleOnly || (e.accessibility_options && e.accessibility_options.length > 0);
-    return catMatch && dropdownCatMatch && searchMatch && a11yMatch;
-  });
 
   const handleDropdownSelect = (selection) => {
     setDropdownFilter(selection);
@@ -240,6 +223,9 @@ export default function Events() {
         </div>
       )}
 
+      <EventPeriodFilter period={period} onChange={setPeriod} />
+      {eventsError && <div role="alert" className="mb-4 rounded-xl border border-destructive/30 p-4 text-sm text-destructive">Could not load events. <button type="button" onClick={loadEvents} className="min-h-11 px-2 underline">Try again</button></div>}
+
       {/* Filters */}
       <FilterBar activeCount={activeFilterCount} className="mb-6">
         <div className="space-y-3">
@@ -291,7 +277,7 @@ export default function Events() {
           {activeFilterCount > 0 && (
             <div className="flex items-center justify-between">
               <span className="text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
-                {filtered.length} event{filtered.length !== 1 ? 's' : ''} found
+                {total ?? '…'} events found
               </span>
               <button onClick={clearAllFilters} className="text-xs font-medium hover:underline" style={{ color: 'hsl(var(--primary))' }}>
                 Clear all filters
@@ -301,6 +287,7 @@ export default function Events() {
         </div>
       </FilterBar>
 
+      <h2 className="mb-4 border-b border-border pb-3 text-xl font-bold text-foreground">{period === 'past' ? 'Past Events' : 'Upcoming Events'}</h2>
       {/* Events — Calendar or Grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -317,15 +304,15 @@ export default function Events() {
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
           <div className="text-5xl mb-4">📅</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--palette-950))' }}>No events yet</h3>
-          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Events will appear here. Check back soon!</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--palette-950))' }}>{period === 'past' ? 'No past events found' : 'No upcoming events found'}</h3>
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>{activeFilterCount ? 'Try changing your filters.' : period === 'past' ? 'Completed events will appear here.' : 'Check back soon for new events.'}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map(evt => {
-            const past = evt.date && isPast(new Date(evt.date));
+            const past = evt.status === 'completed' || (evt.status !== 'ongoing' && evt.date && isPast(new Date(evt.date)));
             const attending = user && evt.attendees?.includes(user.id);
             const full = isFull(evt);
             return (
@@ -417,11 +404,13 @@ export default function Events() {
         </div>
       )}
 
-      {/* Past Events Section */}
-      {!loading && viewMode === 'grid' && (
+      {hasMore && <div className="mt-6 text-center"><button type="button" onClick={() => loadMore()} disabled={loadingMore} className="min-h-11 rounded-xl border border-border bg-card px-5 text-sm font-semibold disabled:opacity-50">{loadingMore ? 'Loading…' : 'Load more events'}</button></div>}
+
+      {/* Historical community archive, separate from event listings. */}
+      {!loading && period === 'past' && viewMode === 'grid' && activeFilterCount === 0 && (
         <div className="mt-12">
           <div className="flex items-center gap-3 mb-6">
-            <h2 className="font-display text-2xl font-bold" style={{ color: 'hsl(var(--palette-950))' }}>Past Events</h2>
+            <h2 className="font-display text-2xl font-bold" style={{ color: 'hsl(var(--palette-950))' }}>Community Archive</h2>
             <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'hsl(var(--card))', color: 'hsl(var(--muted-foreground))', border: '1px solid hsl(var(--primary))' }}>From Our History</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -543,7 +532,9 @@ export default function Events() {
                 </div>
               )}
 
-              {user ? (
+              {selected.status === 'completed' || (selected.status !== 'ongoing' && selected.date && isPast(new Date(selected.date))) ? (
+                <p className="rounded-xl bg-muted p-4 text-center text-sm font-semibold text-muted-foreground">Past event · RSVPs are closed</p>
+              ) : user ? (
                 <button
                   onClick={() => handleRSVP(selected)}
                   disabled={isFull(selected) && !selected.attendees?.includes(user.id)}

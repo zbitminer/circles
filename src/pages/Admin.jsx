@@ -13,6 +13,8 @@ import AdminEventsTab from '@/components/admin/AdminEventsTab';
 import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
 import AdminHoursTab from '@/components/admin/AdminHoursTab';
 import MyContentPanel from '@/components/content/MyContentPanel';
+import ContentPositionControl from '@/components/admin/ContentPositionControl';
+import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 import EditContentDialog from '@/components/content/EditContentDialog';
 import { EVENT_TYPE } from '@/components/admin/adminFormTypes';
 import { CONTENT_TYPES } from '@/components/content/contentConfig';
@@ -103,16 +105,16 @@ function ContentTab({ onRefresh }) {
   const load = async () => {
     setLoading(true);
     const [p, e, o] = await Promise.all([
-      base44.entities.Post.list('-created_date', 100),
-      base44.entities.Event.list('-created_date', 100),
-      base44.entities.Opportunity.list('-created_date', 100),
+      getOrderedContentPage('Post', {}, { limit: 100 }).then(p => p.items),
+      getOrderedContentPage('Event', {}, { limit: 100 }).then(p => p.items),
+      getOrderedContentPage('Opportunity', {}, { limit: 100 }).then(p => p.items),
     ]);
     // Pending/rejected opportunities aren't publicly readable; fetch them via the server.
     const hidden = await base44.functions.invoke('listPendingOpportunities', {})
       .then((r) => r.data?.opportunities || []).catch(() => []);
     setPosts(p);
     setEvents(e);
-    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))].sort((a, b) => new Date(b.created_date) - new Date(a.created_date)));
+    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))]);
     setLoading(false);
   };
 
@@ -160,6 +162,7 @@ function ContentTab({ onRefresh }) {
 
   return (
     <div className="space-y-6">
+      <p className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">Set display priority to order posts, events, and offers on their public pages. Higher numbers appear first; items without a priority stay newest first. Choose 0 to return an item to the default order.</p>
       {/* Posts */}
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
         <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
@@ -173,6 +176,7 @@ function ContentTab({ onRefresh }) {
             <div key={p.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm truncate">{p.title || p.content?.slice(0, 80)}</p>
+                <ContentPositionControl key={`${p.id}-${p.display_priority || 0}`} entity="Post" item={p} onSaved={load} />
                 <p className="text-xs text-muted-foreground">{p.author_name || 'Member'} · <span className={p.status === 'removed' ? 'text-red-500' : p.status === 'flagged' ? 'text-yellow-600' : 'text-green-600'}>{p.status}</span></p>
               </div>
               <div className="flex items-center gap-1">
@@ -204,6 +208,7 @@ function ContentTab({ onRefresh }) {
             <div key={e.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{e.title}</p>
+                <ContentPositionControl key={`${e.id}-${e.display_priority || 0}`} entity="Event" item={e} onSaved={load} />
                 <p className="text-xs text-muted-foreground">{e.location} · <span className={e.status === 'cancelled' ? 'text-red-500' : 'text-green-600'}>{e.status}</span></p>
               </div>
               <div className="flex items-center gap-1">
@@ -238,6 +243,7 @@ function ContentTab({ onRefresh }) {
             <div key={o.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{o.title}</p>
+                <ContentPositionControl key={`${o.id}-${o.display_priority || 0}`} entity="Opportunity" item={o} onSaved={load} />
                 <p className="text-xs text-muted-foreground">{o.organization} · <span className={o.status === 'active' ? 'text-green-600' : 'text-muted-foreground'}>{o.status}</span></p>
               </div>
               <div className="flex items-center gap-1">

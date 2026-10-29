@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { base44 } from '@/api/base44Client';
+import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 import { useLanguage } from '@/lib/i18n';
 
 const ACTIVITY_TYPES = [
@@ -28,7 +28,7 @@ export default function LiveCommunitySection() {
     let mounted = true;
     (async () => {
       try {
-        const opps = await base44.entities.Opportunity.filter({ status: 'active' }, '-created_date', 3);
+        const { items: opps } = await getOrderedContentPage('Opportunity', { status: 'active' }, { limit: 3 });
         if (mounted && opps && opps.length > 0) {
           const mapped = opps.slice(0, 3).map((o, i) => ({
             name: o.created_by_name || 'Community Member',

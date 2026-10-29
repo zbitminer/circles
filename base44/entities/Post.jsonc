@@ -31,6 +31,19 @@
     "image_url": {
       "type": "string"
     },
+    "display_priority": {
+      "type": "integer",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 9999,
+      "rls": {
+        "write": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
     "likes": {
       "type": "array",
       "items": {
