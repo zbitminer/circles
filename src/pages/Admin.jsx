@@ -13,10 +13,8 @@ import AdminEventsTab from '@/components/admin/AdminEventsTab';
 import AdminWorkshopsTab from '@/components/admin/AdminWorkshopsTab';
 import AdminHoursTab from '@/components/admin/AdminHoursTab';
 import MyContentPanel from '@/components/content/MyContentPanel';
-import ContentPositionControl from '@/components/admin/ContentPositionControl';
-import getOrderedContentPage from '@/components/content/getOrderedContentPage';
+import AdminContentTab from '@/components/admin/AdminContentTab';
 import EditContentDialog from '@/components/content/EditContentDialog';
-import { EVENT_TYPE } from '@/components/admin/adminFormTypes';
 import { CONTENT_TYPES } from '@/components/content/contentConfig';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
@@ -84,198 +82,6 @@ function LeaderboardTab({ profiles, users }) {
           })}
         </div>
       </div>
-    </div>
-  );
-}
-
-function ContentTab({ onRefresh }) {
-  const [posts, setPosts] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [opps, setOpps] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [deleting, setDeleting] = useState(null);
-  const [editing, setEditing] = useState(null);
-  const postType = CONTENT_TYPES.find(t => t.key === 'Post');
-  const oppType = CONTENT_TYPES.find(t => t.key === 'Opportunity');
-
-  useEffect(() => {
-    load();
-  }, []);
-
-  const load = async () => {
-    setLoading(true);
-    const [p, e, o] = await Promise.all([
-      getOrderedContentPage('Post', {}, { limit: 100 }).then(p => p.items),
-      getOrderedContentPage('Event', {}, { limit: 100 }).then(p => p.items),
-      getOrderedContentPage('Opportunity', {}, { limit: 100 }).then(p => p.items),
-    ]);
-    // Pending/rejected opportunities aren't publicly readable; fetch them via the server.
-    const hidden = await base44.functions.invoke('listPendingOpportunities', {})
-      .then((r) => r.data?.opportunities || []).catch(() => []);
-    setPosts(p);
-    setEvents(e);
-    setOpps([...hidden, ...o.filter((x) => !hidden.some((h) => h.id === x.id))]);
-    setLoading(false);
-  };
-
-  const deletePost = async (id) => {
-    setDeleting(id);
-    await base44.entities.Post.delete(id);
-    setPosts(prev => prev.filter(p => p.id !== id));
-    setDeleting(null);
-  };
-
-  const deleteEvent = async (id) => {
-    setDeleting(id);
-    await base44.entities.Event.delete(id);
-    setEvents(prev => prev.filter(e => e.id !== id));
-    setDeleting(null);
-  };
-
-  const deleteOpp = async (id) => {
-    setDeleting(id);
-    await base44.entities.Opportunity.delete(id);
-    setOpps(prev => prev.filter(o => o.id !== id));
-    setDeleting(null);
-  };
-
-  const setOppStatus = async (id, status) => {
-    await base44.entities.Opportunity.update(id, { status });
-    setOpps(prev => prev.map(o => o.id === id ? { ...o, status } : o));
-    if (status === 'active') {
-      // Notify matching volunteers now that the opportunity is approved.
-      base44.functions.invoke('notifyOpportunity', { opportunity_id: id }).catch(() => {});
-    }
-  };
-
-  const closeOpp = async (id) => {
-    await base44.entities.Opportunity.update(id, { status: 'closed' });
-    setOpps(prev => prev.map(o => o.id === id ? { ...o, status: 'closed' } : o));
-  };
-
-  const cancelEvent = async (id) => {
-    await base44.entities.Event.update(id, { status: 'cancelled' });
-    setEvents(prev => prev.map(e => e.id === id ? { ...e, status: 'cancelled' } : e));
-  };
-
-  if (loading) return <div className="animate-pulse space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-card rounded-xl border border-border" />)}</div>;
-
-  return (
-    <div className="space-y-6">
-      <p className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">Set display priority to order posts, events, and offers on their public pages. Higher numbers appear first; items without a priority stay newest first. Choose 0 to return an item to the default order.</p>
-      {/* Posts */}
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2"><FileText className="w-5 h-5 text-primary" /><h2 className="font-display text-lg font-bold">Posts ({posts.length})</h2></div>
-          <button onClick={() => setEditing({ type: postType, item: { status: 'active' } })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
-            <Plus className="w-3.5 h-3.5" /> New post
-          </button>
-        </div>
-        <div className="divide-y divide-border max-h-64 overflow-y-auto">
-          {posts.map(p => (
-            <div key={p.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm truncate">{p.title || p.content?.slice(0, 80)}</p>
-                <ContentPositionControl key={`${p.id}-${p.display_priority || 0}`} entity="Post" item={p} onSaved={load} />
-                <p className="text-xs text-muted-foreground">{p.author_name || 'Member'} · <span className={p.status === 'removed' ? 'text-red-500' : p.status === 'flagged' ? 'text-yellow-600' : 'text-green-600'}>{p.status}</span></p>
-              </div>
-              <div className="flex items-center gap-1">
-                <button onClick={() => setEditing({ type: postType, item: p })} aria-label="Edit post" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
-                  <Pencil className="w-4 h-4" />
-                </button>
-                <button onClick={() => deletePost(p.id)} disabled={deleting === p.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Events */}
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-purple-600" />
-            <h2 className="font-display text-lg font-bold">Events ({events.length})</h2>
-          </div>
-          <button onClick={() => setEditing({ type: EVENT_TYPE, item: {} })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
-            <Plus className="w-3.5 h-3.5" /> New event
-          </button>
-        </div>
-        <div className="divide-y divide-border max-h-64 overflow-y-auto">
-          {events.map(e => (
-            <div key={e.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{e.title}</p>
-                <ContentPositionControl key={`${e.id}-${e.display_priority || 0}`} entity="Event" item={e} onSaved={load} />
-                <p className="text-xs text-muted-foreground">{e.location} · <span className={e.status === 'cancelled' ? 'text-red-500' : 'text-green-600'}>{e.status}</span></p>
-              </div>
-              <div className="flex items-center gap-1">
-                {e.status !== 'cancelled' && (
-                  <button onClick={() => cancelEvent(e.id)} className="text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">Cancel</button>
-                )}
-                <button onClick={() => setEditing({ type: EVENT_TYPE, item: e })} aria-label="Edit event" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
-                  <Pencil className="w-4 h-4" />
-                </button>
-                <button onClick={() => deleteEvent(e.id)} disabled={deleting === e.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Opportunities */}
-      <div className="bg-card rounded-2xl border border-border overflow-hidden">
-        <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Briefcase className="w-5 h-5 text-accent" />
-            <h2 className="font-display text-lg font-bold">Opportunities ({opps.length})</h2>
-          </div>
-          <button onClick={() => setEditing({ type: oppType, item: { status: 'active' } })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
-            <Plus className="w-3.5 h-3.5" /> New offer
-          </button>
-        </div>
-        <div className="divide-y divide-border max-h-64 overflow-y-auto">
-          {opps.map(o => (
-            <div key={o.id} className="flex items-center justify-between px-4 sm:px-6 py-3 gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{o.title}</p>
-                <ContentPositionControl key={`${o.id}-${o.display_priority || 0}`} entity="Opportunity" item={o} onSaved={load} />
-                <p className="text-xs text-muted-foreground">{o.organization} · <span className={o.status === 'active' ? 'text-green-600' : 'text-muted-foreground'}>{o.status}</span></p>
-              </div>
-              <div className="flex items-center gap-1">
-                {o.status === 'pending' && (
-                  <>
-                    <button onClick={() => setOppStatus(o.id, 'active')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Approve</button>
-                    <button onClick={() => setOppStatus(o.id, 'rejected')} className="text-xs px-2 py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100">Reject</button>
-                  </>
-                )}
-                {o.status === 'active' && (
-                  <button onClick={() => closeOpp(o.id)} className="text-xs px-2 py-1 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">Close</button>
-                )}
-                <button onClick={() => setEditing({ type: oppType, item: o })} aria-label="Edit opportunity" className="p-1.5 text-primary hover:bg-primary/10 rounded-lg">
-                  <Pencil className="w-4 h-4" />
-                </button>
-                <button onClick={() => deleteOpp(o.id)} disabled={deleting === o.id} className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50">
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {editing && (
-        <EditContentDialog
-          type={editing.type}
-          item={editing.item}
-          onClose={() => setEditing(null)}
-          onSaved={() => { setEditing(null); load(); }}
-        />
-      )}
     </div>
   );
 }
@@ -746,7 +552,7 @@ export default function Admin() {
           ) : tab === 'workshops' ? (
           <AdminWorkshopsTab />
           ) : tab === 'content' ? (
-          <ContentTab />
+          <AdminContentTab />
           ) : tab === 'usercontent' ? (
           <MyContentPanel />
           ) : tab === 'gallery' ? (

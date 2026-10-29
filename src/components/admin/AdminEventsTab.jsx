@@ -4,7 +4,7 @@ import { Calendar, Trash2, MapPin, Users, Plus, Pencil } from 'lucide-react';
 import moment from 'moment';
 import EditContentDialog from '@/components/content/EditContentDialog';
 import { EVENT_TYPE } from '@/components/admin/adminFormTypes';
-import ContentPositionControl from '@/components/admin/ContentPositionControl';
+import ContentReorderList from '@/components/admin/ContentReorderList';
 import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 
 const STATUS_STYLE = {
@@ -60,12 +60,11 @@ export default function AdminEventsTab() {
       {events.length === 0 ? (
         <p className="text-center text-muted-foreground py-8 text-sm">No events yet.</p>
       ) : (
-        <div className="divide-y divide-border">
-          {events.map((e) => (
+        <ContentReorderList entity="Event" items={events} onChange={setEvents}>
+          {e => (
             <div key={e.id} className="px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="text-sm font-semibold break-words">{e.title}</p>
-                <ContentPositionControl key={`${e.id}-${e.display_priority || 0}`} entity="Event" item={e} onSaved={async () => setEvents(await getOrderedContentPage('Event', {}, { limit: 100 }).then(p => p.items))} />
                 <p className="text-xs text-muted-foreground mt-0.5">{e.date ? moment(e.date).format('MMM D, YYYY · h:mm A') : 'No date'}</p>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground mt-1">
                   <span className="inline-flex items-center gap-1"><MapPin className="w-3 h-3" />{e.location}</span>
@@ -90,8 +89,8 @@ export default function AdminEventsTab() {
                 </button>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        </ContentReorderList>
       )}
       {editing && (
         <EditContentDialog type={EVENT_TYPE} item={editing} title={editing.id ? 'Edit event' : 'New event'} onClose={() => setEditing(null)} onSaved={onSaved} />
