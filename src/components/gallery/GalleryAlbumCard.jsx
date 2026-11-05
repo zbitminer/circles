@@ -1,7 +1,10 @@
+import { useLanguage } from '@/lib/i18n';
+
 export default function GalleryAlbumCard({ album, photos, active, onSelect }) {
+  const { localize } = useLanguage();
   const cover = album.cover_image_url || photos[0]?.image_url;
 
-  return (
+  return localize(
     <button
       onClick={onSelect}
       className={`overflow-hidden rounded-2xl border text-left transition-all ${active ? 'border-primary ring-2 ring-primary/20' : 'border-border hover:shadow-md'}`}

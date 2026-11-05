@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import useOfferPublisher from '@/components/opportunities/useOfferPublisher';
 import { Send } from 'lucide-react';
 import CategorySearchFilters from '@/components/CategorySearchFilters';
@@ -7,6 +8,7 @@ import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 const TYPES = ['In-person', 'Remote', 'Hybrid'];
 
 export default function OfferForm({ user, onPosted, onSaved }) {
+  const { localize } = useLanguage();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -23,7 +25,7 @@ export default function OfferForm({ user, onPosted, onSaved }) {
     if (await publish(selectedCategories, details)) onPosted?.();
   };
 
-  return (
+  return localize(
     <form id="community-offer-form" onSubmit={handleSubmit} className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #D35E35' }}>
       <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Share What You'd Like to Offer</h2>
       <p className="text-xs mb-5 text-muted-foreground">Selecting a topic publishes your offer immediately. Add more topics to the same offer, then save your written details below.</p>

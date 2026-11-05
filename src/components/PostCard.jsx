@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import PostEditor from '@/components/PostEditor';
 import DeleteButton from '@/components/DeleteButton';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
@@ -55,6 +56,7 @@ const DEFAULT_FALLBACK_IMAGES = [
 
 
 export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
+  const { localize, t, dateLocale } = useLanguage();
   const [showMenu, setShowMenu] = useState(false);
   const [editing, setEditing] = useState(false);
   const [liked, setLiked] = useState(post.likes?.includes(currentUser?.id));
@@ -148,7 +150,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
 
   const initials = (name) => name ? name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2) : '?';
 
-  return (
+  return localize(
     <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden transition-shadow hover:shadow-md">
       {/* Header */}
       <div className="p-5 pb-3 flex items-start justify-between">
@@ -165,7 +167,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
           <div>
             <p className="font-semibold text-sm text-foreground">{post.author_name || 'Anonymous'}</p>
             <p className="text-xs text-muted-foreground">
-              {post.created_date ? formatDistanceToNow(new Date(post.created_date), { addSuffix: true }) : ''}
+              {post.created_date ? formatDistanceToNow(new Date(post.created_date), { addSuffix: true, locale: dateLocale }) : ''}
             </p>
           </div>
         </div>
@@ -181,7 +183,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
                   <Flag className="w-4 h-4 text-orange-500" /> Report post
                 </button>
             }
-              {(isMod || (currentUser && currentUser.id === post.created_by_id)) && <button onClick={() => { setEditing(true); setShowMenu(false); }} className="w-full px-4 py-3 text-left text-sm hover:bg-muted">Edit {post.post_type === 'request' ? 'request' : 'story'}</button>}
+              {(isMod || (currentUser && currentUser.id === post.created_by_id)) && <button onClick={() => { setEditing(true); setShowMenu(false); }} className="w-full px-4 py-3 text-left text-sm hover:bg-muted">{t(post.post_type === 'request' ? 'Edit request' : 'Edit story')}</button>}
               {(isMod || currentUser?.id === post.author_id) &&
             <button onClick={handleRemove} className="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-muted text-left text-destructive">
                   <Trash2 className="w-4 h-4" /> Remove post
@@ -206,9 +208,9 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
       {/* Content */}
       {editing ? <PostEditor post={post} onCancel={() => setEditing(false)} onSaved={() => { setEditing(false); onUpdate?.(); }} /> : <div className="px-5 pb-3 space-y-2">
         {post.post_type === 'request' && <p className="text-xs font-semibold uppercase text-primary">Help requested</p>}
-        {post.title && <h3 className="text-xl break-words">{post.title}</h3>}
+        {post.title && <h3 className="text-xl break-words"><span translate="no">{post.title}</span></h3>}
         {post.location && <p className="text-xs text-muted-foreground">{post.location}</p>}
-        <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap break-words">{post.content}</p>
+        <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap break-words"><span translate="no">{post.content}</span></p>
       </div>}
 
       {/* Image */}
@@ -227,7 +229,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
               imageClassName="w-full rounded-xl object-cover max-h-80 cursor-pointer transition-transform duration-200 group-hover:scale-[1.01]"
             >
               <img src={imgSrc} alt={post.title || 'Community post'} className="max-h-80 w-full rounded-xl object-contain" />
-              <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">{post.content}</p>
+              <p className="whitespace-pre-wrap break-words text-sm leading-relaxed"><span translate="no">{post.content}</span></p>
               {post.cause_tags?.length > 0 && <p className="text-sm text-muted-foreground">{post.cause_tags.join(' · ')}</p>}
             </ContentImageDetails>
           </div>);
@@ -270,7 +272,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
                 </div>
                 <div className="bg-muted rounded-xl px-3 py-2 flex-1">
                   <p className="text-xs font-semibold mb-0.5">{c.author_name}</p>
-                  <p className="text-xs text-foreground">{c.content}</p>
+                  <p className="text-xs text-foreground"><span translate="no">{c.content}</span></p>
                   {currentUser && currentUser.id === c.created_by_id &&
                   <DeleteButton label="Delete" confirmText="Delete this comment?" className="mt-1"
                     onDelete={async () => { await base44.entities.Comment.delete(c.id); setComments((prev) => prev.filter((x) => x.id !== c.id)); }} />

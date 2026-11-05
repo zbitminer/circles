@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import AccessibilityPicker from '@/components/AccessibilityPicker';
 
 export default function WorkshopDetailsFields({ form, set }) {
+  const { localize } = useLanguage();
   const fields = [
     ['title', 'Workshop title *', 'text', true],
     ['city', 'City *', 'text', true],
@@ -28,7 +30,7 @@ export default function WorkshopDetailsFields({ form, set }) {
       setUploading(false);
     }
   };
-  return <fieldset className="space-y-4 border-t border-border pt-4">
+  return localize(<fieldset className="space-y-4 border-t border-border pt-4">
     <legend className="font-semibold text-foreground">Your workshop</legend>
     <div className="grid gap-4 sm:grid-cols-2">
       {fields.map(([key, label, type, required]) => <label key={key} className="block text-sm text-foreground">
@@ -56,5 +58,5 @@ export default function WorkshopDetailsFields({ form, set }) {
       onChange={(vals) => set('accessibility_options', vals)}
     />
     <p className="text-xs text-muted-foreground">A flyer is generated from these details. Skip the image to use the community learning image.</p>
-  </fieldset>;
+  </fieldset>);
 }

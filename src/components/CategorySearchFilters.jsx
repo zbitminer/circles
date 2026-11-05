@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 const CATEGORIES = [
   {
@@ -44,6 +45,7 @@ const CATEGORIES = [
 ];
 
 export default function CategorySearchFilters({ selectedFilters = [], onSelectFilters, selectedFilter, onSelectFilter, multiSelect = false, className = '' }) {
+  const { localize } = useLanguage();
   // Multi-select mode
   if (multiSelect) {
     const isActive = (cat, sub) => selectedFilters.some(f => f.category === cat && f.subcategory === sub);
@@ -56,7 +58,7 @@ export default function CategorySearchFilters({ selectedFilters = [], onSelectFi
       }
     };
 
-    return (
+    return localize(
       <div className={`space-y-4 ${className}`}>
         {selectedFilters.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
@@ -124,7 +126,7 @@ export default function CategorySearchFilters({ selectedFilters = [], onSelectFi
     }
   };
 
-  return (
+  return localize(
     <div className={`space-y-4 ${className}`}>
       {selectedFilter && (
         <button type="button"

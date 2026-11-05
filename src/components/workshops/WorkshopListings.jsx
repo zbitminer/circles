@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLanguage } from '@/lib/i18n';
 import DeleteButton from '@/components/DeleteButton';
 import WorkshopFlyer from '@/components/workshops/WorkshopFlyer';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
@@ -27,6 +28,7 @@ const CATEGORY_IMAGES = {
 };
 
 export default function WorkshopListings() {
+  const { localize, t, lang } = useLanguage();
   const queryClient = useQueryClient();
   const { data: me } = useQuery({ queryKey: ['me'], queryFn: () => base44.auth.me().catch(() => null) });
   const canDelete = (inq) => me && (me.id === inq.created_by_id || me.role === 'admin');
@@ -46,7 +48,7 @@ export default function WorkshopListings() {
   const refetch = () => Promise.all([leaders.refresh(), learners.refresh()]);
 
   if (loading) {
-    return (
+    return localize(
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[1, 2, 3, 4].map((i) => (
           <div key={i} className="rounded-2xl p-5 animate-pulse h-40" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }} />
@@ -55,8 +57,8 @@ export default function WorkshopListings() {
     );
   }
 
-  if (error) return <div role="alert" className="text-sm text-destructive">Unable to load workshops. <button className="underline" onClick={() => refetch()}>Try again</button></div>;
-  if (leads.length === 0 && participants.length === 0) return <p className="rounded-xl border border-border p-6 text-center text-muted-foreground">No workshops yet. Create the first workshop or share what you would like to learn.</p>;
+  if (error) return localize(<div role="alert" className="text-sm text-destructive">Unable to load workshops. <button className="underline" onClick={() => refetch()}>Try again</button></div>);
+  if (leads.length === 0 && participants.length === 0) return <p className="rounded-xl border border-border p-6 text-center text-muted-foreground">{t('No workshops yet. Create the first workshop or share what you would like to learn.')}</p>;
 
   const parseCategory = (cat) => {
     const [main, sub] = (cat || '').split(':');
@@ -67,7 +69,7 @@ export default function WorkshopListings() {
     if (inq.inquiry_type === 'lead' && inq.title) return <div key={inq.id} className="space-y-2"><WorkshopFlyer workshop={inq} />{ownerDelete(inq)}</div>;
     const cats = (inq.workshop_categories || []).map(parseCategory).filter((c) => c.main);
     const mainCat = cats[0]?.main;
-    return (
+    return localize(
       <div key={inq.id} className="overflow-hidden transition-all hover:shadow-lg" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
         {CATEGORY_IMAGES[mainCat] && (
           <ContentImageDetails image={CATEGORY_IMAGES[mainCat]} alt={mainCat} title={inq.title || mainCat} description={`${inq.first_name} ${inq.last_name}`} className="h-28 w-full overflow-hidden" imageClassName="w-full h-full object-cover">
@@ -108,7 +110,7 @@ export default function WorkshopListings() {
         )}
         {inq.workshop_date && (
           <div className="flex items-center gap-1 text-xs mb-1" style={{ color: '#888' }}>
-            <Calendar className="w-3 h-3" style={{ color: '#C9A84C' }} /> {new Date(inq.workshop_date).toLocaleDateString('en-IL', { day: 'numeric', month: 'short', year: 'numeric' })}
+            <Calendar className="w-3 h-3" style={{ color: '#C9A84C' }} /> {new Date(inq.workshop_date).toLocaleDateString(lang === 'he' ? 'he-IL' : 'en-IL', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
         )}
         {inq.zoom_link && (
@@ -133,7 +135,7 @@ export default function WorkshopListings() {
     );
   };
 
-  return (
+  return localize(
     <div className="space-y-8">
       {leads.length > 0 && (
         <div>

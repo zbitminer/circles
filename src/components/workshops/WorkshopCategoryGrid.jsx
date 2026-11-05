@@ -1,6 +1,8 @@
+import { useLanguage } from '@/lib/i18n';
 import { WORKSHOP_CATEGORIES } from '@/lib/workshop-categories';
 
 export default function WorkshopCategoryGrid({ selected = [], onToggle }) {
+  const { localize } = useLanguage();
   const toggle = (label) => {
     if (selected.includes(label)) {
       onToggle(selected.filter((s) => s !== label));
@@ -9,7 +11,7 @@ export default function WorkshopCategoryGrid({ selected = [], onToggle }) {
     }
   };
 
-  return (
+  return localize(
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {WORKSHOP_CATEGORIES.map(({ label, emoji, image, subcategories }) => (
         <div key={label} className="rounded-xl overflow-hidden" style={{ background: '#fff', border: '1px solid #C9A84C' }}>

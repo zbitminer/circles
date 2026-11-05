@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { Heart, Shield, Check, CreditCard, Landmark, Wallet, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -10,6 +11,7 @@ const PAYMENT_METHODS = [
 
 
 export default function Donate() {
+  const { localize } = useLanguage();
   const [form, setForm] = useState({
     first_name: '',
     last_name: '',
@@ -61,7 +63,7 @@ export default function Donate() {
   const inputClass = "w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border border-gray-200 focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/20 transition-all";
   const labelClass = "block text-xs font-bold text-gray-700 mb-1.5";
 
-  return (
+  return localize(
     <div className="max-w-3xl mx-auto px-4 py-12 pb-24 md:pb-12 bg-white">
       {/* Hero */}
       <div className="text-center mb-10">

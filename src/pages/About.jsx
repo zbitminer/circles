@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/lib/i18n';
 import { Heart, Users, Clock, Sparkles } from 'lucide-react';
 import MemorialTribute from '@/components/about/MemorialTribute';
 
 export default function About() {
-  return (
+  const { localize } = useLanguage();
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-12 pb-24">
       {/* Hero */}
       <div className="text-center mb-14">

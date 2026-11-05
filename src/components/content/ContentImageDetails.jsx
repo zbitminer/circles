@@ -1,10 +1,12 @@
+import { useLanguage } from '@/lib/i18n';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 
 export default function ContentImageDetails({ image, alt, imageClassName, className = 'block w-full text-left', title, description, children }) {
-  return (
+  const { localize, t } = useLanguage();
+  return localize(
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className={`${className} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`} aria-label={`Open ${title}`}>
+        <button type="button" className={`${className} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`} aria-label={`${t('Open')} ${title}`}>
           <img src={image} alt={alt || title} className={imageClassName} />
         </button>
       </DialogTrigger>

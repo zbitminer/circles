@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { ChevronDown, Check } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
@@ -11,6 +12,7 @@ export default function BottomSheetSelect({
   className = '',
   style,
 }) {
+  const { localize } = useLanguage();
   const [open, setOpen] = useState(false);
   const normalized = options.map((o) =>
     typeof o === 'object' && o !== null ? { value: o.value, label: o.label ?? String(o.value) } : { value: o, label: String(o) }
@@ -22,7 +24,7 @@ export default function BottomSheetSelect({
     setOpen(false);
   };
 
-  return (
+  return localize(
     <>
       <button
         type="button"

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import GalleryAlbumCard from '@/components/gallery/GalleryAlbumCard';
 
 export default function Gallery() {
+  const { localize } = useLanguage();
   const [albums, setAlbums] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -23,7 +25,7 @@ export default function Gallery() {
   const selected = albums.find(album => album.id === selectedId);
   const selectedPhotos = photos.filter(photo => photo.album_id === selectedId);
 
-  return (
+  return localize(
     <div className="mx-auto max-w-6xl px-4 py-10 pb-24">
       <div className="mb-10 text-center">
         <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl">Image Gallery</h1>

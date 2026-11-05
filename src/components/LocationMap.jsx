@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -37,6 +38,7 @@ async function geocode(location) {
 const TSFAT_COORDS = [32.9646, 35.4960];
 
 export default function LocationMap({ items = [], onSelectItem, labelKey = 'title', locationKey = 'location' }) {
+  const { localize } = useLanguage();
   const [markers, setMarkers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +69,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
   }, [items, locationKey]);
 
   if (loading) {
-    return (
+    return localize(
       <div className="w-full h-full min-h-[280px] bg-muted rounded-2xl border border-border flex items-center justify-center">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <div className="w-8 h-8 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
@@ -78,7 +80,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
   }
 
   if (markers.length === 0) {
-    return (
+    return localize(
       <div className="w-full h-full min-h-[280px] bg-muted rounded-2xl border border-border flex items-center justify-center">
         <div className="text-center text-muted-foreground">
           <div className="text-4xl mb-2">🗺️</div>
@@ -88,7 +90,7 @@ export default function LocationMap({ items = [], onSelectItem, labelKey = 'titl
     );
   }
 
-  return (
+  return localize(
     <div className="w-full h-full min-h-[280px] rounded-2xl border border-border overflow-hidden">
       <MapContainer center={TSFAT_COORDS} zoom={13} style={{ width: '100%', height: '100%' }} scrollWheelZoom={false}>
         <TileLayer

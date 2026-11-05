@@ -1,5 +1,8 @@
+import { useLanguage } from '@/lib/i18n';
+
 export default function MemorialTribute() {
-  return (
+  const { localize } = useLanguage();
+  return localize(
     <section className="mb-10 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="grid gap-0 md:grid-cols-[minmax(240px,0.8fr)_1.4fr]">
         <div className="grid min-h-72 grid-rows-2 bg-secondary">

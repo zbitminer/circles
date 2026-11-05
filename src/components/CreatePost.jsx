@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { Image, X } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 const CAUSES = ['Companionship', 'Food', 'Home', 'Skills Sharing', 'Technology', 'Transportation', 'Other'];
 
 export default function CreatePost({ currentUser, onCreated, mode = 'story', topics = [], autoFocus = false }) {
+  const { localize } = useLanguage();
   const [content, setContent] = useState('');
   const [title, setTitle] = useState(() => topics.length ? `Help with ${topics.join(', ')}` : '');
   const [location, setLocation] = useState('');
@@ -67,7 +69,7 @@ export default function CreatePost({ currentUser, onCreated, mode = 'story', top
 
   const initials = currentUser?.full_name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
 
-  return (
+  return localize(
     <div id="community-post-composer" className="bg-card rounded-2xl shadow-sm border border-border p-5 scroll-mt-28">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl">{mode === 'request' ? 'Post a Request' : 'Share your story'}</h2>

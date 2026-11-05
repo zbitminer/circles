@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { ChevronLeft, ChevronRight, MapPin, Users } from 'lucide-react';
 import {
   startOfMonth, endOfMonth, startOfWeek, endOfWeek,
@@ -20,6 +21,7 @@ const CAUSE_COLORS = {
 };
 
 export default function EventsCalendar({ events = [], currentUser, onSelectEvent }) {
+  const { localize, dateLocale } = useLanguage();
   const [current, setCurrent] = useState(new Date());
   const [hovered, setHovered] = useState(null);
 
@@ -45,7 +47,7 @@ export default function EventsCalendar({ events = [], currentUser, onSelectEvent
 
   const attending = (evt) => currentUser && evt.attendees?.includes(currentUser.id);
 
-  return (
+  return localize(
     <div className="bg-card border border-border rounded-2xl overflow-hidden">
       {/* Month nav */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-border">
@@ -57,7 +59,7 @@ export default function EventsCalendar({ events = [], currentUser, onSelectEvent
           <ChevronLeft className="w-4 h-4" />
         </button>
         <h2 className="font-display text-xl font-bold">
-          {format(current, 'MMMM yyyy')}
+          {format(current, 'MMMM yyyy', { locale: dateLocale })}
         </h2>
         <button
           onClick={() => setCurrent(addMonths(current, 1))}
@@ -125,7 +127,7 @@ export default function EventsCalendar({ events = [], currentUser, onSelectEvent
                         {hovered === evt.id && (
                           <div className="absolute left-0 top-full mt-1 z-50 bg-card border border-border rounded-xl shadow-xl p-3 min-w-[200px] text-left pointer-events-none">
                             <p className="font-semibold text-foreground text-xs mb-1">{evt.title}</p>
-                            <p className="text-xs text-muted-foreground mb-1">{format(parseISO(evt.date), 'EEE, MMM d · h:mm a')}</p>
+                            <p className="text-xs text-muted-foreground mb-1">{format(parseISO(evt.date), 'EEE, MMM d · h:mm a', { locale: dateLocale })}</p>
                             <div className="flex items-center gap-1 text-xs text-muted-foreground">
                               <MapPin className="w-3 h-3" />{evt.location}
                             </div>

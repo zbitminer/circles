@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Heart, MapPin, Clock, User, Plus, X, Search } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
@@ -24,6 +25,7 @@ const URGENCY_STYLES = {
 };
 
 export default function Health() {
+  const { localize, lang } = useLanguage();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -91,7 +93,7 @@ export default function Health() {
     setSelected(null);
   };
 
-  return (
+  return localize(
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero Banner */}
       <div className="rounded-2xl p-8 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
@@ -297,11 +299,11 @@ export default function Health() {
                       )}
                     </div>
                     <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>{req.title}</h3>
-                    <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b5c3e' }}>{req.description}</p>
+                    <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b5c3e' }}><span translate="no">{req.description}</span></p>
                     <div className="flex items-center gap-3 text-xs flex-wrap" style={{ color: '#888' }}>
                       <div className="flex items-center gap-1"><User className="w-3 h-3" />{req.contact_name}</div>
                       {req.location && <div className="flex items-center gap-1"><MapPin className="w-3 h-3" />{req.location}</div>}
-                      <div className="flex items-center gap-1"><Clock className="w-3 h-3" />{new Date(req.created_date).toLocaleDateString()}</div>
+                      <div className="flex items-center gap-1"><Clock className="w-3 h-3" />{new Date(req.created_date).toLocaleDateString(lang === 'he' ? 'he-IL' : 'en-IL')}</div>
                     </div>
                   </div>
                 </div>
@@ -345,7 +347,7 @@ export default function Health() {
                 {(URGENCY_STYLES[selected.urgency] || URGENCY_STYLES.medium).label}
               </span>
             </div>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}>{selected.description}</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}><span translate="no">{selected.description}</span></p>
             <div className="space-y-2 text-sm mb-6" style={{ color: '#555' }}>
               <div className="flex items-center gap-2"><User className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.contact_name}</div>
               {selected.location && <div className="flex items-center gap-2"><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>}

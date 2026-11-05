@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
@@ -31,6 +32,7 @@ const CAUSE_FALLBACK_IMAGES = {
 };
 
 export default function Events() {
+  const { localize, t, dateLocale } = useLanguage();
   const [period, setPeriod] = useState('upcoming');
   const [user, setUser] = useState(null);
   const [causeFilter, setCauseFilter] = useState('All');
@@ -112,7 +114,7 @@ export default function Events() {
 
   const isFull = (evt) => evt.capacity && evt.attendees?.length >= evt.capacity;
 
-  return (
+  return localize(
     <div className="events-page max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="events-header flex items-start justify-between mb-8">
         <div>
@@ -336,13 +338,13 @@ export default function Events() {
                     {past && <span className="text-xs" style={{ color: '#aaa' }}>Past event</span>}
                     {attending && !past && <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>✓ Going</span>}
                   </div>
-                  <h3 className="font-display font-bold text-lg mb-2 group-hover:opacity-80 transition-opacity" style={{ color: 'hsl(var(--palette-950))' }}>{evt.title}</h3>
+                  <h3 className="font-display font-bold text-lg mb-2 group-hover:opacity-80 transition-opacity" style={{ color: 'hsl(var(--palette-950))' }}><span translate="no">{evt.title}</span></h3>
                 </div>
                 <div className="px-4 pb-4 space-y-1.5">
                   {evt.date && (
                     <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
                       <Calendar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'hsl(var(--primary))' }} />
-                      {format(new Date(evt.date), 'EEE, MMM d, yyyy · h:mm a')}
+                      {format(new Date(evt.date), 'EEE, MMM d, yyyy · h:mm a', { locale: dateLocale })}
                     </div>
                   )}
                   <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
@@ -474,7 +476,7 @@ export default function Events() {
                     <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{evt.category}</span>
                     <span className="text-xs" style={{ color: '#888' }}>{evt.date}</span>
                   </div>
-                  <h3 className="font-display font-semibold text-sm mb-1" style={{ color: 'hsl(var(--palette-950))' }}>{evt.title}</h3>
+                  <h3 className="font-display font-semibold text-sm mb-1" style={{ color: 'hsl(var(--palette-950))' }}><span translate="no">{evt.title}</span></h3>
                   <p className="text-xs line-clamp-2 mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>{evt.description}</p>
                   <div className="flex items-center gap-3 text-xs" style={{ color: '#888' }}>
                     <div className="flex items-center gap-1"><MapPin className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />{evt.location}</div>
@@ -488,7 +490,7 @@ export default function Events() {
       )}
 
       {/* Event Modal */}
-      {selected && createPortal(
+      {selected && createPortal(localize(
         <div className="event-details-overlay fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
           <div role="dialog" aria-modal="true" aria-label={selected.title} className="event-details-panel max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <img
@@ -501,18 +503,18 @@ export default function Events() {
                 <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{selected.cause_category}</span>
                 <button aria-label="Close event details" onClick={() => setSelected(null)} className="event-details-close p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: 'hsl(var(--palette-50))' }} /></button>
               </div>
-              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: 'hsl(var(--palette-50))' }}>{selected.title}</h2>
+              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: 'hsl(var(--palette-50))' }}><span translate="no">{selected.title}</span></h2>
             </div>
             <div className="p-6">
               <div className="space-y-3 mb-4">
                 {selected.date && (
-                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a')}</div>
+                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a', { locale: dateLocale })}</div>
                 )}
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{selected.location}</div>
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}>
                   <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                   {selected.attendees?.length || 0} attending
-                  {selected.capacity && ` · ${selected.capacity} max capacity`}
+                  {selected.capacity && <> · {selected.capacity} {t('max capacity')}</>}
                 </div>
               </div>
               {selected.accessibility_options?.length > 0 && (
@@ -524,7 +526,7 @@ export default function Events() {
                   ))}
                 </div>
               )}
-              <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}>{selected.description}</p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}><span translate="no">{selected.description}</span></p>
 
               {isMod && selected.attendees?.length > 0 && (
                 <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
@@ -556,7 +558,7 @@ export default function Events() {
               <EventChat eventId={selected.id} currentUser={user} />
             </div>
           </div>
-        </div>, document.body
+        </div>), document.body
       )}
     </div>
   );

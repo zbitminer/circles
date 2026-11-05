@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 export default function PostEditor({ post, onSaved, onCancel }) {
+  const { localize } = useLanguage();
   const [content, setContent] = useState(post.content || '');
   const [title, setTitle] = useState(post.title || '');
   const [location, setLocation] = useState(post.location || '');
@@ -17,11 +19,11 @@ export default function PostEditor({ post, onSaved, onCancel }) {
     catch (err) { setError(err?.message || 'Unable to save your changes.'); }
     finally { setBusy(false); }
   };
-  return <form onSubmit={save} className="space-y-3 px-5 pb-4">
+  return localize(<form onSubmit={save} className="space-y-3 px-5 pb-4">
     <label className="block text-sm">Title<Input value={title} onChange={e => setTitle(e.target.value)} /></label>
     <label className="block text-sm">{post.post_type === 'request' ? 'Request details' : 'Your story'}<Textarea required rows={6} value={content} onChange={e => setContent(e.target.value)} /></label>
     {post.post_type === 'request' && <label className="block text-sm">Location<Input value={location} onChange={e => setLocation(e.target.value)} /></label>}
     {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
     <div className="flex flex-wrap gap-2"><Button disabled={busy || !content.trim()}>{busy ? 'Saving…' : 'Save changes'}</Button><Button type="button" variant="outline" disabled={busy} onClick={onCancel}>Cancel</Button></div>
-  </form>;
+  </form>);
 }

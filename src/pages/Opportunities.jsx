@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { useSearchParams, Link } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import getOrderedContentPage from '@/components/content/getOrderedContentPage';
@@ -36,6 +37,7 @@ const categoryEmoji = {
 };
 
 export default function Opportunities() {
+  const { localize, t, dateLocale } = useLanguage();
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -141,7 +143,7 @@ export default function Opportunities() {
     }
   };
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
@@ -219,14 +221,14 @@ export default function Opportunities() {
               <div className="pt-4 border-t" style={{ borderColor: 'hsl(var(--primary))' }}>
                 <p className="text-xs font-medium mb-2" style={{ color: '#555' }}>Type</p>
                 <div className="flex gap-2 flex-wrap">
-                  {TYPES.map((t) =>
-                <button key={t} onClick={() => setTypeFilter(t)}
+                  {TYPES.map((type) =>
+                <button key={type} onClick={() => setTypeFilter(type)}
                 className="px-3.5 py-1.5 rounded-full text-xs font-medium transition-all"
-                style={typeFilter === t ?
+                style={typeFilter === type ?
                 { background: 'hsl(var(--primary))', color: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' } :
                 { background: '#fff', color: '#555', border: '1px solid hsl(var(--primary))' }
                 }>
-                      {t}
+                      {type}
                     </button>
                 )}
                 </div>
@@ -273,7 +275,7 @@ export default function Opportunities() {
                     label="Cause Category"
                     value={form.cause_category}
                     onChange={(e) => setForm({ ...form, cause_category: e.target.value })}
-                    options={CAUSE_OPTIONS.map((c) => ({ value: c.label, label: `${c.emoji} ${c.label}` }))}
+                    options={CAUSE_OPTIONS.map((c) => ({ value: c.label, label: `${c.emoji} ${t(c.label)}` }))}
                   />
                 </div>
                 <div>
@@ -387,19 +389,19 @@ export default function Opportunities() {
               <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${TYPE_COLORS[selected.type] || 'bg-muted text-muted-foreground'}`}>{selected.type}</span>
               <button onClick={() => {setSelected(null);setEnrollSuccess(null);}} className="p-1 hover:bg-black/5 rounded-lg"><X className="w-4 h-4" style={{ color: '#555' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>{selected.title}</h2>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}><span translate="no">{selected.title}</span></h2>
             <p className="font-medium mb-4" style={{ color: 'hsl(var(--primary))' }}>{selected.organization}</p>
-            <p className="text-sm leading-relaxed whitespace-pre-wrap mb-4" style={{ color: '#555' }}>{selected.description}</p>
+            <p className="text-sm leading-relaxed whitespace-pre-wrap mb-4" style={{ color: '#555' }}><span translate="no">{selected.description}</span></p>
             {selected.help_details && <p className="text-sm whitespace-pre-wrap mb-4"><strong>How I can help:</strong> {selected.help_details}</p>}
             <div className="space-y-2 mb-6 text-sm">
               {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2"><span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(201,151,56,0.12)', color: '#555' }}>{selected.cause_category}</span></div>
-              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: 'hsl(var(--primary))' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy')}</div>}
+              {selected.deadline && <div className="flex items-center gap-2 font-medium" style={{ color: 'hsl(var(--primary))' }}><Calendar className="w-4 h-4" /> Deadline: {format(new Date(selected.deadline), 'MMMM d, yyyy', { locale: dateLocale })}</div>}
               <div className="flex items-center gap-2" style={{ color: '#555' }}>
                 <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                 {selected.capacity ?
-              `${selected.applicants?.length || 0} / ${selected.capacity} enrolled · ${Math.max(0, selected.capacity - (selected.applicants?.length || 0))} spots left` :
-              `${selected.applicants?.length || 0} people interested`}
+              `${selected.applicants?.length || 0} / ${selected.capacity} ${t('enrolled')} · ${Math.max(0, selected.capacity - (selected.applicants?.length || 0))} ${t('spots left')}` :
+              `${selected.applicants?.length || 0} ${t('people interested')}`}
               </div>
             </div>
 

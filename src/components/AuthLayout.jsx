@@ -1,7 +1,9 @@
 import React from "react";
+import { useLanguage } from '@/lib/i18n';
 
 export default function AuthLayout({ icon: Icon, title, subtitle, footer, children, aside }) {
-  return (
+  const { localize } = useLanguage();
+  return localize(
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">

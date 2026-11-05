@@ -26,7 +26,7 @@ const topLinks = [
 export default function AppShell() {
   const location = useLocation();
   const { user } = useAuth();
-  const { t, lang, setLang } = useLanguage();
+  const { t, lang, setLang, localize } = useLanguage();
   const links = topLinks.map((l) => ({ ...l, label: t(l.label) }));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -98,7 +98,7 @@ export default function AppShell() {
   }];
 
 
-  return (
+  return localize(
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══ Top Nav ═══ */}
       <header

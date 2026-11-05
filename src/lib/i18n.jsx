@@ -1,4 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { he, enUS } from 'date-fns/locale';
+import heInnerPages from '@/lib/heInnerPages';
+import heCommunityPages from '@/lib/heCommunityPages';
+import heExtraPages from '@/lib/heExtraPages';
+
+const INNER_HE = { ...heInnerPages, ...heCommunityPages, ...heExtraPages };
+import localizeElement from '@/lib/localizeElement';
 
 const HE = {
   'Home': 'בית',
@@ -226,9 +233,29 @@ export function LanguageProvider({ children }) {
     document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
   }, [lang]);
 
-  const t = (s) => (lang === 'he' ? HE[s] || s : s);
+  const t = (s) => {
+    if (lang !== 'he' || typeof s !== 'string') return s;
+    const text = s.trim().replace(/\s+/g, ' ');
+    const lookup = key => Object.hasOwn(INNER_HE, key) ? INNER_HE[key] : Object.hasOwn(HE, key) ? HE[key] : undefined;
+    let translated = lookup(text);
+    if (!translated && /[\s*:]+$/.test(text)) {
+      const base = text.replace(/[\s*:]+$/, '');
+      const suffix = text.slice(base.length);
+      const found = lookup(base);
+      if (found) translated = found + suffix;
+    }
+    if (!translated && text.includes(' › ')) {
+      const parts = text.split(' › ');
+      if (parts.every(part => lookup(part))) translated = parts.map(lookup).join(' › ');
+    }
+    if (!translated && text.startsWith('We sent a code to ')) translated = `שלחנו קוד אל \u2068${text.slice(18)}\u2069`;
+    if (!translated) return s;
+    return s.replace(s.trim(), translated);
+  };
+  const localize = node => lang === 'he' ? localizeElement(node, t) : node;
+  const dateLocale = lang === 'he' ? he : enUS;
 
-  return <LanguageContext.Provider value={{ lang, setLang, t }}>{children}</LanguageContext.Provider>;
+  return <LanguageContext.Provider value={{ lang, setLang, t, localize, dateLocale }}>{children}</LanguageContext.Provider>;
 }
 
 export const useLanguage = () => useContext(LanguageContext);

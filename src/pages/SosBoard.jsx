@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Clock, Plus, X, CheckCircle, LayoutGrid, Map, Users } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
@@ -29,6 +30,7 @@ const categoryEmoji = {
 };
 
 export default function SosBoard() {
+  const { localize, t, lang } = useLanguage();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -99,7 +101,7 @@ export default function SosBoard() {
     setSelected(prev => prev && prev.id === req.id ? { ...prev, status: 'resolved' } : prev);
   };
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-start justify-between mb-8">
         <div>
@@ -219,7 +221,7 @@ export default function SosBoard() {
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))' }}>
           <div className="text-5xl mb-4">✅</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>No {statusFilter === 'all' ? '' : statusFilter} requests</h3>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>{lang === 'he' ? t('No requests found') : <>No {statusFilter === 'all' ? '' : statusFilter} requests</>}</h3>
           <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Check back soon or post a new urgent request.</p>
         </div>
       ) : (
@@ -236,7 +238,7 @@ export default function SosBoard() {
               </div>
               <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: 'hsl(var(--foreground))' }}>{req.title}</h3>
               <p className="text-sm mb-2" style={{ color: 'hsl(var(--primary))' }}>{req.contact_name}</p>
-              <p className="text-xs line-clamp-2 mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}>{req.description}</p>
+              <p className="text-xs line-clamp-2 mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}><span translate="no">{req.description}</span></p>
               <div className="flex items-center justify-between text-xs" style={{ color: '#888' }}>
                 <div className="flex items-center gap-1 text-orange-600 font-medium">
                   <Clock className="w-3 h-3" /> Within {req.urgency_hours}h
@@ -276,7 +278,7 @@ export default function SosBoard() {
             </div>
             <h2 className="font-display text-2xl font-bold mb-1" style={{ color: 'hsl(var(--foreground))' }}>{selected.title}</h2>
             <p className="font-medium mb-4" style={{ color: 'hsl(var(--primary))' }}>{selected.contact_name}</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}>{selected.description}</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: 'hsl(var(--muted-foreground))' }}><span translate="no">{selected.description}</span></p>
             <div className="space-y-2 mb-6 text-sm">
               {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2">

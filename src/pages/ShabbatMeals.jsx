@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { MapPin, Calendar, Users, Plus, X, Star } from 'lucide-react';
 import LocationMap from '@/components/LocationMap';
@@ -6,6 +7,7 @@ import DeleteButton from '@/components/DeleteButton';
 import { format, isFuture } from 'date-fns';
 
 export default function ShabbatMeals() {
+  const { localize, t, dateLocale } = useLanguage();
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -52,7 +54,7 @@ export default function ShabbatMeals() {
 
   const spotsLeft = (meal) => meal.seats_available - (meal.guests?.length || 0);
 
-  return (
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="rounded-2xl overflow-hidden mb-6" style={{ border: '2px solid #C9A84C' }}>
@@ -266,13 +268,13 @@ export default function ShabbatMeals() {
                   {isGuest && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">✓ Joined</span>}
                 </div>
                 <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A2744' }}>Hosted by {meal.host_name}</h3>
-                {meal.description && <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6b5c3e' }}>{meal.description}</p>}
+                {meal.description && <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6b5c3e' }}><span translate="no">{meal.description}</span></p>}
                 <div className="space-y-1.5 text-xs" style={{ color: '#888' }}>
-                  <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />{format(new Date(meal.date), 'EEEE, MMMM d, yyyy')}</div>
+                  <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />{format(new Date(meal.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
                   <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />{meal.location}</div>
                   <div className="flex items-center gap-1.5">
                     <Users className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />
-                    {spots > 0 ? <span className="text-green-700 font-medium">{spots} spot{spots !== 1 ? 's' : ''} left</span> : <span className="text-red-600 font-medium">Full</span>}
+                    {spots > 0 ? <span className="text-green-700 font-medium">{spots} {t(spots === 1 ? 'spot left' : 'spots left')}</span> : <span className="text-red-600 font-medium">Full</span>}
                   </div>
                 </div>
                 {meal.dietary_options && <p className="text-xs mt-2 italic" style={{ color: '#888' }}>{meal.dietary_options}</p>}
@@ -294,9 +296,9 @@ export default function ShabbatMeals() {
             {selected.is_holiday && selected.holiday_name && (
               <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: 'rgba(201,168,76,0.20)', color: '#8a6a10' }}>{selected.holiday_name} Meal</span>
             )}
-            {selected.description && <p className="text-sm mt-3 leading-relaxed" style={{ color: '#6b5c3e' }}>{selected.description}</p>}
+            {selected.description && <p className="text-sm mt-3 leading-relaxed" style={{ color: '#6b5c3e' }}><span translate="no">{selected.description}</span></p>}
             <div className="space-y-2 my-4 text-sm">
-              <div className="flex items-center gap-2" style={{ color: '#555' }}><Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy')}</div>
+              <div className="flex items-center gap-2" style={{ color: '#555' }}><Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
               <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>
               <div className="flex items-center gap-2" style={{ color: '#555' }}><Users className="w-4 h-4" style={{ color: '#C9A84C' }} />{spotsLeft(selected)} of {selected.seats_available} spots remaining</div>
               {selected.dietary_options && <div className="flex items-center gap-2" style={{ color: '#555' }}><Star className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.dietary_options}</div>}

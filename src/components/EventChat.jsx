@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Send, MessageCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function EventChat({ eventId, currentUser }) {
+  const { localize, dateLocale } = useLanguage();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ export default function EventChat({ eventId, currentUser }) {
 
   const initials = (name) => name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
 
-  return (
+  return localize(
     <div className="border-t border-border mt-4 pt-4">
       <div className="flex items-center gap-2 mb-3">
         <MessageCircle className="w-4 h-4 text-accent" />
@@ -78,11 +80,11 @@ export default function EventChat({ eventId, currentUser }) {
                 </div>
                 <div className={`max-w-[75%] ${isMe ? 'items-end' : 'items-start'} flex flex-col`}>
                   <div className={`px-3 py-2 rounded-2xl text-sm ${isMe ? 'bg-accent text-white rounded-tr-sm' : 'bg-muted text-foreground rounded-tl-sm'}`}>
-                    {msg.content}
+                    <span translate="no">{msg.content}</span>
                   </div>
                   <span className="text-xs text-muted-foreground mt-0.5 px-1">
                     {!isMe && <span className="font-medium">{msg.author_name} · </span>}
-                    {msg.created_date ? formatDistanceToNow(new Date(msg.created_date), { addSuffix: true }) : ''}
+                    {msg.created_date ? formatDistanceToNow(new Date(msg.created_date), { addSuffix: true, locale: dateLocale }) : ''}
                   </span>
                 </div>
               </div>

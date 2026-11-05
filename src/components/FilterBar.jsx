@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 
 export default function FilterBar({ activeCount = 0, children, className = '' }) {
+  const { localize } = useLanguage();
   const [open, setOpen] = useState(false);
 
-  return (
+  return localize(
     <div className={className}>
       {/* Mobile toggle button */}
       <button

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { LANGUAGES, FORMATS } from '@/lib/workshop-categories';
 import WorkshopCategoryGrid from './WorkshopCategoryGrid';
@@ -8,6 +9,7 @@ import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
 import AccessibilityPicker from '@/components/AccessibilityPicker';
 
 export default function ParticipateForm() {
+  const { localize } = useLanguage();
   const [form, setForm] = useState({
     first_name: '', last_name: '', phone: '', email: '', gender: '', location: '', language: 'Hebrew', other_language: '', format: 'In-person', accessibility_options: [],
   });
@@ -38,7 +40,7 @@ export default function ParticipateForm() {
   };
 
   if (done) {
-    return (
+    return localize(
       <div className="text-center py-12 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
         <div className="text-5xl mb-4">🎉</div>
         <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank you!</h3>
@@ -48,7 +50,7 @@ export default function ParticipateForm() {
     );
   }
 
-  return (
+  return localize(
     <form onSubmit={handleSubmit} className="space-y-4">
       {autofilling && <p role="status" className="text-sm text-muted-foreground">Filling in your signup details…</p>}
       {autofillError && <p className="text-sm text-muted-foreground">Your saved contact details could not be loaded. You can enter them below.</p>}

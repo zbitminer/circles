@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { Link, useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import getOrderedContentPage from '@/components/content/getOrderedContentPage';
@@ -8,6 +9,7 @@ import LocationMap from '@/components/LocationMap';
 import { Flame, Users, TrendingUp } from 'lucide-react';
 
 export default function Feed() {
+  const { localize } = useLanguage();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -37,7 +39,7 @@ export default function Feed() {
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
-  return (
+  return localize(
     <div className="pb-24 md:pb-0">
       {/* Hero Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">

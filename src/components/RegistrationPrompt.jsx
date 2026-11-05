@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { Link, useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 
 export default function RegistrationPrompt({ user }) {
+  const { localize } = useLanguage();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
 
@@ -20,7 +22,7 @@ export default function RegistrationPrompt({ user }) {
     setOpen(false);
   };
 
-  return (
+  return localize(
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-foreground/60 p-4" role="dialog" aria-modal="true" aria-labelledby="registration-title">
       <div className="relative w-full max-w-md rounded-2xl bg-card p-7 text-center shadow-2xl">
         <button onClick={dismiss} aria-label="Close registration prompt" className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring">

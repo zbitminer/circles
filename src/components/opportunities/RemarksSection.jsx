@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { MessageSquare, Send } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function RemarksSection({ opportunity, user, onUpdate }) {
+  const { localize, dateLocale } = useLanguage();
   const [remarks, setRemarks] = useState(opportunity.remarks || []);
   const [text, setText] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -28,7 +30,7 @@ export default function RemarksSection({ opportunity, user, onUpdate }) {
 
   const initials = (name) => name ? name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : '?';
 
-  return (
+  return localize(
     <div className="mt-4 pt-4 border-t" style={{ borderColor: '#C9A84C' }}>
       <div className="flex items-center gap-2 mb-3">
         <MessageSquare className="w-4 h-4" style={{ color: '#1A2744' }} />
@@ -45,9 +47,9 @@ export default function RemarksSection({ opportunity, user, onUpdate }) {
               <div className="flex-1 rounded-xl px-3 py-2" style={{ background: '#f0e8d0' }}>
                 <div className="flex items-center justify-between mb-0.5">
                   <p className="text-xs font-semibold" style={{ color: '#1A2744' }}>{r.author_name}</p>
-                  {r.date && <p className="text-[10px]" style={{ color: '#6b5c3e' }}>{formatDistanceToNow(new Date(r.date), { addSuffix: true })}</p>}
+                  {r.date && <p className="text-[10px]" style={{ color: '#6b5c3e' }}>{formatDistanceToNow(new Date(r.date), { addSuffix: true, locale: dateLocale })}</p>}
                 </div>
-                <p className="text-xs" style={{ color: '#555' }}>{r.content}</p>
+                <p className="text-xs" style={{ color: '#555' }}><span translate="no">{r.content}</span></p>
               </div>
             </div>
           ))}

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { ChevronDown, X } from 'lucide-react';
 
 const CATEGORIES = [
@@ -45,6 +46,7 @@ const CATEGORIES = [
 ];
 
 export default function CategoryFilterDropdown({ selected, onSelect, className = '' }) {
+  const { localize, t } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -66,7 +68,7 @@ export default function CategoryFilterDropdown({ selected, onSelect, className =
     onSelect(null);
   };
 
-  return (
+  return localize(
     <div ref={ref} className={`relative ${className}`}>
       <button
         onClick={() => setOpen(!open)}
@@ -79,7 +81,7 @@ export default function CategoryFilterDropdown({ selected, onSelect, className =
       >
         <span>
           {selected
-            ? `${selected.emoji} ${selected.category} › ${selected.subcategory}`
+            ? `${selected.emoji} ${t(selected.category)} › ${t(selected.subcategory)}`
             : 'Filter by category…'}
         </span>
         {selected ? (

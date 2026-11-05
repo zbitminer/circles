@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { Link } from 'react-router-dom';
 import { Sparkles, GraduationCap, Heart } from 'lucide-react';
 import ParticipateForm from '@/components/workshops/ParticipateForm';
@@ -6,10 +7,11 @@ import LeadForm from '@/components/workshops/LeadForm';
 import WorkshopListings from '@/components/workshops/WorkshopListings';
 
 export default function Workshops() {
+  const { localize } = useLanguage();
   const [tab, setTab] = useState(new URLSearchParams(window.location.search).get('tab') === 'lead' ? 'lead' : 'list');
   const [created, setCreated] = useState(false);
 
-  return (
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero */}
       <div className="rounded-2xl overflow-hidden mb-8 relative" style={{ border: '2px solid hsl(var(--primary))' }}>
