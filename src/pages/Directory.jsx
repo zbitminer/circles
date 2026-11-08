@@ -25,6 +25,7 @@ const CAUSE_COLORS = {
 const initials = (name) => name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
 
 function ActivityFeed({ hourLogs, userMap, profiles }) {
+  const { dateLocale } = useLanguage();
   const profileMap = useMemo(() => Object.fromEntries(profiles.map(p => [p.user_id, p])), [profiles]);
 
   const items = useMemo(() =>
@@ -75,7 +76,7 @@ function ActivityFeed({ hourLogs, userMap, profiles }) {
                 )}
               </div>
               <span className="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">
-                {item.created_date ? formatDistanceToNow(parseISO(item.created_date), { addSuffix: true }) : item.date}
+                {item.created_date ? formatDistanceToNow(parseISO(item.created_date), { addSuffix: true, locale: dateLocale }) : item.date}
               </span>
             </div>
           );
@@ -86,7 +87,7 @@ function ActivityFeed({ hourLogs, userMap, profiles }) {
 }
 
 export default function Directory() {
-  const { t } = useLanguage();
+  const { t, localize, dateLocale } = useLanguage();
   const [search, setSearch] = useState('');
   const [causeFilter, setCauseFilter] = useState('All');
   const [dropdownFilter, setDropdownFilter] = useState(null);
@@ -104,7 +105,7 @@ export default function Directory() {
     { id: 'activity', label: t('Activity Feed') },
   ];
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="mb-6">
         <h1 className="font-display text-3xl font-bold text-foreground mb-1">{t('Member Discovery')}</h1>

@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useLanguage } from "@/lib/i18n";
 
 const getHashId = (hash) => {
   const rawId = hash.slice(1);
@@ -13,6 +14,13 @@ const getHashId = (hash) => {
 
 export default function ScrollToTop() {
   const { pathname, hash } = useLocation();
+  const { lang } = useLanguage();
+
+  // Safety net: re-apply dir/lang on every route change so RTL never drops
+  useLayoutEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+  }, [pathname, lang]);
 
   useEffect(() => {
     if (hash) {

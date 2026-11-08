@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { he, enUS } from 'date-fns/locale';
 import heInnerPages from '@/lib/heInnerPages';
 import heCommunityPages from '@/lib/heCommunityPages';
@@ -225,15 +225,34 @@ const HE = {
 const LanguageContext = createContext({ lang: 'en', setLang: () => {}, t: (s) => s });
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() => localStorage.getItem('cog_lang') || 'en');
+  const [lang, setLangState] = useState(() => {
+    try { return localStorage.getItem('cog_lang') || 'en'; } catch { return 'en'; }
+  });
 
-  useEffect(() => {
-    localStorage.setItem('cog_lang', lang);
+  // Apply dir/lang synchronously before paint so RTL is never lost on navigation
+  useLayoutEffect(() => {
+    try { localStorage.setItem('cog_lang', lang); } catch { /* ignore */ }
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
   }, [lang]);
 
-  const t = (s) => {
+  // Sync language from other tabs / windows
+  useLayoutEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === 'cog_lang' && e.newValue && e.newValue !== lang) {
+        setLangState(e.newValue);
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, [lang]);
+
+  const setLang = useCallback((next) => {
+    const value = typeof next === 'function' ? next(lang) : next;
+    setLangState(value);
+  }, [lang]);
+
+  const t = useCallback((s) => {
     if (lang !== 'he' || typeof s !== 'string') return s;
     const text = s.trim().replace(/\s+/g, ' ');
     const lookup = key => Object.hasOwn(INNER_HE, key) ? INNER_HE[key] : Object.hasOwn(HE, key) ? HE[key] : undefined;
@@ -251,11 +270,14 @@ export function LanguageProvider({ children }) {
     if (!translated && text.startsWith('We sent a code to ')) translated = `שלחנו קוד אל \u2068${text.slice(18)}\u2069`;
     if (!translated) return s;
     return s.replace(s.trim(), translated);
-  };
-  const localize = node => lang === 'he' ? localizeElement(node, t) : node;
+  }, [lang]);
+
+  const localize = useCallback((node) => lang === 'he' ? localizeElement(node, t) : node, [lang, t]);
   const dateLocale = lang === 'he' ? he : enUS;
 
-  return <LanguageContext.Provider value={{ lang, setLang, t, localize, dateLocale }}>{children}</LanguageContext.Provider>;
+  const value = useMemo(() => ({ lang, setLang, t, localize, dateLocale }), [lang, setLang, t, localize, dateLocale]);
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export const useLanguage = () => useContext(LanguageContext);

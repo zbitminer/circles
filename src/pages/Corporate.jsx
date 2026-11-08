@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Building2, Heart, CheckCircle } from 'lucide-react';
 import BottomSheetSelect from '@/components/ui/BottomSheetSelect';
@@ -13,6 +14,7 @@ const BENEFITS = [
 ];
 
 export default function Corporate() {
+  const { localize } = useLanguage();
   const [form, setForm] = useState({
     company_name: '', contact_name: '', contact_email: '', contact_phone: '',
     employee_count: '11-50', preferred_date: '', cause_interests: [], message: ''
@@ -38,7 +40,7 @@ export default function Corporate() {
   };
 
   if (submitted) {
-    return (
+    return localize(
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
         <div className="p-10 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -49,7 +51,7 @@ export default function Corporate() {
     );
   }
 
-  return (
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero */}
       <div className="rounded-2xl p-8 mb-8 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>

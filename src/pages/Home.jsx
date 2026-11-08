@@ -17,10 +17,10 @@ import { useLanguage } from '@/lib/i18n';
 
 export default function Home() {
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
   const [heroImgError, setHeroImgError] = useState(false);
 
-  return (
+  return localize(
     <div className="pb-24 md:pb-0">
 
       {/* Hero */}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Plus, Users } from 'lucide-react';
 import GroupCard from '@/components/groups/GroupCard';
@@ -9,6 +10,7 @@ import SafeExplorationBanner from '@/components/SafeExplorationBanner';
 const CATEGORY_FILTERS = ['All', 'Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation', 'Wellness', 'Other'];
 
 export default function Groups() {
+  const { localize } = useLanguage();
   const [groups, setGroups] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +72,7 @@ export default function Groups() {
     return catMatch && searchMatch;
   });
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-start justify-between mb-6">
         <div>
