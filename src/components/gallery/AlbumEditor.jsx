@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Save, Trash2 } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function AlbumEditor({ album, onSave, onDelete }) {
+  const { localize } = useLanguage();
   const [form, setForm] = useState(album);
-  return (
+  return localize(
     <div className="rounded-xl border border-border bg-card p-4">
       <div className="grid gap-3 md:grid-cols-2">
         <input value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Album title" className="rounded-lg border border-input bg-background px-3 py-2 text-sm" />

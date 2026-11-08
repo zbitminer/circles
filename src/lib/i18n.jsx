@@ -4,8 +4,9 @@ import heInnerPages from '@/lib/heInnerPages';
 import heCommunityPages from '@/lib/heCommunityPages';
 import heExtraPages from '@/lib/heExtraPages';
 import heFullSite from '@/lib/heFullSite';
+import heAdmin from '@/lib/heAdmin';
 
-const INNER_HE = { ...heInnerPages, ...heCommunityPages, ...heExtraPages, ...heFullSite };
+const INNER_HE = { ...heInnerPages, ...heCommunityPages, ...heExtraPages, ...heFullSite, ...heAdmin };
 import localizeElement from '@/lib/localizeElement';
 
 const HE = {

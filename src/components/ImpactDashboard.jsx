@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import { format, subMonths, startOfMonth, parseISO, isWithinInterval, endOfMonth } from 'date-fns';
 import { Clock, TrendingUp, Users, Award } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 const CAUSE_COLORS = {
   'Transportation & Escort': '#3b82f6',
@@ -36,6 +37,7 @@ function StatBadge({ icon: Icon, label, value, sub, color }) {
 }
 
 export default function ImpactDashboard({ hourLogs = [], profiles = [], events = [], posts = [] }) {
+  const { t, localize } = useLanguage();
   // ── Hours logged per month (last 6 months) ──────────────────────────────
   const monthlyHours = useMemo(() => {
     const months = Array.from({ length: 6 }, (_, i) => {
@@ -90,7 +92,7 @@ export default function ImpactDashboard({ hourLogs = [], profiles = [], events =
   const avgHours = activeVolunteers ? Math.round(totalHours / activeVolunteers) : 0;
   const totalRSVPs = events.reduce((s, e) => s + (e.attendees?.length || 0), 0);
 
-  return (
+  return localize(
     <div className="space-y-6">
       {/* KPI row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -117,7 +119,7 @@ export default function ImpactDashboard({ hourLogs = [], profiles = [], events =
             <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
             <Tooltip
               contentStyle={{ borderRadius: 12, border: '1px solid hsl(var(--border))', fontSize: 12 }}
-              formatter={(v) => [`${v}h`, 'Hours']}
+              formatter={(v) => [`${v}h`, t('Hours')]}
             />
             <Area type="monotone" dataKey="hours" stroke="hsl(171,45%,52%)" strokeWidth={2} fill="url(#hoursGrad)" dot={{ r: 3, fill: 'hsl(171,45%,52%)' }} />
           </AreaChart>
@@ -139,8 +141,8 @@ export default function ImpactDashboard({ hourLogs = [], profiles = [], events =
                 contentStyle={{ borderRadius: 12, border: '1px solid hsl(var(--border))', fontSize: 12 }}
               />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="events" name="Events" fill="hsl(25,85%,52%)" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="rsvps" name="RSVPs" fill="hsl(171,45%,52%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="events" name={t('Events')} fill="hsl(25,85%,52%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="rsvps" name={t('RSVP')} fill="hsl(171,45%,52%)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -191,9 +193,9 @@ export default function ImpactDashboard({ hourLogs = [], profiles = [], events =
             <YAxis allowDecimals={false} tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
             <Tooltip
               contentStyle={{ borderRadius: 12, border: '1px solid hsl(var(--border))', fontSize: 12 }}
-              formatter={(v) => [v, 'Volunteers']}
+              formatter={(v) => [v, t('Volunteers')]}
             />
-            <Bar dataKey="volunteers" name="Volunteers" fill="hsl(260,45%,62%)" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="volunteers" name={t('Volunteers')} fill="hsl(260,45%,62%)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

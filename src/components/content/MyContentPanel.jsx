@@ -4,9 +4,11 @@ import { Pencil, Plus } from 'lucide-react';
 import DeleteButton from '@/components/DeleteButton';
 import EditContentDialog from '@/components/content/EditContentDialog';
 import { CONTENT_TYPES } from '@/components/content/contentConfig';
+import { useLanguage } from '@/lib/i18n';
 
 // Lists content with edit/delete. Pass userId for "my content"; omit for admin (all content).
 export default function MyContentPanel({ userId }) {
+  const { t, localize } = useLanguage();
   const [typeKey, setTypeKey] = useState(CONTENT_TYPES[0].key);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,13 +39,13 @@ export default function MyContentPanel({ userId }) {
     return () => { cancelled = true; };
   }, [typeKey, userId]);
 
-  const title = (it) => (it[type.titleKey] || (type.fallbackKey && it[type.fallbackKey]) || 'Untitled').toString().slice(0, 80);
+  const title = (it) => (it[type.titleKey] || (type.fallbackKey && it[type.fallbackKey]) || t('Untitled')).toString().slice(0, 80);
 
-  return (
+  return localize(
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-4 sm:px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <h2 className="font-display text-lg font-bold">{userId ? 'My Content' : 'User Content'}</h2>
+          <h2 className="font-display text-lg font-bold">{userId ? t('My Content') : t('User Content')}</h2>
           {!userId && !['Comment', 'Review', 'Group'].includes(type.key) && (
             <button onClick={() => setEditing({ ...(type.query || {}) })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
               <Plus className="w-3.5 h-3.5" /> New
@@ -51,10 +53,10 @@ export default function MyContentPanel({ userId }) {
           )}
         </div>
         <div className="flex gap-1 overflow-x-auto">
-          {CONTENT_TYPES.map((t) => (
-            <button key={t.key} onClick={() => setTypeKey(t.key)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${typeKey === t.key ? 'bg-brand-950 text-brand-300' : 'bg-muted text-muted-foreground'}`}>
-              {t.label}
+          {CONTENT_TYPES.map((ct) => (
+            <button key={ct.key} onClick={() => setTypeKey(ct.key)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${typeKey === ct.key ? 'bg-brand-950 text-brand-300' : 'bg-muted text-muted-foreground'}`}>
+              {t(ct.label)}
             </button>
           ))}
         </div>
@@ -68,7 +70,7 @@ export default function MyContentPanel({ userId }) {
               <p className="text-sm font-medium truncate min-w-0">{title(it)}</p>
               <div className="flex items-center gap-3 flex-shrink-0">
                 <button onClick={() => setEditing(it)} className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline">
-                  <Pencil className="w-3.5 h-3.5" /> Edit
+                  <Pencil className="w-3.5 h-3.5" /> {t('Edit')}
                 </button>
                 <DeleteButton onDelete={async () => { await base44.entities[type.key].delete(it.id); setItems((p) => p.filter((x) => x.id !== it.id)); }} />
               </div>

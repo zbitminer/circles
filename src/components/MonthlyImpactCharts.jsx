@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 import { subMonths, startOfMonth, endOfMonth, format, parseISO, isWithinInterval } from 'date-fns';
 import { Clock, Briefcase, Users, TrendingUp } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 function KPI({ icon: Icon, label, value, sub, bg, iconColor }) {
   return (
@@ -24,6 +25,7 @@ function KPI({ icon: Icon, label, value, sub, bg, iconColor }) {
 const MONTHS = 12;
 
 export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [], events = [] }) {
+  const { t, localize } = useLanguage();
   const monthBuckets = useMemo(() =>
     Array.from({ length: MONTHS }, (_, i) => {
       const d = subMonths(new Date(), MONTHS - 1 - i);
@@ -77,7 +79,7 @@ export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [],
 
   const tooltipStyle = { borderRadius: 12, border: '1px solid hsl(var(--border))', fontSize: 12 };
 
-  return (
+  return localize(
     <div className="space-y-6">
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -97,8 +99,8 @@ export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [],
             <XAxis dataKey="month" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
             <YAxis yAxisId="left" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
             <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-            <Tooltip contentStyle={tooltipStyle} formatter={(v, name) => name === 'hours' ? [`${v}h`, 'Hours'] : [v, name === 'attendance' ? 'Attendance' : 'Opportunities']} />
-            <Legend wrapperStyle={{ fontSize: 11 }} formatter={n => n === 'hours' ? 'Volunteer Hours' : n === 'attendance' ? 'Event Attendance' : 'Opportunities'} />
+            <Tooltip contentStyle={tooltipStyle} formatter={(v, name) => name === 'hours' ? [`${v}h`, t('Hours')] : [v, name === 'attendance' ? t('Attendance') : t('Opportunities')]} />
+            <Legend wrapperStyle={{ fontSize: 11 }} formatter={n => n === 'hours' ? t('Volunteer Hours') : n === 'attendance' ? t('Event Attendance') : t('Opportunities')} />
             <Bar yAxisId="left" dataKey="hours" fill="hsl(171,45%,52%)" radius={[4,4,0,0]} name="hours" />
             <Bar yAxisId="left" dataKey="opps" fill="hsl(150,45%,30%)" radius={[4,4,0,0]} name="opps" />
             <Line yAxisId="right" type="monotone" dataKey="attendance" stroke="hsl(220,80%,60%)" strokeWidth={2} dot={{ r: 3 }} name="attendance" />
@@ -121,7 +123,7 @@ export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [],
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
             <XAxis dataKey="month" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
             <YAxis tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-            <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}h`, 'Hours']} />
+            <Tooltip contentStyle={tooltipStyle} formatter={v => [`${v}h`, t('Hours')]} />
             <Area type="monotone" dataKey="hours" stroke="hsl(171,45%,52%)" strokeWidth={2} fill="url(#hoursGrad2)" dot={{ r: 3 }} />
           </AreaChart>
         </ResponsiveContainer>
@@ -143,7 +145,7 @@ export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [],
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="month" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
               <YAxis allowDecimals={false} tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-              <Tooltip contentStyle={tooltipStyle} formatter={v => [v, 'Opportunities']} />
+              <Tooltip contentStyle={tooltipStyle} formatter={v => [v, t('Opportunities')]} />
               <Area type="monotone" dataKey="opps" stroke="hsl(150,45%,30%)" strokeWidth={2} fill="url(#oppsGrad)" dot={{ r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>
@@ -163,7 +165,7 @@ export default function MonthlyImpactCharts({ hourLogs = [], opportunities = [],
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="month" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
               <YAxis allowDecimals={false} tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-              <Tooltip contentStyle={tooltipStyle} formatter={v => [v, 'Attendees']} />
+              <Tooltip contentStyle={tooltipStyle} formatter={v => [v, t('Attendees')]} />
               <Area type="monotone" dataKey="attendance" stroke="hsl(220,80%,60%)" strokeWidth={2} fill="url(#attendGrad)" dot={{ r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>

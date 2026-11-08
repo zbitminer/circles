@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 
 // Minimal admin review queue for volunteer hour logs.
 export default function AdminHoursTab({ users = [] }) {
+  const { t, localize } = useLanguage();
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(null);
@@ -17,7 +19,7 @@ export default function AdminHoursTab({ users = [] }) {
 
   useEffect(() => { load(); }, []);
 
-  const nameFor = (id) => users.find((u) => u.id === id)?.full_name || 'Unknown';
+  const nameFor = (id) => users.find((u) => u.id === id)?.full_name || t('Unknown');
 
   const review = async (log, action) => {
     setBusy(log.id);
@@ -26,21 +28,21 @@ export default function AdminHoursTab({ users = [] }) {
       const status = res.data?.status || (action === 'approve' ? 'approved' : 'rejected');
       setLogs((prev) => prev.map((l) => (l.id === log.id ? { ...l, status } : l)));
     } catch (err) {
-      setMessage(err?.response?.data?.error || 'Could not update log.');
+      setMessage(err?.response?.data?.error || t('Could not update log.'));
     } finally {
       setBusy(null);
     }
   };
 
   const backfill = async () => {
-    if (!window.confirm('Mark all existing logs without a status as approved and recompute totals?')) return;
+    if (!window.confirm(t('Mark all existing logs without a status as approved and recompute totals?'))) return;
     setBusy('backfill');
     try {
       const res = await base44.functions.invoke('manageHourLog', { action: 'backfill' });
-      setMessage(`Marked ${res.data?.updated ?? 0} legacy logs as approved.`);
+      setMessage(`${t('Marked')} ${res.data?.updated ?? 0} ${t('legacy logs')} ${t('logs as approved.')}`);
       await load();
     } catch (err) {
-      setMessage(err?.response?.data?.error || 'Backfill failed.');
+      setMessage(err?.response?.data?.error || t('Backfill failed.'));
     } finally {
       setBusy(null);
     }
@@ -51,13 +53,13 @@ export default function AdminHoursTab({ users = [] }) {
 
   if (loading) return <div className="animate-pulse h-32 bg-card rounded-xl border border-border" />;
 
-  return (
+  return localize(
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-6 py-4 border-b border-border flex items-center justify-between gap-2 flex-wrap">
-        <h2 className="font-display text-lg font-bold">Hour logs awaiting approval ({pending.length})</h2>
+        <h2 className="font-display text-lg font-bold">{t('Hour logs awaiting approval')} ({pending.length})</h2>
         {legacy > 0 && (
           <button onClick={backfill} disabled={busy === 'backfill'} className="text-xs px-3 py-1.5 bg-primary text-primary-foreground rounded-lg disabled:opacity-50">
-            Approve {legacy} legacy logs
+            {t('Approve')} {legacy} {t('legacy logs')}
           </button>
         )}
       </div>

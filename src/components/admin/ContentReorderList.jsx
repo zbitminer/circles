@@ -1,10 +1,12 @@
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import ContentDraggableRow from '@/components/admin/ContentDraggableRow';
 import useContentReordering from '@/components/admin/useContentReordering';
+import { useLanguage } from '@/lib/i18n';
 
 export default function ContentReorderList({ entity, items, onChange, children, className = '' }) {
+  const { localize } = useLanguage();
   const { saving, message, reorder } = useContentReordering(entity, items, onChange);
-  return <fieldset disabled={saving} className="min-w-0" aria-busy={saving}>
+  return localize(<fieldset disabled={saving} className="min-w-0" aria-busy={saving}>
     <legend className="sr-only">Reorder {entity} items</legend>
     <p className="px-4 py-2 text-xs text-muted-foreground">Drag the grip to reorder; on mobile, press and hold it. With a keyboard, press Space, use arrow keys, then Space to drop.</p>
     <DragDropContext onDragEnd={reorder}>
@@ -17,5 +19,5 @@ export default function ContentReorderList({ entity, items, onChange, children, 
       </Droppable>
     </DragDropContext>
     <p role="status" aria-live="polite" className="px-4 py-2 text-xs text-muted-foreground">{message || 'Changes save automatically.'}</p>
-  </fieldset>;
+  </fieldset>);
 }

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Save, Trash2 } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function PhotoEditor({ photo, albums, onSave, onDelete }) {
+  const { localize } = useLanguage();
   const [form, setForm] = useState(photo);
-  return (
+  return localize(
     <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-3 sm:flex-row">
       <img src={photo.image_url} alt="" className="h-24 w-full rounded-lg object-cover sm:w-24" />
       <div className="grid flex-1 gap-2 sm:grid-cols-2">

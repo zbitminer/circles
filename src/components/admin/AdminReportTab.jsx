@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { GraduationCap, Clock, Users, CheckCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import moment from 'moment';
+import { useLanguage } from '@/lib/i18n';
 
 function Stat({ icon: Icon, label, value }) {
   return (
@@ -17,6 +18,7 @@ function Stat({ icon: Icon, label, value }) {
 }
 
 export default function AdminReportTab() {
+  const { t, localize } = useLanguage();
   const [data, setData] = useState(null);
   const since = moment().subtract(30, 'days');
 
@@ -42,7 +44,7 @@ export default function AdminReportTab() {
 
   if (!data) return <div className="animate-pulse h-48 bg-card rounded-2xl border border-border" />;
 
-  return (
+  return localize(
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
         Last 30 days: {since.format('MMM D')} – {moment().format('MMM D, YYYY')}
@@ -55,7 +57,7 @@ export default function AdminReportTab() {
       </div>
       <div className="bg-card rounded-2xl border border-border p-4 sm:p-6">
         <h2 className="font-display text-lg font-bold mb-1">Volunteer Hours by Day</h2>
-        <p className="text-xs text-muted-foreground mb-4">{data.entries} log entries</p>
+        <p className="text-xs text-muted-foreground mb-4">{data.entries} {t('log entries')}</p>
         {data.rows.length === 0 ? (
           <p className="text-center text-muted-foreground py-8 text-sm">No hours logged in the last 30 days.</p>
         ) : (

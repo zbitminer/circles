@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Shield, Flag, CheckCircle, Trash2, Eye } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { useLanguage } from '@/lib/i18n';
 
 export default function Moderation() {
+  const { t, localize, dateLocale } = useLanguage();
   const [user, setUser] = useState(null);
   const [flaggedPosts, setFlaggedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,7 +37,7 @@ export default function Moderation() {
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
   if (!isMod) {
-    return (
+    return localize(
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
         <Shield className="w-12 h-12 mx-auto mb-4" style={{ color: '#C9A84C' }} />
         <h1 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Access Restricted</h1>
@@ -44,7 +46,7 @@ export default function Moderation() {
     );
   }
 
-  return (
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-center gap-3 mb-8">
         <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#1A2744', border: '1px solid #C9A84C' }}>
@@ -97,15 +99,15 @@ export default function Moderation() {
                   <div className="flex items-center gap-2 mb-1">
                     <Flag className="w-4 h-4 text-orange-500" />
                     <span className="text-xs font-semibold uppercase text-orange-600">
-                      {post.status === 'flagged' ? 'Flagged' : 'Reported'}
-                    </span>
-                    {post.reported_by?.length > 0 && (
-                      <span className="text-xs" style={{ color: '#888' }}>· {post.reported_by.length} report(s)</span>
-                    )}
-                  </div>
-                  <p className="text-xs" style={{ color: '#888' }}>
-                    By {post.author_name} · {post.created_date ? formatDistanceToNow(new Date(post.created_date), { addSuffix: true }) : ''}
-                  </p>
+                       {post.status === 'flagged' ? t('Flagged') : t('Reported')}
+                     </span>
+                     {post.reported_by?.length > 0 && (
+                       <span className="text-xs" style={{ color: '#888' }}>· {post.reported_by.length} {t('report(s)')}</span>
+                     )}
+                    </div>
+                    <p className="text-xs" style={{ color: '#888' }}>
+                     {t('By')} {post.author_name} · {post.created_date ? formatDistanceToNow(new Date(post.created_date), { addSuffix: true, locale: dateLocale }) : ''}
+                    </p>
                 </div>
               </div>
 
@@ -119,11 +121,11 @@ export default function Moderation() {
 
               <div className="flex gap-3">
                 <button onClick={() => approve(post)} className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 text-sm font-semibold rounded-xl hover:bg-green-200 transition-colors">
-                  <CheckCircle className="w-4 h-4" /> Approve & Keep
-                </button>
-                <button onClick={() => remove(post)} className="flex items-center gap-2 px-4 py-2 bg-destructive/10 text-destructive text-sm font-semibold rounded-xl hover:bg-destructive/20 transition-colors">
-                  <Trash2 className="w-4 h-4" /> Remove Post
-                </button>
+                  <CheckCircle className="w-4 h-4" /> {t('Approve & Keep')}
+                 </button>
+                 <button onClick={() => remove(post)} className="flex items-center gap-2 px-4 py-2 bg-destructive/10 text-destructive text-sm font-semibold rounded-xl hover:bg-destructive/20 transition-colors">
+                  <Trash2 className="w-4 h-4" /> {t('Remove Post')}
+                 </button>
               </div>
             </div>
           ))}

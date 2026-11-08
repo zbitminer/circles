@@ -16,10 +16,12 @@ import MyContentPanel from '@/components/content/MyContentPanel';
 import AdminContentTab from '@/components/admin/AdminContentTab';
 import EditContentDialog from '@/components/content/EditContentDialog';
 import { CONTENT_TYPES } from '@/components/content/contentConfig';
+import { useLanguage } from '@/lib/i18n';
 
 const MEDAL = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
 function LeaderboardTab({ profiles, users }) {
+  const { t, localize } = useLanguage();
   const userMap = Object.fromEntries(users.map(u => [u.id, u]));
   const ranked = profiles
     .filter(p => (p.total_hours || 0) > 0)
@@ -27,14 +29,14 @@ function LeaderboardTab({ profiles, users }) {
     .slice(0, 20);
   const maxHours = ranked[0]?.total_hours || 1;
 
-  if (ranked.length === 0) return (
+  if (ranked.length === 0) return localize(
     <div className="text-center py-16 bg-card rounded-2xl border border-border">
       <Trophy className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
       <h3 className="font-display text-xl font-bold mb-2">No hours logged yet</h3>
     </div>
   );
 
-  return (
+  return localize(
     <div className="space-y-4">
       {ranked.length >= 3 && (
         <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-2">
@@ -46,7 +48,7 @@ function LeaderboardTab({ profiles, users }) {
               <div key={p.id} className={`bg-card rounded-2xl border p-4 text-center ${rank === 1 ? 'border-yellow-300 bg-yellow-50/50' : 'border-border'}`}>
                 <div className="text-3xl mb-2">{MEDAL[rank]}</div>
                 <div className={`w-12 h-12 rounded-full mx-auto flex items-center justify-center text-white font-bold text-sm mb-2 ${rank === 1 ? 'bg-yellow-500' : rank === 2 ? 'bg-gray-400' : 'bg-amber-600'}`}>{initials}</div>
-                <p className="font-semibold text-sm truncate">{u?.full_name || 'Unknown'}</p>
+                <p className="font-semibold text-sm truncate">{u?.full_name || t('Unknown')}</p>
                 <p className="font-display text-xl font-bold text-primary mt-1">{p.total_hours}h</p>
               </div>
             );
@@ -56,7 +58,7 @@ function LeaderboardTab({ profiles, users }) {
       <div className="bg-card rounded-2xl border border-border overflow-hidden">
         <div className="px-6 py-4 border-b border-border flex items-center gap-2">
           <Trophy className="w-5 h-5 text-accent" />
-          <h2 className="font-display text-lg font-bold">Volunteer Leaderboard</h2>
+          <h2 className="font-display text-lg font-bold">{t('Volunteer Leaderboard')}</h2>
         </div>
         <div className="divide-y divide-border">
           {ranked.map((p, idx) => {
@@ -69,7 +71,7 @@ function LeaderboardTab({ profiles, users }) {
                 <span className="w-8 text-center font-bold text-sm text-muted-foreground">{MEDAL[rank] || `#${rank}`}</span>
                 <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold flex-shrink-0">{initials}</div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold truncate">{u?.full_name || 'Unknown'}</p>
+                  <p className="text-sm font-semibold truncate">{u?.full_name || t('Unknown')}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                       <div className="h-full bg-accent rounded-full transition-all" style={{ width: `${pct}%` }} />
@@ -87,6 +89,7 @@ function LeaderboardTab({ profiles, users }) {
 }
 
 function SosTab() {
+  const { t, localize } = useLanguage();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(null);
@@ -115,12 +118,12 @@ function SosTab() {
 
   if (loading) return <div className="animate-pulse h-32 bg-card rounded-2xl border border-border" />;
 
-  return (
+  return localize(
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-4 sm:px-6 py-4 border-b border-border flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <AlertTriangle className="w-5 h-5 text-red-500" />
-          <h2 className="font-display text-lg font-bold">SOS Requests ({requests.length})</h2>
+          <h2 className="font-display text-lg font-bold">{t('SOS Requests')} ({requests.length})</h2>
         </div>
         <button onClick={() => setEditing({ status: 'open' })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold">
           <Plus className="w-3.5 h-3.5" /> New SOS
@@ -136,7 +139,7 @@ function SosTab() {
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{r.description}</p>
               </div>
               <div className="flex flex-wrap items-center gap-2 sm:flex-shrink-0">
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[r.status] || 'bg-muted text-muted-foreground'}`}>{r.status}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[r.status] || 'bg-muted text-muted-foreground'}`}>{t(r.status)}</span>
                 {r.status !== 'resolved' && (
                   <button onClick={() => updateStatus(r.id, 'resolved')} className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">Resolve</button>
                 )}
@@ -159,6 +162,7 @@ function SosTab() {
 }
 
 function CorporateTab() {
+  const { t, localize } = useLanguage();
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -181,11 +185,11 @@ function CorporateTab() {
 
   if (loading) return <div className="animate-pulse h-32 bg-card rounded-2xl border border-border" />;
 
-  return (
+  return localize(
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
       <div className="px-6 py-4 border-b border-border flex items-center gap-2">
         <Building2 className="w-5 h-5 text-accent" />
-        <h2 className="font-display text-lg font-bold">Corporate Inquiries ({inquiries.length})</h2>
+        <h2 className="font-display text-lg font-bold">{t('Corporate Inquiries')} ({inquiries.length})</h2>
       </div>
       {inquiries.length === 0 ? <p className="text-center text-muted-foreground py-8 text-sm">No corporate inquiries yet.</p> : (
         <div className="divide-y divide-border">
@@ -194,14 +198,14 @@ function CorporateTab() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold">{inq.company_name}</p>
                 <p className="text-xs text-muted-foreground">{inq.contact_name} · {inq.contact_email}</p>
-                <p className="text-xs text-muted-foreground">{inq.employee_count} employees · {inq.preferred_date}</p>
+                <p className="text-xs text-muted-foreground">{inq.employee_count} {t('employees')} · {inq.preferred_date}</p>
                 {inq.message && <p className="text-xs text-muted-foreground mt-1 line-clamp-1 italic">"{inq.message}"</p>}
               </div>
               <div className="flex flex-wrap items-center gap-2 sm:flex-shrink-0">
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[inq.status] || 'bg-muted text-muted-foreground'}`}>{inq.status}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[inq.status] || 'bg-muted text-muted-foreground'}`}>{t(inq.status)}</span>
                 {nextStatus[inq.status] && (
                   <button onClick={() => updateStatus(inq.id, nextStatus[inq.status])} className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-lg hover:bg-primary/20">
-                    → {nextStatus[inq.status]}
+                    → {t(nextStatus[inq.status])}
                   </button>
                 )}
                 <a href={`mailto:${inq.contact_email}`} className="p-1.5 text-accent hover:bg-accent/10 rounded-lg">
@@ -217,6 +221,7 @@ function CorporateTab() {
 }
 
 function ToolsTab({ users }) {
+  const { t, localize } = useLanguage();
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState('user');
   const [inviting, setInviting] = useState(false);
@@ -233,10 +238,10 @@ function ToolsTab({ users }) {
     setInviteMsg('');
     try {
       await base44.users.inviteUser(inviteEmail, inviteRole);
-      setInviteMsg(`✓ Invitation sent to ${inviteEmail}`);
+      setInviteMsg(`✓ ${t('Invitation sent to')} ${inviteEmail}`);
       setInviteEmail('');
     } catch (err) {
-      setInviteMsg(`Could not send invitation: ${err?.message || 'please try again'}`);
+      setInviteMsg(`${t('Could not send invitation:')} ${err?.message || t('please try again')}`);
     }
     setInviting(false);
   };
@@ -263,15 +268,15 @@ function ToolsTab({ users }) {
         subject: announcementSubject,
         message: announcementBody,
       });
-      setSendMsg('✓ Announcement sent successfully');
+      setSendMsg(`✓ ${t('Announcement sent successfully')}`);
       setAnnouncementEmail(''); setAnnouncementSubject(''); setAnnouncementBody('');
     } catch (err) {
-      setSendMsg(`Could not send announcement: ${err?.message || 'please try again'}`);
+      setSendMsg(`${t('Could not send announcement:')} ${err?.message || t('please try again')}`);
     }
     setSending(false);
   };
 
-  return (
+  return localize(
     <div className="space-y-6">
       {/* Invite User */}
       <div className="bg-card rounded-2xl border border-border p-6">
@@ -351,6 +356,7 @@ function ToolsTab({ users }) {
 }
 
 export default function Admin() {
+  const { t, localize } = useLanguage();
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({ users: 0, posts: 0, events: 0, opportunities: 0, hours: 0, sos: 0, corporate: 0 });
   const [users, setUsers] = useState([]);
@@ -405,7 +411,7 @@ export default function Admin() {
   };
 
   if (!user || user.role !== 'admin') {
-    return (
+    return localize(
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
         <Shield className="w-12 h-12 mx-auto mb-4 text-primary" />
         <h1 className="font-display text-2xl font-bold mb-2 text-foreground">Admin Only</h1>
@@ -442,7 +448,7 @@ export default function Admin() {
     { id: 'hours', label: '⏱ Hour Approvals' },
   ];
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-center justify-between gap-3 mb-6 md:mb-8">
         <div className="flex items-center gap-3 min-w-0">
@@ -461,10 +467,10 @@ export default function Admin() {
 
       {/* Tabs */}
       <div className="flex gap-1 rounded-xl p-1 mb-8 overflow-x-auto md:flex-wrap bg-secondary border border-primary">
-        {tabs.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${tab === t.id ? 'bg-brand-950 text-brand-300' : 'text-muted-foreground'}`}>
-            {t.label}
+        {tabs.map(tabItem => (
+          <button key={tabItem.id} onClick={() => setTab(tabItem.id)}
+            className={`px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${tab === tabItem.id ? 'bg-brand-950 text-brand-300' : 'text-muted-foreground'}`}>
+            {t(tabItem.label)}
           </button>
         ))}
       </div>
@@ -567,7 +573,7 @@ export default function Admin() {
         /* Users tab */
         <div className="bg-card rounded-2xl border border-border overflow-hidden">
           <div className="px-6 py-4 border-b border-border">
-            <h2 className="font-display text-lg font-bold">All Members ({users.length})</h2>
+            <h2 className="font-display text-lg font-bold">{t('All Members')} ({users.length})</h2>
           </div>
           <div className="divide-y divide-border">
             {users.map(u => (
@@ -586,7 +592,7 @@ export default function Admin() {
                     u.role === 'admin' ? 'bg-primary/10 text-primary' :
                     u.role === 'moderator' ? 'bg-purple-100 text-purple-800' :
                     'bg-muted text-muted-foreground'
-                  }`}>{u.role || 'user'}</span>
+                  }`}>{t(u.role || 'user')}</span>
                   {u.id !== user.id && (
                     <select value={u.role || 'user'} onChange={e => updateRole(u.id, e.target.value)}
                       className="text-xs bg-muted rounded-lg px-2 py-1.5 outline-none border border-transparent focus:border-primary/30">
