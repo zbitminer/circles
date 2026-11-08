@@ -118,7 +118,7 @@ export default function Opportunities() {
       setSelected(updatedOpp);
       setEnrollSuccess(opp.id);
     } catch (err) {
-      const errorMsg = err?.response?.data?.error || err?.message || 'Could not enroll — the workshop may be full.';
+      const errorMsg = err?.response?.data?.error || err?.message || t('Could not enroll — the workshop may be full.');
       alert(errorMsg);
     } finally {
       setEnrollingId(null);
@@ -132,12 +132,12 @@ export default function Opportunities() {
       const isStaff = user?.role === 'admin' || user?.role === 'moderator';
       // Non-staff submissions start as "pending" and appear once an admin approves them.
       await base44.entities.Opportunity.create({ ...form, capacity: form.capacity || undefined, created_by_name: user?.full_name, ...(isStaff ? { status: 'active' } : {}) });
-      if (!isStaff) alert('Thanks! Your opportunity was submitted and will appear after admin review.');
+      if (!isStaff) alert(t("Thanks! Your opportunity was submitted and will appear after admin review."));
       setForm({ title: '', description: '', organization: '', location: '', cause_category: 'Food', type: 'In-person', deadline: '', capacity: '' });
       setShowForm(false);
       loadOpportunities(null);
     } catch (err) {
-      alert(err?.response?.data?.error || err?.message || 'Could not create opportunity. Please try again.');
+      alert(err?.response?.data?.error || err?.message || t('Could not create opportunity. Please try again.'));
     } finally {
       setSubmitting(false);
     }

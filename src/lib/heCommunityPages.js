@@ -73,4 +73,12 @@ export default {
   'Goal Promotion': 'קידום מטרות', 'Tools for Success': 'כלים להצלחה', 'Survival': 'הישרדות', 'Holocaust Testimonies': 'עדויות שואה', 'AI': 'בינה מלאכותית', 'Amharic': 'אמהרית',
   '✓ You\'re going': '✓ אישרתם הגעה', 'more': 'נוספים', 'Causes': 'תחומי פעילות', 'Environment': 'סביבה', 'Education': 'חינוך', 'Health': 'בריאות', 'Animals': 'בעלי חיים', 'Elderly': 'אזרחים ותיקים',
   'Register Now': 'הירשמו עכשיו', 'Close registration prompt': 'סגירת הודעת ההרשמה', 'Register to connect with neighbors, join events, and take part in the community.': 'הירשמו כדי להכיר שכנים, להצטרף לאירועים ולהיות חלק מהקהילה.', 'Join the Circle — it\'s free.': 'הצטרפו למעגל — בחינם.',
+  // Community Hub gaps
+  'Post a Request': 'פרסום בקשה', 'List view': 'תצוגת רשימה', 'Map view': 'תצוגת מפה', 'Safed and beyond': 'צפת והסביבה',
+  'Title *': 'כותרת *', 'Description *': 'תיאור *', 'Organization *': 'ארגון *', 'Location': 'מיקום', 'Cause Category': 'תחום פעילות', 'Cancel': 'ביטול',
+  'In-person': 'פנים אל פנים', 'Remote': 'מרחוק', 'Hybrid': 'משולב', 'Other': 'אחר',
+  'What can you offer? *': 'מה תוכלו להציע? *', 'Your Location': 'המיקום שלכם', 'Saving…': 'שומרים…',
+  "Thanks! Your opportunity was submitted and will appear after admin review.": 'תודה! ההזדמנות שלך נשלחה ותתפרסם לאחר אישור המנהל.',
+  'Could not enroll — the workshop may be full.': 'לא ניתן להירשם — ייתכן שהסדנה מלאה.',
+  'Could not create opportunity. Please try again.': 'לא ניתן ליצור הזדמנות. נסו שוב.',
 };
