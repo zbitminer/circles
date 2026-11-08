@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Clock, Award, Calendar, Plus, Trash2, Edit2, Check, Camera, Rss, Briefcase, AlertTriangle, Utensils, Users, MessageSquarePlus, Shield, Eye, EyeOff, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,7 @@ const CAUSE_COLORS = {
 };
 
 export default function Profile() {
+  const { localize, t } = useLanguage();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [logs, setLogs] = useState([]);
@@ -96,7 +98,7 @@ export default function Profile() {
     setSubmittingLog(true);
     const hours = parseFloat(logForm.hours);
     if (!Number.isFinite(hours) || hours <= 0 || hours > 24) {
-      alert('Please enter between 0.25 and 24 hours.');
+      alert(t('Please enter between 0.25 and 24 hours.'));
       setSubmittingLog(false);
       return;
     }
@@ -113,7 +115,7 @@ export default function Profile() {
     try {
       await base44.entities.HourLog.delete(log.id);
     } catch {
-      alert('Only pending logs can be deleted. Please contact an admin.');
+      alert(t('Only pending logs can be deleted. Please contact an admin.'));
       return;
     }
     setLogs(prev => prev.filter(l => l.id !== log.id));
@@ -141,7 +143,7 @@ export default function Profile() {
     );
   }
 
-  return (
+  return localize(
     <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8 space-y-6">
       {/* Profile Header */}
       <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>

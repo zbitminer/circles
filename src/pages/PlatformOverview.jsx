@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { MessageSquare, User, Search, AlertCircle, Utensils, Calendar, Briefcase, Shield, BarChart2, Building2, LogIn, FileText, Heart, Rss, Globe } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 const categories = [
   {
@@ -76,7 +77,8 @@ const stats = [
 ];
 
 export default function PlatformOverview() {
-  return (
+  const { localize } = useLanguage();
+  return localize(
     <div className="pb-24 md:pb-0">
 
       {/* Hero */}

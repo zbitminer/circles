@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Send, Users } from 'lucide-react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import { useLanguage } from '@/lib/i18n';
 
 const COMMUNITY_CONV_ID = 'community_chat';
 
 const initials = (name) => name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || '?';
 
 export default function CommunityChat({ currentUser }) {
+  const { localize, dateLocale } = useLanguage();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -60,7 +62,7 @@ export default function CommunityChat({ currentUser }) {
     setSending(false);
   };
 
-  return (
+  return localize(
     <div className="rounded-2xl overflow-hidden flex flex-col h-[600px]" style={{ borderColor: '#C9A84C', background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
       {/* Header */}
       <div className="p-4 border-b flex items-center gap-2" style={{ borderColor: '#C9A84C', background: '#1A2744' }}>
@@ -107,7 +109,7 @@ export default function CommunityChat({ currentUser }) {
                   </div>
                   {msg.created_date && (
                     <p className="text-[10px] mt-0.5" style={{ color: '#aaa' }}>
-                      {formatDistanceToNow(parseISO(msg.created_date), { addSuffix: true })}
+                      {formatDistanceToNow(parseISO(msg.created_date), { addSuffix: true, locale: dateLocale })}
                     </p>
                   )}
                 </div>

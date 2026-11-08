@@ -3,8 +3,9 @@ import { he, enUS } from 'date-fns/locale';
 import heInnerPages from '@/lib/heInnerPages';
 import heCommunityPages from '@/lib/heCommunityPages';
 import heExtraPages from '@/lib/heExtraPages';
+import heFullSite from '@/lib/heFullSite';
 
-const INNER_HE = { ...heInnerPages, ...heCommunityPages, ...heExtraPages };
+const INNER_HE = { ...heInnerPages, ...heCommunityPages, ...heExtraPages, ...heFullSite };
 import localizeElement from '@/lib/localizeElement';
 
 const HE = {

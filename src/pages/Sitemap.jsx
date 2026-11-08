@@ -71,7 +71,7 @@ const SECTIONS = [
 ];
 
 export default function Sitemap() {
-  const { t } = useLanguage();
+  const { t, localize } = useLanguage();
   const [query, setQuery] = useState('');
 
   const filteredSections = SECTIONS.map((section) => ({
@@ -87,7 +87,7 @@ export default function Sitemap() {
 
   const totalPages = SECTIONS.reduce((acc, s) => acc + s.pages.length, 0);
 
-  return (
+  return localize(
     <div className="max-w-5xl mx-auto px-4 py-8 pb-24 md:pb-12">
       <div className="mb-8 text-center">
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-2 text-foreground">{t('Site Map')}</h1>

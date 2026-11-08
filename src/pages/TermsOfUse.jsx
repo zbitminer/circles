@@ -1,5 +1,8 @@
+import { useLanguage } from '@/lib/i18n';
+
 export default function TermsOfUse() {
-  return (
+  const { localize } = useLanguage();
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold mb-2" style={{ color: '#1A2744' }}>Terms of Use</h1>

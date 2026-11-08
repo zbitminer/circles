@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/lib/i18n';
 import CommunityChat from '@/components/CommunityChat';
 
 export default function CommunityChatPage() {
+  const { localize } = useLanguage();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -11,7 +13,7 @@ export default function CommunityChatPage() {
   }, []);
 
   if (!user) {
-    return (
+    return localize(
       <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8 text-center">
         <div className="rounded-2xl p-10" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
           <div className="text-5xl mb-4">🔒</div>
@@ -25,7 +27,7 @@ export default function CommunityChatPage() {
     );
   }
 
-  return (
+  return localize(
     <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="mb-6">
         <h1 className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>💬 Community Chat</h1>

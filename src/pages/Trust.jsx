@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Lock, Users, Heart, Eye, FileCheck, ArrowRight, Clock } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export default function Trust() {
+  const { localize } = useLanguage();
   const pillars = [
     {
       icon: ShieldCheck,
@@ -35,7 +37,7 @@ export default function Trust() {
     },
   ];
 
-  return (
+  return localize(
     <div className="max-w-4xl mx-auto px-4 py-12 pb-24">
       {/* Joined this week bar */}
       <div className="flex items-center justify-center gap-3 mb-10 flex-wrap">

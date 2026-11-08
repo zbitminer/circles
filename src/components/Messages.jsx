@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 import { Send, X } from 'lucide-react';
 
 export default function Messages({ currentUser, initialContact }) {
+  const { localize } = useLanguage();
   const [conversations, setConversations] = useState([]);
   const [selected, setSelected] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -72,7 +74,7 @@ export default function Messages({ currentUser, initialContact }) {
     loadMessages(convId);
   };
 
-  return (
+  return localize(
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px]">
       {/* Conversation List */}
       <div className="border rounded-2xl overflow-hidden flex flex-col" style={{ borderColor: '#C9A84C', background: '#FAF7EE' }}>

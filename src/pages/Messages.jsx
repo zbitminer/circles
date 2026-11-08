@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
+import { useLanguage } from '@/lib/i18n';
 import MessageComponent from '@/components/Messages';
 
 export default function MessagesPage() {
+  const { localize } = useLanguage();
   const [user, setUser] = useState(null);
   const [searchParams] = useSearchParams();
   const initialContact = searchParams.get('to')
@@ -15,14 +17,14 @@ export default function MessagesPage() {
   }, []);
 
   if (!user) {
-    return (
+    return localize(
       <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8 text-center">
         <p style={{ color: '#6b5c3e' }}>Please sign in to view messages</p>
       </div>
     );
   }
 
-  return (
+  return localize(
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>💬 Messages</h1>
