@@ -39,9 +39,9 @@ export default function Moderation() {
   if (!isMod) {
     return localize(
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <Shield className="w-12 h-12 mx-auto mb-4" style={{ color: '#C9A84C' }} />
-        <h1 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Access Restricted</h1>
-        <p style={{ color: '#6b5c3e' }}>You need moderator or admin access to view this page.</p>
+        <Shield className="w-12 h-12 mx-auto mb-4" style={{ color: '#bd4c0f' }} />
+        <h1 className="font-display text-2xl font-bold mb-2" style={{ color: '#141414' }}>Access Restricted</h1>
+        <p style={{ color: '#6b7280' }}>You need moderator or admin access to view this page.</p>
       </div>
     );
   }
@@ -49,32 +49,32 @@ export default function Moderation() {
   return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#1A2744', border: '1px solid #C9A84C' }}>
-          <Shield className="w-5 h-5" style={{ color: '#F5E6C0' }} />
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#141414', border: '1px solid #bd4c0f' }}>
+          <Shield className="w-5 h-5" style={{ color: '#fbe8d4' }} />
         </div>
         <div>
-          <h1 className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>Content Moderation</h1>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Review reported and flagged content</p>
+          <h1 className="font-display text-2xl font-bold" style={{ color: '#141414' }}>Content Moderation</h1>
+          <p className="text-sm" style={{ color: '#6b7280' }}>Review reported and flagged content</p>
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-8">
-        <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-5" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center gap-3">
             <Flag className="w-5 h-5 text-orange-500" />
             <div>
-              <p className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{flaggedPosts.length}</p>
-              <p className="text-xs" style={{ color: '#6b5c3e' }}>Flagged Posts</p>
+              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{flaggedPosts.length}</p>
+              <p className="text-xs" style={{ color: '#6b7280' }}>Flagged Posts</p>
             </div>
           </div>
         </div>
-        <div className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-5" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center gap-3">
-            <Eye className="w-5 h-5" style={{ color: '#1A2744' }} />
+            <Eye className="w-5 h-5" style={{ color: '#141414' }} />
             <div>
-              <p className="font-display text-2xl font-bold" style={{ color: '#1A2744' }}>{flaggedPosts.filter(p => p.status === 'flagged').length}</p>
-              <p className="text-xs" style={{ color: '#6b5c3e' }}>Needs Review</p>
+              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{flaggedPosts.filter(p => p.status === 'flagged').length}</p>
+              <p className="text-xs" style={{ color: '#6b7280' }}>Needs Review</p>
             </div>
           </div>
         </div>
@@ -82,18 +82,18 @@ export default function Moderation() {
 
       {loading ? (
         <div className="space-y-4">
-          {[1, 2].map(i => <div key={i} className="rounded-2xl p-5 animate-pulse h-32" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />)}
+          {[1, 2].map(i => <div key={i} className="rounded-2xl p-5 animate-pulse h-32" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />)}
         </div>
       ) : flaggedPosts.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>All clear!</h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>No flagged or reported content to review.</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>All clear!</h3>
+          <p className="text-sm" style={{ color: '#6b7280' }}>No flagged or reported content to review.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {flaggedPosts.map(post => (
-            <div key={post.id} className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1.5px solid #e67e22' }}>
+            <div key={post.id} className="rounded-2xl p-5" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -111,7 +111,7 @@ export default function Moderation() {
                 </div>
               </div>
 
-              <p className="text-sm leading-relaxed mb-4 border-l-4 border-orange-300 pl-3" style={{ color: '#1A2744' }}>
+              <p className="text-sm leading-relaxed mb-4 border-l-4 border-orange-300 pl-3" style={{ color: '#141414' }}>
                 {post.content}
               </p>
 

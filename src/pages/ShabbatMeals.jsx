@@ -57,17 +57,17 @@ export default function ShabbatMeals() {
   return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
-      <div className="rounded-2xl overflow-hidden mb-6" style={{ border: '2px solid #C9A84C' }}>
+      <div className="rounded-2xl overflow-hidden mb-6" style={{ border: '2px solid #bd4c0f' }}>
         <div className="relative h-48 md:h-64">
           <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/19b6f1ee7_generated_image.png" alt="Shabbat table" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,39,68,0.9) 0%, rgba(26,39,68,0.4) 100%)' }} />
           <div className="absolute inset-0 flex items-end p-6">
             <div className="flex-1">
               <div className="text-3xl mb-2">🕯️</div>
-              <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#F5E6C0' }}>Shabbat & Holiday Meals</h1>
+              <h1 className="font-display text-2xl md:text-3xl font-bold" style={{ color: '#fbe8d4' }}>Shabbat & Holiday Meals</h1>
               <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>Open your home — share a meal, build community</p>
             </div>
-            <button onClick={() => { setShowForm(!showForm); if (!showForm) setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#C9A84C', color: '#1A2744' }}>
+            <button onClick={() => { setShowForm(!showForm); if (!showForm) setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm hover:opacity-90 transition-colors" style={{ background: '#bd4c0f', color: '#141414' }}>
               <Plus className="w-4 h-4" /> Host a Meal
             </button>
           </div>
@@ -75,9 +75,9 @@ export default function ShabbatMeals() {
       </div>
 
       {/* Intro quote */}
-      <div className="rounded-2xl p-6 mb-6 text-center italic" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <p className="text-lg font-medium" style={{ color: '#1A2744' }}>"The table is not just for eating—it is the place where community is built."</p>
-        <p className="text-sm mt-3 max-w-2xl mx-auto" style={{ color: '#6b5c3e' }}>
+      <div className="rounded-2xl p-6 mb-6 text-center italic" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <p className="text-lg font-medium" style={{ color: '#141414' }}>"The table is not just for eating—it is the place where community is built."</p>
+        <p className="text-sm mt-3 max-w-2xl mx-auto" style={{ color: '#6b7280' }}>
           For many in our community—students, new immigrants, singles, and elderly neighbors—spending Shabbat alone can feel isolating.
           Our <strong>Shabbat & Holidays Initiative</strong> connects hosts who have an extra seat with guests who are looking for a place to belong.
         </p>
@@ -85,7 +85,7 @@ export default function ShabbatMeals() {
 
       {/* Host / Guest CTA cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="rounded-2xl overflow-hidden" style={{ background: '#1A2744', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: '#141414', border: '1.5px solid #bd4c0f' }}>
           <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/a7ca42b49_generated_image.png" alt="Communal Shabbat dinner" className="w-full aspect-video object-cover" />
           <div className="p-6">
             <div className="text-3xl mb-3">🪑</div>
@@ -95,22 +95,22 @@ export default function ShabbatMeals() {
               <li>• Create a lasting bond with someone in your neighborhood</li>
               <li>• Help us fight the epidemic of loneliness in our city</li>
             </ul>
-            <button onClick={() => { setShowForm(true); setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#C9A84C', color: '#1A2744' }}>
+            <button onClick={() => { setShowForm(true); setTimeout(() => document.getElementById('host-form')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#bd4c0f', color: '#141414' }}>
               I Want to Host
             </button>
           </div>
         </div>
-        <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl overflow-hidden" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/17fdc762b_generated_image.png" alt="Passover Seder gathering" className="w-full aspect-video object-cover" />
           <div className="p-6">
             <div className="text-3xl mb-3">🤝</div>
-            <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#1A2744' }}>Looking for a Meal?</h3>
-            <ul className="text-sm space-y-1.5 mb-4" style={{ color: '#6b5c3e' }}>
+            <h3 className="font-display text-lg font-bold mb-2" style={{ color: '#141414' }}>Looking for a Meal?</h3>
+            <ul className="text-sm space-y-1.5 mb-4" style={{ color: '#6b7280' }}>
               <li>• Experience the warmth of a local Shabbat</li>
               <li>• Meet new people and become part of our community</li>
               <li>• 100% confidential and free of charge</li>
             </ul>
-            <button onClick={() => document.getElementById('meals-list')?.scrollIntoView({ behavior: 'smooth' })} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+            <button onClick={() => document.getElementById('meals-list')?.scrollIntoView({ behavior: 'smooth' })} className="px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>
               I Want to Join a Meal
             </button>
           </div>
@@ -118,7 +118,7 @@ export default function ShabbatMeals() {
       </div>
 
       {/* Shabbat in the North */}
-      <div className="rounded-2xl overflow-hidden mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="rounded-2xl overflow-hidden mb-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="grid grid-cols-1 md:grid-cols-5">
           <div className="md:col-span-2 h-48 md:h-auto">
             <img src="https://media.base44.com/images/public/6a2feeb0292b105992c98be7/3afd644ca_generated_image.png" alt="Holiday celebration" className="w-full h-full object-cover" />
@@ -127,13 +127,13 @@ export default function ShabbatMeals() {
             <div className="flex items-start gap-3 mb-3">
               <span className="text-2xl">🌍</span>
               <div>
-                <h3 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Shabbat in the North</h3>
-                <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>
-                  Our initiative is especially active in <strong style={{ color: '#1A2744' }}>Safed and the Upper Galilee</strong>. Our Shabbat tables have become a vital source of comfort and normalcy for displaced families and those feeling the weight of the current situation.
+                <h3 className="font-display text-lg font-bold" style={{ color: '#141414' }}>Shabbat in the North</h3>
+                <p className="text-sm mt-1" style={{ color: '#6b7280' }}>
+                  Our initiative is especially active in <strong style={{ color: '#141414' }}>Safed and the Upper Galilee</strong>. Our Shabbat tables have become a vital source of comfort and normalcy for displaced families and those feeling the weight of the current situation.
                 </p>
               </div>
             </div>
-            <blockquote className="border-l-4 pl-4 text-sm italic mt-3" style={{ borderColor: '#C9A84C', color: '#6b5c3e' }}>
+            <blockquote className="border-l-4 pl-4 text-sm italic mt-3" style={{ borderColor: '#bd4c0f', color: '#6b7280' }}>
               "Opening my door to a displaced family reminded me of why we call this place home. The table becomes a sanctuary." — <strong>Sarah, Safed</strong>
             </blockquote>
           </div>
@@ -141,8 +141,8 @@ export default function ShabbatMeals() {
       </div>
 
       {/* FAQ */}
-      <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <h3 className="font-display text-lg font-bold mb-4" style={{ color: '#1A2744' }}>💡 Frequently Asked Questions</h3>
+      <div className="rounded-2xl p-6 mb-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <h3 className="font-display text-lg font-bold mb-4" style={{ color: '#141414' }}>💡 Frequently Asked Questions</h3>
         <div className="space-y-4">
           {[
             { q: 'Is there a cost?', a: 'No, all Shabbat and holiday meal connections are provided free of charge through the generosity of our donors and volunteers.' },
@@ -150,8 +150,8 @@ export default function ShabbatMeals() {
             { q: 'How do you handle dietary requirements?', a: 'When you sign up, simply note your preferences or requirements, and we will do our best to find a perfect match.' },
           ].map(({ q, a }) => (
             <div key={q}>
-              <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>Q: {q}</p>
-              <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>{a}</p>
+              <p className="font-semibold text-sm" style={{ color: '#141414' }}>Q: {q}</p>
+              <p className="text-sm mt-1" style={{ color: '#6b7280' }}>{a}</p>
             </div>
           ))}
         </div>
@@ -164,10 +164,10 @@ export default function ShabbatMeals() {
           { icon: '🙋', title: 'Join a Table', desc: 'Browse upcoming meals nearby, RSVP with one click, and show up ready to connect with your community.' },
           { icon: '✨', title: 'Build Community', desc: 'Whether you\'re new in town, a lone soldier, or simply looking for connection — every table is a circle of belonging.' },
         ].map(({ icon, title, desc }) => (
-          <div key={title} className="rounded-2xl p-4 text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+          <div key={title} className="rounded-2xl p-4 text-center" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
             <div className="text-2xl mb-2">{icon}</div>
-            <h3 className="font-semibold text-sm mb-1" style={{ color: '#1A2744' }}>{title}</h3>
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
+            <h3 className="font-semibold text-sm mb-1" style={{ color: '#141414' }}>{title}</h3>
+            <p className="text-xs" style={{ color: '#6b7280' }}>{desc}</p>
           </div>
         ))}
       </div>
@@ -181,43 +181,43 @@ export default function ShabbatMeals() {
 
       {/* Create Form — not signed in */}
       {showForm && !user && (
-        <div id="host-form" className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div id="host-form" className="rounded-2xl p-6 mb-6 text-center" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="text-3xl mb-2">🔐</div>
-          <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>Sign in to host a meal</h3>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
-          <a href="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>Sign In</a>
+          <h3 className="font-semibold mb-1" style={{ color: '#141414' }}>Sign in to host a meal</h3>
+          <p className="text-sm mb-4" style={{ color: '#6b7280' }}>You need to be signed in to list a Shabbat or holiday meal.</p>
+          <a href="/login" className="inline-block px-6 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>Sign In</a>
         </div>
       )}
       {showForm && user && (
-        <div id="host-form" className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div id="host-form" className="rounded-2xl p-6 mb-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Host a Shabbat or Holiday Meal</h2>
-            <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
+            <h2 className="font-display text-xl font-bold" style={{ color: '#141414' }}>Host a Shabbat or Holiday Meal</h2>
+            <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b7280' }} /></button>
           </div>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Date *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Date *</label>
               <input required type="date" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Location *</label>
               <input required value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City or neighborhood" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Available Seats *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Available Seats *</label>
               <input required type="number" min="1" max="20" value={form.seats_available} onChange={e => setForm({ ...form, seats_available: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Dietary Options</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Dietary Options</label>
               <input value={form.dietary_options} onChange={e => setForm({ ...form, dietary_options: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Kosher, vegetarian-friendly" />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Description</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Description</label>
               <textarea rows={2} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Tell guests what to expect..." />
             </div>
             <div className="flex items-center gap-3">
               <input type="checkbox" id="isHoliday" checked={form.is_holiday} onChange={e => setForm({ ...form, is_holiday: e.target.checked })} className="rounded" />
-              <label htmlFor="isHoliday" className="text-sm" style={{ color: '#1A2744' }}>This is a holiday meal</label>
+              <label htmlFor="isHoliday" className="text-sm" style={{ color: '#141414' }}>This is a holiday meal</label>
             </div>
             {form.is_holiday && (
               <div>
@@ -225,8 +225,8 @@ export default function ShabbatMeals() {
               </div>
             )}
             <div className="md:col-span-2 flex gap-3 justify-end">
-              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b7280' }}>Cancel</button>
+              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#bd4c0f', color: '#141414' }}>
                 {submitting ? 'Creating...' : '🕯️ List My Meal'}
               </button>
             </div>
@@ -235,21 +235,21 @@ export default function ShabbatMeals() {
       )}
 
       {/* Tabs */}
-      <div id="meals-list" className="flex gap-1 rounded-xl p-1 mb-5 w-fit" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-        <button onClick={() => setTab('all')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'all' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>All Meals</button>
-        {user && <button onClick={() => setTab('mine')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'mine' ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}>My Hosted Meals</button>}
+      <div id="meals-list" className="flex gap-1 rounded-xl p-1 mb-5 w-fit" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
+        <button onClick={() => setTab('all')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'all' ? { background: '#141414', color: '#fbe8d4' } : { color: '#6b7280' }}>All Meals</button>
+        {user && <button onClick={() => setTab('mine')} className="px-4 py-2 rounded-lg text-sm font-medium transition-all" style={tab === 'mine' ? { background: '#141414', color: '#fbe8d4' } : { color: '#6b7280' }}>My Hosted Meals</button>}
       </div>
 
       {/* Meals grid */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[1, 2, 3, 4].map(i => <div key={i} className="rounded-2xl h-40 animate-pulse" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />)}
+          {[1, 2, 3, 4].map(i => <div key={i} className="rounded-2xl h-40 animate-pulse" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />)}
         </div>
       ) : displayed.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="text-5xl mb-4">🕯️</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>No upcoming meals</h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>Be the first to open your home!</p>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>No upcoming meals</h3>
+          <p className="text-sm" style={{ color: '#6b7280' }}>Be the first to open your home!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -257,7 +257,7 @@ export default function ShabbatMeals() {
             const spots = spotsLeft(meal);
             const isGuest = user && meal.guests?.includes(user.id);
             return (
-              <div key={meal.id} onClick={() => setSelected(meal)} className="p-5 cursor-pointer hover:shadow-xl transition-all group" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+              <div key={meal.id} onClick={() => setSelected(meal)} className="p-5 cursor-pointer hover:shadow-xl transition-all group" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f', borderRadius: '12px' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{meal.is_holiday ? '✨' : '🕯️'}</span>
@@ -267,13 +267,13 @@ export default function ShabbatMeals() {
                   </div>
                   {isGuest && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">✓ Joined</span>}
                 </div>
-                <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#1A2744' }}>Hosted by {meal.host_name}</h3>
-                {meal.description && <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6b5c3e' }}><span translate="no">{meal.description}</span></p>}
+                <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: '#141414' }}>Hosted by {meal.host_name}</h3>
+                {meal.description && <p className="text-xs mb-3 line-clamp-2" style={{ color: '#6b7280' }}><span translate="no">{meal.description}</span></p>}
                 <div className="space-y-1.5 text-xs" style={{ color: '#888' }}>
-                  <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />{format(new Date(meal.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
-                  <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />{meal.location}</div>
+                  <div className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" style={{ color: '#bd4c0f' }} />{format(new Date(meal.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
+                  <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" style={{ color: '#bd4c0f' }} />{meal.location}</div>
                   <div className="flex items-center gap-1.5">
-                    <Users className="w-3.5 h-3.5" style={{ color: '#C9A84C' }} />
+                    <Users className="w-3.5 h-3.5" style={{ color: '#bd4c0f' }} />
                     {spots > 0 ? <span className="text-green-700 font-medium">{spots} {t(spots === 1 ? 'spot left' : 'spots left')}</span> : <span className="text-red-600 font-medium">Full</span>}
                   </div>
                 </div>
@@ -287,36 +287,36 @@ export default function ShabbatMeals() {
       {/* Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-md w-full p-6 shadow-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-md w-full p-6 shadow-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-4">
               <div className="text-3xl">{selected.is_holiday ? '✨' : '🕯️'}</div>
-              <button onClick={() => setSelected(null)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
+              <button onClick={() => setSelected(null)}><X className="w-5 h-5" style={{ color: '#6b7280' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A2744' }}>Hosted by {selected.host_name}</h2>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#141414' }}>Hosted by {selected.host_name}</h2>
             {selected.is_holiday && selected.holiday_name && (
               <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: 'rgba(201,168,76,0.20)', color: '#8a6a10' }}>{selected.holiday_name} Meal</span>
             )}
-            {selected.description && <p className="text-sm mt-3 leading-relaxed" style={{ color: '#6b5c3e' }}><span translate="no">{selected.description}</span></p>}
+            {selected.description && <p className="text-sm mt-3 leading-relaxed" style={{ color: '#6b7280' }}><span translate="no">{selected.description}</span></p>}
             <div className="space-y-2 my-4 text-sm">
-              <div className="flex items-center gap-2" style={{ color: '#555' }}><Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
-              <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>
-              <div className="flex items-center gap-2" style={{ color: '#555' }}><Users className="w-4 h-4" style={{ color: '#C9A84C' }} />{spotsLeft(selected)} of {selected.seats_available} spots remaining</div>
-              {selected.dietary_options && <div className="flex items-center gap-2" style={{ color: '#555' }}><Star className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.dietary_options}</div>}
+              <div className="flex items-center gap-2" style={{ color: '#555' }}><Calendar className="w-4 h-4" style={{ color: '#bd4c0f' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy', { locale: dateLocale })}</div>
+              <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: '#bd4c0f' }} />{selected.location}</div>
+              <div className="flex items-center gap-2" style={{ color: '#555' }}><Users className="w-4 h-4" style={{ color: '#bd4c0f' }} />{spotsLeft(selected)} of {selected.seats_available} spots remaining</div>
+              {selected.dietary_options && <div className="flex items-center gap-2" style={{ color: '#555' }}><Star className="w-4 h-4" style={{ color: '#bd4c0f' }} />{selected.dietary_options}</div>}
             </div>
             {user ? (
               <button onClick={() => handleJoin(selected)} disabled={spotsLeft(selected) === 0 && !selected.guests?.includes(user.id)}
                 className="w-full py-3 font-semibold rounded-xl transition-all"
                 style={
                   selected.guests?.includes(user.id)
-                    ? { background: '#f0e8d0', color: '#6b5c3e' }
+                    ? { background: '#fbe8d4', color: '#6b7280' }
                     : spotsLeft(selected) === 0
-                    ? { background: '#e0d5be', color: '#aaa', cursor: 'not-allowed' }
-                    : { background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }
+                    ? { background: '#dcd5cc', color: '#aaa', cursor: 'not-allowed' }
+                    : { background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }
                 }>
                 {selected.guests?.includes(user.id) ? 'Cancel My RSVP' : spotsLeft(selected) === 0 ? 'No Spots Left' : "I'll Join! 🙏"}
               </button>
             ) : (
-              <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to join this meal</p>
+              <p className="text-center text-sm" style={{ color: '#6b7280' }}>Sign in to join this meal</p>
             )}
             {user && selected.host_id === user.id && (
               <div className="mt-4 text-center">

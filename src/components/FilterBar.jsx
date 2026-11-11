@@ -13,23 +13,23 @@ export default function FilterBar({ activeCount = 0, children, className = '' })
         onClick={() => setOpen(!open)}
         className="md:hidden flex items-center justify-between gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium border transition-all"
         style={{
-          background: open ? '#FAF7EE' : '#fff',
-          borderColor: open || activeCount > 0 ? '#C9A84C' : '#e0e0e0',
-          color: '#1A2744',
+          background: open ? '#fcfaf8' : '#fff',
+          borderColor: open || activeCount > 0 ? '#bd4c0f' : '#e0e0e0',
+          color: '#141414',
         }}
       >
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4" style={{ color: '#C9A84C' }} />
+          <SlidersHorizontal className="w-4 h-4" style={{ color: '#bd4c0f' }} />
           <span>Filters</span>
           {activeCount > 0 && (
-            <span className="text-xs px-1.5 py-0.5 rounded-full font-bold" style={{ background: '#1A2744', color: '#F5E6C0' }}>
+            <span className="text-xs px-1.5 py-0.5 rounded-full font-bold" style={{ background: '#141414', color: '#fbe8d4' }}>
               {activeCount}
             </span>
           )}
         </div>
         <ChevronDown
           className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`}
-          style={{ color: '#6b5c3e' }}
+          style={{ color: '#6b7280' }}
         />
       </button>
 

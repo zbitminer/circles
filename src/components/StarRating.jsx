@@ -12,8 +12,8 @@ export default function StarRating({ rating, onRate, readOnly = false }) {
         >
           <Star
             className="w-4 h-4"
-            fill={i <= rating ? '#C9A84C' : 'none'}
-            style={{ color: i <= rating ? '#C9A84C' : '#ddd' }}
+            fill={i <= rating ? '#bd4c0f' : 'none'}
+            style={{ color: i <= rating ? '#bd4c0f' : '#ddd' }}
           />
         </button>
       ))}

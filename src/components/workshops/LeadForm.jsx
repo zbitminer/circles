@@ -55,11 +55,11 @@ export default function LeadForm({ onCreated }) {
 
   if (done) {
     return localize(
-      <div className="text-center py-12 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="text-center py-12 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="text-5xl mb-4">🌟</div>
-        <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank you for offering to teach!</h3>
-        <p className="text-sm" style={{ color: '#6b5c3e' }}>We received your workshop details and will be in touch soon.</p>
-        <button onClick={() => { setDone(false); }} className="mt-4 text-sm font-semibold" style={{ color: '#C9A84C' }}>Create another →</button>
+        <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>Thank you for offering to teach!</h3>
+        <p className="text-sm" style={{ color: '#6b7280' }}>We received your workshop details and will be in touch soon.</p>
+        <button onClick={() => { setDone(false); }} className="mt-4 text-sm font-semibold" style={{ color: '#bd4c0f' }}>Create another →</button>
       </div>
     );
   }
@@ -131,13 +131,13 @@ export default function LeadForm({ onCreated }) {
       </details>
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
 
-      <div className="text-xs italic space-y-1" style={{ color: '#6b5c3e' }}>
+      <div className="text-xs italic space-y-1" style={{ color: '#6b7280' }}>
         <p>* Workshops are subject to a minimum number of participants — we'll contact you when a group forms.</p>
         <p>* Circles of Giving acts as a facilitator only and is not responsible for the nature of the engagement between parties.</p>
         <p>* To avoid discomfort, please do not request money from participants for activities through the site.</p>
       </div>
 
-      <button type="submit" disabled={submitting} className="w-full py-3 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+      <button type="submit" disabled={submitting} className="w-full py-3 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#bd4c0f', color: '#141414' }}>
         {submitting ? 'Creating workshop…' : 'Create Workshop'}
       </button>
     </form>
@@ -149,7 +149,7 @@ const inputCls = "w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none bord
 function Field({ label, children }) {
   return (
     <div>
-      <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>{label}</label>
+      <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>{label}</label>
       {children}
     </div>
   );

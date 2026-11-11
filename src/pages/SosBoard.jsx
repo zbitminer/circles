@@ -110,14 +110,14 @@ export default function SosBoard() {
         </div>
         <div className="flex items-center gap-2">
           <div className="flex p-1 gap-1 rounded-lg" style={{ background: 'hsl(var(--card))', border: '1px solid hsl(var(--primary))' }}>
-            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: 'hsl(var(--foreground))', color: '#F5E6C0' } : { color: 'hsl(var(--foreground))' }} title="Grid view">
+            <button onClick={() => setViewMode('grid')} className="p-2 rounded-lg transition-all" style={viewMode === 'grid' ? { background: 'hsl(var(--foreground))', color: '#fbe8d4' } : { color: 'hsl(var(--foreground))' }} title="Grid view">
               <LayoutGrid className="w-4 h-4" />
             </button>
-            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: 'hsl(var(--foreground))', color: '#F5E6C0' } : { color: 'hsl(var(--foreground))' }} title="Map view">
+            <button onClick={() => setViewMode('map')} className="p-2 rounded-lg transition-all" style={viewMode === 'map' ? { background: 'hsl(var(--foreground))', color: '#fbe8d4' } : { color: 'hsl(var(--foreground))' }} title="Map view">
               <Map className="w-4 h-4" />
             </button>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--foreground))', color: '#F5E6C0', border: '1px solid hsl(var(--primary))' }}>
+          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--foreground))', color: '#fbe8d4', border: '1px solid hsl(var(--primary))' }}>
             <Plus className="w-4 h-4" /> Post Urgent
           </button>
         </div>
@@ -234,7 +234,7 @@ export default function SosBoard() {
                 <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${STATUS_CARD_COLORS[req.status] || 'bg-muted text-muted-foreground'}`}>
                   {STATUS_LABELS[req.status] || req.status}
                 </span>
-                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[req.cause_category] || '💡'} {req.cause_category}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: '#fbe8d4', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[req.cause_category] || '💡'} {req.cause_category}</span>
               </div>
               <h3 className="font-semibold mb-1 group-hover:opacity-75 transition-opacity" style={{ color: 'hsl(var(--foreground))' }}>{req.title}</h3>
               <p className="text-sm mb-2" style={{ color: 'hsl(var(--primary))' }}>{req.contact_name}</p>
@@ -282,7 +282,7 @@ export default function SosBoard() {
             <div className="space-y-2 mb-6 text-sm">
               {selected.location && <div className="flex items-center gap-2" style={{ color: '#555' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} /> {selected.location}</div>}
               <div className="flex items-center gap-2">
-                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[selected.cause_category] || '💡'} {selected.cause_category}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#fbe8d4', color: 'hsl(var(--muted-foreground))' }}>{categoryEmoji[selected.cause_category] || '💡'} {selected.cause_category}</span>
                 <span className="flex items-center gap-1 text-xs font-semibold text-orange-600"><Clock className="w-3.5 h-3.5" /> Within {selected.urgency_hours} hours</span>
               </div>
               {selected.claimed_by_name && <div className="flex items-center gap-2 text-yellow-700 text-xs font-medium"><Users className="w-4 h-4" /> Claimed by {selected.claimed_by_name}</div>}
@@ -293,7 +293,7 @@ export default function SosBoard() {
             {user && selected.status === 'open' && selected.created_by_id !== user.id && (
               <button onClick={() => handleClaim(selected)}
                 className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
-                style={{ background: 'hsl(var(--foreground))', color: '#F5E6C0', border: '1px solid hsl(var(--primary))' }}>
+                style={{ background: 'hsl(var(--foreground))', color: '#fbe8d4', border: '1px solid hsl(var(--primary))' }}>
                 I Can Help!
               </button>
             )}

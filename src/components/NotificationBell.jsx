@@ -67,15 +67,15 @@ export default function NotificationBell({ currentUser }) {
       {showPanel &&
       <div
         className="absolute right-0 mt-2 w-80 rounded-2xl shadow-xl overflow-hidden z-50"
-        style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+        style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
         
-          <div className="p-4 border-b font-semibold flex items-center justify-between" style={{ borderColor: '#C9A84C', color: '#1A2744' }}>
+          <div className="p-4 border-b font-semibold flex items-center justify-between" style={{ borderColor: '#bd4c0f', color: '#141414' }}>
             Notifications
             <button onClick={() => setShowPanel(false)}><X className="w-4 h-4" /></button>
           </div>
           <div className="max-h-96 overflow-y-auto">
             {notifications.length === 0 ?
-          <div className="p-4 text-center text-sm" style={{ color: '#6b5c3e' }}>No notifications</div> :
+          <div className="p-4 text-center text-sm" style={{ color: '#6b7280' }}>No notifications</div> :
 
           notifications.map((notif) =>
           <div
@@ -83,12 +83,12 @@ export default function NotificationBell({ currentUser }) {
             onClick={() => handleClick(notif)}
             className="p-4 border-b cursor-pointer transition-colors hover:opacity-80"
             style={{
-              borderColor: '#C9A84C',
-              background: notif.is_read ? 'transparent' : '#f0e8d0'
+              borderColor: '#bd4c0f',
+              background: notif.is_read ? 'transparent' : '#fbe8d4'
             }}>
             
-                  <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{notif.title}</p>
-                  <p className="text-xs mt-1" style={{ color: '#6b5c3e' }}>{notif.message}</p>
+                  <p className="font-semibold text-sm" style={{ color: '#141414' }}>{notif.title}</p>
+                  <p className="text-xs mt-1" style={{ color: '#6b7280' }}>{notif.message}</p>
                 </div>
           )
           }

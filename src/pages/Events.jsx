@@ -374,9 +374,9 @@ export default function Events() {
                       className="w-full mt-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all"
                       style={
                         attending
-                          ? { background: '#f0e8d0', color: '#1A2744', border: '1px solid hsl(var(--primary))' }
+                          ? { background: '#fbe8d4', color: '#141414', border: '1px solid hsl(var(--primary))' }
                           : full
-                          ? { background: '#e0d5be', color: '#888', cursor: 'not-allowed' }
+                          ? { background: '#dcd5cc', color: '#888', cursor: 'not-allowed' }
                           : { background: 'hsl(var(--primary))', color: '#fff' }
                       }
                     >
@@ -465,7 +465,7 @@ export default function Events() {
                 image: 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/d638227b5_generated_image.png',
               },
             ].map((evt) => (
-              <div key={evt.title} className="overflow-hidden" style={{ background: 'hsl(var(--card))', border: `1.5px solid ${evt.highlight ? 'hsl(var(--primary))' : '#d4b97a'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
+              <div key={evt.title} className="overflow-hidden" style={{ background: 'hsl(var(--card))', border: `1.5px solid ${evt.highlight ? 'hsl(var(--primary))' : '#f5a13c'}`, borderRadius: '8px', boxShadow: '0 2px 6px rgba(26,39,68,0.08)' }}>
                 <ContentImageDetails image={evt.image} title={evt.title} description={`${evt.date} · ${evt.location}`} imageClassName="w-full aspect-video object-cover">
                   <img src={evt.image} alt={evt.title} className="w-full max-h-80 object-contain" />
                   <p className="text-sm leading-relaxed">{evt.description}</p>
@@ -529,7 +529,7 @@ export default function Events() {
               <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}><span translate="no">{selected.description}</span></p>
 
               {isMod && selected.attendees?.length > 0 && (
-                <div className="rounded-xl p-4 mb-4" style={{ background: '#f0e8d0' }}>
+                <div className="rounded-xl p-4 mb-4" style={{ background: '#fbe8d4' }}>
                   <p className="text-xs font-semibold mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>Attendee Count: {selected.attendees.length}</p>
                 </div>
               )}
@@ -543,9 +543,9 @@ export default function Events() {
                   className="w-full py-3 font-semibold rounded-xl transition-all"
                   style={
                     selected.attendees?.includes(user.id)
-                      ? { background: '#f0e8d0', color: 'hsl(var(--muted-foreground))' }
+                      ? { background: '#fbe8d4', color: 'hsl(var(--muted-foreground))' }
                       : isFull(selected)
-                      ? { background: '#e0d5be', color: '#aaa', cursor: 'not-allowed' }
+                      ? { background: '#dcd5cc', color: '#aaa', cursor: 'not-allowed' }
                       : { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }
                   }
                 >

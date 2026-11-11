@@ -74,9 +74,9 @@ export default function CategoryFilterDropdown({ selected, onSelect, className =
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between gap-2 w-full px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
         style={{
-          background: selected ? '#FAF7EE' : '#fff',
-          borderColor: selected ? '#C9A84C' : '#e0e0e0',
-          color: selected ? '#1A2744' : '#555',
+          background: selected ? '#fcfaf8' : '#fff',
+          borderColor: selected ? '#bd4c0f' : '#e0e0e0',
+          color: selected ? '#141414' : '#555',
         }}
       >
         <span>

@@ -63,7 +63,7 @@ export default function Feed() {
         <aside className="hidden lg:block lg:col-span-3">
           <div className="sticky top-24 space-y-4">
             <div className="rounded-2xl p-6" style={{ background: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' }}>
-              <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#F5E6C0' }}>I Give.<br />I Receive.<br />I Belong.</h2>
+              <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#fbe8d4' }}>I Give.<br />I Receive.<br />I Belong.</h2>
               <p className="text-sm mb-4" style={{ color: 'rgba(245,230,192,0.70)' }}>I contribute what I have. I receive what I need. Together, we build circles of belonging.</p>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm" style={{ color: 'rgba(245,230,192,0.80)' }}>
@@ -85,7 +85,7 @@ export default function Feed() {
               <h3 className="font-semibold text-sm mb-3" style={{ color: 'hsl(var(--foreground))' }}>Explore Causes</h3>
               <div className="flex flex-wrap gap-1.5">
                 {['Companionship', 'Food', 'Home', 'Skill Sharing', 'Technology', 'Transportation'].map(cause => (
-                  <span key={cause} className="text-xs px-2.5 py-1 rounded-full cursor-pointer transition-colors" style={{ background: '#f0e8d0', color: 'hsl(var(--muted-foreground))', border: '1px solid hsl(var(--primary))' }}>
+                  <span key={cause} className="text-xs px-2.5 py-1 rounded-full cursor-pointer transition-colors" style={{ background: '#fbe8d4', color: 'hsl(var(--muted-foreground))', border: '1px solid hsl(var(--primary))' }}>
                     {cause}
                   </span>
                 ))}

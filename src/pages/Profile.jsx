@@ -136,8 +136,8 @@ export default function Profile() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-32 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />
-          <div className="h-48 rounded-2xl" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />
+          <div className="h-32 rounded-2xl" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />
+          <div className="h-48 rounded-2xl" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />
         </div>
       </div>
     );
@@ -146,12 +146,12 @@ export default function Profile() {
   return localize(
     <div className="max-w-3xl mx-auto px-4 py-8 pb-24 md:pb-8 space-y-6">
       {/* Profile Header */}
-      <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <div className="h-24" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', borderBottom: '2px solid #C9A84C' }} />
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <div className="h-24" style={{ background: 'linear-gradient(135deg, #141414, #141414)', borderBottom: '2px solid #bd4c0f' }} />
         <div className="px-6 pb-6">
           <div className="flex items-end gap-4 -mt-10 mb-4">
             <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
-              <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold overflow-hidden" style={{ background: '#C9A84C', border: '4px solid #FAF7EE' }}>
+              <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-bold overflow-hidden" style={{ background: '#bd4c0f', border: '4px solid #fcfaf8' }}>
                 {profile?.avatar_url ? (
                   <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
                 ) : initials}
@@ -163,7 +163,7 @@ export default function Profile() {
             </div>
             <div className="self-start">
               <h1 className="font-display text-2xl font-bold text-white">{user?.full_name}</h1>
-              {profile?.location && <p className="text-sm mt-2" style={{ color: '#6b5c3e' }}>📍 {profile.location}</p>}
+              {profile?.location && <p className="text-sm mt-2" style={{ color: '#6b7280' }}>📍 {profile.location}</p>}
             </div>
           </div>
 
@@ -172,14 +172,14 @@ export default function Profile() {
               <textarea value={bioText} onChange={e => setBioText(e.target.value)} placeholder="Tell the community about yourself and why you volunteer..." rows={3} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" />
               <input value={locationText} onChange={e => setLocationText(e.target.value)} placeholder="Your city or region" className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
               <div>
-                <p className="text-xs font-medium mb-2" style={{ color: '#6b5c3e' }}>Causes you care about:</p>
+                <p className="text-xs font-medium mb-2" style={{ color: '#6b7280' }}>Causes you care about:</p>
                 <div className="flex flex-wrap gap-1.5">
                   {CAUSES.map(cause => (
                     <button key={cause} type="button" onClick={() => toggleCause(cause)}
                       className="text-xs px-2.5 py-1 rounded-full transition-all"
                       style={selectedCauses.includes(cause)
-                        ? { background: '#1A2744', color: '#F5E6C0', border: '1px solid #1A2744' }
-                        : { background: '#f0e8d0', color: '#6b5c3e', border: '1px solid #C9A84C' }
+                        ? { background: '#141414', color: '#fbe8d4', border: '1px solid #141414' }
+                        : { background: '#fbe8d4', color: '#6b7280', border: '1px solid #bd4c0f' }
                       }>
                       {cause}
                     </button>
@@ -187,15 +187,15 @@ export default function Profile() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <button onClick={saveBio} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#C9A84C', color: '#1A2744' }}>
+                <button onClick={saveBio} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#bd4c0f', color: '#141414' }}>
                   <Check className="w-4 h-4" /> Save
                 </button>
-                <button onClick={() => setEditingBio(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
+                <button onClick={() => setEditingBio(false)} className="px-4 py-2 text-sm" style={{ color: '#6b7280' }}>Cancel</button>
               </div>
             </div>
           ) : (
             <div>
-              <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b5c3e' }}>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b7280' }}>
                 {profile?.bio || 'No bio yet. Tell the community about yourself!'}
               </p>
               {profile?.causes?.length > 0 && (
@@ -205,7 +205,7 @@ export default function Profile() {
                   ))}
                 </div>
               )}
-              <button onClick={() => setEditingBio(true)} className="flex items-center gap-2 text-sm transition-colors" style={{ color: '#C9A84C' }}>
+              <button onClick={() => setEditingBio(true)} className="flex items-center gap-2 text-sm transition-colors" style={{ color: '#bd4c0f' }}>
                 <Edit2 className="w-3.5 h-3.5" /> Edit profile
               </button>
             </div>
@@ -216,16 +216,16 @@ export default function Profile() {
       {/* Impact Stats */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { icon: Clock, label: 'Hours Volunteered', value: profile?.total_hours || 0, iconColor: '#1A2744', bgColor: 'rgba(26,39,68,0.10)' },
-          { icon: Calendar, label: 'Events Attended', value: profile?.events_attended || 0, iconColor: '#C9A84C', bgColor: 'rgba(201,168,76,0.15)' },
+          { icon: Clock, label: 'Hours Volunteered', value: profile?.total_hours || 0, iconColor: '#141414', bgColor: 'rgba(26,39,68,0.10)' },
+          { icon: Calendar, label: 'Events Attended', value: profile?.events_attended || 0, iconColor: '#bd4c0f', bgColor: 'rgba(201,168,76,0.15)' },
           { icon: Award, label: 'Opportunities', value: profile?.opportunities_completed || 0, iconColor: '#6b8f6e', bgColor: '#e8f5e9' },
         ].map(({ icon: Icon, label, value, iconColor, bgColor }) => (
-          <div key={label} className="rounded-2xl p-5 text-center" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+          <div key={label} className="rounded-2xl p-5 text-center" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
             <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ background: bgColor }}>
               <Icon className="w-5 h-5" style={{ color: iconColor }} />
             </div>
-            <p className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>{value}</p>
-            <p className="text-xs mt-1" style={{ color: '#6b5c3e' }}>{label}</p>
+            <p className="font-display text-3xl font-bold" style={{ color: '#141414' }}>{value}</p>
+            <p className="text-xs mt-1" style={{ color: '#6b7280' }}>{label}</p>
           </div>
         ))}
       </div>
@@ -233,27 +233,27 @@ export default function Profile() {
       <OpportunityMatcher />
 
       {/* Community Control Panel */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Community Control Panel</h2>
-        <p className="text-sm mb-5" style={{ color: '#6b5c3e' }}>Jump into community action from right here</p>
+      <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#141414' }}>Community Control Panel</h2>
+        <p className="text-sm mb-5" style={{ color: '#6b7280' }}>Jump into community action from right here</p>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {[
-            ...(user?.role === 'admin' ? [{ to: '/admin', Icon: Shield, label: 'Admin Dashboard', sub: 'Manage site & content', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.20)' }] : []),
-            { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
-            { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#C9A84C', bg: 'rgba(201,168,76,0.15)' },
+            ...(user?.role === 'admin' ? [{ to: '/admin', Icon: Shield, label: 'Admin Dashboard', sub: 'Manage site & content', iconColor: '#bd4c0f', bg: 'rgba(201,168,76,0.20)' }] : []),
+            { to: '/feed', Icon: Rss, label: 'Community Feed', sub: 'Post & interact', iconColor: '#141414', bg: 'rgba(26,39,68,0.10)' },
+            { to: '/opportunities', Icon: Briefcase, label: 'Opportunities', sub: 'Find volunteer roles', iconColor: '#bd4c0f', bg: 'rgba(201,168,76,0.15)' },
             { to: '/events', Icon: Calendar, label: 'Events', sub: 'RSVP & attend', iconColor: '#7c5cbf', bg: '#ede7f6' },
-            { to: '/workshops?tab=lead', Icon: Plus, label: 'Create Workshop', sub: 'Lead a new workshop', iconColor: '#1A2744', bg: 'rgba(26,39,68,0.10)' },
+            { to: '/workshops?tab=lead', Icon: Plus, label: 'Create Workshop', sub: 'Lead a new workshop', iconColor: '#141414', bg: 'rgba(26,39,68,0.10)' },
             { to: '/sos', Icon: AlertTriangle, label: 'SOS Board', sub: 'Urgent help requests', iconColor: '#c0392b', bg: '#fdecea' },
             { to: '/shabbat', Icon: Utensils, label: 'Shabbat Meals', sub: 'Host or join a table', iconColor: '#8a6a10', bg: 'rgba(201,168,76,0.20)' },
             { to: '/directory', Icon: Users, label: 'Member Discovery', sub: 'Browse & follow members', iconColor: '#2d7a3a', bg: '#e8f5e9' },
           ].map(({ to, Icon, label, sub, iconColor, bg }) => (
-            <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+            <Link key={to} to={to} className="group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all text-center hover:shadow-md" style={{ background: '#fbe8d4', border: '1px solid #f5a13c' }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-colors" style={{ background: bg }}>
                 <Icon className="w-5 h-5" style={{ color: iconColor }} />
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{label}</p>
-                <p className="text-xs" style={{ color: '#6b5c3e' }}>{sub}</p>
+                <p className="font-semibold text-sm" style={{ color: '#141414' }}>{label}</p>
+                <p className="text-xs" style={{ color: '#6b7280' }}>{sub}</p>
               </div>
             </Link>
           ))}
@@ -266,21 +266,21 @@ export default function Profile() {
       <MyContentPanel userId={user.id} />
 
       {/* Privacy Settings */}
-      <div className="rounded-2xl overflow-hidden" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="rounded-2xl overflow-hidden" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <button
           onClick={() => setShowPrivacyPanel(!showPrivacyPanel)}
           className="w-full flex items-center justify-between p-6"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(26,39,68,0.10)' }}>
-              <Shield className="w-5 h-5" style={{ color: '#1A2744' }} />
+              <Shield className="w-5 h-5" style={{ color: '#141414' }} />
             </div>
             <div className="text-left">
-              <h2 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Privacy Settings</h2>
-              <p className="text-xs" style={{ color: '#6b5c3e' }}>Control who can see your personal information</p>
+              <h2 className="font-display text-lg font-bold" style={{ color: '#141414' }}>Privacy Settings</h2>
+              <p className="text-xs" style={{ color: '#6b7280' }}>Control who can see your personal information</p>
             </div>
           </div>
-          <span className="text-sm font-semibold" style={{ color: '#C9A84C' }}>{showPrivacyPanel ? 'Hide' : 'Manage'}</span>
+          <span className="text-sm font-semibold" style={{ color: '#bd4c0f' }}>{showPrivacyPanel ? 'Hide' : 'Manage'}</span>
         </button>
         {showPrivacyPanel && (
           <div className="px-6 pb-6 space-y-3">
@@ -289,18 +289,18 @@ export default function Profile() {
               { key: 'location_visibility', label: 'Location', icon: MapPin },
               { key: 'bio_visibility', label: 'Bio', icon: Eye },
             ].map(({ key, label, icon: Icon }) => (
-              <div key={key} className="flex items-center justify-between p-3 rounded-xl" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+              <div key={key} className="flex items-center justify-between p-3 rounded-xl" style={{ background: '#fbe8d4', border: '1px solid #f5a13c' }}>
                 <div className="flex items-center gap-2">
-                  <Icon className="w-4 h-4" style={{ color: '#1A2744' }} />
-                  <span className="text-sm font-medium" style={{ color: '#1A2744' }}>{label}</span>
+                  <Icon className="w-4 h-4" style={{ color: '#141414' }} />
+                  <span className="text-sm font-medium" style={{ color: '#141414' }}>{label}</span>
                 </div>
-                <div className="flex gap-1 p-1 rounded-lg" style={{ background: '#fff', border: '1px solid #d4b97a' }}>
+                <div className="flex gap-1 p-1 rounded-lg" style={{ background: '#fff', border: '1px solid #f5a13c' }}>
                   <button
                     onClick={() => setPrivacy(prev => ({ ...prev, [key]: 'public' }))}
                     className="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all"
                     style={privacy[key] === 'public'
-                      ? { background: '#1A2744', color: '#F5E6C0' }
-                      : { color: '#6b5c3e' }
+                      ? { background: '#141414', color: '#fbe8d4' }
+                      : { color: '#6b7280' }
                     }
                   >
                     <Eye className="w-3 h-3" /> Visible
@@ -309,8 +309,8 @@ export default function Profile() {
                     onClick={() => setPrivacy(prev => ({ ...prev, [key]: 'private' }))}
                     className="flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-semibold transition-all"
                     style={privacy[key] === 'private'
-                      ? { background: '#1A2744', color: '#F5E6C0' }
-                      : { color: '#6b5c3e' }
+                      ? { background: '#141414', color: '#fbe8d4' }
+                      : { color: '#6b7280' }
                     }
                   >
                     <EyeOff className="w-3 h-3" /> Hidden
@@ -319,8 +319,8 @@ export default function Profile() {
               </div>
             ))}
             <div className="flex gap-2 justify-end pt-2">
-              <button onClick={() => setShowPrivacyPanel(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button onClick={savePrivacy} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              <button onClick={() => setShowPrivacyPanel(false)} className="px-4 py-2 text-sm" style={{ color: '#6b7280' }}>Cancel</button>
+              <button onClick={savePrivacy} className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl hover:opacity-90" style={{ background: '#bd4c0f', color: '#141414' }}>
                 <Check className="w-4 h-4" /> Save Settings
               </button>
             </div>
@@ -330,19 +330,19 @@ export default function Profile() {
 
       {/* Badges */}
       {badges.length > 0 && (
-        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <BadgeDisplay badges={badges} />
         </div>
       )}
 
       {/* Reviews */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Community Reviews</h2>
+          <h2 className="font-display text-xl font-bold" style={{ color: '#141414' }}>Community Reviews</h2>
         </div>
 
         {reviews.length === 0 ? (
-          <p className="text-sm text-center py-6" style={{ color: '#6b5c3e' }}>No reviews yet</p>
+          <p className="text-sm text-center py-6" style={{ color: '#6b7280' }}>No reviews yet</p>
         ) : (
           <div className="space-y-3">
             {reviews.map(review => <ReviewCard key={review.id} review={review} />)}
@@ -351,31 +351,31 @@ export default function Profile() {
       </div>
 
       {/* Hour Logs */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>Volunteer Hours Log</h2>
-          <button onClick={() => setShowLogForm(!showLogForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+          <h2 className="font-display text-xl font-bold" style={{ color: '#141414' }}>Volunteer Hours Log</h2>
+          <button onClick={() => setShowLogForm(!showLogForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity" style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>
             <Plus className="w-4 h-4" /> Log Hours
           </button>
         </div>
 
         {showLogForm && (
-          <form onSubmit={submitLog} className="rounded-xl p-4 mb-5 space-y-3" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+          <form onSubmit={submitLog} className="rounded-xl p-4 mb-5 space-y-3" style={{ background: '#fbe8d4', border: '1px solid #f5a13c' }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Activity Name *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Activity Name *</label>
                 <input required value={logForm.activity_name} onChange={e => setLogForm({...logForm, activity_name: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="e.g. Food bank volunteering" />
               </div>
               <div>
-                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Hours *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Hours *</label>
                 <input required type="number" min="0.5" step="0.5" value={logForm.hours} onChange={e => setLogForm({...logForm, hours: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="e.g. 3" />
               </div>
               <div>
-                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Date *</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Date *</label>
                 <input required type="date" value={logForm.date} onChange={e => setLogForm({...logForm, date: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" />
               </div>
               <div>
-                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Cause Category</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Cause Category</label>
                 <BottomSheetSelect
                   label="Cause Category"
                   value={logForm.cause_category}
@@ -385,13 +385,13 @@ export default function Profile() {
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Notes (optional)</label>
+                <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Notes (optional)</label>
                 <input value={logForm.notes} onChange={e => setLogForm({...logForm, notes: e.target.value})} className="w-full bg-card rounded-xl px-3 py-2.5 text-sm outline-none border border-border focus:border-primary/30" placeholder="Any notes about this activity..." />
               </div>
             </div>
             <div className="flex gap-2 justify-end">
-              <button type="button" onClick={() => setShowLogForm(false)} className="px-4 py-2 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" disabled={submittingLog} className="px-5 py-2 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+              <button type="button" onClick={() => setShowLogForm(false)} className="px-4 py-2 text-sm" style={{ color: '#6b7280' }}>Cancel</button>
+              <button type="submit" disabled={submittingLog} className="px-5 py-2 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>
                 {submittingLog ? 'Saving...' : 'Save Hours'}
               </button>
             </div>
@@ -401,20 +401,20 @@ export default function Profile() {
         {logs.length === 0 ? (
           <div className="text-center py-10">
             <div className="text-4xl mb-3">⏱️</div>
-            <p className="font-semibold mb-1" style={{ color: '#1A2744' }}>No hours logged yet</p>
-            <p className="text-sm" style={{ color: '#6b5c3e' }}>Start tracking your volunteer contributions!</p>
+            <p className="font-semibold mb-1" style={{ color: '#141414' }}>No hours logged yet</p>
+            <p className="text-sm" style={{ color: '#6b7280' }}>Start tracking your volunteer contributions!</p>
           </div>
         ) : (
           <div className="space-y-3">
             {logs.map(log => (
-              <div key={log.id} className="flex items-start justify-between p-4 rounded-xl" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
+              <div key={log.id} className="flex items-start justify-between p-4 rounded-xl" style={{ background: '#fbe8d4', border: '1px solid #f5a13c' }}>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>{log.activity_name}</p>
+                    <p className="font-semibold text-sm" style={{ color: '#141414' }}>{log.activity_name}</p>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${CAUSE_COLORS[log.cause_category] || 'bg-muted text-muted-foreground'}`}>{log.cause_category}</span>
                   </div>
                   <div className="flex items-center gap-3 mt-1 text-xs" style={{ color: '#888' }}>
-                    <span className="font-semibold" style={{ color: '#C9A84C' }}>{log.hours}h</span>
+                    <span className="font-semibold" style={{ color: '#bd4c0f' }}>{log.hours}h</span>
                     <span className="text-xs">{log.status === 'approved' ? '✓ approved' : log.status === 'rejected' ? '✗ rejected' : '⏳ pending'}</span>
                     {log.date && <span>{format(new Date(log.date), 'MMM d, yyyy')}</span>}
                     {log.notes && <span>· {log.notes}</span>}

@@ -25,10 +25,10 @@ export default function Contact() {
   if (submitted) {
     return localize(
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="p-10 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="p-10 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank You!</h2>
-          <p style={{ color: '#6b5c3e' }}>We've received your message and will get back to you within 2 business days.</p>
+          <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#141414' }}>Thank You!</h2>
+          <p style={{ color: '#6b7280' }}>We've received your message and will get back to you within 2 business days.</p>
         </div>
       </div>
     );
@@ -37,9 +37,9 @@ export default function Contact() {
   return localize(
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero */}
-      <div className="rounded-2xl p-8 mb-8 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
-        <Mail className="w-12 h-12 mx-auto mb-3" style={{ color: '#C9A84C' }} />
-        <h1 className="font-display text-3xl font-bold mb-2" style={{ color: '#F5E6C0' }}>Get In Touch</h1>
+      <div className="rounded-2xl p-8 mb-8 text-center" style={{ background: 'linear-gradient(135deg, #141414, #141414)', border: '2px solid #bd4c0f' }}>
+        <Mail className="w-12 h-12 mx-auto mb-3" style={{ color: '#bd4c0f' }} />
+        <h1 className="font-display text-3xl font-bold mb-2" style={{ color: '#fbe8d4' }}>Get In Touch</h1>
         <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(245,230,192,0.80)' }}>Have questions or feedback? We'd love to hear from you.</p>
       </div>
 
@@ -49,23 +49,23 @@ export default function Contact() {
           { icon: Phone, label: 'Phone', value: '+972 (0) 123-456-789', href: 'tel:+972123456789' },
           { icon: MapPin, label: 'Location', value: 'Israel', href: '#' },
         ].map(({ icon: Icon, label, value, href }) => (
-          <a key={label} href={href} className="rounded-2xl p-6 text-center hover:shadow-md transition-all group" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <Icon className="w-8 h-8 mx-auto mb-3 group-hover:scale-110 transition-transform" style={{ color: '#C9A84C' }} />
-            <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>{label}</h3>
-            <p className="text-sm" style={{ color: '#6b5c3e' }}>{value}</p>
+          <a key={label} href={href} className="rounded-2xl p-6 text-center hover:shadow-md transition-all group" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
+            <Icon className="w-8 h-8 mx-auto mb-3 group-hover:scale-110 transition-transform" style={{ color: '#bd4c0f' }} />
+            <h3 className="font-semibold mb-1" style={{ color: '#141414' }}>{label}</h3>
+            <p className="text-sm" style={{ color: '#6b7280' }}>{value}</p>
           </a>
         ))}
       </div>
 
       {/* Form */}
-      <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Send us a Message</h2>
-        <p className="text-sm mb-6" style={{ color: '#6b5c3e' }}>Fill out the form below and we'll respond as soon as possible.</p>
+      <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#141414' }}>Send us a Message</h2>
+        <p className="text-sm mb-6" style={{ color: '#6b7280' }}>Fill out the form below and we'll respond as soon as possible.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Name *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Name *</label>
               <input
                 required
                 value={form.name}
@@ -75,7 +75,7 @@ export default function Contact() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Email *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Email *</label>
               <input
                 required
                 type="email"
@@ -88,7 +88,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Subject *</label>
+            <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Subject *</label>
             <input
               required
               value={form.subject}
@@ -99,7 +99,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Message *</label>
+            <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Message *</label>
             <textarea
               required
               rows={5}
@@ -114,9 +114,9 @@ export default function Contact() {
             type="submit"
             disabled={submitting}
             className="w-full py-3.5 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 transition-opacity flex items-center justify-center gap-2"
-            style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}
+            style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}
           >
-            <Send className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <Send className="w-4 h-4" style={{ color: '#bd4c0f' }} />
             {submitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
@@ -124,7 +124,7 @@ export default function Contact() {
 
       {/* FAQ */}
       <div className="mt-12">
-        <h2 className="font-display text-2xl font-bold mb-6" style={{ color: '#1A2744' }}>Frequently Asked Questions</h2>
+        <h2 className="font-display text-2xl font-bold mb-6" style={{ color: '#141414' }}>Frequently Asked Questions</h2>
         <div className="space-y-4">
           {[
             { q: 'How do I get started as a volunteer?', a: 'Sign up on our platform, complete your profile, and browse volunteer opportunities. You can start contributing right away!' },
@@ -132,9 +132,9 @@ export default function Contact() {
             { q: 'Can my company participate in volunteering?', a: 'Yes! Visit our Corporate Volunteering page and submit an inquiry. We\'ll work with you to create a customized program.' },
             { q: 'How are volunteer hours tracked?', a: 'Log your hours in your Profile under Activity. You can track your total impact and generate certificates anytime.' },
           ].map(({ q, a }, idx) => (
-            <div key={idx} className="rounded-2xl p-5" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-              <h3 className="font-semibold mb-2" style={{ color: '#1A2744' }}>{q}</h3>
-              <p className="text-sm" style={{ color: '#6b5c3e' }}>{a}</p>
+            <div key={idx} className="rounded-2xl p-5" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
+              <h3 className="font-semibold mb-2" style={{ color: '#141414' }}>{q}</h3>
+              <p className="text-sm" style={{ color: '#6b7280' }}>{a}</p>
             </div>
           ))}
         </div>

@@ -51,7 +51,7 @@ export default function WorkshopListings() {
     return localize(
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="rounded-2xl p-5 animate-pulse h-40" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }} />
+          <div key={i} className="rounded-2xl p-5 animate-pulse h-40" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }} />
         ))}
       </div>
     );
@@ -70,7 +70,7 @@ export default function WorkshopListings() {
     const cats = (inq.workshop_categories || []).map(parseCategory).filter((c) => c.main);
     const mainCat = cats[0]?.main;
     return localize(
-      <div key={inq.id} className="overflow-hidden transition-all hover:shadow-lg" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}>
+      <div key={inq.id} className="overflow-hidden transition-all hover:shadow-lg" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f', borderRadius: '12px' }}>
         {CATEGORY_IMAGES[mainCat] && (
           <ContentImageDetails image={CATEGORY_IMAGES[mainCat]} alt={mainCat} title={inq.title || mainCat} description={`${inq.first_name} ${inq.last_name}`} className="h-28 w-full overflow-hidden" imageClassName="w-full h-full object-cover">
             {inq.description && <p className="whitespace-pre-wrap break-words text-sm">{inq.description}</p>}
@@ -84,50 +84,50 @@ export default function WorkshopListings() {
         <div className="p-5">
         <div className="flex items-start justify-between mb-3">
           <span className="text-2xl">{CATEGORY_EMOJI[mainCat] || '🎓'}</span>
-          <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
+          <span className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: '#fbe8d4', color: '#6b7280' }}>
             {inq.format === 'Both' ? 'In-person + Zoom' : inq.format}
           </span>
         </div>
-        <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>
+        <h3 className="font-semibold mb-1" style={{ color: '#141414' }}>
           {inq.first_name} {inq.last_name}
         </h3>
         <div className="flex flex-wrap gap-1.5 mb-3">
           {cats.map((c, idx) => (
-            <span key={idx} className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#fff', color: '#6b5c3e', border: '1px solid #e0d5b0' }}>
+            <span key={idx} className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#fff', color: '#6b7280', border: '1px solid #e0d5b0' }}>
               {c.sub ? `${c.sub}` : c.main}
             </span>
           ))}
         </div>
         {inq.location && (
           <div className="flex items-center gap-1 text-xs mb-1" style={{ color: '#888' }}>
-            <MapPin className="w-3 h-3" style={{ color: '#C9A84C' }} /> {inq.location}
+            <MapPin className="w-3 h-3" style={{ color: '#bd4c0f' }} /> {inq.location}
           </div>
         )}
         {inq.language && (
           <div className="flex items-center gap-1 text-xs mb-1" style={{ color: '#888' }}>
-            <Sparkles className="w-3 h-3" style={{ color: '#C9A84C' }} /> {inq.language}{inq.other_language ? ` (${inq.other_language})` : ''}
+            <Sparkles className="w-3 h-3" style={{ color: '#bd4c0f' }} /> {inq.language}{inq.other_language ? ` (${inq.other_language})` : ''}
           </div>
         )}
         {inq.workshop_date && (
           <div className="flex items-center gap-1 text-xs mb-1" style={{ color: '#888' }}>
-            <Calendar className="w-3 h-3" style={{ color: '#C9A84C' }} /> {new Date(inq.workshop_date).toLocaleDateString(lang === 'he' ? 'he-IL' : 'en-IL', { day: 'numeric', month: 'short', year: 'numeric' })}
+            <Calendar className="w-3 h-3" style={{ color: '#bd4c0f' }} /> {new Date(inq.workshop_date).toLocaleDateString(lang === 'he' ? 'he-IL' : 'en-IL', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
         )}
         {inq.zoom_link && (
           <div className="flex items-center gap-1 text-xs mb-1" style={{ color: '#888' }}>
-            <Video className="w-3 h-3" style={{ color: '#C9A84C' }} /> Zoom available
+            <Video className="w-3 h-3" style={{ color: '#bd4c0f' }} /> Zoom available
           </div>
         )}
         {inq.accessibility_options?.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {inq.accessibility_options.map((acc) => (
-              <span key={acc} className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#f0e8d0', color: '#1A2744', border: '1px solid #C9A84C' }}>
+              <span key={acc} className="text-[11px] px-2 py-0.5 rounded-full font-medium" style={{ background: '#fbe8d4', color: '#141414', border: '1px solid #bd4c0f' }}>
                 ♿ {acc}
               </span>
             ))}
           </div>
         )}
-        {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b5c3e' }}>{inq.notes}</p>}
+        {inq.notes && <p className="text-xs mt-2 line-clamp-2" style={{ color: '#6b7280' }}>{inq.notes}</p>}
         {inq.inquiry_type === 'lead' && <WorkshopMap workshop={inq} />}
         <div className="mt-3">{ownerDelete(inq)}</div>
         </div>
@@ -139,10 +139,10 @@ export default function WorkshopListings() {
     <div className="space-y-8">
       {leads.length > 0 && (
         <div>
-          <h2 className="font-display text-2xl font-bold mb-1 flex items-center gap-2" style={{ color: '#1A2744' }}>
-            <Sparkles className="w-5 h-5" style={{ color: '#C9A84C' }} /> Upcoming Workshops
+          <h2 className="font-display text-2xl font-bold mb-1 flex items-center gap-2" style={{ color: '#141414' }}>
+            <Sparkles className="w-5 h-5" style={{ color: '#bd4c0f' }} /> Upcoming Workshops
           </h2>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>Workshops offered by community leaders</p>
+          <p className="text-sm mb-4" style={{ color: '#6b7280' }}>Workshops offered by community leaders</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {leads.map(renderCard)}
           </div>
@@ -151,10 +151,10 @@ export default function WorkshopListings() {
       )}
       {participants.length > 0 && (
         <div>
-          <h2 className="font-display text-2xl font-bold mb-1 flex items-center gap-2" style={{ color: '#1A2744' }}>
-            <Users className="w-5 h-5" style={{ color: '#C9A84C' }} /> Community Interests
+          <h2 className="font-display text-2xl font-bold mb-1 flex items-center gap-2" style={{ color: '#141414' }}>
+            <Users className="w-5 h-5" style={{ color: '#bd4c0f' }} /> Community Interests
           </h2>
-          <p className="text-sm mb-4" style={{ color: '#6b5c3e' }}>What community members want to learn</p>
+          <p className="text-sm mb-4" style={{ color: '#6b7280' }}>What community members want to learn</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {participants.map(renderCard)}
           </div>

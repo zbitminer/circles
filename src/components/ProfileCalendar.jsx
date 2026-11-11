@@ -16,7 +16,7 @@ const CAUSE_COLORS = {
   'Cooking': '#f59e0b',
   'Health & Wellness': '#10b981',
   'Support Groups': '#3b82f6',
-  'Shabbat Meal': '#C9A84C',
+  'Shabbat Meal': '#bd4c0f',
   'Workshop': '#7c5cbf',
   'Other': '#cbb5a0',
 };
@@ -120,18 +120,18 @@ export default function ProfileCalendar({ userId }) {
   };
 
   return (
-    <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+    <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>My Calendar</h2>
-          <p className="text-xs" style={{ color: '#6b5c3e' }}>Your RSVP’d events, Shabbat meals, workshops & logged hours</p>
+          <h2 className="font-display text-xl font-bold" style={{ color: '#141414' }}>My Calendar</h2>
+          <p className="text-xs" style={{ color: '#6b7280' }}>Your RSVP’d events, Shabbat meals, workshops & logged hours</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setCurrentMonth(addMonths(currentMonth, -1))} className="p-2 rounded-lg transition-colors hover:bg-black/5" style={{ color: '#1A2744' }}>
+          <button onClick={() => setCurrentMonth(addMonths(currentMonth, -1))} className="p-2 rounded-lg transition-colors hover:bg-black/5" style={{ color: '#141414' }}>
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="text-sm font-semibold min-w-[120px] text-center" style={{ color: '#1A2744' }}>{format(currentMonth, 'MMMM yyyy')}</span>
-          <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 rounded-lg transition-colors hover:bg-black/5" style={{ color: '#1A2744' }}>
+          <span className="text-sm font-semibold min-w-[120px] text-center" style={{ color: '#141414' }}>{format(currentMonth, 'MMMM yyyy')}</span>
+          <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-2 rounded-lg transition-colors hover:bg-black/5" style={{ color: '#141414' }}>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
@@ -140,7 +140,7 @@ export default function ProfileCalendar({ userId }) {
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {weekDays.map(d => (
-          <div key={d} className="text-center text-xs font-semibold py-1" style={{ color: '#6b5c3e' }}>{d}</div>
+          <div key={d} className="text-center text-xs font-semibold py-1" style={{ color: '#6b7280' }}>{d}</div>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-1">
@@ -156,12 +156,12 @@ export default function ProfileCalendar({ userId }) {
               className="aspect-square rounded-lg p-1 flex flex-col items-center justify-start transition-all text-left overflow-hidden"
               style={
                 isSelected
-                  ? { background: '#1A2744', color: '#F5E6C0' }
+                  ? { background: '#141414', color: '#fbe8d4' }
                   : hasEvent
-                  ? { background: 'rgba(217, 119, 36, 0.18)', border: '1.5px solid #d97724', color: '#1A2744' }
+                  ? { background: 'rgba(217, 119, 36, 0.18)', border: '1.5px solid #d97724', color: '#141414' }
                   : items.length > 0
-                  ? { background: '#f0e8d0', border: '1px solid #d4b97a', color: '#1A2744' }
-                  : { background: 'transparent', border: '1px solid #e5dcc4', color: '#1A2744' }
+                  ? { background: '#fbe8d4', border: '1px solid #f5a13c', color: '#141414' }
+                  : { background: 'transparent', border: '1px solid #e5dcc4', color: '#141414' }
               }
             >
               <span className="text-xs font-bold">{format(day, 'd')}</span>
@@ -172,7 +172,7 @@ export default function ProfileCalendar({ userId }) {
                       <span
                         key={i}
                         className="w-2 h-2 rounded-full"
-                        style={{ background: isSelected ? '#F5E6C0' : (item.type === 'event' ? '#1A2744' : '#C9A84C') }}
+                        style={{ background: isSelected ? '#fbe8d4' : (item.type === 'event' ? '#141414' : '#bd4c0f') }}
                       />
                     ))}
                   </div>
@@ -187,34 +187,34 @@ export default function ProfileCalendar({ userId }) {
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-4 mt-4 text-xs" style={{ color: '#6b5c3e' }}>
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#1A2744' }} /> RSVP’d Event / Meal / Workshop</span>
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#C9A84C' }} /> Hours Logged</span>
+      <div className="flex flex-wrap items-center gap-4 mt-4 text-xs" style={{ color: '#6b7280' }}>
+        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#141414' }} /> RSVP’d Event / Meal / Workshop</span>
+        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: '#bd4c0f' }} /> Hours Logged</span>
       </div>
 
       {/* Selected date details */}
       {selectedDate && (
-        <div className="mt-4 p-4 rounded-xl" style={{ background: '#f0e8d0', border: '1px solid #d4b97a' }}>
-          <p className="text-sm font-semibold mb-2" style={{ color: '#1A2744' }}>{format(selectedDate, 'EEEE, MMM d, yyyy')}</p>
+        <div className="mt-4 p-4 rounded-xl" style={{ background: '#fbe8d4', border: '1px solid #f5a13c' }}>
+          <p className="text-sm font-semibold mb-2" style={{ color: '#141414' }}>{format(selectedDate, 'EEEE, MMM d, yyyy')}</p>
           {selectedItems.length === 0 ? (
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>Nothing scheduled for this day.</p>
+            <p className="text-xs" style={{ color: '#6b7280' }}>Nothing scheduled for this day.</p>
           ) : (
             <div className="space-y-2">
               {selectedItems.map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5 bg-white/70 p-2.5 rounded-lg">
-                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: CAUSE_COLORS[item.cause] || '#1A2744' }}>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: CAUSE_COLORS[item.cause] || '#141414' }}>
                     {item.type === 'event' ? <Calendar className="w-3.5 h-3.5 text-white" /> : <Clock className="w-3.5 h-3.5 text-white" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-semibold" style={{ color: '#1A2744' }}>{item.title}</p>
+                      <p className="text-sm font-semibold" style={{ color: '#141414' }}>{item.title}</p>
                       {item.badge && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#1A2744', color: '#F5E6C0' }}>
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#141414', color: '#fbe8d4' }}>
                           {item.badge}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs mt-0.5" style={{ color: '#6b5c3e' }}>
+                    <p className="text-xs mt-0.5" style={{ color: '#6b7280' }}>
                       {item.type === 'event' ? (item.location ? `📍 ${item.location}` : 'Event') : `${item.hours}h logged`}
                       {item.cause && ` · ${item.cause}`}
                     </p>
@@ -227,12 +227,12 @@ export default function ProfileCalendar({ userId }) {
       )}
 
       {/* List of all RSVP'd events across all months so none are hidden */}
-      <div className="mt-5 pt-4 border-t" style={{ borderColor: '#d4b97a' }}>
-        <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5" style={{ color: '#1A2744' }}>
+      <div className="mt-5 pt-4 border-t" style={{ borderColor: '#f5a13c' }}>
+        <h3 className="text-xs font-bold uppercase tracking-wider mb-2.5" style={{ color: '#141414' }}>
           My RSVP’d & Scheduled Activities ({sortedRsvps.length})
         </h3>
         {sortedRsvps.length === 0 ? (
-          <p className="text-xs" style={{ color: '#6b5c3e' }}>
+          <p className="text-xs" style={{ color: '#6b7280' }}>
             You haven’t RSVP’d to any events or meals yet. Tap "RSVP" on any event in the Events page to add it here.
           </p>
         ) : (
@@ -249,12 +249,12 @@ export default function ProfileCalendar({ userId }) {
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold truncate" style={{ color: '#1A2744' }}>{item.title}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full font-medium flex-shrink-0" style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
+                      <span className="text-xs font-bold truncate" style={{ color: '#141414' }}>{item.title}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full font-medium flex-shrink-0" style={{ background: '#fbe8d4', color: '#6b7280' }}>
                         {item.badge}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-[11px] mt-0.5" style={{ color: '#6b5c3e' }}>
+                    <div className="flex items-center gap-2 text-[11px] mt-0.5" style={{ color: '#6b7280' }}>
                       <span>{isValid(parsed) ? format(parsed, 'MMM d, yyyy') : item.date}</span>
                       {item.location && (
                         <span className="inline-flex items-center gap-0.5 truncate">

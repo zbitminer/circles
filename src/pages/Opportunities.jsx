@@ -451,7 +451,7 @@ export default function Opportunities() {
 
           })() :
 
-          <div className="text-center p-4 rounded-xl" style={{ background: 'hsl(var(--secondary))', border: '1px solid #E67E22' }}>
+          <div className="text-center p-4 rounded-xl" style={{ background: 'hsl(var(--secondary))', border: '1px solid #bd4c0f' }}>
                 <p className="text-sm font-bold mb-2" style={{ color: 'hsl(var(--foreground))' }}>Registration Required</p>
                 <p className="text-xs mb-3" style={{ color: '#555' }}>You must register to express interest and get matched.</p>
                 <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm hover:opacity-90" style={{ background: 'hsl(var(--primary))', color: '#fff' }}>

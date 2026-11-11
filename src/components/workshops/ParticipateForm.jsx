@@ -41,11 +41,11 @@ export default function ParticipateForm() {
 
   if (done) {
     return localize(
-      <div className="text-center py-12 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="text-center py-12 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="text-5xl mb-4">🎉</div>
-        <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>Thank you!</h3>
-        <p className="text-sm" style={{ color: '#6b5c3e' }}>We received your request. We'll contact you when a group forms for your chosen workshops.</p>
-        <button onClick={() => { setDone(false); setCategories([]); }} className="mt-4 text-sm font-semibold" style={{ color: '#C9A84C' }}>Submit another request →</button>
+        <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>Thank you!</h3>
+        <p className="text-sm" style={{ color: '#6b7280' }}>We received your request. We'll contact you when a group forms for your chosen workshops.</p>
+        <button onClick={() => { setDone(false); setCategories([]); }} className="mt-4 text-sm font-semibold" style={{ color: '#bd4c0f' }}>Submit another request →</button>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export default function ParticipateForm() {
       </div>
 
       <div>
-        <p className="text-sm font-semibold mb-2" style={{ color: '#1A2744' }}>Which workshops would you like to attend?</p>
+        <p className="text-sm font-semibold mb-2" style={{ color: '#141414' }}>Which workshops would you like to attend?</p>
         <WorkshopCategoryGrid selected={categories} onToggle={setCategories} />
       </div>
 
@@ -104,9 +104,9 @@ export default function ParticipateForm() {
         onChange={(vals) => set('accessibility_options', vals)}
       />
 
-      <p className="text-xs italic" style={{ color: '#6b5c3e' }}>◦ Workshops are subject to a minimum number of participants — we'll contact you when a group forms.</p>
+      <p className="text-xs italic" style={{ color: '#6b7280' }}>◦ Workshops are subject to a minimum number of participants — we'll contact you when a group forms.</p>
 
-      <button type="submit" disabled={submitting} className="w-full py-3 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+      <button type="submit" disabled={submitting} className="w-full py-3 font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>
         {submitting ? 'Submitting...' : 'Submit Request'}
       </button>
     </form>
@@ -118,7 +118,7 @@ const inputCls = "w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none bord
 function Field({ label, children }) {
   return (
     <div>
-      <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>{label}</label>
+      <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>{label}</label>
       {children}
     </div>
   );

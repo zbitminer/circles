@@ -43,7 +43,7 @@ export default function Analytics() {
   if (!user) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-        <p style={{ color: '#6b5c3e' }}>Please sign in to view your impact</p>
+        <p style={{ color: '#6b7280' }}>Please sign in to view your impact</p>
       </div>
     );
   }
@@ -51,8 +51,8 @@ export default function Analytics() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>📊 Your Impact</h1>
-        <p className="text-sm mt-2" style={{ color: '#6b5c3e' }}>Track your volunteer contributions</p>
+        <h1 className="font-display text-3xl font-bold" style={{ color: '#141414' }}>📊 Your Impact</h1>
+        <p className="text-sm mt-2" style={{ color: '#6b7280' }}>Track your volunteer contributions</p>
       </div>
 
       {/* How it Works - 3 Steps */}
@@ -62,51 +62,51 @@ export default function Analytics() {
           { step: '2', emoji: '📈', title: 'Track Progress', desc: 'See your total impact grow over time.' },
           { step: '3', emoji: '🏆', title: 'Get Recognized', desc: 'Generate certificates and earn badges for your contributions.' },
         ].map(({ step, emoji, title, desc }) => (
-          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#1A2744', color: '#F5E6C0' }}>{step}</div>
+          <div key={step} className="flex flex-col items-center gap-2 p-4 rounded-xl text-center" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
+            <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#141414', color: '#fbe8d4' }}>{step}</div>
             <div className="text-xl">{emoji}</div>
-            <h3 className="font-semibold text-xs" style={{ color: '#1A2744' }}>{title}</h3>
-            <p className="text-xs" style={{ color: '#6b5c3e' }}>{desc}</p>
+            <h3 className="font-semibold text-xs" style={{ color: '#141414' }}>{title}</h3>
+            <p className="text-xs" style={{ color: '#6b7280' }}>{desc}</p>
           </div>
         ))}
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center gap-3 mb-2">
-            <Clock className="w-5 h-5" style={{ color: '#C9A84C' }} />
+            <Clock className="w-5 h-5" style={{ color: '#bd4c0f' }} />
             <p className="text-sm text-muted-foreground">Total Hours</p>
           </div>
-          <p className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>{totalHours}</p>
+          <p className="font-display text-3xl font-bold" style={{ color: '#141414' }}>{totalHours}</p>
         </div>
-        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center gap-3 mb-2">
-            <Award className="w-5 h-5" style={{ color: '#C9A84C' }} />
+            <Award className="w-5 h-5" style={{ color: '#bd4c0f' }} />
             <p className="text-sm text-muted-foreground">Events Attended</p>
           </div>
-          <p className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>{totalEvents}</p>
+          <p className="font-display text-3xl font-bold" style={{ color: '#141414' }}>{totalEvents}</p>
         </div>
-        <div className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center gap-3 mb-2">
-            <Award className="w-5 h-5" style={{ color: '#C9A84C' }} />
+            <Award className="w-5 h-5" style={{ color: '#bd4c0f' }} />
             <p className="text-sm text-muted-foreground">Meals Attended</p>
           </div>
-          <p className="font-display text-3xl font-bold" style={{ color: '#1A2744' }}>{totalMeals}</p>
+          <p className="font-display text-3xl font-bold" style={{ color: '#141414' }}>{totalMeals}</p>
         </div>
       </div>
 
       {/* Certificate */}
-      <div className="rounded-2xl p-6 mb-8" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+      <div className="rounded-2xl p-6 mb-8" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-display text-lg font-bold" style={{ color: '#1A2744' }}>Download Impact Certificate</h2>
-            <p className="text-sm mt-1" style={{ color: '#6b5c3e' }}>Get a certificate showing your volunteer hours</p>
+            <h2 className="font-display text-lg font-bold" style={{ color: '#141414' }}>Download Impact Certificate</h2>
+            <p className="text-sm mt-1" style={{ color: '#6b7280' }}>Get a certificate showing your volunteer hours</p>
           </div>
           <button
             onClick={handleGenerateCertificate}
             className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
-            style={{ background: '#1A2744', color: '#F5E6C0' }}
+            style={{ background: '#141414', color: '#fbe8d4' }}
           >
             <Download className="w-4 h-4" />
             Generate PDF
@@ -115,25 +115,25 @@ export default function Analytics() {
       </div>
 
       {/* Hour Log History */}
-      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#C9A84C', background: '#FAF7EE' }}>
-        <div className="p-6 border-b font-semibold" style={{ borderColor: '#C9A84C', color: '#1A2744' }}>
+      <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#bd4c0f', background: '#fcfaf8' }}>
+        <div className="p-6 border-b font-semibold" style={{ borderColor: '#bd4c0f', color: '#141414' }}>
           Hour Log History
         </div>
-        <div className="divide-y" style={{ divideColor: '#C9A84C' }}>
+        <div className="divide-y" style={{ divideColor: '#bd4c0f' }}>
           {loading ? (
-            <div className="p-6 text-center text-sm" style={{ color: '#6b5c3e' }}>Loading...</div>
+            <div className="p-6 text-center text-sm" style={{ color: '#6b7280' }}>Loading...</div>
           ) : logs.length === 0 ? (
-            <div className="p-6 text-center text-sm" style={{ color: '#6b5c3e' }}>No hours logged yet</div>
+            <div className="p-6 text-center text-sm" style={{ color: '#6b7280' }}>No hours logged yet</div>
           ) : (
             logs.map(log => (
               <div key={log.id} className="p-6 flex items-center justify-between">
                 <div>
-                  <p className="font-semibold" style={{ color: '#1A2744' }}>{log.activity_name}</p>
-                  <p className="text-sm" style={{ color: '#6b5c3e' }}>{log.cause_category}</p>
+                  <p className="font-semibold" style={{ color: '#141414' }}>{log.activity_name}</p>
+                  <p className="text-sm" style={{ color: '#6b7280' }}>{log.cause_category}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold" style={{ color: '#C9A84C' }}>{log.hours} hours</p>
-                  <p className="text-xs" style={{ color: '#6b5c3e' }}>{format(new Date(log.date), 'MMM d, yyyy')}</p>
+                  <p className="font-bold" style={{ color: '#bd4c0f' }}>{log.hours} hours</p>
+                  <p className="text-xs" style={{ color: '#6b7280' }}>{format(new Date(log.date), 'MMM d, yyyy')}</p>
                 </div>
               </div>
             ))

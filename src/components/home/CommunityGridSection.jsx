@@ -33,7 +33,7 @@ const MEMBERS = [
 
 
 const JOINED_AVATARS = ['R', 'E', 'S', 'M', 'Y'];
-const JOINED_COLORS = ['#3498DB', '#E74C3C', '#2ECC71', '#9B59B6', '#E67E22'];
+const JOINED_COLORS = ['#3498DB', '#E74C3C', '#2ECC71', '#9B59B6', '#bd4c0f'];
 
 export default function CommunityGridSection() {
   const { t } = useLanguage();

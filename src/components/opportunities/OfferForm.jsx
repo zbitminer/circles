@@ -26,8 +26,8 @@ export default function OfferForm({ user, onPosted, onSaved }) {
   };
 
   return localize(
-    <form id="community-offer-form" onSubmit={handleSubmit} className="rounded-2xl p-6" style={{ background: '#FAF7EE', border: '1.5px solid #D35E35' }}>
-      <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#1A2744' }}>Share What You'd Like to Offer</h2>
+    <form id="community-offer-form" onSubmit={handleSubmit} className="rounded-2xl p-6" style={{ background: '#fcfaf8', border: '1.5px solid #D35E35' }}>
+      <h2 className="font-display text-xl font-bold mb-1" style={{ color: '#141414' }}>Share What You'd Like to Offer</h2>
       <p className="text-xs mb-5 text-muted-foreground">Selecting a topic publishes your offer immediately. Add more topics to the same offer, then save your written details below.</p>
       {saved && <p role="status" className="text-sm text-primary mb-4">Your offer is live. Topic changes are saved automatically.</p>}
       {submitting && <p role="status" className="text-sm text-muted-foreground">Saving your offer…</p>}
@@ -35,8 +35,8 @@ export default function OfferForm({ user, onPosted, onSaved }) {
 
       {/* Category multi-select */}
       <div className="mb-5">
-        <label className="block text-sm font-bold mb-2" style={{ color: '#1A2744' }}>What can you offer? *</label>
-        <p className="text-xs mb-3" style={{ color: '#6b5c3e' }}>Select one or more topics across categories.</p>
+        <label className="block text-sm font-bold mb-2" style={{ color: '#141414' }}>What can you offer? *</label>
+        <p className="text-xs mb-3" style={{ color: '#6b7280' }}>Select one or more topics across categories.</p>
         <fieldset disabled={submitting} className="disabled:opacity-60">
           <CategorySearchFilters multiSelect selectedFilters={selectedCategories} onSelectFilters={selectTopics} />
         </fieldset>
@@ -44,13 +44,13 @@ export default function OfferForm({ user, onPosted, onSaved }) {
 
       {/* Description */}
       <div className="mb-4">
-        <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Tell us more about your offer</label>
+        <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Tell us more about your offer</label>
         <textarea
           value={description}
           onChange={e => setDescription(e.target.value)}
           rows={3}
           className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30 resize-none"
-          style={{ borderColor: '#C9A84C' }}
+          style={{ borderColor: '#bd4c0f' }}
           placeholder="e.g. I'm a professional chef and can teach cooking classes on weekends..."
         />
       </div>
@@ -61,24 +61,24 @@ export default function OfferForm({ user, onPosted, onSaved }) {
       {/* Location + Type */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
         <div>
-          <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Your Location</label>
+          <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Your Location</label>
           <input
             value={location}
             onChange={e => setLocation(e.target.value)}
             className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30"
-            style={{ borderColor: '#C9A84C' }}
+            style={{ borderColor: '#bd4c0f' }}
             placeholder="e.g. Safed, Israel"
           />
         </div>
         <div>
-          <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>In person or remotely?</label>
+          <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>In person or remotely?</label>
           <BottomSheetSelect
             label="In person or remotely?"
             value={type}
             onChange={e => setType(e.target.value)}
             options={TYPES}
             className="w-full bg-white rounded-xl px-4 py-3 text-sm outline-none border focus:border-primary/30"
-            style={{ borderColor: '#C9A84C' }}
+            style={{ borderColor: '#bd4c0f' }}
           />
         </div>
       </div>

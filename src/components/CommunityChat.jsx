@@ -63,14 +63,14 @@ export default function CommunityChat({ currentUser }) {
   };
 
   return localize(
-    <div className="rounded-2xl overflow-hidden flex flex-col h-[600px]" style={{ borderColor: '#C9A84C', background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+    <div className="rounded-2xl overflow-hidden flex flex-col h-[600px]" style={{ borderColor: '#bd4c0f', background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
       {/* Header */}
-      <div className="p-4 border-b flex items-center gap-2" style={{ borderColor: '#C9A84C', background: '#1A2744' }}>
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: '#C9A84C' }}>
-          <Users className="w-5 h-5" style={{ color: '#1A2744' }} />
+      <div className="p-4 border-b flex items-center gap-2" style={{ borderColor: '#bd4c0f', background: '#141414' }}>
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: '#bd4c0f' }}>
+          <Users className="w-5 h-5" style={{ color: '#141414' }} />
         </div>
         <div>
-          <p className="font-bold text-sm" style={{ color: '#F5E6C0' }}>Community Chat Room</p>
+          <p className="font-bold text-sm" style={{ color: '#fbe8d4' }}>Community Chat Room</p>
           <p className="text-xs" style={{ color: 'rgba(245,230,192,0.6)' }}>Everyone in the community · Be kind & respectful</p>
         </div>
       </div>
@@ -78,12 +78,12 @@ export default function CommunityChat({ currentUser }) {
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3">
         {loading ? (
-          <div className="text-center text-sm py-8" style={{ color: '#6b5c3e' }}>Loading messages…</div>
+          <div className="text-center text-sm py-8" style={{ color: '#6b7280' }}>Loading messages…</div>
         ) : messages.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-4xl mb-3">💬</div>
-            <p className="font-semibold text-sm" style={{ color: '#1A2744' }}>No messages yet</p>
-            <p className="text-xs mt-1" style={{ color: '#6b5c3e' }}>Be the first to say hello!</p>
+            <p className="font-semibold text-sm" style={{ color: '#141414' }}>No messages yet</p>
+            <p className="text-xs mt-1" style={{ color: '#6b7280' }}>Be the first to say hello!</p>
           </div>
         ) : (
           messages.map(msg => {
@@ -91,17 +91,17 @@ export default function CommunityChat({ currentUser }) {
             return (
               <div key={msg.id} className={`flex gap-2 ${isMe ? 'justify-end' : 'justify-start'}`}>
                 {!isMe && (
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: '#C9A84C', color: '#1A2744' }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: '#bd4c0f', color: '#141414' }}>
                     {initials(msg.from_user_name)}
                   </div>
                 )}
                 <div className="max-w-[70%]">
-                  {!isMe && <p className="text-xs font-semibold mb-0.5" style={{ color: '#1A2744' }}>{msg.from_user_name}</p>}
+                  {!isMe && <p className="text-xs font-semibold mb-0.5" style={{ color: '#141414' }}>{msg.from_user_name}</p>}
                   <div
                     className="px-4 py-2 rounded-2xl text-sm"
                     style={{
-                      background: isMe ? '#1A2744' : '#fff',
-                      color: isMe ? '#F5E6C0' : '#1A2744',
+                      background: isMe ? '#141414' : '#fff',
+                      color: isMe ? '#fbe8d4' : '#141414',
                       border: isMe ? 'none' : '1px solid #e0d5b0'
                     }}
                   >
@@ -120,7 +120,7 @@ export default function CommunityChat({ currentUser }) {
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t flex gap-2" style={{ borderColor: '#C9A84C' }}>
+      <div className="p-4 border-t flex gap-2" style={{ borderColor: '#bd4c0f' }}>
         <input
           type="text"
           value={newMessage}
@@ -128,13 +128,13 @@ export default function CommunityChat({ currentUser }) {
           onKeyDown={e => e.key === 'Enter' && !sending && handleSend()}
           placeholder="Share something with the community…"
           className="flex-1 px-4 py-2.5 rounded-xl bg-white border outline-none text-sm"
-          style={{ borderColor: '#C9A84C' }}
+          style={{ borderColor: '#bd4c0f' }}
         />
         <button
           onClick={handleSend}
           disabled={sending || !newMessage.trim()}
           className="px-4 rounded-xl transition-opacity hover:opacity-80 disabled:opacity-50"
-          style={{ background: '#1A2744', color: '#F5E6C0' }}
+          style={{ background: '#141414', color: '#fbe8d4' }}
         >
           <Send className="w-4 h-4" />
         </button>

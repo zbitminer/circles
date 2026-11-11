@@ -96,9 +96,9 @@ export default function Health() {
   return localize(
     <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Hero Banner */}
-      <div className="rounded-2xl p-8 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
+      <div className="rounded-2xl p-8 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #141414, #141414)', border: '2px solid #bd4c0f' }}>
         <div className="text-4xl mb-3">🕊️</div>
-        <h1 className="font-display text-3xl md:text-4xl font-bold mb-3" style={{ color: '#F5E6C0' }}>
+        <h1 className="font-display text-3xl md:text-4xl font-bold mb-3" style={{ color: '#fbe8d4' }}>
           A Nation in Crisis — Together We Heal
         </h1>
         <p className="text-base leading-relaxed max-w-2xl mx-auto" style={{ color: 'rgba(245,230,192,0.85)' }}>
@@ -134,15 +134,15 @@ export default function Health() {
         ].map(({ emoji, title, desc, color, bg }) => (
           <div key={title} className="rounded-2xl p-5" style={{ background: bg, border: `1.5px solid ${color}22` }}>
             <div className="text-2xl mb-3">{emoji}</div>
-            <h3 className="font-semibold text-base mb-2" style={{ color: '#1A2744' }}>{title}</h3>
-            <p className="text-xs leading-relaxed" style={{ color: '#6b5c3e' }}>{desc}</p>
+            <h3 className="font-semibold text-base mb-2" style={{ color: '#141414' }}>{title}</h3>
+            <p className="text-xs leading-relaxed" style={{ color: '#6b7280' }}>{desc}</p>
           </div>
         ))}
       </div>
 
       {/* How It Works */}
-      <div className="rounded-2xl p-6 mb-8" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
-        <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#1A2744' }}>How Wellness Support Works</h2>
+      <div className="rounded-2xl p-6 mb-8" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
+        <h2 className="font-display text-xl font-bold mb-4" style={{ color: '#141414' }}>How Wellness Support Works</h2>
         <ol className="space-y-3">
           {[
             { num: '1', text: 'Post a request describing the type of support you need — medical, mental health, or wellness.' },
@@ -150,8 +150,8 @@ export default function Health() {
             { num: '3', text: 'Connect privately and arrange the support — all in a safe, confidential environment.' },
             { num: '4', text: 'Mark the request resolved once you\'ve received the help you needed.' },
           ].map(({ num, text }) => (
-            <li key={num} className="flex items-start gap-3 text-sm" style={{ color: '#6b5c3e' }}>
-              <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#C9A84C', color: '#1A2744' }}>{num}</span>
+            <li key={num} className="flex items-start gap-3 text-sm" style={{ color: '#6b7280' }}>
+              <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs" style={{ background: '#bd4c0f', color: '#141414' }}>{num}</span>
               <span>{text}</span>
             </li>
           ))}
@@ -159,11 +159,11 @@ export default function Health() {
       </div>
 
       {/* Header */}
-      <div className="rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, #1A2744, #2d4070)', border: '2px solid #C9A84C' }}>
+      <div className="rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, #141414, #141414)', border: '2px solid #bd4c0f' }}>
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
             <div className="text-3xl mb-2">❤️</div>
-            <h1 className="font-display text-2xl font-bold" style={{ color: '#F5E6C0' }}>Health Support Requests</h1>
+            <h1 className="font-display text-2xl font-bold" style={{ color: '#fbe8d4' }}>Health Support Requests</h1>
             <p className="text-sm mt-1" style={{ color: 'rgba(245,230,192,0.80)' }}>
               Medical assistance, mental health support, and wellness guidance — request help or volunteer to assist
             </p>
@@ -172,7 +172,7 @@ export default function Health() {
             <button
               onClick={() => setShowForm(!showForm)}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity"
-              style={{ background: '#C9A84C', color: '#1A2744' }}
+              style={{ background: '#bd4c0f', color: '#141414' }}
             >
               <Plus className="w-4 h-4" /> Request Help
             </button>
@@ -182,30 +182,30 @@ export default function Health() {
 
       {/* Create Form */}
       {showForm && (
-        <div className="rounded-2xl p-6 mb-6" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="rounded-2xl p-6 mb-6" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-xl font-bold" style={{ color: '#1A2744' }}>New Health Request</h2>
-            <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
+            <h2 className="font-display text-xl font-bold" style={{ color: '#141414' }}>New Health Request</h2>
+            <button onClick={() => setShowForm(false)}><X className="w-5 h-5" style={{ color: '#6b7280' }} /></button>
           </div>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Title *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Title *</label>
               <input required value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Need a ride to a doctor's appointment" />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Description *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Description *</label>
               <textarea required value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} rows={3} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30 resize-none" placeholder="Describe what kind of help you need..." />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Your Name *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Your Name *</label>
               <input required value={form.contact_name} onChange={e => setForm({ ...form, contact_name: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Location</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Location</label>
               <input value={form.location} onChange={e => setForm({ ...form, location: e.target.value })} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="City or neighborhood" />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Category *</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Category *</label>
               <BottomSheetSelect
                 label="Category"
                 value={form.health_category}
@@ -214,7 +214,7 @@ export default function Health() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1" style={{ color: '#6b5c3e' }}>Urgency</label>
+              <label className="block text-xs font-medium mb-1" style={{ color: '#6b7280' }}>Urgency</label>
               <BottomSheetSelect
                 label="Urgency"
                 value={form.urgency}
@@ -227,8 +227,8 @@ export default function Health() {
               />
             </div>
             <div className="md:col-span-2 flex gap-3 justify-end">
-              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b5c3e' }}>Cancel</button>
-              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#C9A84C', color: '#1A2744' }}>
+              <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm" style={{ color: '#6b7280' }}>Cancel</button>
+              <button type="submit" disabled={submitting} className="px-6 py-2.5 text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50" style={{ background: '#bd4c0f', color: '#141414' }}>
                 {submitting ? 'Posting...' : '❤️ Post Request'}
               </button>
             </div>
@@ -238,11 +238,11 @@ export default function Health() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-        <div className="flex gap-1 rounded-xl p-1" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }}>
+        <div className="flex gap-1 rounded-xl p-1" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }}>
           {[{ value: 'all', label: 'All' }, ...HEALTH_CATEGORIES].map(c => (
             <button key={c.value} onClick={() => setFilter(c.value)}
               className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-              style={filter === c.value ? { background: '#1A2744', color: '#F5E6C0' } : { color: '#6b5c3e' }}
+              style={filter === c.value ? { background: '#141414', color: '#fbe8d4' } : { color: '#6b7280' }}
             >{c.label}</button>
           ))}
         </div>
@@ -259,16 +259,16 @@ export default function Health() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className="rounded-2xl h-24 animate-pulse" style={{ background: '#FAF7EE', border: '1px solid #C9A84C' }} />
+            <div key={i} className="rounded-2xl h-24 animate-pulse" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 rounded-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C' }}>
+        <div className="text-center py-16 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <div className="text-5xl mb-4">❤️</div>
-          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#1A2744' }}>
+          <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>
             {search ? 'No matching requests' : 'No health requests yet'}
           </h3>
-          <p className="text-sm" style={{ color: '#6b5c3e' }}>
+          <p className="text-sm" style={{ color: '#6b7280' }}>
             {user ? 'Be the first to post a health support request.' : 'Sign in to post a request.'}
           </p>
         </div>
@@ -280,7 +280,7 @@ export default function Health() {
             return (
               <div key={req.id} onClick={() => setSelected(req)}
                 className="p-5 cursor-pointer hover:shadow-lg transition-all"
-                style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }}
+                style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f', borderRadius: '12px' }}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
@@ -298,8 +298,8 @@ export default function Health() {
                         <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">✅ Resolved</span>
                       )}
                     </div>
-                    <h3 className="font-semibold mb-1" style={{ color: '#1A2744' }}>{req.title}</h3>
-                    <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b5c3e' }}><span translate="no">{req.description}</span></p>
+                    <h3 className="font-semibold mb-1" style={{ color: '#141414' }}>{req.title}</h3>
+                    <p className="text-xs line-clamp-2 mb-2" style={{ color: '#6b7280' }}><span translate="no">{req.description}</span></p>
                     <div className="flex items-center gap-3 text-xs flex-wrap" style={{ color: '#888' }}>
                       <div className="flex items-center gap-1"><User className="w-3 h-3" />{req.contact_name}</div>
                       {req.location && <div className="flex items-center gap-1"><MapPin className="w-3 h-3" />{req.location}</div>}
@@ -327,12 +327,12 @@ export default function Health() {
       {/* Detail Modal */}
       {selected && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div className="max-w-md w-full p-6 shadow-2xl" style={{ background: '#FAF7EE', border: '1.5px solid #C9A84C', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
+          <div className="max-w-md w-full p-6 shadow-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between mb-4">
               <span className="text-3xl">{HEALTH_CATEGORIES.find(c => c.value === selected.health_category)?.label?.split(' ')[0]}</span>
-              <button onClick={() => setSelected(null)}><X className="w-5 h-5" style={{ color: '#6b5c3e' }} /></button>
+              <button onClick={() => setSelected(null)}><X className="w-5 h-5" style={{ color: '#6b7280' }} /></button>
             </div>
-            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#1A2744' }}>{selected.title}</h2>
+            <h2 className="font-display text-2xl font-bold mb-1" style={{ color: '#141414' }}>{selected.title}</h2>
             <div className="flex items-center gap-2 mb-3 flex-wrap">
               <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                 style={{
@@ -347,10 +347,10 @@ export default function Health() {
                 {(URGENCY_STYLES[selected.urgency] || URGENCY_STYLES.medium).label}
               </span>
             </div>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b5c3e' }}><span translate="no">{selected.description}</span></p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b7280' }}><span translate="no">{selected.description}</span></p>
             <div className="space-y-2 text-sm mb-6" style={{ color: '#555' }}>
-              <div className="flex items-center gap-2"><User className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.contact_name}</div>
-              {selected.location && <div className="flex items-center gap-2"><MapPin className="w-4 h-4" style={{ color: '#C9A84C' }} />{selected.location}</div>}
+              <div className="flex items-center gap-2"><User className="w-4 h-4" style={{ color: '#bd4c0f' }} />{selected.contact_name}</div>
+              {selected.location && <div className="flex items-center gap-2"><MapPin className="w-4 h-4" style={{ color: '#bd4c0f' }} />{selected.location}</div>}
               {selected.claimed_by_name && <div className="flex items-center gap-2"><Heart className="w-4 h-4" style={{ color: '#c0392b' }} />Claimed by {selected.claimed_by_name}</div>}
             </div>
 
@@ -362,7 +362,7 @@ export default function Health() {
                 {selected.status === 'open' && selected.created_by_id !== user.id && (
                   <button onClick={() => handleClaim(selected.id, false)}
                     className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
-                    style={{ background: '#1A2744', color: '#F5E6C0', border: '1px solid #C9A84C' }}>
+                    style={{ background: '#141414', color: '#fbe8d4', border: '1px solid #bd4c0f' }}>
                     🤝 I Can Help
                   </button>
                 )}
@@ -370,7 +370,7 @@ export default function Health() {
                   <>
                     <button onClick={() => handleClaim(selected.id, true)}
                       className="w-full py-3 font-semibold rounded-xl hover:opacity-90 transition-opacity"
-                      style={{ background: '#f0e8d0', color: '#6b5c3e' }}>
+                      style={{ background: '#fbe8d4', color: '#6b7280' }}>
                       Cancel Claim
                     </button>
                     <button onClick={() => handleResolve(selected.id)}
@@ -381,14 +381,14 @@ export default function Health() {
                   </>
                 )}
                 {selected.status === 'claimed' && selected.claimed_by_id !== user.id && (
-                  <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>This request is being handled by {selected.claimed_by_name}</p>
+                  <p className="text-center text-sm" style={{ color: '#6b7280' }}>This request is being handled by {selected.claimed_by_name}</p>
                 )}
                 {selected.status === 'resolved' && (
                   <p className="text-center text-sm py-2 rounded-xl" style={{ background: '#d5f5e3', color: '#27ae60' }}>✅ This request has been resolved</p>
                 )}
               </div>
             ) : (
-              <p className="text-center text-sm" style={{ color: '#6b5c3e' }}>Sign in to help with this request</p>
+              <p className="text-center text-sm" style={{ color: '#6b7280' }}>Sign in to help with this request</p>
             )}
             {user && selected.created_by_id === user.id && (
               <div className="mt-4 text-center">
