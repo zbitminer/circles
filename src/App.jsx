@@ -40,7 +40,6 @@ import About from './pages/About';
 import Trust from './pages/Trust';
 import PlatformOverview from './pages/PlatformOverview';
 import PlatformSummary from './pages/PlatformSummary';
-import TechnicalSummary from './pages/TechnicalSummary';
 import Gallery from './pages/Gallery';
 import OAuthConsent from './pages/OAuthConsent';
 import { LanguageProvider } from '@/lib/i18n';
@@ -96,7 +95,6 @@ const AuthenticatedApp = () => {
         <Route path="/trust" element={<Trust />} />
         <Route path="/platform" element={<PlatformOverview />} />
         <Route path="/platform-summary" element={<PlatformSummary />} />
-        <Route path="/technical-summary" element={<TechnicalSummary />} />
         <Route path="/gallery" element={<Gallery />} />
       </Route>
 
