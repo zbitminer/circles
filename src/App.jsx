@@ -120,13 +120,7 @@ const AuthenticatedApp = () => {
 
 function App() {
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const applyDark = (e) => {
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    applyDark(mediaQuery);
-    mediaQuery.addEventListener('change', applyDark);
-    return () => mediaQuery.removeEventListener('change', applyDark);
+    document.documentElement.classList.remove('dark');
   }, []);
 
   return (
