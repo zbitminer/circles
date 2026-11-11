@@ -8,7 +8,7 @@ export default function MemorialTribute() {
         <div className="grid min-h-72 grid-rows-2 bg-secondary">
           <figure className="relative min-h-64 overflow-hidden border-b border-border">
             <img
-              src="https://cache.legacy.net/legacy/images/cobrands/sfgate/photos/S0174000_1_20210524.jpgx?w=421&h=500&option=3"
+              src="https://base44.app/api/apps/6a2feeb0292b105992c98be7/files/mp/public/6a2feeb0292b105992c98be7/b289bbeb1_geraldine-portrait.jpg"
               alt="Geraldine Steinberg"
               className="h-full w-full object-cover"
             />
