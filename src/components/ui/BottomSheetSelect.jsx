@@ -28,6 +28,7 @@ export default function BottomSheetSelect({
     <>
       <button
         type="button"
+        aria-label={label}
         onClick={() => setOpen(true)}
         style={style}
         className={`flex items-center justify-between gap-2 text-left ${className || 'w-full bg-muted rounded-xl px-4 py-3 text-sm border border-transparent focus:border-primary/30'}`}

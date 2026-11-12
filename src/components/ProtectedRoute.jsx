@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '@/lib/AuthContext';
+import { normalizeUserRole } from '@/lib/roles';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 
 const DefaultFallback = () => (
@@ -33,7 +34,7 @@ export default function ProtectedRoute({ fallback = <DefaultFallback />, unauthe
     return unauthenticatedElement;
   }
 
-  if (requiredRoles && requiredRoles.length > 0 && !requiredRoles.includes(user?.role)) {
+  if (requiredRoles && requiredRoles.length > 0 && !requiredRoles.map((r) => String(r).toLowerCase()).includes(normalizeUserRole(user))) {
     return <Navigate to="/" replace />;
   }
 

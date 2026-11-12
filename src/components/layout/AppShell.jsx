@@ -9,6 +9,7 @@ import MobileBottomNav from '@/components/layout/MobileBottomNav';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
 import PageTransition from '@/components/layout/PageTransition';
 import { useAuth } from '@/lib/AuthContext';
+import { isStaffUser, normalizeUserRole } from '@/lib/roles';
 import { base44 } from '@/api/base44Client';
 import { useLanguage } from '@/lib/i18n';
 
@@ -72,7 +73,7 @@ export default function AppShell() {
   {
     label: t('Give'),
     items: [
-    ...(['admin', 'moderator'].includes(user?.role) ? [{ label: t('Create Event'), path: '/events?create=1', desc: t('Create a community event') }] : []),
+    ...(isStaffUser(user) ? [{ label: t('Create Event'), path: '/events?create=1', desc: t('Create a community event') }] : []),
     { label: t('Opportunities'), path: '/opportunities', desc: t('Browse & apply for volunteer roles') },
     { label: t('Corporate Volunteering'), path: '/corporate', desc: t('Team-building with impact') },
     { label: t('Shabbat & Holidays'), path: '/shabbat', desc: t('Host or join a Shabbat or holiday table') }]
@@ -88,7 +89,8 @@ export default function AppShell() {
   {
     label: t('Belong'),
     items: [
-    ...(user?.role === 'admin' ? [{ label: t('Admin'), path: '/admin', desc: 'Admin control panel' }] : []),
+    ...(normalizeUserRole(user) === 'admin' ? [{ label: t('Admin'), path: '/admin', desc: 'Admin control panel' }] : []),
+    ...(isStaffUser(user) ? [{ label: t('Moderation'), path: '/moderation', desc: t('Review reported content') }] : []),
     { label: t('My Profile'), path: '/profile', desc: t('Your volunteer identity') },
     { label: t('Member Discovery'), path: '/directory', desc: t('Discover fellow volunteers') },
     { label: t('Gallery'), path: '/gallery', desc: t('Photos from our community') },

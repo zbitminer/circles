@@ -3,6 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Shield, Flag, CheckCircle, Trash2, Eye } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { useLanguage } from '@/lib/i18n';
+import { isStaffUser } from '@/lib/roles';
 
 export default function Moderation() {
   const { t, localize, dateLocale } = useLanguage();
@@ -18,7 +19,7 @@ export default function Moderation() {
   useEffect(() => {
     base44.auth.me().then(u => {
       setUser(u);
-      if (u?.role === 'moderator' || u?.role === 'admin') loadData();
+      if (isStaffUser(u)) loadData();
     }).catch(() => {});
   }, []);
 
@@ -57,7 +58,7 @@ export default function Moderation() {
     }
   };
 
-  const isMod = user?.role === 'moderator' || user?.role === 'admin';
+  const isMod = isStaffUser(user);
 
   if (!isMod) {
     return localize(

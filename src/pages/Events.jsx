@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/lib/i18n';
-import { createPortal } from 'react-dom';
 import { useSearchParams } from 'react-router-dom';
 import ContentImageDetails from '@/components/content/ContentImageDetails';
 import useEventListing from '@/components/events/useEventListing';
 import EventPeriodFilter from '@/components/events/EventPeriodFilter';
+import EventDetailsModal from '@/components/events/EventDetailsModal';
 import '@/components/events/events-mobile.css';
 import { base44 } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
+import { isStaffUser } from '@/lib/roles';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
-import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
 import LocationMap from '@/components/LocationMap';
 import CategoryFilterDropdown from '@/components/CategoryFilterDropdown';
@@ -83,11 +83,23 @@ export default function Events() {
 
   const activeFilterCount = (causeFilter !== 'All' ? 1 : 0) + (dropdownFilter ? 1 : 0) + (searchQuery ? 1 : 0) + (accessibleOnly ? 1 : 0);
 
-  const isMod = user?.role === 'moderator' || user?.role === 'admin';
+  const isMod = isStaffUser(user);
 
   useEffect(() => {
     if (isMod && searchParams.get('create') === '1') setShowForm(true);
   }, [isMod, searchParams]);
+
+  useEffect(() => {
+    const unsubscribe = base44.entities.Event.subscribe((evt) => {
+      loadEvents();
+      if (evt?.type === 'update' && evt.data) {
+        setSelected((prev) => (prev?.id === evt.id ? { ...prev, ...evt.data } : prev));
+      } else if (evt?.type === 'delete') {
+        setSelected((prev) => (prev?.id === evt.id ? null : prev));
+      }
+    });
+    return unsubscribe;
+  }, [loadEvents]);
 
   const handleRSVP = async (evt) => {
     if (!user) return;
@@ -98,8 +110,8 @@ export default function Events() {
     } catch (err) {
       alert(err?.response?.data?.error || 'Could not update your RSVP.');
     }
-    loadEvents();
-    setSelected(prev => prev ? { ...prev, attendees } : prev);
+    await loadEvents();
+    setSelected(prev => (prev?.id === evt.id ? { ...prev, attendees } : prev));
   };
 
   const handleCreate = async (e) => {
@@ -108,7 +120,7 @@ export default function Events() {
     setCreateError('');
     setSubmitting(true);
     try {
-      await base44.entities.Event.create({
+      const created = await base44.entities.Event.create({
         ...form,
         date: new Date(form.date).toISOString(),
         capacity: form.capacity ? Number(form.capacity) : undefined,
@@ -121,6 +133,7 @@ export default function Events() {
       setPeriod('upcoming');
       clearAllFilters();
       await loadEvents();
+      if (created?.id) setSelected(created);
     } catch (err) {
       setCreateError(err?.response?.data?.error || err?.message || 'Could not create the event. Please try again.');
     } finally {
@@ -508,77 +521,15 @@ export default function Events() {
         </div>
       )}
 
-      {/* Event Modal */}
-      {selected && createPortal(localize(
-        <div className="event-details-overlay fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
-          <div role="dialog" aria-modal="true" aria-label={selected.title} className="event-details-panel max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" style={{ background: 'hsl(var(--card))', border: '1.5px solid hsl(var(--primary))', borderRadius: '12px' }} onClick={e => e.stopPropagation()}>
-            <img
-              src={selected.image_url || CAUSE_FALLBACK_IMAGES[selected.cause_category] || CAUSE_FALLBACK_IMAGES['Other']}
-              alt={selected.title}
-              className="w-full aspect-video object-cover"
-            />
-            <div className="px-6 py-5" style={{ background: 'hsl(var(--palette-950))', borderBottom: '1px solid hsl(var(--primary))' }}>
-              <div className="flex items-start justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'hsl(var(--primary))' }}>{selected.cause_category}</span>
-                <button aria-label="Close event details" onClick={() => setSelected(null)} className="event-details-close p-1 rounded-lg hover:bg-white/10"><X className="w-4 h-4" style={{ color: 'hsl(var(--palette-50))' }} /></button>
-              </div>
-              <h2 className="font-display text-2xl font-bold mt-2" style={{ color: 'hsl(var(--palette-50))' }}><span translate="no">{selected.title}</span></h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-3 mb-4">
-                {selected.date && (
-                  <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><Calendar className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{format(new Date(selected.date), 'EEEE, MMMM d, yyyy · h:mm a', { locale: dateLocale })}</div>
-                )}
-                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}><MapPin className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />{selected.location}</div>
-                <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}>
-                  <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
-                  {selected.attendees?.length || 0} attending
-                  {selected.capacity ? <> · {selected.capacity} {t('max capacity')} · {Math.max(0, selected.capacity - (selected.attendees?.length || 0))} {t('spots left')}</> : <> · {t('No capacity limit')}</>}
-                </div>
-              </div>
-              {selected.accessibility_options?.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {selected.accessibility_options.map(acc => (
-                    <span key={acc} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: 'hsl(var(--secondary))', color: 'hsl(var(--foreground))', border: '1px solid hsl(var(--primary))' }}>
-                      ♿ {acc}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <p className="text-sm leading-relaxed mb-6" style={{ color: 'hsl(var(--muted-foreground))' }}><span translate="no">{selected.description}</span></p>
-
-              {isMod && selected.attendees?.length > 0 && (
-                <div className="rounded-xl p-4 mb-4" style={{ background: '#fbe8d4' }}>
-                  <p className="text-xs font-semibold mb-2" style={{ color: 'hsl(var(--muted-foreground))' }}>Attendee Count: {selected.attendees.length}</p>
-                </div>
-              )}
-
-              {selected.status === 'completed' || (selected.status !== 'ongoing' && selected.date && isPast(new Date(selected.date))) ? (
-                <p className="rounded-xl bg-muted p-4 text-center text-sm font-semibold text-muted-foreground">Past event · RSVPs are closed</p>
-              ) : user ? (
-                <button
-                  onClick={() => handleRSVP(selected)}
-                  disabled={isFull(selected) && !selected.attendees?.includes(user.id)}
-                  className="w-full py-3 font-semibold rounded-xl transition-all"
-                  style={
-                    selected.attendees?.includes(user.id)
-                      ? { background: '#fbe8d4', color: 'hsl(var(--muted-foreground))' }
-                      : isFull(selected)
-                      ? { background: '#dcd5cc', color: '#aaa', cursor: 'not-allowed' }
-                      : { background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }
-                  }
-                >
-                  {selected.attendees?.includes(user.id) ? '✓ Cancel RSVP' : isFull(selected) ? 'Event is Full' : "RSVP — I'll Be There!"}
-                </button>
-              ) : (
-                <p className="text-center text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Sign in to RSVP</p>
-              )}
-
-              <EventChat eventId={selected.id} currentUser={user} />
-            </div>
-          </div>
-        </div>), document.body
-      )}
+      <EventDetailsModal
+        event={selected}
+        user={user}
+        isMod={isMod}
+        fallbackImages={CAUSE_FALLBACK_IMAGES}
+        defaultImage={DEFAULT_EVENT_IMAGE}
+        onClose={() => setSelected(null)}
+        onRSVP={handleRSVP}
+      />
     </div>
   );
 }

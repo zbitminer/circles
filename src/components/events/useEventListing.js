@@ -4,7 +4,11 @@ import { base44 } from '@/api/base44Client';
 import getOrderedContentPage from '@/components/content/getOrderedContentPage';
 
 export default function useEventListing({ period, cause, search, accessibleOnly }) {
-  const [now] = useState(() => new Date().toISOString());
+  const [now] = useState(() => {
+    const d = new Date();
+    d.setSeconds(0, 0);
+    return d.toISOString();
+  });
   const term = useDeferredValue(search.trim());
   const periodQuery = period === 'past'
     ? { $or: [{ status: 'completed' }, { status: { $ne: 'ongoing' }, date: { $lt: now } }] }
