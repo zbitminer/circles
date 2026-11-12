@@ -48,12 +48,17 @@ export default async function(req) {
       return Response.json({ error: 'Too many messages. Please try again later.' }, { status: 429 });
     }
 
-    await base44.asServiceRole.integrations.Core.SendEmail({
+    const delivery = await base44.asServiceRole.integrations.Core.SendEmail({
       to: 'info@circlesofgiving.org',
       subject: `Contact Form: ${subject.trim()}`,
       body: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`,
       from_name: 'Circles of Giving',
     });
+
+    if (delivery?.success === false) {
+      console.error('Contact email was not sent:', delivery.reason);
+      return Response.json({ error: 'Could not send your message. Please try again later.' }, { status: 502 });
+    }
 
     return Response.json({ ok: true });
   } catch (error) {

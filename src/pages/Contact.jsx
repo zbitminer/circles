@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '@/lib/i18n';
 import { base44 } from '@/api/base44Client';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
@@ -8,23 +8,36 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const feedbackRef = useRef(null);
+
+  useEffect(() => {
+    if (submitted || submitError) feedbackRef.current?.focus();
+  }, [submitted, submitError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return;
+    setSubmitError('');
     setSubmitting(true);
     try {
-      await base44.functions.invoke('submitContactForm', form);
+      const response = await base44.functions.invoke('submitContactForm', form);
+      if (response.data?.ok !== true) {
+        setSubmitError(response.data?.error || 'We could not send your message. Your entries have been kept. Please try again.');
+        return;
+      }
       setSubmitted(true);
       setForm({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Error sending email:', error);
+      setSubmitError(error?.response?.data?.error || 'We could not send your message. Your entries have been kept. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   if (submitted) {
     return localize(
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
+      <div ref={feedbackRef} tabIndex={-1} role="status" aria-live="polite" className="max-w-2xl mx-auto px-4 py-16 text-center">
         <div className="p-10 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           <h2 className="font-display text-2xl font-bold mb-2" style={{ color: '#141414' }}>Thank You!</h2>
@@ -110,6 +123,7 @@ export default function Contact() {
             />
           </div>
 
+          {submitError && <p ref={feedbackRef} tabIndex={-1} role="alert" className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">{submitError}</p>}
           <button
             type="submit"
             disabled={submitting}
