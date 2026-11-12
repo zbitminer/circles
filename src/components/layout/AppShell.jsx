@@ -72,6 +72,7 @@ export default function AppShell() {
   {
     label: t('Give'),
     items: [
+    ...(['admin', 'moderator'].includes(user?.role) ? [{ label: t('Create Event'), path: '/events?create=1', desc: t('Create a community event') }] : []),
     { label: t('Opportunities'), path: '/opportunities', desc: t('Browse & apply for volunteer roles') },
     { label: t('Corporate Volunteering'), path: '/corporate', desc: t('Team-building with impact') },
     { label: t('Shabbat & Holidays'), path: '/shabbat', desc: t('Host or join a Shabbat or holiday table') }]

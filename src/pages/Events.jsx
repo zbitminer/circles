@@ -7,6 +7,7 @@ import useEventListing from '@/components/events/useEventListing';
 import EventPeriodFilter from '@/components/events/EventPeriodFilter';
 import '@/components/events/events-mobile.css';
 import { base44 } from '@/api/base44Client';
+import { useAuth } from '@/lib/AuthContext';
 import { MapPin, Calendar, Users, Plus, X, LayoutGrid, CalendarDays, Map, Search } from 'lucide-react';
 import EventChat from '@/components/EventChat';
 import EventsCalendar from '@/components/EventsCalendar';
@@ -34,7 +35,8 @@ const CAUSE_FALLBACK_IMAGES = {
 export default function Events() {
   const { localize, t, dateLocale } = useLanguage();
   const [period, setPeriod] = useState('upcoming');
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
+  const [createError, setCreateError] = useState('');
   const [causeFilter, setCauseFilter] = useState('All');
   const [selected, setSelected] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -59,8 +61,8 @@ export default function Events() {
   }, [searchParams]);
 
   useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => {});
-  }, []);
+    if (!user) setShowForm(false);
+  }, [user]);
 
   const handleDropdownSelect = (selection) => {
     setDropdownFilter(selection);
@@ -83,6 +85,10 @@ export default function Events() {
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
 
+  useEffect(() => {
+    if (isMod && searchParams.get('create') === '1') setShowForm(true);
+  }, [isMod, searchParams]);
+
   const handleRSVP = async (evt) => {
     if (!user) return;
     let attendees = evt.attendees || [];
@@ -98,18 +104,28 @@ export default function Events() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    if (!isMod || submitting || uploadingImg) return;
+    setCreateError('');
     setSubmitting(true);
-    await base44.entities.Event.create({
-      ...form,
-      capacity: form.capacity ? Number(form.capacity) : null,
-      attendees: [],
-      created_by_name: user?.full_name,
-      status: 'upcoming',
-    });
-    setForm({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '', accessibility_options: [] });
-    setShowForm(false);
-    setSubmitting(false);
-    loadEvents();
+    try {
+      await base44.entities.Event.create({
+        ...form,
+        date: new Date(form.date).toISOString(),
+        capacity: form.capacity ? Number(form.capacity) : undefined,
+        attendees: [],
+        created_by_name: user.full_name,
+        status: 'upcoming',
+      });
+      setForm({ title: '', description: '', date: '', location: '', cause_category: 'Arts & Crafts', capacity: '', image_url: '', accessibility_options: [] });
+      setShowForm(false);
+      setPeriod('upcoming');
+      clearAllFilters();
+      await loadEvents();
+    } catch (err) {
+      setCreateError(err?.response?.data?.error || err?.message || 'Could not create the event. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const isFull = (evt) => evt.capacity && evt.attendees?.length >= evt.capacity;
@@ -150,18 +166,20 @@ export default function Events() {
             </button>
           </div>
           {isMod && (
-            <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }}>
+            <button type="button" aria-expanded={showForm} aria-controls="create-event-form" onClick={() => setShowForm(!showForm)} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity" style={{ background: 'hsl(var(--palette-950))', color: 'hsl(var(--palette-50))', border: '1px solid hsl(var(--primary))' }}>
               <Plus className="w-4 h-4" /> Create Event
             </button>
           )}
         </div>
       </div>
 
+      {user && !isMod && <p className="mb-6 text-sm text-muted-foreground">Creating events requires moderator or admin access.</p>}
+
       {/* Create Form */}
       {showForm && isMod && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-6">
           <h2 className="font-display text-xl font-bold mb-4">New Event</h2>
-          <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form id="create-event-form" onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
               <label className="block text-xs font-medium text-muted-foreground mb-1">Event Title *</label>
               <input required value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none border border-transparent focus:border-primary/30" placeholder="e.g. Community Garden Day" />
@@ -215,6 +233,7 @@ export default function Events() {
                 {form.image_url && <img src={form.image_url} alt="" className="w-12 h-12 rounded-lg object-cover" />}
               </div>
             </div>
+            {createError && <p role="alert" className="md:col-span-2 text-sm text-destructive">{createError}</p>}
             <div className="md:col-span-2 flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-5 py-2.5 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
               <button type="submit" disabled={submitting || uploadingImg} className="px-6 py-2.5 bg-accent text-white text-sm font-semibold rounded-xl hover:opacity-90 disabled:opacity-50">
@@ -354,7 +373,7 @@ export default function Events() {
                   <div className="flex items-center gap-2 text-xs" style={{ color: '#555' }}>
                     <Users className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'hsl(var(--primary))' }} />
                     {evt.attendees?.length || 0} attending
-                    {evt.capacity && <span>· {evt.capacity} max</span>}
+                    {evt.capacity ? <span>· {evt.capacity} max · {Math.max(0, evt.capacity - (evt.attendees?.length || 0))} {t('spots left')}</span> : <span>· {t('No capacity limit')}</span>}
                     {full && <span className="font-medium" style={{ color: 'hsl(var(--primary))' }}>· Full</span>}
                   </div>
                   {evt.accessibility_options?.length > 0 && (
@@ -514,7 +533,7 @@ export default function Events() {
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#444' }}>
                   <Users className="w-4 h-4" style={{ color: 'hsl(var(--primary))' }} />
                   {selected.attendees?.length || 0} attending
-                  {selected.capacity && <> · {selected.capacity} {t('max capacity')}</>}
+                  {selected.capacity ? <> · {selected.capacity} {t('max capacity')} · {Math.max(0, selected.capacity - (selected.attendees?.length || 0))} {t('spots left')}</> : <> · {t('No capacity limit')}</>}
                 </div>
               </div>
               {selected.accessibility_options?.length > 0 && (
