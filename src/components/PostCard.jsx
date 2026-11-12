@@ -53,6 +53,9 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, onComm
   const [commentsPage, setCommentsPage] = useState(null);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [commentError, setCommentError] = useState('');
+  const [reporting, setReporting] = useState(false);
+  const [reportNotice, setReportNotice] = useState('');
+  const [reportError, setReportError] = useState('');
 
   const handleLike = async () => {
     if (!currentUser) return;
@@ -73,15 +76,19 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, onComm
   };
 
   const handleReport = async () => {
-    if (!currentUser) return;
+    if (!currentUser || reporting) return;
+    setReporting(true);
+    setReportError('');
     try {
-      await base44.functions.invoke('reportPost', { post_id: post.id });
-      alert('Thanks — this post was reported to our moderators.');
+      const { data } = await base44.functions.invoke('reportPost', { post_id: post.id });
+      if (!data?.ok) throw new Error(data?.error || 'Could not report this post.');
+      setReportNotice(data.already_reported ? 'You have already reported this post. Moderators can review it.' : 'Thank you. Your report was sent to moderators for review.');
+      setShowMenu(false);
     } catch (err) {
-      alert(err?.response?.data?.error || 'Could not report this post.');
+      setReportError(err?.response?.data?.error || err?.message || 'Could not report this post. Please try again.');
+    } finally {
+      setReporting(false);
     }
-    onUpdate?.();
-    setShowMenu(false);
   };
 
   const handleRemove = async () => {
@@ -163,9 +170,9 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, onComm
           </button>
           {showMenu &&
           <div className="absolute right-0 top-8 bg-card border border-border rounded-xl shadow-lg z-10 min-w-[160px] overflow-hidden">
-              {currentUser && post.author_id !== currentUser.id &&
-            <button onClick={handleReport} className="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-muted text-left">
-                  <Flag className="w-4 h-4 text-orange-500" /> Report post
+              {currentUser && post.author_id !== currentUser.id && post.created_by_id !== currentUser.id &&
+            <button onClick={handleReport} disabled={reporting || !!reportNotice} className="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-muted text-left disabled:opacity-50">
+                  <Flag className="w-4 h-4 text-orange-500" /> {reporting ? 'Reporting...' : reportNotice ? 'Reported' : 'Report post'}
                 </button>
             }
               {(isMod || (currentUser && currentUser.id === post.created_by_id)) && <button onClick={() => { setEditing(true); setShowMenu(false); }} className="w-full px-4 py-3 text-left text-sm hover:bg-muted">{t(post.post_type === 'request' ? 'Edit request' : 'Edit story')}</button>}
@@ -178,6 +185,9 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, onComm
           }
         </div>
       </div>
+
+      {reportNotice && <p role="status" className="px-5 pb-3 text-sm text-primary">{reportNotice}</p>}
+      {reportError && <p role="alert" className="px-5 pb-3 text-sm text-destructive">{reportError}</p>}
 
       {/* Cause Tags */}
       {post.cause_tags?.length > 0 &&

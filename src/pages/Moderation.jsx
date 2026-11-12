@@ -9,6 +9,11 @@ export default function Moderation() {
   const [user, setUser] = useState(null);
   const [flaggedPosts, setFlaggedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(null);
+  const [total, setTotal] = useState(0);
+  const [needsReview, setNeedsReview] = useState(0);
+  const [error, setError] = useState('');
+  const [busyId, setBusyId] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(u => {
@@ -17,21 +22,39 @@ export default function Moderation() {
     }).catch(() => {});
   }, []);
 
-  const loadData = async () => {
+  const loadData = async (cursor) => {
     setLoading(true);
-    const posts = await base44.entities.Post.list('-created_date', 100);
-    setFlaggedPosts(posts.filter(p => p.status === 'flagged' || p.reported_by?.length > 0));
-    setLoading(false);
+    setError('');
+    const query = { status: { $ne: 'removed' }, $or: [{ status: 'flagged' }, { 'reported_by.0': { $exists: true } }] };
+    try {
+      const [result, count, pending] = await Promise.all([
+        base44.entities.Post.filter(query, { sort: '-created_date', limit: 50, ...(cursor ? { cursor } : {}) }),
+        base44.entities.Post.count(query),
+        base44.entities.Post.count({ status: 'flagged' })
+      ]);
+      setFlaggedPosts(prev => cursor ? [...prev, ...result.items] : result.items);
+      setPage(result);
+      setTotal(count);
+      setNeedsReview(pending);
+    } catch (err) {
+      setError(err?.message || 'Could not load reported posts. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const approve = async (post) => {
-    await base44.entities.Post.update(post.id, { status: 'active', reported_by: [] });
-    loadData();
-  };
-
-  const remove = async (post) => {
-    await base44.entities.Post.update(post.id, { status: 'removed' });
-    loadData();
+  const review = async (post, status) => {
+    if (busyId) return;
+    setBusyId(post.id);
+    setError('');
+    try {
+      await base44.entities.Post.update(post.id, { status, reported_by: [] });
+      await loadData();
+    } catch (err) {
+      setError(err?.message || 'Could not review this post. Please try again.');
+    } finally {
+      setBusyId(null);
+    }
   };
 
   const isMod = user?.role === 'moderator' || user?.role === 'admin';
@@ -64,7 +87,7 @@ export default function Moderation() {
           <div className="flex items-center gap-3">
             <Flag className="w-5 h-5 text-orange-500" />
             <div>
-              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{flaggedPosts.length}</p>
+              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{total}</p>
               <p className="text-xs" style={{ color: '#6b7280' }}>Flagged Posts</p>
             </div>
           </div>
@@ -73,18 +96,19 @@ export default function Moderation() {
           <div className="flex items-center gap-3">
             <Eye className="w-5 h-5" style={{ color: '#141414' }} />
             <div>
-              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{flaggedPosts.filter(p => p.status === 'flagged').length}</p>
+              <p className="font-display text-2xl font-bold" style={{ color: '#141414' }}>{needsReview}</p>
               <p className="text-xs" style={{ color: '#6b7280' }}>Needs Review</p>
             </div>
           </div>
         </div>
       </div>
 
+      {error && <div role="alert" className="mb-4 text-sm text-destructive">{error} <button onClick={() => loadData()} className="underline">Retry</button></div>}
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map(i => <div key={i} className="rounded-2xl p-5 animate-pulse h-32" style={{ background: '#fcfaf8', border: '1px solid #bd4c0f' }} />)}
         </div>
-      ) : flaggedPosts.length === 0 ? (
+      ) : error ? null : flaggedPosts.length === 0 ? (
         <div className="text-center py-16 rounded-2xl" style={{ background: '#fcfaf8', border: '1.5px solid #bd4c0f' }}>
           <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
           <h3 className="font-display text-xl font-bold mb-2" style={{ color: '#141414' }}>All clear!</h3>
@@ -120,10 +144,10 @@ export default function Moderation() {
               )}
 
               <div className="flex gap-3">
-                <button onClick={() => approve(post)} className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 text-sm font-semibold rounded-xl hover:bg-green-200 transition-colors">
+                <button disabled={!!busyId} onClick={() => review(post, 'active')} className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 text-sm font-semibold rounded-xl hover:bg-green-200 transition-colors">
                   <CheckCircle className="w-4 h-4" /> {t('Approve & Keep')}
                  </button>
-                 <button onClick={() => remove(post)} className="flex items-center gap-2 px-4 py-2 bg-destructive/10 text-destructive text-sm font-semibold rounded-xl hover:bg-destructive/20 transition-colors">
+                 <button disabled={!!busyId} onClick={() => review(post, 'removed')} className="flex items-center gap-2 px-4 py-2 bg-destructive/10 text-destructive text-sm font-semibold rounded-xl hover:bg-destructive/20 transition-colors">
                   <Trash2 className="w-4 h-4" /> {t('Remove Post')}
                  </button>
               </div>
@@ -131,6 +155,7 @@ export default function Moderation() {
           ))}
         </div>
       )}
+      {page?.has_more && !loading && <button onClick={() => loadData(page.next_cursor)} className="mt-4 rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground">Load more reports</button>}
     </div>
   );
 }
