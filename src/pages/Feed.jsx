@@ -23,13 +23,23 @@ export default function Feed() {
     base44.auth.me().then(setUser).catch(() => {});
     loadPosts();
     base44.entities.Event.list('-created_date', 20).then(setEvents).catch(() => {});
+    return base44.entities.Comment.subscribe(() => { refreshCommentCounts(); });
   }, []);
+
+  const refreshCommentCounts = async () => {
+    const { rows } = await base44.entities.Comment.aggregate({
+      query: { status: { $ne: 'removed' } }, groupBy: 'post_id'
+    });
+    const counts = new Map(rows.map(row => [row.post_id, row.count]));
+    setPosts(prev => prev.map(post => ({ ...post, comment_count: counts.get(post.id) || 0 })));
+  };
 
   const loadPosts = async () => {
     setLoading(true);
     try {
       const data = await getOrderedContentPage('Post', { status: { $ne: 'removed' } }, { limit: 50 }).then(p => p.items);
       setPosts((data || []).filter(p => p.status !== 'removed'));
+      await refreshCommentCounts();
     } catch {
       // Gracefully recover on transient network errors
     } finally {
@@ -131,6 +141,7 @@ export default function Feed() {
                 post={post}
                 currentUser={user}
                 onUpdate={loadPosts}
+                onCommentsChange={refreshCommentCounts}
                 isMod={isMod}
               />
             ))

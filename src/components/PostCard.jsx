@@ -37,25 +37,10 @@ const CAUSE_COLORS = {
   'Other': 'bg-muted text-muted-foreground'
 };
 
-const CAUSE_FALLBACK_IMAGES = {
-  'Companionship': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c79fb37f1_generated_image.png',
-  'Food': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/82f0b4303_generated_image.png',
-  'Home': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f964c61dc_generated_image.png',
-  'Skills Sharing': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/440c340f7_generated_image.png',
-  'Technology': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ff0585af8_generated_image.png',
-  'Transportation': 'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png'
-};
-
-const DEFAULT_FALLBACK_IMAGES = [
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/c79fb37f1_generated_image.png',
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/82f0b4303_generated_image.png',
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/f964c61dc_generated_image.png',
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/440c340f7_generated_image.png',
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/ff0585af8_generated_image.png',
-'https://media.base44.com/images/public/6a2feeb0292b105992c98be7/0e74a935e_generated_image.png'];
 
 
-export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod }) {
+
+export default function PostCard({ post, currentUser, onUpdate, onDelete, onCommentsChange, isMod }) {
   const { localize, t, dateLocale } = useLanguage();
   const [showMenu, setShowMenu] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -65,6 +50,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [loadingComments, setLoadingComments] = useState(false);
+  const [commentsPage, setCommentsPage] = useState(null);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [commentError, setCommentError] = useState('');
 
@@ -107,13 +93,15 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
     setShowMenu(false);
   };
 
-  const loadComments = async () => {
+  const loadComments = async (cursor) => {
     setLoadingComments(true);
     try {
-      const data = await base44.entities.Comment.filter({ post_id: post.id }, '-created_date');
-      setComments((data || []).filter((c) => c.status !== 'removed'));
-    } catch {
-      setComments([]);
+      const page = await base44.entities.Comment.filter(
+        { post_id: post.id, status: { $ne: 'removed' } },
+        { sort: '-created_date', limit: 50, ...(cursor ? { cursor } : {}) }
+      );
+      setComments(prev => cursor ? [...prev, ...page.items] : page.items);
+      setCommentsPage(page);
     } finally {
       setLoadingComments(false);
     }
@@ -137,10 +125,7 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
         content: commentText
       });
       setCommentText('');
-      loadComments();
-      onUpdate?.();
-      // Update comment count in background — may fail for non-authors due to Post RLS
-      base44.entities.Post.update(post.id, { comment_count: (post.comment_count || 0) + 1 }).catch(() => {});
+      await Promise.all([loadComments(), onCommentsChange?.()]);
     } catch (err) {
       setCommentError(err?.response?.data?.error || err?.message || 'Could not post comment. Please try again.');
     } finally {
@@ -214,10 +199,8 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
       </div>}
 
       {/* Image */}
-      {(() => {
-        const imgSrc = post.image_url ||
-        CAUSE_FALLBACK_IMAGES[post.cause_tags?.[0]] ||
-        DEFAULT_FALLBACK_IMAGES[post.id ? post.id.charCodeAt(0) % DEFAULT_FALLBACK_IMAGES.length : 0];
+      {post.image_url && (() => {
+        const imgSrc = post.image_url;
         return (
           <div className="px-5 pb-3">
             <ContentImageDetails
@@ -275,12 +258,13 @@ export default function PostCard({ post, currentUser, onUpdate, onDelete, isMod 
                   <p className="text-xs text-foreground"><span translate="no">{c.content}</span></p>
                   {currentUser && currentUser.id === c.created_by_id &&
                   <DeleteButton label="Delete" confirmText="Delete this comment?" className="mt-1"
-                    onDelete={async () => { await base44.entities.Comment.delete(c.id); setComments((prev) => prev.filter((x) => x.id !== c.id)); }} />
+                    onDelete={async () => { await base44.entities.Comment.delete(c.id); await Promise.all([loadComments(), onCommentsChange?.()]); }} />
                   }
                 </div>
               </div>
         )
         }
+          {commentsPage?.has_more && <button type="button" disabled={loadingComments} onClick={() => loadComments(commentsPage.next_cursor)} className="text-sm text-primary disabled:opacity-50">Load more comments</button>}
           {currentUser &&
         <form onSubmit={submitComment} className="mt-2 space-y-1">
               <div className="flex gap-2">
